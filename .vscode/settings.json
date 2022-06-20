@@ -1,0 +1,34 @@
+{
+  "cSpell.words": [
+    "Craco",
+    "Swei",
+    "Swiper",
+    "autoprefix",
+    "blindbox",
+    "classname",
+    "ethersproject",
+    "unauthenticate",
+    "immer",
+    "baseui",
+    "languagedetector",
+    "intervalplural",
+    "postprocessor",
+    "toastify",
+    "styletron",
+    "stylelint",
+    "infamousnft",
+    "Parteners"
+  ],
+  "prettier.configPath": ".prettierrc.js",
+  "editor.codeActionsOnSave": {
+    ​"source.fixAll.eslint": true,
+    ​"source.fixAll.tslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "eslint.options": {
+    ​"extensions": [".js", ".jsx", ".vue", ".ts", ".tsx"]
+  },
+  "blueprint.templatesPath": [
+    ".vscode/blueprint-templates",
+  ],
+}

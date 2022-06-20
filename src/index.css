@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Alibaba PuHuiTi';
+  src: url('./assets/fonts/Alibaba-PuHuiTi-Regular.ttf');
+  font-display: swap;
+}
+
+.ant-modal {
+  pointer-events: all !important;
+}

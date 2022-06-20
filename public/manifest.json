@@ -1,0 +1,15 @@
+{
+  "short_name": "区块链安全威胁感知平台 App",
+  "name": "区块链安全威胁感知平台",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/png"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#F5F5F5"
+}
