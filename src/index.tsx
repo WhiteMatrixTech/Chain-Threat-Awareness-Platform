@@ -4,6 +4,7 @@ import i18n from 'i18next';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { initReactI18next } from 'react-i18next';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import App from './App';
@@ -37,14 +38,18 @@ void i18n
     }
   });
 
+const queryClient = new QueryClient();
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Router>
-      <App />
-    </Router>
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <App />
+      </Router>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

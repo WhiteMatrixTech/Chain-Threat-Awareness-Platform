@@ -11,3 +11,11 @@
 .ant-modal {
   pointer-events: all !important;
 }
+
+.ant-table-thead > tr > th {
+  background: #e5f0ff !important;
+}
+
+.ant-breadcrumb-separator {
+  vertical-align: text-bottom;
+}

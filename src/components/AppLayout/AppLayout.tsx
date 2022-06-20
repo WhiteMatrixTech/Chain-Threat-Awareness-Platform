@@ -15,7 +15,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
       <Layout>
         <Header />
         <Content className="m-[24px]">
-          <div className="min-h-360] overflow-y-auto">{children}</div>
+          <div className="overflow-y-auto">{children}</div>
         </Content>
       </Layout>
     </Layout>

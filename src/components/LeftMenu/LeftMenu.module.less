@@ -1,4 +1,42 @@
 .LeftMenu {
-  background-color: #166cdd;
-  color: #f6f9ff;
+  :global {
+    .ant-menu {
+      background-color: #166cdd;
+      font-weight: 400;
+      font-size: 16px;
+
+      .ant-menu-item-selected {
+        color: #fff;
+        background-color: #0558c4;
+      }
+    }
+
+    .ant-menu-inline {
+      color: #fff;
+      border: none;
+    }
+
+    .ant-menu-item:hover {
+      color: #fff;
+      background-color: #0558c4;
+    }
+
+    .ant-menu-submenu-inline {
+      color: #fff;
+
+      .ant-menu-submenu-title:hover {
+        color: #fff;
+      }
+
+      .ant-menu-submenu-arrow {
+        color: #fff;
+      }
+
+      &:hover {
+        .ant-menu-submenu-arrow {
+          color: #fff;
+        }
+      }
+    }
+  }
 }
