@@ -31,6 +31,13 @@ enum DetectionResultType {
   WARNING = 'WARNING',
   INFO = 'INFO'
 }
+
+const ResultIconColor = {
+  [DetectionResultType.ERROR]: '#FF8787',
+  [DetectionResultType.WARNING]: '#FFDD65',
+  [DetectionResultType.INFO]: '#5DA4F7'
+};
+
 const ContractDetectionResults = [
   {
     type: DetectionResultType.ERROR,
@@ -66,4 +73,9 @@ const ContractDetectionResults = [
   }
 ];
 
-export { BasicContract, ContractDetectionResults, DetectionResultType };
+export {
+  BasicContract,
+  ContractDetectionResults,
+  DetectionResultType,
+  ResultIconColor
+};

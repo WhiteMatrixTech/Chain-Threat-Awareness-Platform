@@ -1,9 +1,11 @@
 import { SyncOutlined } from '@ant-design/icons';
 import Table, { ColumnsType } from 'antd/lib/table';
 import dayjs from 'dayjs';
+import { useQuery } from 'react-query';
 
 import { AppBreadcrumb } from '@/components/Breadcrumb';
 import { dataStoreList } from '@/services/mockData/dataStore';
+import { waitTime } from '@/utils/common';
 
 import styles from './DataStore.module.less';
 
@@ -54,10 +56,21 @@ const columns: ColumnsType<any> = [
 ];
 
 export function DataStore() {
+  const { data, refetch, isRefetching, isLoading } = useQuery(
+    'getDataStore',
+    async () => {
+      await waitTime(1000);
+      return dataStoreList;
+    }
+  );
+
   return (
     <div className={styles.dataStore}>
-      <div className="absolute right-0 top-0 flex cursor-pointer items-center text-base text-[#166CDD]">
-        <SyncOutlined />
+      <div
+        onClick={() => void refetch()}
+        className="absolute right-0 top-0 flex cursor-pointer items-center text-base text-[#166CDD]"
+      >
+        <SyncOutlined className={isRefetching ? 'animate-spin' : ''} />
         <span className=" pl-2">更新</span>
       </div>
       <AppBreadcrumb breadCrumbItems={breadCrumbItems} />
@@ -65,7 +78,8 @@ export function DataStore() {
         rowKey="id"
         rowClassName="hover:bg-[#F4FEFF]"
         columns={columns}
-        dataSource={dataStoreList}
+        dataSource={data}
+        loading={isLoading || isRefetching}
         pagination={{
           position: ['bottomCenter']
         }}

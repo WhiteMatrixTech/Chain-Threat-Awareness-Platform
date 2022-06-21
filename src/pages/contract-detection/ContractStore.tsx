@@ -4,35 +4,41 @@ import { createContext, Dispatch, useContext, useReducer } from 'react';
 
 import { BasicContract } from '@/services/mockData/contractDetection';
 
-enum FileType {
-  FOLDER = 'folder',
+export enum FileType {
+  PROJECT = 'project',
   FILE = 'file'
 }
 
+export const ProjectType = {
+  ETH: 'ETH'
+};
+
 export enum ContractAction {
-  ADD_FOLDER = 'ADD_FOLDER',
+  ADD_PROJECT = 'ADD_PROJECT',
   ADD_FILE = 'ADD_FILE',
   OPEN_FILE = 'OPEN_FILE',
   CLOSE_FILE = 'CLOSE_FILE',
   SET_FOCUS_FILE = 'SET_FOCUS_FILE'
 }
 
+interface IFile {
+  type: FileType;
+  name: string;
+  content: string;
+}
+
 interface ContractState {
-  files: Array<{
+  projects: Array<{
     type: FileType;
     name: string;
-    files: Array<{
-      type: FileType;
-      name: string;
-      content: string;
-    }>;
+    files: IFile[];
   }>;
-  openFiles: string[];
+  openFiles: IFile[];
   focusFile: string;
 }
 
-interface AddFolderAction {
-  type: ContractAction.ADD_FOLDER;
+interface AddProjectAction {
+  type: ContractAction.ADD_PROJECT;
   data: {
     name: string;
   };
@@ -43,42 +49,40 @@ interface AddFileAction {
   data: {
     fileName: string;
     fileContent: string;
-    folderName: string;
+    projectName: string;
   };
 }
 
 interface OpenFileAction {
   type: ContractAction.OPEN_FILE;
-  data: {
-    name: string;
-  };
+  data: IFile;
 }
 
 interface CloseFileAction {
   type: ContractAction.CLOSE_FILE;
   data: {
-    name: string;
+    fileName: string;
   };
 }
 
 interface SetFocusFileAction {
   type: ContractAction.SET_FOCUS_FILE;
   data: {
-    name: string;
+    fileName: string;
   };
 }
 
 type IContractAction =
-  | AddFolderAction
+  | AddProjectAction
   | AddFileAction
   | OpenFileAction
   | CloseFileAction
   | SetFocusFileAction;
 
 const initialContractState: ContractState = {
-  files: [
+  projects: [
     {
-      type: FileType.FOLDER,
+      type: FileType.PROJECT,
       name: 'ETH_default',
       files: [
         {
@@ -98,17 +102,20 @@ const reducer = (
   action: IContractAction
 ): ContractState => {
   switch (action.type) {
-    case ContractAction.ADD_FOLDER: {
-      state.files.push({
-        type: FileType.FOLDER,
-        name: action.data.name,
-        files: []
-      });
+    case ContractAction.ADD_PROJECT: {
+      state.projects = [
+        ...state.projects,
+        {
+          type: FileType.PROJECT,
+          name: action.data.name,
+          files: []
+        }
+      ];
       break;
     }
     case ContractAction.ADD_FILE: {
-      state.files = state.files.map((folder) => {
-        if (folder.name === action.data.folderName) {
+      state.projects = state.projects.map((folder) => {
+        if (folder.name === action.data.projectName) {
           folder.files.push({
             type: FileType.FILE,
             name: action.data.fileName,
@@ -120,20 +127,24 @@ const reducer = (
       break;
     }
     case ContractAction.OPEN_FILE: {
-      if (!state.openFiles.includes(action.data.name)) {
-        state.openFiles.push(action.data.name);
+      if (!state.openFiles.find((file) => file.name === action.data.name)) {
+        state.openFiles.push(action.data);
       }
       state.focusFile = action.data.name;
       break;
     }
     case ContractAction.CLOSE_FILE: {
       state.openFiles = state.openFiles.filter(
-        (fileName) => fileName !== action.data.name
+        (file) => file.name !== action.data.fileName
       );
+      if (state.focusFile === action.data.fileName) {
+        const len = state.openFiles.length;
+        state.focusFile = len > 0 ? state.openFiles[len - 1].name : '';
+      }
       break;
     }
     case ContractAction.SET_FOCUS_FILE: {
-      state.focusFile = action.data.name;
+      state.focusFile = action.data.fileName;
       break;
     }
     default:

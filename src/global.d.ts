@@ -13,5 +13,8 @@ export declare global {
 
   interface Window {
     ethereum: EthereumProvider;
+    soljsonReleases: {
+      [key: string]: string;
+    };
   }
 }

@@ -7,6 +7,7 @@ import NoFoundPage from '@/pages/404';
 
 import { ContractDetection } from './pages/contract-detection';
 import { DataStore } from './pages/data-store';
+import { DetectionChart } from './pages/detection-chart';
 
 function App() {
   return (
@@ -18,6 +19,10 @@ function App() {
         <Route
           path="/threat-detection/contract-detection"
           element={<ContractDetection />}
+        />
+        <Route
+          path="/threat-detection/detection-chart"
+          element={<DetectionChart />}
         />
       </Routes>
     </AppLayout>

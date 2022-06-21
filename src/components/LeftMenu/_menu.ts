@@ -18,6 +18,10 @@ export const MenuList: MenuItem[] = [
       {
         label: '合约检测',
         key: '/threat-detection/contract-detection'
+      },
+      {
+        label: '查看报表',
+        key: '/threat-detection/detection-chart'
       }
     ]
   },

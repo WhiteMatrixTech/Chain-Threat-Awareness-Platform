@@ -24,7 +24,12 @@ export function ContractDetection() {
   return (
     <div className={styles.contractDetection}>
       <AppBreadcrumb breadCrumbItems={breadCrumbItems} />
-      <div className={cn(styles.workspace, 'flex gap-x-2')}>
+      <div
+        className={cn(
+          styles.workspace,
+          'flex max-w-full gap-x-2 overflow-hidden'
+        )}
+      >
         <ContractProvider>
           <Explorer />
           <WorkBench />

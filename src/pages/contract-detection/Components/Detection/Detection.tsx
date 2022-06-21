@@ -1,23 +1,21 @@
 import { BellOutlined, FileOutlined } from '@ant-design/icons';
-import { Form, Input, Tooltip } from 'antd';
+import { Form, Input, Select, Tooltip } from 'antd';
 import cn from 'classnames';
+import { useEffect } from 'react';
 import { useMutation } from 'react-query';
 
 import { DefaultButton, PrimaryButton } from '@/components/Button';
 import {
   ContractDetectionResults,
-  DetectionResultType
+  ResultIconColor
 } from '@/services/mockData/contractDetection';
 import { waitTime } from '@/utils/common';
+import { originSolcVersionList } from '@/utils/constants';
 
 import { useContractContext } from '../../ContractStore';
 import styles from './Detection.module.less';
 
-const ResultIconColor = {
-  [DetectionResultType.ERROR]: '#FF8787',
-  [DetectionResultType.WARNING]: '#FFDD65',
-  [DetectionResultType.INFO]: '#5DA4F7'
-};
+const Option = Select.Option;
 
 export function Detection() {
   const [form] = Form.useForm();
@@ -26,7 +24,17 @@ export function Detection() {
     contractState: { openFiles, focusFile }
   } = useContractContext();
 
-  const { mutate, data, status, reset } = useMutation(async (data: any) => {
+  useEffect(() => {
+    if (focusFile) {
+      form.setFieldsValue({
+        file: focusFile
+      });
+    }
+  }, [focusFile, form]);
+
+  const { mutate, data, status, reset } = useMutation(async (data: unknown) => {
+    console.log({ data });
+
     await waitTime(1000);
     return {
       file: 'ETH_default/Basic.sol',
@@ -50,6 +58,23 @@ export function Detection() {
       {!data && (
         <Form form={form} wrapperCol={{ span: 24 }}>
           <Form.Item
+            name="file"
+            rules={[
+              {
+                required: true,
+                message: '请选择检测合约文件'
+              }
+            ]}
+          >
+            <Select placeholder="请选择检测合约文件">
+              {openFiles.map((file) => (
+                <Option key={file.name} value={file.name}>
+                  {file.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+          <Form.Item
             name="contractName"
             rules={[
               {
@@ -70,6 +95,23 @@ export function Detection() {
             ]}
           >
             <Input placeholder="请输入主合约部署参数" />
+          </Form.Item>
+          <Form.Item
+            name="compileVersion"
+            rules={[
+              {
+                required: true,
+                message: '请选择编译版本'
+              }
+            ]}
+          >
+            <Select placeholder="请选择编译版本">
+              {originSolcVersionList.map((version) => (
+                <Option key={version} value={version}>
+                  {version}
+                </Option>
+              ))}
+            </Select>
           </Form.Item>
           <PrimaryButton onClick={handleSubmit} loading={status === 'loading'}>
             开始
