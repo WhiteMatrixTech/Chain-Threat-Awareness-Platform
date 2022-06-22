@@ -38,7 +38,7 @@ export function AppBreadcrumb(props: BreadcrumbProps) {
           return key !== breadCrumbItems.length - 1 ? (
             <AntBreadcrumb.Item
               key={key}
-              className="text-xl text-[#303133]"
+              className="text-xl text-common"
               onClick={() => onClickBreadcrumb(item)}
             >
               {item.isLeftMenu || item.withQueryParams ? (
@@ -50,7 +50,7 @@ export function AppBreadcrumb(props: BreadcrumbProps) {
               )}
             </AntBreadcrumb.Item>
           ) : (
-            <AntBreadcrumb.Item className="text-xl text-[#303133]" key={key}>
+            <AntBreadcrumb.Item className="text-xl text-common" key={key}>
               {item.menuName}
             </AntBreadcrumb.Item>
           );

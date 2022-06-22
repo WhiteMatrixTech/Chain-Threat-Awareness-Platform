@@ -19,25 +19,26 @@ export function Header() {
   return (
     <AntdHeader className={styles.Header}>
       <div className="flex flex-1 items-center">
-        <div className="text-2xl font-black text-[#303133]">
+        <div className="text-3xl font-black text-common">
           区块链安全威胁感知平台
         </div>
         <Input placeholder="Search" prefix={prefix} className={styles.search} />
       </div>
       <div className="flex items-center">
         <div className="mr-5 cursor-pointer text-[#30313399] hover:text-[#40a9ff]">
-          <BellOutlined className="text-lg" />
+          <BellOutlined className="text-xl" />
         </div>
         <Dropdown
           placement="bottom"
           overlay={
-            <Menu theme="dark">
-              <Menu.Item key="loginOut">退出账号</Menu.Item>
-            </Menu>
+            <Menu
+              theme="dark"
+              items={[{ label: '退出账号', key: 'loginOut' }]}
+            />
           }
         >
           <a
-            className="flex items-center text-lg text-[#30313399]"
+            className="flex items-center text-xl text-[#30313399]"
             onClick={(e) => e.preventDefault()}
           >
             <UserOutlined />

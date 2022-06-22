@@ -162,7 +162,7 @@
     detect-browser "^5.0.0"
     tslib "^2.0.3"
 
-"@antv/g2@^4.1.26", "@antv/g2@^4.2.3":
+"@antv/g2@^4.1.26":
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/@antv/g2/-/g2-4.2.3.tgz#863199edb8684ddb8f8c52f29b99d105c429a653"
   integrity sha512-V18h8cUPgBNSbuY3VEsabYB5bua6YDBBBJqi8YO+1Pk7zJwiJrpC18zV9wKl/BuoMrjHEKUZmMqIKCVrQNjSfg==
@@ -2942,6 +2942,13 @@
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
+
+"@types/react-copy-to-clipboard@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/@types/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.2.tgz#c29690b472a54edff35916f0d1c6c797ad0fd34b"
+  integrity sha512-O29AThfxrkUFRsZXjfSWR2yaWo0ppB1yLEnHA+Oh24oNetjBAwTDu1PmolIqdJKzsZiO4J1jn6R6TmO96uBvGg==
+  dependencies:
+    "@types/react" "*"
 
 "@types/react-dom@18.0.3":
   version "18.0.3"
@@ -10795,6 +10802,14 @@ react-content-loader@^5.0.4:
   version "5.1.4"
   resolved "https://registry.yarnpkg.com/react-content-loader/-/react-content-loader-5.1.4.tgz#854bafe4415dd9de07174621375bc308edd0ebb5"
   integrity sha512-hTq7pZi2GKCK6a9d3u6XStozm0QGCEjw8cSqQReiWnh2up6IwCha5R5TF0o6SY5qUDpByloEZEZtnFxpJyENFw==
+
+react-copy-to-clipboard@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/react-copy-to-clipboard/-/react-copy-to-clipboard-5.1.0.tgz#09aae5ec4c62750ccb2e6421a58725eabc41255c"
+  integrity sha512-k61RsNgAayIJNoy9yDsYzDe/yAZAzEbEgcz3DZMhF686LEyukcE1hzurxe85JandPUG+yTfGVFzuEw3xt8WP/A==
+  dependencies:
+    copy-to-clipboard "^3.3.1"
+    prop-types "^15.8.1"
 
 react-dev-utils@^12.0.1:
   version "12.0.1"

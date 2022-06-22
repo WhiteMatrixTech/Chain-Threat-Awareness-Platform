@@ -1,0 +1,16 @@
+{
+  "id": "2413027",
+  "name": "baas",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "11062856",
+      "name": "ETH",
+      "font_class": "ETH",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    }
+  ]
+}

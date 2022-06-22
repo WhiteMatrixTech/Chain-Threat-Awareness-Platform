@@ -1,9 +1,8 @@
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import cn from 'classnames';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-import { useMount } from 'react-use';
 
 import { flatMenuList, MenuList } from './_menu';
 import styles from './LeftMenu.module.less';
@@ -15,13 +14,13 @@ export function LeftMenu() {
   const [expandedKeys, setExpandedKeys] = React.useState<string[]>([]);
   const [selectedKeys, setSelectedKeys] = React.useState<string[]>([]);
 
-  useMount(() => {
+  useEffect(() => {
     const currentMenu = flatMenuList.find((menu) => menu.key === pathname);
     if (currentMenu) {
       setExpandedKeys(currentMenu.parentKeys);
       setSelectedKeys([currentMenu.key]);
     }
-  });
+  }, [pathname]);
 
   const onClick: MenuProps['onClick'] = (e) => {
     setSelectedKeys([e.key]);
@@ -32,7 +31,7 @@ export function LeftMenu() {
     <div
       className={cn(
         styles.LeftMenu,
-        'h-screen overflow-hidden bg-[#166CDD] pt-32'
+        'h-screen overflow-hidden bg-common pt-32'
       )}
     >
       <Menu

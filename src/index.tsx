@@ -1,5 +1,7 @@
 import './index.css';
 
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/lib/locale/zh_CN';
 import i18n from 'i18next';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
@@ -46,9 +48,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <App />
-      </Router>
+      <ConfigProvider locale={zhCN}>
+        <Router>
+          <App />
+        </Router>
+      </ConfigProvider>
     </QueryClientProvider>
   </React.StrictMode>
 );

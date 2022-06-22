@@ -12,8 +12,8 @@ export function PrimaryButton(props: ButtonProps) {
       {...rest}
       className={cn(
         styles.Button,
-        className,
-        'h-auto w-full rounded-[4px] bg-[#166CDD] !text-base'
+        '!h-fit w-full rounded !border-[#166CDD] !bg-common !text-lg',
+        className
       )}
     >
       {children}
@@ -31,7 +31,7 @@ export function DefaultButton(props: ButtonProps) {
       className={cn(
         styles.Button,
         className,
-        'h-auto w-full rounded-[4px] border border-solid !border-[#166CDD] bg-[#166CDD] !text-base !text-[#166CDD]'
+        '!h-fit w-full rounded border border-solid !border-[#166CDD] !bg-common !text-lg !text-[#166CDD]'
       )}
     >
       {children}

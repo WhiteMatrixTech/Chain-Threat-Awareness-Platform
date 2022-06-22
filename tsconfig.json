@@ -23,5 +23,6 @@
   "extends": "./tsconfig.paths.json",
   "include": [
     "src"
-  ]
+  ],
+  "exclude": ["src/utils/drawAntvGragh.js"]
 }
