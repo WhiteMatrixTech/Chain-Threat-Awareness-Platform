@@ -65,9 +65,7 @@ export function AddressAnalysis() {
         <div className="w-80 max-w-sm rounded bg-white shadow-card">
           <AddressDetail addressData={AddressDetailData} />
         </div>
-        <div className="flex-1 rounded bg-white p-6 shadow-card">
-          <div id="TransactionGraphContainer"></div>
-        </div>
+        <div className="flex-1 rounded bg-white p-6 shadow-card"></div>
       </div>
     </div>
   );

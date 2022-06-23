@@ -5,6 +5,7 @@ import { PrimaryButton } from '@/components/Button';
 import { TransactionDetailExample } from '@/services/mockData/transactionGraph';
 
 import { TransactionDetailCard } from './Components/DetailCard';
+import { TransactionGraphTree } from './Components/TransactionGraphTree';
 import styles from './TransactionGraph.module.less';
 
 const Option = Select.Option;
@@ -66,7 +67,7 @@ export function TransactionGraph() {
           <TransactionDetailCard transactionData={TransactionDetailExample} />
         </div>
         <div className="flex-1 rounded bg-white p-6 shadow-card">
-          <div id="TransactionGraphContainer"></div>
+          <TransactionGraphTree />
         </div>
       </div>
     </div>
