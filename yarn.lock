@@ -67,6 +67,11 @@
     "@antv/util" "~2.0.0"
     tslib "^1.10.0"
 
+"@antv/algorithm@^0.0.6":
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/@antv/algorithm/-/algorithm-0.0.6.tgz#6ab68b1961afd87727ad09433b97f90326b3b328"
+  integrity sha512-g/abjTXHwzebghN8QPuk3z5nM/C9Wf1Toq6iHK6lwZXdUMGHxxhuO5RAkkYcR2Vib550zdQy6PLldmAWhgOjQA==
+
 "@antv/algorithm@^0.1.8":
   version "0.1.24"
   resolved "https://registry.yarnpkg.com/@antv/algorithm/-/algorithm-0.1.24.tgz#353a0c3314bfe94ce2df503bb627a83fcde966e8"
@@ -259,6 +264,38 @@
     size-sensor "^1.0.1"
     tslib "^2.0.3"
 
+"@antv/g6-core@0.6.8", "@antv/g6-core@^0.6.8":
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/@antv/g6-core/-/g6-core-0.6.8.tgz#2d0f245a66715c4f6f389a7cd94fd2093b4f7950"
+  integrity sha512-cKvUiVc6RpEqgoBDGfp+7KWI143+jYYyGa/kDRCAUta+M0GldhHJzJE22mD8EMSSiYK7NiSK7DfF/4YipbVuIg==
+  dependencies:
+    "@antv/algorithm" "^0.1.8"
+    "@antv/dom-util" "^2.0.1"
+    "@antv/event-emitter" "~0.1.0"
+    "@antv/g-base" "^0.5.1"
+    "@antv/g-math" "^0.1.1"
+    "@antv/matrix-util" "^3.1.0-beta.3"
+    "@antv/path-util" "^2.0.3"
+    "@antv/util" "~2.0.5"
+    ml-matrix "^6.5.0"
+    tslib "^2.1.0"
+
+"@antv/g6-core@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@antv/g6-core/-/g6-core-0.0.7.tgz#6e8496fd6bacd8d698c92151c9a7765693c307c6"
+  integrity sha512-6ixXCqxsrKgovdf14KglKT6dQFb4LbzZgQaMj9s5NsfJWgwN9aYWyU2qbsyWgHkp/AOyW+vef+w2Vlk42qXFwg==
+  dependencies:
+    "@antv/algorithm" "^0.0.6"
+    "@antv/dom-util" "^2.0.1"
+    "@antv/event-emitter" "~0.1.0"
+    "@antv/g-base" "^0.5.1"
+    "@antv/g-math" "^0.1.1"
+    "@antv/matrix-util" "^3.1.0-beta.2"
+    "@antv/path-util" "^2.0.3"
+    "@antv/scale" "^0.3.1"
+    "@antv/util" "~2.0.5"
+    ml-matrix "^6.5.0"
+
 "@antv/g6-core@^0.6.6":
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/@antv/g6-core/-/g6-core-0.6.6.tgz#9b33ce9b85abc0fa04336281a1e7d2470a2d8f25"
@@ -275,6 +312,15 @@
     ml-matrix "^6.5.0"
     tslib "^2.1.0"
 
+"@antv/g6-element@0.6.8":
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/@antv/g6-element/-/g6-element-0.6.8.tgz#e0f83b8fbe907bd346485b3911419ea245b4f97e"
+  integrity sha512-aoHFbmj+aaQNEDjpdbV+mxxn1iHCMRGObHrdRTZzk8xqasY+YIAZecC7HSRDQeI/kibDA/62MsdaEssmiIXaiA==
+  dependencies:
+    "@antv/g-base" "^0.5.1"
+    "@antv/g6-core" "0.6.8"
+    "@antv/util" "~2.0.5"
+
 "@antv/g6-element@^0.6.6":
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/@antv/g6-element/-/g6-element-0.6.6.tgz#05e70f1f289926b182dafc8b3514ea37e1d0b2da"
@@ -283,6 +329,33 @@
     "@antv/g-base" "^0.5.1"
     "@antv/g6-core" "^0.6.6"
     "@antv/util" "~2.0.5"
+
+"@antv/g6-pc@0.6.8":
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/@antv/g6-pc/-/g6-pc-0.6.8.tgz#1058a429e591188cce89bcd00a7b41a21d7d65fd"
+  integrity sha512-vJbP2qIvZj/BUwDF7uYgeE/etYcoDCmPTjQ/rwbE2QDq8l3e6TV2uEY68aAdemkq8ilRTTcKuoKOSqNtBdllCA==
+  dependencies:
+    "@ant-design/colors" "^4.0.5"
+    "@antv/algorithm" "^0.1.8"
+    "@antv/dom-util" "^2.0.1"
+    "@antv/event-emitter" "~0.1.0"
+    "@antv/g-base" "^0.5.1"
+    "@antv/g-canvas" "^0.5.2"
+    "@antv/g-math" "^0.1.1"
+    "@antv/g-svg" "^0.5.1"
+    "@antv/g6-core" "0.6.8"
+    "@antv/g6-element" "0.6.8"
+    "@antv/g6-plugin" "0.6.8"
+    "@antv/hierarchy" "^0.6.7"
+    "@antv/layout" "^0.2.1"
+    "@antv/matrix-util" "^3.1.0-beta.3"
+    "@antv/path-util" "^2.0.3"
+    "@antv/util" "~2.0.5"
+    color "^3.1.3"
+    d3-force "^2.0.1"
+    dagre "^0.8.5"
+    insert-css "^2.0.0"
+    ml-matrix "^6.5.0"
 
 "@antv/g6-pc@^0.6.6":
   version "0.6.6"
@@ -311,6 +384,22 @@
     insert-css "^2.0.0"
     ml-matrix "^6.5.0"
 
+"@antv/g6-plugin@0.6.8":
+  version "0.6.8"
+  resolved "https://registry.yarnpkg.com/@antv/g6-plugin/-/g6-plugin-0.6.8.tgz#ac9706b995407ea1b23a1718c54f5413441a6039"
+  integrity sha512-3qGWy5wmnidg9J814CiJrEzFuU3J/hEM8j5SQNL4dtqAN/H0rB07uf1ZbKNah6gA0M7FVhVZBX+4/XKb/7NA7Q==
+  dependencies:
+    "@antv/dom-util" "^2.0.2"
+    "@antv/g-base" "^0.5.1"
+    "@antv/g-canvas" "^0.5.2"
+    "@antv/g-svg" "^0.5.2"
+    "@antv/g6-core" "0.6.8"
+    "@antv/g6-element" "0.6.8"
+    "@antv/matrix-util" "^3.1.0-beta.3"
+    "@antv/scale" "^0.3.4"
+    "@antv/util" "^2.0.9"
+    insert-css "^2.0.0"
+
 "@antv/g6-plugin@^0.6.6":
   version "0.6.6"
   resolved "https://registry.yarnpkg.com/@antv/g6-plugin/-/g6-plugin-0.6.6.tgz#1f9d267eb6df131a6aeffb1ebb04dab695057714"
@@ -326,6 +415,25 @@
     "@antv/scale" "^0.3.4"
     "@antv/util" "^2.0.9"
     insert-css "^2.0.0"
+
+"@antv/g6-react-node@^1.4.4":
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/@antv/g6-react-node/-/g6-react-node-1.4.4.tgz#5c50dd1d7cb3dae38eebf9b85c39eef9844e5415"
+  integrity sha512-UXCV6iSz0GUQljWd8EH/kq7VfWHE/Rpip7wUIRVxviyvCbG6+9Ix+092+r7lBeBOpc932mfxr4REl/Mdf/GVoA==
+  dependencies:
+    "@antv/g-base" "^0.5.1"
+    "@antv/g6" "^4.0.0"
+    "@antv/g6-core" "^0.0.7"
+    "@types/yoga-layout" "^1.9.3"
+    react "^16.12.0"
+    yoga-layout-prebuilt "^1.10.0"
+
+"@antv/g6@^4.0.0", "@antv/g6@^4.6.8":
+  version "4.6.8"
+  resolved "https://registry.yarnpkg.com/@antv/g6/-/g6-4.6.8.tgz#dd40e9f2145ffd8cb3be64f2a5d68c80065c5d41"
+  integrity sha512-gxC/dwyc6fBV40526FxqHh580pGUs4zkmJzmo/H+amJ5bago9B+rkxB+riUK177GA1YlgEOpPVfV+vy++WMYPw==
+  dependencies:
+    "@antv/g6-pc" "0.6.8"
 
 "@antv/g6@^4.6.0-beta.3":
   version "4.6.6"
@@ -407,7 +515,7 @@
     "@antv/util" "^2.0.9"
     tslib "^2.0.3"
 
-"@antv/scale@^0.3.14", "@antv/scale@^0.3.4", "@antv/scale@~0.3.1":
+"@antv/scale@^0.3.1", "@antv/scale@^0.3.14", "@antv/scale@^0.3.4", "@antv/scale@~0.3.1":
   version "0.3.18"
   resolved "https://registry.yarnpkg.com/@antv/scale/-/scale-0.3.18.tgz#b911f431b3e0b9547b6a65f66d0d3fa295b5ef32"
   integrity sha512-GHwE6Lo7S/Q5fgaLPaCsW+CH+3zl4aXpnN1skOiEY0Ue9/u+s2EySv6aDXYkAqs//i0uilMDD/0/4n8caX9U9w==
@@ -3289,6 +3397,16 @@
   integrity sha512-gmEaFwpj/7f/ROdtIlci1R1VYU1J4j95m8T+Tj3iBgiBFKg1foE/PSl93bBd5T9LDXNPo8UlNN6W0qwD8O5OaA==
   dependencies:
     "@types/yargs-parser" "*"
+
+"@types/yoga-layout@1.9.2":
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/@types/yoga-layout/-/yoga-layout-1.9.2.tgz#efaf9e991a7390dc081a0b679185979a83a9639a"
+  integrity sha512-S9q47ByT2pPvD65IvrWp7qppVMpk9WGMbVq9wbWZOHg6tnXSD4vyhao6nOSBwwfDdV2p3Kx9evA9vI+XWTfDvw==
+
+"@types/yoga-layout@^1.9.3":
+  version "1.9.4"
+  resolved "https://registry.yarnpkg.com/@types/yoga-layout/-/yoga-layout-1.9.4.tgz#fad54fef623464dacd9e765d854f0e76ff1184f7"
+  integrity sha512-RRHc1+8Hc5mf/2lZKnom6kCnqcNS07s8keahniWTOva0KELF6RgDJmaEcvGEKUUJgN4UgessmEsWuidaOycIOw==
 
 "@typescript-eslint/eslint-plugin-tslint@5.19.0":
   version "5.19.0"
@@ -10658,7 +10776,7 @@ prompts@^2.0.1, prompts@^2.4.2:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.8.1:
+prop-types@^15.6.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -10764,6 +10882,13 @@ raf@^3.4.1:
   integrity sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==
   dependencies:
     performance-now "^2.1.0"
+
+random@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/random/-/random-3.0.6.tgz#c918e9498dee461affde72986c79ac4d9ef486cf"
+  integrity sha512-B53pp/8eFBxULg6sfQgjjmy3vZ2CWVt0Nk4OgkSpvmAf3VXfcEUgGASbNWbXiTiExWe8hCIf5HlddNHzrte9jg==
+  dependencies:
+    seedrandom "^3.0.5"
 
 randombytes@^2.0.0, randombytes@^2.0.1, randombytes@^2.0.5, randombytes@^2.1.0:
   version "2.1.0"
@@ -11375,6 +11500,15 @@ react-use@^17.4.0:
     ts-easing "^0.2.0"
     tslib "^2.1.0"
 
+react@^16.12.0:
+  version "16.14.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
+  integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+
 react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
@@ -11927,6 +12061,11 @@ scrypt-js@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/scrypt-js/-/scrypt-js-3.0.1.tgz#d314a57c2aef69d1ad98a138a21fe9eafa9ee312"
   integrity sha512-cdwTTnqPu0Hyvf5in5asVdZocVDTNRmR7XEcJuIzMjJeSHybHl7vpB66AzwTaIg6CLSbtjcxc8fqcySfnTkccA==
+
+seedrandom@^3.0.5:
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/seedrandom/-/seedrandom-3.0.5.tgz#54edc85c95222525b0c7a6f6b3543d8e0b3aa0a7"
+  integrity sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==
 
 select-hose@^2.0.0:
   version "2.0.0"
@@ -14013,6 +14152,13 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+yoga-layout-prebuilt@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/yoga-layout-prebuilt/-/yoga-layout-prebuilt-1.10.0.tgz#2936fbaf4b3628ee0b3e3b1df44936d6c146faa6"
+  integrity sha512-YnOmtSbv4MTf7RGJMK0FvZ+KD8OEe/J5BNnR0GHhD8J/XcG/Qvxgszm0Un6FTHWW4uHlTgP0IztiXQnGyIR45g==
+  dependencies:
+    "@types/yoga-layout" "1.9.2"
 
 youch@^2.2.2:
   version "2.2.2"

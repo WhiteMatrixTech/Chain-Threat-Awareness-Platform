@@ -1,64 +1,78 @@
-import Graphin, { Behaviors, GraphinTreeData, Utils } from '@antv/graphin';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+import { IAbstractGraph } from '@antv/g6-core';
+import {
+  appenAutoShapeListener,
+  createNodeFromReact
+} from '@antv/g6-react-node';
+import Graphin, {
+  Behaviors,
+  G6,
+  Graph,
+  GraphinTreeData,
+  Utils
+} from '@antv/graphin';
 import { useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
 
-const { TreeCollapse } = Behaviors;
-const data = Utils.mock(10).tree().graphinTree();
+import { DefaultTxNode } from '@/components/GraphinNodes';
 
-const walk = (
-  node: GraphinTreeData,
-  callback: (node: GraphinTreeData) => void
-) => {
-  callback(node);
-  if (node.children && node.children.length > 0) {
-    node.children.forEach((child) => {
-      walk(child, callback);
-    });
-  }
-};
+G6.registerNode('DefaultTxNode', createNodeFromReact(DefaultTxNode));
 
-walk(data, (node) => {
-  node.style = {
-    label: {
-      value: node.id
+const data = {
+  // 点集
+  nodes: [
+    {
+      id: 'node1' // String，该节点存在则必须，节点的唯一标识
+    },
+    {
+      id: 'node2' // String，该节点存在则必须，节点的唯一标识
     }
-  };
-});
-
-const layout = {
-  type: 'mindmap',
-  options: {
-    direction: 'H',
-    getHeight: () => {
-      return 26;
-    },
-    getWidth: () => {
-      return 26;
-    },
-    getVGap: () => {
-      return 26;
-    },
-    getHGap: () => {
-      return 50;
+  ],
+  // 边集
+  edges: [
+    {
+      source: 'node1', // String，必须，起始点 id
+      target: 'node2' // String，必须，目标点 id
     }
-  }
+  ]
 };
 
 export function TransactionGraphTree() {
-  const graphinRef = useRef<Graphin>(null);
+  const graphinRef = useRef<HTMLDivElement>(null);
+  let graph: Graph | null = null;
 
   useEffect(() => {
-    const {
-      graph, // g6 的Graph实例
-      apis // Graphin 提供的API接口
-    } = graphinRef.current as Graphin;
-    console.log('ref', graphinRef, graph, apis);
+    if (!graph) {
+      graph = new G6.Graph({
+        container: 'TransactionGraphContainer',
+        width: 1200,
+        height: 800,
+        fitCenter: true,
+        modes: {
+          default: ['drag-node', 'drag-canvas', 'zoom-canvas']
+        },
+        layout: {
+          type: 'dagre',
+          direction: 'LR'
+        },
+        defaultNode: {
+          type: 'DefaultTxNode'
+        },
+        defaultEdge: {
+          type: 'polyline'
+        }
+      });
+    }
+    graph.data(data);
+    graph.render();
   }, []);
 
   return (
-    <div id="TransactionGraphContainer" className="w-full">
-      <Graphin data={data} ref={graphinRef} layout={layout} fitView={true}>
-        <TreeCollapse />
-      </Graphin>
-    </div>
+    <div
+      id="TransactionGraphContainer"
+      className="w-full"
+      ref={graphinRef}
+    ></div>
   );
 }

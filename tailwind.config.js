@@ -2,7 +2,8 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     textColor: {
-      common: '#303133'
+      common: '#303133',
+      disabled: '#929292'
     },
     backgroundColor: (theme) => ({
       ...theme('colors'),

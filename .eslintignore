@@ -5,3 +5,4 @@ build
 
 src/locales
 workers-site
+src/components/GraphinNodes

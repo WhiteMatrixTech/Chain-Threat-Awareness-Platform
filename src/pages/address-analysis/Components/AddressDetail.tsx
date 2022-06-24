@@ -10,6 +10,7 @@ import { transformAddress } from '@/utils/common';
 import { registerPlotsShape } from '@/utils/drawAntvGragh';
 
 interface IAddressDetailPros {
+  selectedAddress: string;
   addressData: IAddressAnalysisDetail;
 }
 
