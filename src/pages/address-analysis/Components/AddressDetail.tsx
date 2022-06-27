@@ -1,17 +1,21 @@
 import { QuestionCircleFilled } from '@ant-design/icons';
 import { Gauge, GaugeConfig } from '@ant-design/plots';
-import { Tag } from 'antd';
+import { Tag, Tooltip } from 'antd';
 import { get } from 'lodash';
+import { useMemo } from 'react';
 
 import { CopyClipboard } from '@/components/Clipboard';
 import { DescriptionItem } from '@/components/DescriptionCard';
-import { IAddressAnalysisDetail } from '@/services/mockData/addressAnalysis';
+import {
+  AddressDetailData,
+  IAddressAnalysisDetail
+} from '@/services/mockData/addressAnalysis';
 import { transformAddress } from '@/utils/common';
 import { registerPlotsShape } from '@/utils/drawAntvGragh';
 
 interface IAddressDetailPros {
   selectedAddress: string;
-  addressData: IAddressAnalysisDetail;
+  addressData: IAddressAnalysisDetail | undefined;
 }
 
 const colors = ['magenta', 'red', 'purple', 'volcano', 'orange'];
@@ -25,11 +29,12 @@ const AddressDetailField: { [key: string]: string } = {
 };
 
 export function AddressDetail(props: IAddressDetailPros) {
-  const { addressData } = props;
+  const { addressData = AddressDetailData } = props;
 
   return (
     <div className="h-full w-full p-6">
-      <div className="mb-6 flex items-center">
+      <div className="text-xl font-semibold">地址详情</div>
+      <div className="my-6 flex items-center">
         <div>
           <svg className="iconfont !h-11 !w-11" aria-hidden="true">
             <use xlinkHref="#icon-ETH"></use>
@@ -38,7 +43,9 @@ export function AddressDetail(props: IAddressDetailPros) {
         <div className="ml-2 flex flex-1 flex-col gap-y-1">
           <div className="flex w-full items-center">
             <span className="mr-2 text-lg text-[#166CDD]">
-              {transformAddress(addressData.address)}
+              <Tooltip title={addressData.address}>
+                {transformAddress(addressData.address)}
+              </Tooltip>
             </span>
             <CopyClipboard text={addressData.address} tip="复制地址" />
           </div>
@@ -72,7 +79,7 @@ export function AddressDetail(props: IAddressDetailPros) {
         <div className="mb-4 text-xl font-semibold">地址健康度</div>
         <div className="flex">
           <div className="flex-1 p-4">
-            <HealthGauge />
+            <HealthGauge percent={addressData.addressHealth / 10} />
           </div>
           <div className="flex flex-col justify-center gap-y-3">
             {addressData.healthTags.map((text, index) => (
@@ -91,74 +98,83 @@ export function AddressDetail(props: IAddressDetailPros) {
   );
 }
 
-function HealthGauge() {
+function HealthGauge({ percent }: { percent: number }) {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   registerPlotsShape();
 
-  const ticks = [1, 1 / 3, 2 / 3, 1];
-  const color = ['#FF7878', '#FFD687', '#F3F3F3'];
+  const config = useMemo(() => {
+    const ticks = [1, 1 / 3, 2 / 3, 1];
+    const colors = ['#FF7878', '#FFD687', '#24BF59'];
 
-  const config = {
-    percent: 0.54,
-    height: 147,
-    range: {
-      ticks: [0, 1],
-      color: ['l(0) 0:#FF7878 0.6:#FFD687 1:#F3F3F3']
-    },
-    indicator: {
-      shape: 'triangle-gauge-indicator',
-      pointer: {
-        style: {
-          fill: '#30BF78'
-        }
-      }
-    },
-    statistic: {
-      title: {
-        offsetY: -18,
-        formatter: ({ percent }: { percent: number }) => {
-          return `${percent * 10}`;
-        },
-        style: ({ percent }: { percent: number }) => {
-          return {
-            fontSize: '32px',
-            lineHeight: 1,
-            color:
-              percent < ticks[1]
-                ? color[0]
-                : percent < ticks[2]
-                ? color[1]
-                : color[2]
-          };
+    const color =
+      percent < ticks[1]
+        ? colors[0]
+        : percent < ticks[2]
+        ? colors[1]
+        : colors[2];
+
+    return {
+      percent: percent,
+      height: 147,
+      range: {
+        ticks: [0, 1],
+        color: ['l(0) 0:#FF7878 0.6:#FFD687 1:#24BF59']
+      },
+      indicator: {
+        shape: 'triangle-gauge-indicator',
+        pointer: {
+          style: {
+            fill: color
+          }
         }
       },
-      content: {
-        offsetY: 8,
-        formatter: ({ percent }: { percent: number }) => {
-          if (percent < ticks[1]) {
-            return '高风险';
+      statistic: {
+        title: {
+          offsetY: -18,
+          formatter: ({ percent }: { percent: number }) => {
+            return `${percent * 10}`;
+          },
+          style: ({ percent }: { percent: number }) => {
+            return {
+              fontSize: '28px',
+              lineHeight: 2.5,
+              color:
+                percent < ticks[1]
+                  ? colors[0]
+                  : percent < ticks[2]
+                  ? colors[1]
+                  : colors[2]
+            };
           }
-
-          if (percent < ticks[2]) {
-            return '中风险';
-          }
-
-          return '低风险';
         },
-        style: ({ percent }: { percent: number }) => {
-          return {
-            fontSize: '14px',
-            color:
-              percent < ticks[1]
-                ? color[0]
-                : percent < ticks[2]
-                ? color[1]
-                : color[2]
-          };
+        content: {
+          offsetY: 18,
+          formatter: ({ percent }: { percent: number }) => {
+            if (percent < ticks[1]) {
+              return '高风险';
+            }
+
+            if (percent < ticks[2]) {
+              return '中风险';
+            }
+
+            return '低风险';
+          },
+          style: ({ percent }: { percent: number }) => {
+            return {
+              fontSize: '14px',
+              color:
+                percent < ticks[1]
+                  ? colors[0]
+                  : percent < ticks[2]
+                  ? colors[1]
+                  : colors[2]
+            };
+          }
         }
       }
-    }
-  } as GaugeConfig;
+    } as GaugeConfig;
+  }, [percent]);
 
   return <Gauge {...config} />;
 }

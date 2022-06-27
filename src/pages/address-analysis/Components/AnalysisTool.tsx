@@ -36,7 +36,7 @@ export function AnalysisTool(props: IAnalysisToolProps) {
       <Tooltip title="请先点选要分析的地址">
         <div className="flex cursor-not-allowed flex-col items-center justify-center gap-y-2 text-disabled">
           {icon}
-          <span className="text-sm">{title}</span>
+          <span className="select-none text-sm">{title}</span>
         </div>
       </Tooltip>
     );
@@ -47,7 +47,7 @@ export function AnalysisTool(props: IAnalysisToolProps) {
       className="flex cursor-pointer flex-col items-center justify-center gap-y-2 text-[#303133B2] hover:text-[#004cff]"
     >
       {icon}
-      <span className="text-sm">{title}</span>
+      <span className="select-none text-sm">{title}</span>
     </div>
   );
 }

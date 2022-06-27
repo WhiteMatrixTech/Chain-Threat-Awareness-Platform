@@ -17,7 +17,7 @@ import ReactDOM from 'react-dom';
 
 import { DefaultTxNode } from '@/components/GraphinNodes';
 
-G6.registerNode('DefaultTxNode', createNodeFromReact(DefaultTxNode));
+// G6.registerNode('DefaultTxNode', createNodeFromReact(DefaultTxNode));
 
 const data = {
   // 点集
@@ -56,9 +56,9 @@ export function TransactionGraphTree() {
           type: 'dagre',
           direction: 'LR'
         },
-        defaultNode: {
-          type: 'DefaultTxNode'
-        },
+        // defaultNode: {
+        //   type: 'DefaultTxNode'
+        // },
         defaultEdge: {
           type: 'polyline'
         }

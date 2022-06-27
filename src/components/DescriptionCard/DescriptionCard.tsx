@@ -35,7 +35,7 @@ export function DescriptionItem({
   unit
 }: {
   label: string;
-  content: string | number;
+  content: string | number | ReactNode;
   unit?: string;
 }) {
   const showUnit = unit && isNumber(content);

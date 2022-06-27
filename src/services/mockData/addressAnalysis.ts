@@ -1,5 +1,6 @@
 import Graphin, { GraphinData, IUserEdge, IUserNode } from '@antv/graphin';
 import IconLoader from '@antv/graphin-icons';
+import dayjs from 'dayjs';
 import { v4 as uuidv4 } from 'uuid';
 
 import { randomNum, transformAddress } from '@/utils/common';
@@ -38,16 +39,33 @@ interface IAddressAnalysisDetail {
   healthTags: HealthTag[];
 }
 
+interface ITxDetail {
+  from: string;
+  to: string;
+  txNumber: number;
+  txAmount: number;
+  firstTxTimestamp: string;
+}
+
 const setEdge = (data: {
+  hash: string;
   source: string;
   target: string;
-  text: string;
   type: EdgeType;
+  txNumber: number;
+  txAmount: number | string;
 }) => {
-  const { source, target, text, type } = data;
+  const { hash, source, target, type, txNumber, txAmount } = data;
+  const text = `${txAmount}ETH - ${txNumber}笔`;
+
   return {
     source,
     target,
+    id: hash,
+    data: {
+      txAmount,
+      txNumber
+    },
     style: {
       label: {
         value: text,
@@ -108,22 +126,22 @@ const AddressDetailData: IAddressAnalysisDetail = {
   ]
 };
 
-const generateData = (address: string, type: EdgeType): GraphinData => {
+const generateGraphData = (address: string, type: EdgeType): GraphinData => {
   const nodeNumber = randomNum(1, 3);
   const nodes: IUserNode[] = [];
   const edges: IUserEdge[] = [];
 
   for (let i = 0; i < nodeNumber; i++) {
-    const id = `0x${uuidv4()}`;
+    const id = `0x${uuidv4().replaceAll('-', '')}`;
+    const hash = `0x${uuidv4().replaceAll('-', '')}`;
     const txNumber = randomNum(1, 3);
     const txAmount = Math.random().toFixed(3);
 
-    const text = `${txAmount}ETH - ${txNumber}笔`;
     const source = type === EdgeType.SOURCE ? id : address;
     const target = type === EdgeType.SOURCE ? address : id;
 
     nodes.push(setNode(id));
-    edges.push(setEdge({ source, target, text, type }));
+    edges.push(setEdge({ hash, source, target, type, txAmount, txNumber }));
   }
 
   return {
@@ -132,14 +150,73 @@ const generateData = (address: string, type: EdgeType): GraphinData => {
   };
 };
 
+const generateAddressData = (address: string): IAddressAnalysisDetail => {
+  const transferInMatchAmount = randomNum(10, 200);
+  const transferOutMatchAmount = randomNum(10, 200);
+  const balance = Number((Math.random() * 100).toFixed(3));
+  const firstTxTimestamp = dayjs()
+    .subtract(randomNum(1, 20), 'day')
+    .format('YYYY-MM-DD');
+  const txNumber = randomNum(10, 1000);
+  const maxTxAmount = randomNum(10, 10000);
+  const allReceivedAmount = Number((Math.random() * 1000).toFixed(4));
+  const allSendedAmount = Number((Math.random() * 1000).toFixed(4));
+  const addressHealth = Number((Math.random() * 10).toFixed(1));
+  const healthTags = [
+    HealthTag.IRREGULARS_TRANSACTION,
+    HealthTag.LARGE_TRANSACTION,
+    HealthTag.FREQUENT_TRANSACTION
+  ];
+
+  return {
+    address,
+    transferInMatchAmount,
+    transferOutMatchAmount,
+    balance,
+    txNumber,
+    maxTxAmount,
+    firstTxTimestamp,
+    allReceivedAmount,
+    allSendedAmount,
+    addressHealth,
+    healthTags
+  };
+};
+
+const generateEdgeTxData = (
+  edge: IUserEdge & {
+    data: {
+      txNumber: number;
+      txAmount: number;
+    };
+  }
+): ITxDetail => {
+  const firstTxTimestamp = dayjs()
+    .subtract(randomNum(1, 20), 'second')
+    .format('YYYY-MM-DD hhmmss');
+
+  const txNumber = edge.data.txNumber;
+  const txAmount = edge.data.txAmount;
+
+  return {
+    from: edge.source ?? '',
+    to: edge.target ?? '',
+    txNumber,
+    txAmount,
+    firstTxTimestamp
+  };
+};
+
 export {
   AddressDetailData,
   EdgeType,
-  generateData,
+  generateAddressData,
+  generateEdgeTxData,
+  generateGraphData,
   initGraphData,
   initQueryAddress,
   setEdge,
   setNode
 };
 
-export type { IAddressAnalysisDetail };
+export type { IAddressAnalysisDetail, ITxDetail };

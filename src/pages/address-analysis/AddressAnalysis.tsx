@@ -1,21 +1,28 @@
 import { GraphinData } from '@antv/graphin';
-import { DatePicker, Form, Input, Select } from 'antd';
+import { DatePicker, Form, Input, Select, Spin } from 'antd';
 import cn from 'classnames';
 import { useCallback, useState } from 'react';
+import { useQuery } from 'react-query';
 
 import { PrimaryButton } from '@/components/Button';
 import {
-  AddressDetailData,
   EdgeType,
-  generateData,
+  generateAddressData,
+  generateEdgeTxData,
+  generateGraphData,
   initGraphData,
   initQueryAddress
 } from '@/services/mockData/addressAnalysis';
+import { waitTime } from '@/utils/common';
 
 import styles from './AddressAnalysis.module.less';
 import { AddressDetail } from './Components/AddressDetail';
 import { AnalysisTool, AnalysisType } from './Components/AnalysisTool';
-import { AddressTxGraph } from './Components/graph/AddressTxGraph';
+import {
+  AddressTxGraph,
+  TGraphinClickTarget
+} from './Components/graph/AddressTxGraph';
+import { TxDetail } from './Components/TxDetail';
 
 const Option = Select.Option;
 const { RangePicker } = DatePicker;
@@ -23,16 +30,62 @@ const { RangePicker } = DatePicker;
 export function AddressAnalysis() {
   const [form] = Form.useForm();
   const [selectedAddress, setSelectedAddress] = useState(initQueryAddress);
+  const [selectedEdge, setSelectedEdge] = useState('');
   const [graphData, setGraphData] = useState<GraphinData>(initGraphData);
+
+  const {
+    data: addressData,
+    isLoading,
+    isRefetching
+  } = useQuery(['getAddressData', selectedAddress], async () => {
+    await waitTime(1000);
+    return generateAddressData(selectedAddress);
+  });
+
+  const { data: edgeTxData } = useQuery(
+    ['getEdgeTxData', selectedEdge],
+    async () => {
+      await waitTime(1000);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const edge = graphData.edges.find(
+        (edge) => edge.id === selectedEdge
+      ) as any;
+
+      if (!edge) {
+        return null;
+      }
+
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      return generateEdgeTxData(edge);
+    }
+  );
+
+  const handleClickGraphin = (
+    hexString: string,
+    type?: TGraphinClickTarget
+  ) => {
+    if (type === 'node') {
+      setSelectedAddress(hexString);
+      setSelectedEdge('');
+    }
+    if (type === 'edge') {
+      setSelectedEdge(hexString);
+      setSelectedAddress('');
+    }
+  };
+
+  const handleReset = () => {
+    setGraphData(initGraphData);
+    setSelectedAddress(initQueryAddress);
+  };
 
   const handleGenerateData = useCallback(
     (type: EdgeType) => {
-      const randomData = generateData(selectedAddress, type);
+      const randomData = generateGraphData(selectedAddress, type);
       randomData.edges = [...randomData.edges, ...graphData.edges];
       randomData.nodes = [...randomData.nodes, ...graphData.nodes];
 
       setGraphData(randomData);
-      setSelectedAddress('');
     },
     [graphData.edges, graphData.nodes, selectedAddress]
   );
@@ -95,14 +148,14 @@ export function AddressAnalysis() {
           wrapperCol={{ span: 24 }}
           name="transaction-graph-form"
           layout="inline"
-          className="flex flex-1 items-center"
+          className="flex flex-1 items-center justify-end"
         >
           <Form.Item className="max-w-3xl !flex-1">
             <Input.Group compact={true}>
               <Form.Item
                 name={['chain', 'tokenType']}
                 noStyle={true}
-                initialValue={['BTC']}
+                initialValue={['ETH']}
               >
                 <Select
                   size="large"
@@ -135,19 +188,25 @@ export function AddressAnalysis() {
         </Form>
       </div>
       <div className={cn(styles.transactionDataContainer, 'mt-6 flex gap-x-2')}>
-        <div className="w-80 max-w-sm rounded bg-white shadow-card">
-          <AddressDetail
-            selectedAddress={selectedAddress}
-            addressData={AddressDetailData}
-          />
+        <div className="flex w-80 max-w-sm rounded bg-white shadow-card">
+          <Spin spinning={isLoading || isRefetching}>
+            {selectedAddress && (
+              <AddressDetail
+                selectedAddress={selectedAddress}
+                addressData={addressData}
+              />
+            )}
+            {selectedEdge && edgeTxData && <TxDetail txData={edgeTxData} />}
+          </Spin>
         </div>
         <div className="relative flex-1 overflow-hidden rounded bg-white shadow-card">
           <AddressTxGraph
             graphData={graphData}
             selectedAddress={selectedAddress}
-            handleClick={setSelectedAddress}
+            handleClick={handleClickGraphin}
+            handleReset={handleReset}
           />
-          <div className="absolute bottom-[15%] left-0 right-0 mx-[10%] flex justify-between gap-x-4 rounded-3xl bg-[#B2BACB33] px-10 py-3">
+          <div className="absolute bottom-[15%] left-0 right-0 mx-[10%] flex  justify-between gap-x-4 rounded-3xl bg-[#B2BACB33] px-10 py-3 2xl:mx-[30%]">
             {tools.map((tool) => (
               <AnalysisTool
                 {...tool}
