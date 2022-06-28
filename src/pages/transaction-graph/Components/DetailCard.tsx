@@ -1,3 +1,4 @@
+import { Empty } from 'antd';
 import { get } from 'lodash';
 
 import { DescriptionCard, DescriptionItem } from '@/components/DescriptionCard';
@@ -21,10 +22,15 @@ const AddressDetailField: { [key: string]: string } = {
 };
 
 export function TransactionDetailCard({
-  transactionData
+  transactionData,
+  unit
 }: {
-  transactionData: ITransactionDetailData;
+  transactionData: ITransactionDetailData | undefined;
+  unit: string;
 }) {
+  if (!transactionData) {
+    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+  }
   return (
     <DescriptionCard
       title="交易信息"
@@ -36,7 +42,7 @@ export function TransactionDetailCard({
           key={fieldLey}
           label={TransactionDetailField[fieldLey]}
           content={get(transactionData, `${fieldLey}`, '') as string}
-          unit="BTC"
+          unit={unit}
         />
       ))}
       <DescriptionItem
@@ -52,18 +58,25 @@ export function TransactionDetailCard({
 }
 
 export function AddressDetailCard({
-  addressData
+  addressData,
+  unit
 }: {
-  addressData: IAddressDetailData;
+  addressData: IAddressDetailData | undefined;
+  unit: string;
 }) {
+  if (!addressData) {
+    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+  }
+
   return (
     <DescriptionCard
       title="地址信息"
-      hashOrAddress={addressData.address}
+      hashOrAddress={addressData?.address}
       copyTip="复制地址"
     >
       {Object.keys(AddressDetailField).map((fieldLey) => (
         <DescriptionItem
+          unit={unit}
           key={fieldLey}
           label={AddressDetailField[fieldLey]}
           content={get(addressData, `${fieldLey}`, '') as string}

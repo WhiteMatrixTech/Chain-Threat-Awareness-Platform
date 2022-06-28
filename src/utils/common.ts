@@ -23,14 +23,14 @@ export function randomNum(minNum: number, maxNum: number) {
 }
 
 // 地址格式化(展示前六位...后四位)
-export function transformAddress(address: string): string {
+export function transformAddress(address: string, prefixLen = 6): string {
   if (address.length <= 10) {
     return address;
   }
   let prefix = '';
   let suffix = '';
   try {
-    prefix = address.substring(0, 6);
+    prefix = address.substring(0, prefixLen);
     suffix = address.substring(address.length - 4, address.length);
   } catch (err) {
     console.log(err);

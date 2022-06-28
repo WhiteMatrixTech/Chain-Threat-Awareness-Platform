@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2413027 */
-  src: url('iconfont.woff2?t=1655883183102') format('woff2'),
-       url('iconfont.woff?t=1655883183102') format('woff'),
-       url('iconfont.ttf?t=1655883183102') format('truetype');
+  src: url('iconfont.woff2?t=1656408961731') format('woff2'),
+       url('iconfont.woff?t=1656408961731') format('woff'),
+       url('iconfont.ttf?t=1656408961731') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-BTC:before {
+  content: "\e7ec";
+}
+
+.icon-filter-center-focus:before {
+  content: "\ebb0";
 }
 
 .icon-ETH:before {

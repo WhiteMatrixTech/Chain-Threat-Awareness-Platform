@@ -16,7 +16,7 @@ import Graphin, {
 } from '@antv/graphin';
 import { message, Tooltip } from 'antd';
 import { add, subtract } from 'lodash';
-import { useCallback, useContext, useRef, useState } from 'react';
+import { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { useMount, useUnmount } from 'react-use';
 
 const { ZoomCanvas, Hoverable, FontPaint } = Behaviors;
@@ -24,24 +24,24 @@ const { ZoomCanvas, Hoverable, FontPaint } = Behaviors;
 export type TGraphinClickTarget = 'node' | 'edge' | 'canvas';
 interface IAddressTxGraphProps {
   graphData: GraphinData;
-  selectedAddress: string;
+  focusedAddress: string;
   handleReset: () => void;
   handleClick: (hexString: string, type?: TGraphinClickTarget) => void;
 }
 
 const layout = {
-  center: [200, 200], // 可选，
+  center: [100, 100], // 可选，
   linkDistance: 500 // 可选，边长
 };
 
 const MouseBehavior = ({
   setZoom,
   handleClick,
-  selectedAddress
+  focusedAddress
 }: {
   setZoom: (zoom: number) => void;
   handleClick: (hexString: string, type?: TGraphinClickTarget) => void;
-  selectedAddress: string;
+  focusedAddress: string;
 }) => {
   const { graph, apis } = useContext(GraphinContext);
 
@@ -53,11 +53,11 @@ const MouseBehavior = ({
       // 每次点击聚焦到点击节点上
       apis.focusNodeById(model.id);
 
-      if (selectedAddress !== model.id) {
+      if (focusedAddress !== model.id) {
         handleClick(model.id, 'node');
       }
     },
-    [apis, handleClick, selectedAddress]
+    [apis, handleClick, focusedAddress]
   );
 
   const handleClickEdge = useCallback(
@@ -101,7 +101,7 @@ const MouseBehavior = ({
 };
 
 export function AddressTxGraph(props: IAddressTxGraphProps) {
-  const { graphData, selectedAddress, handleClick, handleReset } = props;
+  const { graphData, focusedAddress, handleClick, handleReset } = props;
 
   const graphRef = useRef<Graphin | null>(null);
   const [zoom, setZoom] = useState(1);
@@ -143,6 +143,13 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
     }
   }, [zoom]);
 
+  useEffect(() => {
+    if (graphRef.current) {
+      const { apis } = graphRef.current;
+      apis.focusNodeById(focusedAddress);
+    }
+  }, [graphData, focusedAddress]);
+
   return (
     <div id="AddressTxGraphContainer" className="relative h-full w-full">
       <Graphin
@@ -158,7 +165,7 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
         <MouseBehavior
           setZoom={setZoom}
           handleClick={handleClick}
-          selectedAddress={selectedAddress}
+          focusedAddress={focusedAddress}
         />
       </Graphin>
       <div className="absolute top-5 right-5 flex flex-col items-center justify-between gap-y-3 rounded-3xl bg-[#B2BACB33] py-5">

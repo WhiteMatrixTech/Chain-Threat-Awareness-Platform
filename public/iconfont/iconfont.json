@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "11993936",
+      "name": "BTC",
+      "font_class": "BTC",
+      "unicode": "e7ec",
+      "unicode_decimal": 59372
+    },
+    {
+      "icon_id": "6988167",
+      "name": "filter-center-focus",
+      "font_class": "filter-center-focus",
+      "unicode": "ebb0",
+      "unicode_decimal": 60336
+    },
+    {
       "icon_id": "11062856",
       "name": "ETH",
       "font_class": "ETH",

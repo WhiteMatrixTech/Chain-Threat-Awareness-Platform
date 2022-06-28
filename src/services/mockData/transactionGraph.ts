@@ -1,3 +1,27 @@
+import { EdgeConfig, NodeConfig } from '@antv/g6-core';
+import dayjs from 'dayjs';
+import { v4 as uuidv4 } from 'uuid';
+
+import { randomNum } from '@/utils/common';
+interface ITxGraphNode extends NodeConfig {
+  id: string;
+  type: 'DefaultTxNode' | 'CenterTxNode' | 'AmountFlowAddressNode' | string;
+  isSelected: boolean;
+  tokenUnit?: string;
+  tokenAmount?: string | number;
+  flowType?: 'inflow' | 'outflow';
+}
+
+interface ITxGraphEdge extends EdgeConfig {
+  source: string;
+  target: string;
+}
+
+interface ITxGraphData {
+  nodes: ITxGraphNode[];
+  edges: ITxGraphEdge[];
+}
+
 interface ITransactionDetailData {
   transactionHash: string;
   type: string;
@@ -18,27 +42,109 @@ interface IAddressDetailData {
   outflowAmount: number;
 }
 
-const TransactionDetailExample: ITransactionDetailData = {
-  transactionHash:
-    'a893e394120135be6431254bc5b7184b33ec1fe8eb38e88a4ba05e30f04e3966',
-  type: '混币',
-  gas: 0.00356989,
-  timestamp: '2019-05-08 10:58:58',
-  inputValue: 15002.99912123,
-  outputValue: 15002.99555134,
-  inputAddressNumber: 1,
-  outputAddressNumber: 2,
-  inputTxNumber: 46,
-  outputTxNumber: 2
+const generateTxGraphData = (
+  txHash: string,
+  flowType: 'inflow' | 'outflow',
+  tokenUnit = 'BTC'
+): [ITxGraphNode[], ITxGraphEdge[]] => {
+  const addresses = [
+    `${uuidv4().replaceAll('-', '')}`,
+    `${uuidv4().replaceAll('-', '')}`
+  ];
+  const transactions = [`${uuidv4()}${uuidv4()}`, `${uuidv4()}${uuidv4()}`].map(
+    (tx) => tx.replaceAll('-', '')
+  );
+  const nodes: ITxGraphNode[] = [];
+  const edges: ITxGraphEdge[] = [];
+  addresses.forEach((address, index) => {
+    const tokenAmount = (Math.random() * 1000).toFixed(4);
+    const node1: ITxGraphNode = {
+      id: address,
+      type: 'AmountFlowAddressNode',
+      isSelected: false,
+      tokenAmount,
+      tokenUnit,
+      flowType
+    };
+    const node2: ITxGraphNode = {
+      id: transactions[index],
+      type: 'DefaultTxNode',
+      isSelected: false,
+      tokenAmount: Number(tokenAmount).toFixed(0),
+      tokenUnit,
+      flowType
+    };
+
+    nodes.push(node1);
+    nodes.push(node2);
+
+    let edge1: ITxGraphEdge;
+    let edge2: ITxGraphEdge;
+    if (flowType === 'inflow') {
+      edge1 = {
+        source: transactions[index],
+        target: address
+      };
+      edge2 = {
+        source: address,
+        target: txHash
+      };
+    } else {
+      edge1 = {
+        source: txHash,
+        target: address
+      };
+      edge2 = {
+        source: address,
+        target: transactions[index]
+      };
+    }
+    edges.push(edge1);
+    edges.push(edge2);
+  });
+
+  return [nodes, edges];
 };
 
-const AddressDetailDataExample: IAddressDetailData = {
-  address: '14BWH6GmVoL5nTwbVxQJKJDtzv4y5EbTVm',
-  balance: 0.000024,
-  inflowAmount: 101550.37345869,
-  outflowAmount: 101550.37343469
+const txType = ['转账', '混币'];
+const randomTxDetailData = (
+  transactionHash: string
+): ITransactionDetailData => {
+  const typeIndex = randomNum(0, 1);
+  const gas = Math.random() / 100;
+  const timestamp = dayjs()
+    .subtract(randomNum(1, 20), 'second')
+    .format('YYYY-MM-DD hh:mm:ss');
+  const inputValue = Math.random() * 1000;
+  const outputValue = inputValue - gas;
+  const inputAddressNumber = randomNum(1, 20);
+  const outputAddressNumber = randomNum(1, 20);
+  const inputTxNumber = randomNum(1, 50);
+  const outputTxNumber = randomNum(1, 10);
+
+  return {
+    transactionHash,
+    type: txType[typeIndex],
+    gas,
+    timestamp,
+    inputValue,
+    outputValue,
+    inputAddressNumber,
+    outputAddressNumber,
+    inputTxNumber,
+    outputTxNumber
+  };
 };
 
-export { AddressDetailDataExample, TransactionDetailExample };
+const randomAddressData = (address: string): IAddressDetailData => {
+  return {
+    address,
+    balance: Math.random() * randomNum(0, 100),
+    inflowAmount: Math.random() * randomNum(100, 1000),
+    outflowAmount: Math.random() * randomNum(100, 1000)
+  };
+};
 
-export type { IAddressDetailData, ITransactionDetailData };
+export { generateTxGraphData, randomAddressData, randomTxDetailData };
+
+export type { IAddressDetailData, ITransactionDetailData, ITxGraphData };

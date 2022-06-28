@@ -133,7 +133,7 @@ const generateGraphData = (address: string, type: EdgeType): GraphinData => {
 
   for (let i = 0; i < nodeNumber; i++) {
     const id = `0x${uuidv4().replaceAll('-', '')}`;
-    const hash = `0x${uuidv4().replaceAll('-', '')}`;
+    const hash = `0x${uuidv4()}${uuidv4()}`.replaceAll('-', '');
     const txNumber = randomNum(1, 3);
     const txAmount = Math.random().toFixed(3);
 
@@ -155,8 +155,8 @@ const generateAddressData = (address: string): IAddressAnalysisDetail => {
   const transferOutMatchAmount = randomNum(10, 200);
   const balance = Number((Math.random() * 100).toFixed(3));
   const firstTxTimestamp = dayjs()
-    .subtract(randomNum(1, 20), 'day')
-    .format('YYYY-MM-DD');
+    .subtract(randomNum(1, 20), 'second')
+    .format('YYYY-MM-DD hh:mm:ss');
   const txNumber = randomNum(10, 1000);
   const maxTxAmount = randomNum(10, 10000);
   const allReceivedAmount = Number((Math.random() * 1000).toFixed(4));
@@ -196,7 +196,7 @@ const generateEdgeTxData = (
     .format('YYYY-MM-DD hhmmss');
 
   const txNumber = edge.data.txNumber;
-  const txAmount = edge.data.txAmount;
+  const txAmount = Number(edge.data.txAmount);
 
   return {
     from: edge.source ?? '',

@@ -5,15 +5,20 @@ import { ITxDetail } from '@/services/mockData/addressAnalysis';
 import { transformAddress } from '@/utils/common';
 
 interface ITxDetailPros {
-  txData: ITxDetail;
+  txData: ITxDetail | undefined;
+  unit: string;
 }
 
 export function TxDetail(props: ITxDetailPros) {
-  const { txData } = props;
+  const { unit, txData } = props;
+
+  if (!txData) {
+    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+  }
 
   return (
     <div className="h-full w-full p-6">
-      <div className="text-xl font-semibold">交易详情</div>
+      <div className="mb-4 text-xl font-semibold">交易详情</div>
       <div className="flex flex-col gap-y-4 overflow-y-auto">
         <DescriptionItem
           label="发送方"
@@ -34,7 +39,11 @@ export function TxDetail(props: ITxDetailPros) {
           }
         />
         <DescriptionItem label="交易笔数" content={`${txData.txNumber}笔`} />
-        <DescriptionItem label="交易金额" content={txData.txAmount} />
+        <DescriptionItem
+          label="交易金额"
+          unit={unit}
+          content={txData.txAmount}
+        />
         <DescriptionItem
           label="首次交易时间"
           content={txData.firstTxTimestamp}
@@ -43,7 +52,7 @@ export function TxDetail(props: ITxDetailPros) {
       <div className="mt-4 border-t-[0.0469rem] py-4">
         <div className="mb-4 text-xl font-semibold">交易列表</div>
         <div className="flex items-center">
-          <Empty />
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
         </div>
       </div>
     </div>

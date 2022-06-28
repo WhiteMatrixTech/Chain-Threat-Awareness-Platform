@@ -45,7 +45,7 @@ export function DescriptionItem({
       <div className="text-lg font-medium">{label}</div>
       <div>
         <span className="text-lg opacity-70">{content}</span>
-        {showUnit && <span className="pl-1 text-sm opacity-30">{unit}</span>}
+        {showUnit && <span className="pl-1 text-sm opacity-40">{unit}</span>}
       </div>
     </div>
   );

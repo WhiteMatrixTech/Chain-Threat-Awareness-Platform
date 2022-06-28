@@ -1,6 +1,6 @@
 import { QuestionCircleFilled } from '@ant-design/icons';
 import { Gauge, GaugeConfig } from '@ant-design/plots';
-import { Tag, Tooltip } from 'antd';
+import { Empty, Tag, Tooltip } from 'antd';
 import { get } from 'lodash';
 import { useMemo } from 'react';
 
@@ -14,6 +14,7 @@ import { transformAddress } from '@/utils/common';
 import { registerPlotsShape } from '@/utils/drawAntvGragh';
 
 interface IAddressDetailPros {
+  unit: string;
   selectedAddress: string;
   addressData: IAddressAnalysisDetail | undefined;
 }
@@ -29,15 +30,19 @@ const AddressDetailField: { [key: string]: string } = {
 };
 
 export function AddressDetail(props: IAddressDetailPros) {
-  const { addressData = AddressDetailData } = props;
+  const { unit, addressData = AddressDetailData } = props;
+
+  if (!addressData) {
+    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+  }
 
   return (
     <div className="h-full w-full p-6">
       <div className="text-xl font-semibold">地址详情</div>
-      <div className="my-6 flex items-center">
+      <div className="my-6 flex items-center rounded-lg bg-[#f7f9fc] px-3 py-2">
         <div>
           <svg className="iconfont !h-11 !w-11" aria-hidden="true">
-            <use xlinkHref="#icon-ETH"></use>
+            <use xlinkHref={`#icon-${unit}`}></use>
           </svg>
         </div>
         <div className="ml-2 flex flex-1 flex-col gap-y-1">
@@ -52,7 +57,7 @@ export function AddressDetail(props: IAddressDetailPros) {
           <div className="flex items-center">
             <div className="mr-2 flex items-center justify-center rounded-sm bg-gray-100 p-1 text-sm">
               <QuestionCircleFilled />
-              <span className="ml-1">Vitalik Buterin</span>
+              <span className="ml-1 bg-[#ebebeb]">Vitalik Buterin</span>
             </div>
             <Tag color="green" className="px-1 !text-sm">
               Using
@@ -65,13 +70,16 @@ export function AddressDetail(props: IAddressDetailPros) {
           label="转出/转入对手数量"
           content={`${addressData.transferOutMatchAmount}/${addressData.transferInMatchAmount}`}
         />
-        <DescriptionItem label="当前余额(ETH)" content={addressData.balance} />
+        <DescriptionItem
+          label={`当前余额(${unit})`}
+          content={addressData.balance}
+        />
         {Object.keys(AddressDetailField).map((fieldLey) => (
           <DescriptionItem
             key={fieldLey}
             label={AddressDetailField[fieldLey]}
             content={get(addressData, `${fieldLey}`, '') as string}
-            unit="ETH"
+            unit={unit}
           />
         ))}
       </div>

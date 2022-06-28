@@ -1,7 +1,7 @@
 import { GraphinData } from '@antv/graphin';
 import { DatePicker, Form, Input, Select, Spin } from 'antd';
 import cn from 'classnames';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 
 import { PrimaryButton } from '@/components/Button';
@@ -27,32 +27,51 @@ import { TxDetail } from './Components/TxDetail';
 const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
+interface IGraphFormData {
+  date: undefined;
+  tokenType: string;
+  address: string;
+}
+
 export function AddressAnalysis() {
   const [form] = Form.useForm();
   const [selectedAddress, setSelectedAddress] = useState(initQueryAddress);
-  const [selectedEdge, setSelectedEdge] = useState('');
   const [graphData, setGraphData] = useState<GraphinData>(initGraphData);
 
-  const {
-    data: addressData,
-    isLoading,
-    isRefetching
-  } = useQuery(['getAddressData', selectedAddress], async () => {
-    await waitTime(1000);
-    return generateAddressData(selectedAddress);
+  const [formData, setFormData] = useState<IGraphFormData>({
+    date: undefined,
+    tokenType: 'ETH',
+    address: initQueryAddress
   });
 
-  const { data: edgeTxData } = useQuery(
-    ['getEdgeTxData', selectedEdge],
+  const [selectedHexData, setSelectedHexData] = useState(initQueryAddress);
+  const isEdge = useMemo(
+    () => selectedHexData.length > 42,
+    [selectedHexData.length]
+  );
+
+  const { data: addressData, isLoading: qryAddressLoading } = useQuery(
+    ['getAddressData', selectedHexData],
+    async () => {
+      await waitTime(1000);
+      if (selectedHexData.length > 42) {
+        return undefined;
+      }
+      return generateAddressData(selectedHexData);
+    }
+  );
+
+  const { data: edgeTxData, isLoading: qryEdgeTxLoading } = useQuery(
+    ['getEdgeTxData', selectedHexData],
     async () => {
       await waitTime(1000);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const edge = graphData.edges.find(
-        (edge) => edge.id === selectedEdge
+        (edge) => edge.id === selectedHexData
       ) as any;
 
       if (!edge) {
-        return null;
+        return undefined;
       }
 
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -60,18 +79,21 @@ export function AddressAnalysis() {
     }
   );
 
+  const onClickAnalysis = () => {
+    void form.validateFields().then((allValues: IGraphFormData) => {
+      setFormData(allValues);
+      setSelectedHexData(allValues.address);
+    });
+  };
+
   const handleClickGraphin = (
     hexString: string,
     type?: TGraphinClickTarget
   ) => {
     if (type === 'node') {
       setSelectedAddress(hexString);
-      setSelectedEdge('');
     }
-    if (type === 'edge') {
-      setSelectedEdge(hexString);
-      setSelectedAddress('');
-    }
+    setSelectedHexData(hexString);
   };
 
   const handleReset = () => {
@@ -145,18 +167,14 @@ export function AddressAnalysis() {
         <div className="text-2xl font-black">地址分析</div>
         <Form
           form={form}
+          layout="inline"
           wrapperCol={{ span: 24 }}
           name="transaction-graph-form"
-          layout="inline"
           className="flex flex-1 items-center justify-end"
         >
           <Form.Item className="max-w-3xl !flex-1">
             <Input.Group compact={true}>
-              <Form.Item
-                name={['chain', 'tokenType']}
-                noStyle={true}
-                initialValue={['ETH']}
-              >
+              <Form.Item name="tokenType" noStyle={true} initialValue={['ETH']}>
                 <Select
                   size="large"
                   style={{ width: '30%' }}
@@ -167,7 +185,7 @@ export function AddressAnalysis() {
                 </Select>
               </Form.Item>
               <Form.Item
-                name={['chain', 'address']}
+                name="address"
                 noStyle={true}
                 initialValue={initQueryAddress}
               >
@@ -184,29 +202,41 @@ export function AddressAnalysis() {
           <Form.Item name="date">
             <RangePicker size="large" className={styles.dataPicker} />
           </Form.Item>
-          <PrimaryButton className="ml-16 w-fit !px-10">开始分析</PrimaryButton>
+          <PrimaryButton
+            onClick={onClickAnalysis}
+            className="ml-16 w-fit !px-10"
+          >
+            开始分析
+          </PrimaryButton>
         </Form>
       </div>
       <div className={cn(styles.transactionDataContainer, 'mt-6 flex gap-x-2')}>
-        <div className="flex w-80 max-w-sm rounded bg-white shadow-card">
-          <Spin spinning={isLoading || isRefetching}>
-            {selectedAddress && (
+        <div className="w-80 max-w-sm rounded bg-white shadow-card">
+          <Spin spinning={qryAddressLoading || qryEdgeTxLoading}>
+            {isEdge ? (
+              <TxDetail unit={formData.tokenType} txData={edgeTxData} />
+            ) : (
               <AddressDetail
-                selectedAddress={selectedAddress}
+                unit={formData.tokenType}
                 addressData={addressData}
+                selectedAddress={selectedAddress}
               />
             )}
-            {selectedEdge && edgeTxData && <TxDetail txData={edgeTxData} />}
           </Spin>
         </div>
         <div className="relative flex-1 overflow-hidden rounded bg-white shadow-card">
           <AddressTxGraph
             graphData={graphData}
-            selectedAddress={selectedAddress}
+            focusedAddress={selectedAddress}
             handleClick={handleClickGraphin}
             handleReset={handleReset}
           />
-          <div className="absolute bottom-[15%] left-0 right-0 mx-[10%] flex  justify-between gap-x-4 rounded-3xl bg-[#B2BACB33] px-10 py-3 2xl:mx-[30%]">
+          <div
+            className={cn(
+              styles.toolBarContainer,
+              'absolute bottom-[15%] left-0 right-0 flex justify-between gap-x-4 rounded-3xl bg-[#B2BACB33] px-10 py-3'
+            )}
+          >
             {tools.map((tool) => (
               <AnalysisTool
                 {...tool}

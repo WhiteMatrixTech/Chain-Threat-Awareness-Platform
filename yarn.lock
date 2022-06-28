@@ -3138,6 +3138,11 @@
   dependencies:
     "@types/node" "*"
 
+"@types/insert-css@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/insert-css/-/insert-css-2.0.1.tgz#742574b45c0e90615e56bc83ac7976ee21a6b3fc"
+  integrity sha512-slUriXg8Y0JvpQoZlQ96bzzi86AU0DvtstKmGtBWpzJilFnpMUDbREi28Gpa+ZaIrTTCQUfvpDS7z7F1uwlYjQ==
+
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0", "@types/istanbul-lib-coverage@^2.0.1":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.4.tgz#8467d4b3c087805d63580480890791277ce35c44"
