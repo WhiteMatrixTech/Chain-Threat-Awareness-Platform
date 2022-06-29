@@ -1,15 +1,13 @@
 import { GraphinData } from '@antv/graphin';
 import { DatePicker, Form, Input, Select, Spin } from 'antd';
 import cn from 'classnames';
-import { useCallback, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 
 import { PrimaryButton } from '@/components/Button';
 import {
-  EdgeType,
   generateAddressData,
   generateEdgeTxData,
-  generateGraphData,
   initGraphData,
   initQueryAddress
 } from '@/services/mockData/addressAnalysis';
@@ -17,7 +15,6 @@ import { waitTime } from '@/utils/common';
 
 import styles from './AddressAnalysis.module.less';
 import { AddressDetail } from './Components/AddressDetail';
-import { AnalysisTool, AnalysisType } from './Components/AnalysisTool';
 import {
   AddressTxGraph,
   TGraphinClickTarget
@@ -35,7 +32,6 @@ interface IGraphFormData {
 
 export function AddressAnalysis() {
   const [form] = Form.useForm();
-  const [selectedAddress, setSelectedAddress] = useState(initQueryAddress);
   const [graphData, setGraphData] = useState<GraphinData>(initGraphData);
 
   const [formData, setFormData] = useState<IGraphFormData>({
@@ -51,13 +47,13 @@ export function AddressAnalysis() {
   );
 
   const { data: addressData, isLoading: qryAddressLoading } = useQuery(
-    ['getAddressData', selectedHexData],
+    ['getAddressData', selectedHexData, formData.address],
     async () => {
       await waitTime(1000);
       if (selectedHexData.length > 42) {
         return undefined;
       }
-      return generateAddressData(selectedHexData);
+      return generateAddressData(selectedHexData || formData.address);
     }
   );
 
@@ -90,76 +86,8 @@ export function AddressAnalysis() {
     hexString: string,
     type?: TGraphinClickTarget
   ) => {
-    if (type === 'node') {
-      setSelectedAddress(hexString);
-    }
     setSelectedHexData(hexString);
   };
-
-  const handleReset = () => {
-    setGraphData(initGraphData);
-    setSelectedAddress(initQueryAddress);
-  };
-
-  const handleGenerateData = useCallback(
-    (type: EdgeType) => {
-      const randomData = generateGraphData(selectedAddress, type);
-      randomData.edges = [...randomData.edges, ...graphData.edges];
-      randomData.nodes = [...randomData.nodes, ...graphData.nodes];
-
-      setGraphData(randomData);
-    },
-    [graphData.edges, graphData.nodes, selectedAddress]
-  );
-
-  const handleDeleteNode = useCallback(() => {
-    const edges = graphData.edges.filter(
-      (edge) =>
-        edge.source !== selectedAddress && edge.target !== selectedAddress
-    );
-    const nodes = graphData.nodes.filter((node) => {
-      const isTargetNode = node.id === selectedAddress;
-
-      // 孤立的节点
-      const isLonelyNode =
-        edges.findIndex((edge) =>
-          [edge.source, edge.target].includes(node.id)
-        ) < 0;
-
-      return !(isTargetNode || isLonelyNode);
-    });
-
-    const randomData = {
-      nodes,
-      edges
-    };
-
-    setGraphData(randomData);
-    setSelectedAddress('');
-  }, [graphData.edges, graphData.nodes, selectedAddress]);
-
-  const tools = [
-    {
-      onClick: () => handleGenerateData(EdgeType.SOURCE),
-      type: AnalysisType.VIEW_SOURCE,
-      title: '资金来源'
-    },
-    {
-      onClick: () => handleGenerateData(EdgeType.PLACE),
-      type: AnalysisType.VIEW_PLACE,
-      title: '资金去向'
-    },
-    {
-      onClick: () => handleGenerateData(EdgeType.TARGET),
-      type: AnalysisType.VIEW_TARGET,
-      title: '全部交易对象'
-    },
-    {
-      onClick: handleDeleteNode,
-      type: AnalysisType.DELETE,
-      title: '删除地址'
-    }
-  ];
 
   return (
     <div className={styles.AddressAnalysis}>
@@ -219,32 +147,16 @@ export function AddressAnalysis() {
               <AddressDetail
                 unit={formData.tokenType}
                 addressData={addressData}
-                selectedAddress={selectedAddress}
               />
             )}
           </Spin>
         </div>
         <div className="relative flex-1 overflow-hidden rounded bg-white shadow-card">
           <AddressTxGraph
-            graphData={graphData}
-            focusedAddress={selectedAddress}
+            focusedId={selectedHexData}
             handleClick={handleClickGraphin}
-            handleReset={handleReset}
+            changeData={setGraphData}
           />
-          <div
-            className={cn(
-              styles.toolBarContainer,
-              'absolute bottom-[15%] left-0 right-0 flex justify-between gap-x-4 rounded-3xl bg-[#B2BACB33] px-10 py-3'
-            )}
-          >
-            {tools.map((tool) => (
-              <AnalysisTool
-                {...tool}
-                key={tool.type}
-                address={selectedAddress}
-              />
-            ))}
-          </div>
         </div>
       </div>
     </div>

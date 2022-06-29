@@ -117,21 +117,26 @@ export function TransactionGraphTree(props: ITransactionGraphTreeProps) {
       const contextMenu = new G6.Menu({
         className: 'graphContextMenu',
         getContent(evt) {
+          const itemModel = evt?.item?.getModel();
+          if (itemModel?.type === 'AmountFlowAddressNode') {
+            return '';
+          }
+
           const outDiv = document.createElement('div');
           outDiv.innerHTML = `<ul>
-            <li>展开</li>
+            <li code='show-inflow'>展开</li>
             <li>收起</li>
           </ul>`;
           return outDiv;
         },
         handleMenuClick: (target, item) => {
-          console.log(target, item);
+          console.log(target.getAttribute('code'), item);
         },
         // offsetX and offsetY include the padding of the parent container
         // 需要加上父级容器的 padding-left 16 与自身偏移量 10
-        offsetX: 0,
+        offsetX: -615,
         // 需要加上父级容器的 padding-top 24 、画布兄弟元素高度、与自身偏移量 10
-        offsetY: 0,
+        offsetY: -212,
         // 在哪些类型的元素上响应
         itemTypes: ['node']
       });

@@ -51,7 +51,7 @@ export function TxDetail(props: ITxDetailPros) {
       </div>
       <div className="mt-4 border-t-[0.0469rem] py-4">
         <div className="mb-4 text-xl font-semibold">交易列表</div>
-        <div className="flex items-center">
+        <div className="flex w-full items-center justify-center">
           <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
         </div>
       </div>

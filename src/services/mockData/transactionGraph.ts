@@ -1,18 +1,27 @@
 import { EdgeConfig, NodeConfig } from '@antv/g6-core';
 import dayjs from 'dayjs';
+import { cloneDeep } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 
 import { randomNum } from '@/utils/common';
+
+enum TxGraphMenuItemKeys {
+  EXPAND_LEFT_SIDES = 'expand-left-side', // 向左展开
+  EXPAND_RIGHT_SIDES = 'expand-right-side', // 向右展开
+  COLLAPSE_TO_CENTER = 'collapse-to-center', // 向中心收缩
+  COLLAPSE_BOTH_SIDES = 'collapse-both-sides' // 收起左侧或右侧
+}
 interface ITxGraphNode extends NodeConfig {
   id: string;
   type: 'DefaultTxNode' | 'CenterTxNode' | 'AmountFlowAddressNode' | string;
-  isSelected: boolean;
+  isSelected?: boolean;
   tokenUnit?: string;
   tokenAmount?: string | number;
   flowType?: 'inflow' | 'outflow';
 }
 
 interface ITxGraphEdge extends EdgeConfig {
+  id: string;
   source: string;
   target: string;
 }
@@ -61,7 +70,6 @@ const generateTxGraphData = (
     const node1: ITxGraphNode = {
       id: address,
       type: 'AmountFlowAddressNode',
-      isSelected: false,
       tokenAmount,
       tokenUnit,
       flowType
@@ -69,7 +77,6 @@ const generateTxGraphData = (
     const node2: ITxGraphNode = {
       id: transactions[index],
       type: 'DefaultTxNode',
-      isSelected: false,
       tokenAmount: Number(tokenAmount).toFixed(0),
       tokenUnit,
       flowType
@@ -82,19 +89,23 @@ const generateTxGraphData = (
     let edge2: ITxGraphEdge;
     if (flowType === 'inflow') {
       edge1 = {
+        id: `${uuidv4().replaceAll('-', '')}`,
         source: transactions[index],
         target: address
       };
       edge2 = {
+        id: `${uuidv4().replaceAll('-', '')}`,
         source: address,
         target: txHash
       };
     } else {
       edge1 = {
+        id: `${uuidv4().replaceAll('-', '')}`,
         source: txHash,
         target: address
       };
       edge2 = {
+        id: `${uuidv4().replaceAll('-', '')}`,
         source: address,
         target: transactions[index]
       };
@@ -145,6 +156,132 @@ const randomAddressData = (address: string): IAddressDetailData => {
   };
 };
 
-export { generateTxGraphData, randomAddressData, randomTxDetailData };
+// 收起左侧或右侧时，找到所有移除的边
+const getShouldRemoveEdges = (
+  txHash: string,
+  txGraphData: ITxGraphData,
+  flowType: 'inflow' | 'outflow' | ''
+) => {
+  const preGraphData = cloneDeep(txGraphData);
+  let shouldRemoveEdges: ITxGraphEdge[] = [];
+  if (flowType === 'inflow') {
+    const allParent = preGraphData.edges.filter(
+      (edge) => edge.target === txHash
+    );
 
-export type { IAddressDetailData, ITransactionDetailData, ITxGraphData };
+    allParent.forEach((parentNode) => {
+      const edges = getShouldRemoveEdges(
+        parentNode.source,
+        preGraphData,
+        flowType
+      );
+      shouldRemoveEdges = shouldRemoveEdges.concat(edges);
+    });
+
+    shouldRemoveEdges = shouldRemoveEdges.concat(allParent);
+  } else if (flowType === 'outflow') {
+    const allChildren = preGraphData.edges.filter(
+      (edge) => edge.source === txHash
+    );
+
+    allChildren.forEach((childrenNode) => {
+      const edges = getShouldRemoveEdges(
+        childrenNode.target,
+        preGraphData,
+        flowType
+      );
+      shouldRemoveEdges = shouldRemoveEdges.concat(edges);
+    });
+
+    shouldRemoveEdges = shouldRemoveEdges.concat(allChildren);
+  }
+
+  return shouldRemoveEdges;
+};
+
+// 向中心收起时，当前节点指向的下(上)一个交易直接的边也应移除
+const getRestShouldRemoveEdges = (
+  txHash: string,
+  txGraphData: ITxGraphData,
+  flowType: 'inflow' | 'outflow' | ''
+) => {
+  let lastNodeId = '';
+  const preGraphData = cloneDeep(txGraphData);
+  const shouldRemoveEdges: ITxGraphEdge[] = [];
+  if (flowType === 'inflow') {
+    const edge1 = preGraphData.edges.find((edge) => edge.source === txHash);
+    const edge2 = preGraphData.edges.find(
+      (edge) => edge.source === edge1?.target
+    );
+    lastNodeId = edge2?.target ?? '';
+    edge1 && shouldRemoveEdges.push(edge1);
+    edge2 && shouldRemoveEdges.push(edge2);
+  } else if (flowType === 'outflow') {
+    const edge1 = preGraphData.edges.find((edge) => edge.target === txHash);
+    const edge2 = preGraphData.edges.find(
+      (edge) => edge.target === edge1?.source
+    );
+    lastNodeId = edge2?.source ?? '';
+    edge1 && shouldRemoveEdges.push(edge1);
+    edge2 && shouldRemoveEdges.push(edge2);
+  }
+
+  return { shouldRemoveEdges, lastNodeId };
+};
+
+const removeDataFromGraph = (
+  txHash: string,
+  txGraphData: ITxGraphData,
+  flowType: 'inflow' | 'outflow' | '',
+  isCollapseToCenter?: boolean
+): [ITxGraphNode[], ITxGraphEdge[]] => {
+  let lastNodeId = txHash;
+  let shouldRemoveEdges = getShouldRemoveEdges(txHash, txGraphData, flowType);
+
+  if (isCollapseToCenter) {
+    const data = getRestShouldRemoveEdges(txHash, txGraphData, flowType);
+    lastNodeId = data.lastNodeId;
+    shouldRemoveEdges = [...shouldRemoveEdges, ...data.shouldRemoveEdges];
+  }
+
+  const removeEdgeIdMap: Map<string, string> = new Map();
+  const removeNodeMap: Map<string, string> = new Map();
+  shouldRemoveEdges.forEach((edge) => {
+    removeEdgeIdMap.set(edge.id, edge.id);
+    removeNodeMap.set(edge.source, edge.source);
+    removeNodeMap.set(edge.target, edge.target);
+  });
+  removeNodeMap.delete(lastNodeId);
+
+  const nodes: ITxGraphNode[] = [];
+  const edges: ITxGraphEdge[] = [];
+  txGraphData.nodes.forEach((node) => {
+    if (!removeNodeMap.has(node.id)) {
+      nodes.push(node);
+    }
+  });
+  txGraphData.edges.forEach((edge) => {
+    if (!removeEdgeIdMap.has(edge.id)) {
+      edges.push(edge);
+    }
+  });
+
+  return [nodes, edges];
+};
+
+export {
+  generateTxGraphData,
+  getShouldRemoveEdges,
+  randomAddressData,
+  randomTxDetailData,
+  removeDataFromGraph,
+  TxGraphMenuItemKeys
+};
+
+export type {
+  IAddressDetailData,
+  ITransactionDetailData,
+  ITxGraphData,
+  ITxGraphEdge,
+  ITxGraphNode
+};

@@ -1,4 +1,4 @@
-import { Group, Image, Rect, Text, Circle } from '@antv/g6-react-node';
+import { Group, Image, Rect, Text } from '@antv/g6-react-node';
 import React from 'react';
 import insertCss from 'insert-css';
 import { transformAddress } from '@/utils/common';
@@ -14,23 +14,29 @@ export function registerGraphContentMenu() {
   insertCss(`
   .graphContextMenu {
     position: absolute;
+    margin: 0;
+    padding: 4px 0;
+    text-align: left;
     list-style-type: none;
-    padding: 10px 8px;
-    left: -150px;
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 1px solid #e2e2e2;
-    border-radius: 4px;
-    font-size: 12px;
-    color: red;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: 2px;
+    outline: none;
+    box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%), 0 9px 28px 8px rgb(0 0 0 / 5%);
   }
   .graphContextMenu li {
+    clear: both;
+    margin: 0;
+    padding: 5px 12px;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 22px;
     cursor: pointer;
-		list-style-type:none;
-    list-style: none;
-    margin-left: 0px;
+    transition: all 0.3s;
   }
   .graphContextMenu li:hover {
-    color: #aaa;
+    background-color: #f5f5f5;
   }
 `);
 }
@@ -44,19 +50,19 @@ export function CenterTxNode({ cfg = {} }) {
         style={{
           width: 'auto',
           height: 'auto',
-          fill: '#f5f5f5',
-          stroke: isSelected ? '#166CDD' : '#f5f5f5',
+          fill: '#edf1f9',
+          stroke: isSelected ? '#166CDD' : '#edf1f9',
           radius: [4],
           cursor: 'pointer',
           justifyContent: 'center',
-          padding: [8, 16]
+          padding: [10, 20]
         }}
         draggable
       >
         <Text
           style={{
             fontSize: 16,
-            fontWeight: 600,
+            fontWeight: 800,
             fill: '#166CDD',
             cursor: 'pointer'
           }}
@@ -69,7 +75,7 @@ export function CenterTxNode({ cfg = {} }) {
 }
 
 export function DefaultTxNode({ cfg = {} }) {
-  const { id, isSelected = false } = cfg;
+  const { id, isHovered = false, isSelected = false } = cfg;
 
   return (
     <Group>
@@ -77,8 +83,8 @@ export function DefaultTxNode({ cfg = {} }) {
         style={{
           width: 'auto',
           height: 'auto',
-          fill: '#f5f5f5',
-          stroke: isSelected ? '#166CDD' : '#f5f5f5',
+          fill: '#edf1f9',
+          stroke: isSelected ? '#166CDD' : '#edf1f9',
           radius: [4],
           cursor: 'pointer',
           justifyContent: 'center',
@@ -89,7 +95,7 @@ export function DefaultTxNode({ cfg = {} }) {
         <Text
           style={{
             fontSize: 16,
-            fill: isSelected ? '#166CDD' : '#000',
+            fill: isSelected || isHovered ? '#166CDD' : '#303133',
             cursor: 'pointer'
           }}
         >
@@ -105,6 +111,7 @@ export function AmountFlowAddressNode({ cfg = {} }) {
     id,
     tokenUnit = 'BTC',
     tokenAmount = 0,
+    isHovered = false,
     isSelected = false,
     flowType = 'inflow'
   } = cfg;
@@ -122,7 +129,7 @@ export function AmountFlowAddressNode({ cfg = {} }) {
           radius: [4],
           cursor: 'pointer',
           justifyContent: 'center',
-          padding: [4, 4]
+          padding: [4, 32, 4, 4]
         }}
       >
         <Rect
@@ -144,7 +151,7 @@ export function AmountFlowAddressNode({ cfg = {} }) {
           />
           <Text
             style={{
-              fill: isSelected ? '#166CDD' : '#000',
+              fill: isSelected || isHovered ? '#166CDD' : '#303133',
               fontSize: 16,
               margin: [0, 2],
               cursor: 'pointer'

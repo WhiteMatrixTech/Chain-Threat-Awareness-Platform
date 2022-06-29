@@ -14,7 +14,7 @@ import {
   AddressDetailCard,
   TransactionDetailCard
 } from './Components/DetailCard';
-import { TransactionGraphTree } from './Components/TransactionGraphTree';
+import { TransactionTraceGraph } from './Components/TransactionTraceGraph';
 import styles from './TransactionGraph.module.less';
 
 const Option = Select.Option;
@@ -74,7 +74,7 @@ export function TransactionGraph() {
           layout="inline"
           wrapperCol={{ span: 24 }}
           name="transaction-graph-form"
-          className="flex flex-1 items-center"
+          className="flex flex-1 items-center justify-end"
         >
           <Form.Item className="max-w-3xl !flex-1">
             <Input.Group compact={true}>
@@ -114,7 +114,7 @@ export function TransactionGraph() {
           </PrimaryButton>
         </Form>
       </div>
-      <div className="mt-6 flex gap-x-2 ">
+      <div className="mt-6 flex min-h-[80vh] gap-x-2">
         <div className="w-80 max-w-sm rounded bg-white shadow-card">
           <Spin spinning={qryTxLoading || qryAddressLoading}>
             {isTx ? (
@@ -130,8 +130,8 @@ export function TransactionGraph() {
             )}
           </Spin>
         </div>
-        <div className="flex-1 overflow-hidden rounded bg-white p-6 shadow-card">
-          <TransactionGraphTree
+        <div className="flex-1 overflow-hidden rounded bg-white shadow-card">
+          <TransactionTraceGraph
             tokenUnit={formData.tokenType}
             handleClick={setSelectedHexData}
             queryHash={formData.transactionHash}

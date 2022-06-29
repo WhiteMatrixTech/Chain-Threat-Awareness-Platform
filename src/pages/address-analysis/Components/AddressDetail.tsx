@@ -15,7 +15,6 @@ import { registerPlotsShape } from '@/utils/drawAntvGragh';
 
 interface IAddressDetailPros {
   unit: string;
-  selectedAddress: string;
   addressData: IAddressAnalysisDetail | undefined;
 }
 
