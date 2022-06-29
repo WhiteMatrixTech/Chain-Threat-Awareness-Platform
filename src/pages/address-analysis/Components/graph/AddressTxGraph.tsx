@@ -1,10 +1,13 @@
 import Graphin, { Behaviors, GraphinData } from '@antv/graphin';
 import { useEffect, useRef, useState } from 'react';
+import { useAsyncFn } from 'react-use';
 
+import { AnalysisLoading } from '@/components/AnalysisLoading';
 import {
   initGraphData,
   initQueryAddress
 } from '@/services/mockData/addressAnalysis';
+import { waitTime } from '@/utils/common';
 
 import { GraphDataBar } from './GraphDataBar';
 import { MouseBehavior } from './MouseBehavior';
@@ -35,6 +38,18 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
     handleClick(initQueryAddress);
   };
 
+  const [{ loading }, handleChangeData] = useAsyncFn(
+    async (data: GraphinData, setLoading?: boolean) => {
+      if (setLoading) {
+        await waitTime(800);
+      }
+
+      setGraphData(data);
+      return data;
+    },
+    []
+  );
+
   useEffect(() => {
     if (graphRef.current && focusedId) {
       const { apis } = graphRef.current;
@@ -45,6 +60,7 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
 
   return (
     <div id="AddressTxGraphContainer" className="relative h-full w-full">
+      {loading && <AnalysisLoading />}
       <Graphin
         data={graphData}
         ref={graphRef}
@@ -60,7 +76,7 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
         <GraphDataBar
           graphData={graphData}
           focusedId={focusedId}
-          changeData={setGraphData}
+          changeData={handleChangeData}
           changeFocusedId={handleClick}
         />
       </Graphin>

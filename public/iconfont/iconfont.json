@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "7197321",
+      "name": "icn_loading",
+      "font_class": "loading",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
       "icon_id": "11993936",
       "name": "BTC",
       "font_class": "BTC",

@@ -1,8 +1,10 @@
 import { createNodeFromReact } from '@antv/g6-react-node';
-import Graphin, { Behaviors, EdgeStyle, G6, GraphinData } from '@antv/graphin';
+import Graphin, { Behaviors, EdgeStyle, GraphinData } from '@antv/graphin';
 import { Alert } from 'antd';
 import { useEffect, useRef, useState } from 'react';
+import { useAsyncFn } from 'react-use';
 
+import { AnalysisLoading } from '@/components/AnalysisLoading';
 import {
   AmountFlowAddressNode,
   CenterTxNode,
@@ -12,6 +14,7 @@ import {
   generateTxGraphData,
   ITxGraphData
 } from '@/services/mockData/transactionGraph';
+import { waitTime } from '@/utils/common';
 
 import { GraphContextMenu } from './GraphContextMenu';
 import { MouseBehavior } from './MouseBehavior';
@@ -58,6 +61,18 @@ export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
     edges: []
   });
 
+  const [{ loading }, handleChangeData] = useAsyncFn(
+    async (data: ITxGraphData, setLoading?: boolean) => {
+      if (setLoading) {
+        await waitTime(800);
+      }
+
+      setTxGraphData(data);
+      return data;
+    },
+    []
+  );
+
   const [tipVisible, setTipVisible] = useState(true);
   const handleClose = () => {
     setTipVisible(false);
@@ -89,6 +104,7 @@ export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
 
   return (
     <div id="AddressTxGraphContainer" className="relative h-full w-full">
+      {loading && <AnalysisLoading />}
       {tipVisible && (
         <Alert
           message="右键点击节点进行展开"
@@ -108,7 +124,7 @@ export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
         <Hoverable bindType="node" />
         <GraphContextMenu
           txGraphData={txGraphData}
-          changeData={setTxGraphData}
+          changeData={handleChangeData}
         />
         <MouseBehavior queryHash={queryHash} handleClick={handleClick} />
       </Graphin>

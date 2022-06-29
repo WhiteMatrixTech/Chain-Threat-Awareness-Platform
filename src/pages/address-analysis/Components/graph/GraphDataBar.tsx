@@ -13,7 +13,10 @@ import { AnalysisTool, AnalysisType } from '../AnalysisTool';
 interface IGraphDataBarProps {
   graphData: GraphinData;
   focusedId: string;
-  changeData: (data: GraphinData) => void;
+  changeData: (
+    data: GraphinData,
+    setLoading?: boolean
+  ) => Promise<GraphinData | undefined>;
   changeFocusedId: (hexString: string) => void;
 }
 
@@ -26,7 +29,7 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
       randomData.edges = [...randomData.edges, ...graphData.edges];
       randomData.nodes = [...randomData.nodes, ...graphData.nodes];
 
-      changeData(randomData);
+      void changeData(randomData, true);
     },
     [focusedId, graphData.edges, graphData.nodes, changeData]
   );
@@ -52,7 +55,7 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
       edges
     };
 
-    changeData(randomData);
+    void changeData(randomData);
     changeFocusedId('');
   }, [
     graphData.edges,

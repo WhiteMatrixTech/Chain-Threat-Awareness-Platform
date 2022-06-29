@@ -95,7 +95,10 @@ const getGraphData = (data: {
 export const MenuContent = (props: {
   value: ContextMenuValue;
   txGraphData: ITxGraphData;
-  changeData: (data: ITxGraphData) => void;
+  changeData: (
+    data: ITxGraphData,
+    setLoading?: boolean
+  ) => Promise<ITxGraphData | undefined>;
 }) => {
   const { value, txGraphData, changeData } = props;
   const { id, item, onClose } = value;
@@ -109,7 +112,11 @@ export const MenuContent = (props: {
       txGraphData
     });
 
-    changeData(nextGraphData);
+    const setLoading = ![
+      TxGraphMenuItemKeys.COLLAPSE_TO_CENTER,
+      TxGraphMenuItemKeys.COLLAPSE_BOTH_SIDES
+    ].includes(e.key as TxGraphMenuItemKeys);
+    void changeData(nextGraphData, setLoading);
 
     onClose();
   };
@@ -138,7 +145,10 @@ export const GraphContextMenu = ({
   changeData
 }: {
   txGraphData: ITxGraphData;
-  changeData: (data: ITxGraphData) => void;
+  changeData: (
+    data: ITxGraphData,
+    setLoading?: boolean
+  ) => Promise<ITxGraphData | undefined>;
 }) => {
   return (
     <ContextMenu style={{ background: '#fff' }} bindType="node">
