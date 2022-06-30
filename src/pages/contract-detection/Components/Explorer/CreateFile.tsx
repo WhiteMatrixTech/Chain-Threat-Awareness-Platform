@@ -19,6 +19,7 @@ const FileSuffix = '.sol';
 interface ICreateFileProps {
   visible: boolean;
   selectedId: string;
+  modalData: IExplorerItem | null;
   onCancel: (type: ExplorerItemType) => void;
 }
 
@@ -26,11 +27,8 @@ interface ICreateFileData {
   fileName: string;
 }
 
-export function CreateFile({
-  visible,
-  selectedId,
-  onCancel
-}: ICreateFileProps) {
+export function CreateFile(props: ICreateFileProps) {
+  const { visible, selectedId, modalData, onCancel } = props;
   const [form] = Form.useForm();
   const { contractState, dispatch } = useContractContext();
 
@@ -41,19 +39,29 @@ export function CreateFile({
   const { mutate, status } = useMutation(async (data: ICreateFileData) => {
     await waitTime(1000);
 
-    dispatch({
-      type: ContractAction.ADD_ITEM,
-      data: {
-        id: uuidv4(),
-        parentId: selectedId,
-        name: data.fileName,
-        type: ExplorerItemType.FILE,
-        content: ''
-      }
-    });
+    if (modalData) {
+      dispatch({
+        type: ContractAction.RENAME_ITEM,
+        data: {
+          id: modalData.id,
+          name: data.fileName
+        }
+      });
+    } else {
+      dispatch({
+        type: ContractAction.ADD_ITEM,
+        data: {
+          id: uuidv4(),
+          parentId: selectedId,
+          name: data.fileName,
+          type: ExplorerItemType.FILE,
+          content: ''
+        }
+      });
+    }
 
     notification.success({
-      message: `新增文件 ${data.fileName} 成功`,
+      message: modalData ? '重命名' : `新增文件 ${data.fileName} 成功`,
       top: 64,
       duration: 3
     });
@@ -82,7 +90,7 @@ export function CreateFile({
     visible: visible,
     closable: true,
     destroyOnClose: true,
-    title: '新增合约文件',
+    title: modalData ? '重命名' : '新增合约文件',
     onCancel: handleClose,
     footer: [
       <Button
@@ -105,6 +113,7 @@ export function CreateFile({
         <Item
           label="合约文件名称"
           name="fileName"
+          initialValue={modalData?.name.replace('.sol', '')}
           rules={[
             {
               required: true,

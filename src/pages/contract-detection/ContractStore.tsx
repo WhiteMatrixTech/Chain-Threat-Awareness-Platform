@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { cloneDeep } from 'lodash';
 import { createContext, Dispatch, useContext, useReducer } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -11,6 +9,7 @@ import {
 import { deduplicate } from '@/utils/common';
 
 const initProjectId = uuidv4();
+const initFileId = uuidv4();
 
 export enum ExplorerItemType {
   PROJECT = 'project',
@@ -111,15 +110,22 @@ const initialContractState: ContractState = {
       projectType: ProjectType.ETH
     },
     {
-      id: uuidv4(),
+      id: initFileId,
       parentId: initProjectId,
       type: ExplorerItemType.FILE,
       name: 'BaseAudioContext.sol',
       content: BasicContract
     }
   ],
-  openFiles: [],
-  focusFileId: ''
+  openFiles: [
+    {
+      id: initFileId,
+      type: ExplorerItemType.FILE,
+      name: 'BaseAudioContext.sol',
+      content: BasicContract
+    }
+  ],
+  focusFileId: initFileId
 };
 
 const reducer = (

@@ -15,6 +15,7 @@ import { waitTime } from '@/utils/common';
 import {
   ContractAction,
   ExplorerItemType,
+  IExplorerItem,
   ProjectType,
   useContractContext
 } from '../../ContractStore';
@@ -32,6 +33,7 @@ export const formItemLayout = {
 
 interface ICreateProjectProps {
   visible: boolean;
+  modalData: IExplorerItem | null;
   onCancel: (type: ExplorerItemType) => void;
 }
 
@@ -40,7 +42,9 @@ interface ICreateProjectData {
   projectType: string;
 }
 
-export function CreateProject({ visible, onCancel }: ICreateProjectProps) {
+export function CreateProject(props: ICreateProjectProps) {
+  const { visible, modalData, onCancel } = props;
+
   const [form] = Form.useForm();
   const { contractState, dispatch } = useContractContext();
 
@@ -51,19 +55,29 @@ export function CreateProject({ visible, onCancel }: ICreateProjectProps) {
   const { mutate, status } = useMutation(async (data: ICreateProjectData) => {
     await waitTime(1000);
 
-    dispatch({
-      type: ContractAction.ADD_ITEM,
-      data: {
-        id: uuidv4(),
-        parentId: null,
-        name: data.projectName,
-        type: ExplorerItemType.PROJECT,
-        projectType: ProjectType.ETH
-      }
-    });
+    if (modalData) {
+      dispatch({
+        type: ContractAction.RENAME_ITEM,
+        data: {
+          id: modalData.id,
+          name: data.projectName
+        }
+      });
+    } else {
+      dispatch({
+        type: ContractAction.ADD_ITEM,
+        data: {
+          id: uuidv4(),
+          parentId: null,
+          name: data.projectName,
+          type: ExplorerItemType.PROJECT,
+          projectType: ProjectType.ETH
+        }
+      });
+    }
 
     notification.success({
-      message: `新增项目 ${data.projectName} 成功`,
+      message: modalData ? '修改项目成功' : `新增项目 ${data.projectName} 成功`,
       top: 64,
       duration: 3
     });
@@ -91,7 +105,7 @@ export function CreateProject({ visible, onCancel }: ICreateProjectProps) {
     visible: visible,
     closable: true,
     destroyOnClose: true,
-    title: '新增项目',
+    title: modalData ? '修改项目' : '新增项目',
     onCancel: handleClose,
     footer: [
       <Button
@@ -114,6 +128,7 @@ export function CreateProject({ visible, onCancel }: ICreateProjectProps) {
         <Item
           label="项目名称"
           name="projectName"
+          initialValue={modalData?.name}
           rules={[
             {
               required: true,
@@ -130,6 +145,7 @@ export function CreateProject({ visible, onCancel }: ICreateProjectProps) {
         <Item
           label="项目类型"
           name="projectType"
+          initialValue={modalData?.projectType}
           rules={[
             {
               required: true,
@@ -137,7 +153,7 @@ export function CreateProject({ visible, onCancel }: ICreateProjectProps) {
             }
           ]}
         >
-          <Select placeholder="请选择项目类型">
+          <Select disabled={!!modalData} placeholder="请选择项目类型">
             {Object.keys(ProjectType).map((type) => (
               <Option key={type} value={type}>
                 {type}

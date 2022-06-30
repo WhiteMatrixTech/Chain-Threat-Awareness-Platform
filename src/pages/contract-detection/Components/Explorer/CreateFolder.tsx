@@ -18,6 +18,7 @@ const { Item } = Form;
 interface ICreateFolderProps {
   visible: boolean;
   selectedId: string;
+  modalData: IExplorerItem | null;
   onCancel: (type: ExplorerItemType) => void;
 }
 
@@ -25,11 +26,8 @@ interface ICreateFolderData {
   folderName: string;
 }
 
-export function CreateFolder({
-  visible,
-  selectedId,
-  onCancel
-}: ICreateFolderProps) {
+export function CreateFolder(props: ICreateFolderProps) {
+  const { visible, selectedId, modalData, onCancel } = props;
   const [form] = Form.useForm();
   const { contractState, dispatch } = useContractContext();
 
@@ -40,19 +38,29 @@ export function CreateFolder({
   const { mutate, status } = useMutation(async (data: ICreateFolderData) => {
     await waitTime(1000);
 
-    dispatch({
-      type: ContractAction.ADD_ITEM,
-      data: {
-        id: uuidv4(),
-        parentId: selectedId,
-        name: data.folderName,
-        type: ExplorerItemType.FOLDER,
-        content: ''
-      }
-    });
+    if (modalData) {
+      dispatch({
+        type: ContractAction.RENAME_ITEM,
+        data: {
+          id: modalData.id,
+          name: data.folderName
+        }
+      });
+    } else {
+      dispatch({
+        type: ContractAction.ADD_ITEM,
+        data: {
+          id: uuidv4(),
+          parentId: selectedId,
+          name: data.folderName,
+          type: ExplorerItemType.FOLDER,
+          content: ''
+        }
+      });
+    }
 
     notification.success({
-      message: `新增文件夹 ${data.folderName} 成功`,
+      message: modalData ? '重命名' : `新增文件夹 ${data.folderName} 成功`,
       top: 64,
       duration: 3
     });
@@ -81,7 +89,7 @@ export function CreateFolder({
     visible: visible,
     closable: true,
     destroyOnClose: true,
-    title: '新增合约文件夹',
+    title: modalData ? '重命名' : '新增合约文件夹',
     onCancel: handleClose,
     footer: [
       <Button
@@ -104,6 +112,7 @@ export function CreateFolder({
         <Item
           label="文件夹名称"
           name="folderName"
+          initialValue={modalData?.name}
           rules={[
             {
               required: true,

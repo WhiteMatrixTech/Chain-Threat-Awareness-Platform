@@ -24,11 +24,12 @@ import {
 import { CreateFile } from './CreateFile';
 import { CreateFolder } from './CreateFolder';
 import { CreateProject } from './CreateProject';
+import { DeleteConfirm } from './DeleteConfirm';
 import styles from './Explorer.module.less';
 
 type ContractNode = DataNode & { data: IExplorerItem };
 interface ModalShowConfig {
-  type: ExplorerItemType;
+  type: ExplorerItemType | 'deleteConfirm';
   visible: boolean;
 }
 const NodeIcon = {
@@ -60,7 +61,7 @@ export function Explorer() {
     return getDomTree(treeData);
   }, [contractState.explorerList]);
 
-  const [selectedNode, setSelectedNode] = useState<ContractNode | null>(null);
+  const [selectedNode, setSelectedNode] = useState<ContractNode | null>();
   const onSelect = (
     selectedKeys: Key[],
     info: {
@@ -86,11 +87,13 @@ export function Explorer() {
     type: ExplorerItemType.FILE,
     visible: false
   });
+  const [modalData, setModalData] = useState<IExplorerItem | null>(null);
   const closeModal = (type: ExplorerItemType) => {
     setModalShowConfig({
       type: type,
       visible: false
     });
+    setModalData(null);
   };
   const openCreateProject = () => {
     setModalShowConfig({
@@ -140,6 +143,7 @@ export function Explorer() {
             <CreateProject
               visible={modalShowConfig.visible}
               onCancel={closeModal}
+              modalData={modalData}
             />
           );
         case 'folder':
@@ -148,6 +152,7 @@ export function Explorer() {
               selectedId={`${selectedNode?.key ?? ''}`}
               visible={modalShowConfig.visible}
               onCancel={closeModal}
+              modalData={modalData}
             />
           );
         case 'file':
@@ -156,12 +161,26 @@ export function Explorer() {
               selectedId={`${selectedNode?.key ?? ''}`}
               visible={modalShowConfig.visible}
               onCancel={closeModal}
+              modalData={modalData}
+            />
+          );
+        default:
+          return (
+            <DeleteConfirm
+              visible={modalShowConfig.visible}
+              onCancel={closeModal}
+              modalData={modalData}
             />
           );
       }
     }
     return null;
-  }, [modalShowConfig.type, modalShowConfig.visible, selectedNode?.key]);
+  }, [
+    modalData,
+    modalShowConfig.type,
+    modalShowConfig.visible,
+    selectedNode?.key
+  ]);
 
   return (
     <div className={cn(styles.Explorer, 'h-full bg-white p-3')}>
@@ -196,7 +215,13 @@ export function Explorer() {
           treeData={contractTreeData}
           className="w-full overflow-x-hidden"
           selectedKeys={selectedNode?.key ? [selectedNode?.key] : undefined}
-          titleRender={(nodeData) => <TreeNode nodeData={nodeData} />}
+          titleRender={(nodeData) => (
+            <TreeNode
+              nodeData={nodeData}
+              setData={setModalData}
+              openModal={setModalShowConfig}
+            />
+          )}
         />
       </div>
       {modal}
@@ -204,9 +229,14 @@ export function Explorer() {
   );
 }
 
-function TreeNode({ nodeData }: { nodeData: ContractNode }) {
-  const { dispatch } = useContractContext();
-  const onClick = ({
+function TreeNode(props: {
+  nodeData: ContractNode;
+  setData: (data: IExplorerItem | null) => void;
+  openModal: (config: ModalShowConfig) => void;
+}) {
+  const { nodeData, setData, openModal } = props;
+
+  const handleClickMenu = ({
     key,
     domEvent
   }: {
@@ -217,23 +247,28 @@ function TreeNode({ nodeData }: { nodeData: ContractNode }) {
     domEvent.preventDefault();
 
     if (key === 'delete') {
-      dispatch({
-        type: ContractAction.DELETE_ITEM,
-        data: {
-          id: nodeData.data.id
-        }
+      setData(nodeData.data);
+      openModal({
+        type: 'deleteConfirm',
+        visible: true
+      });
+    } else if (key === 'rename') {
+      setData(nodeData.data);
+      openModal({
+        type: nodeData.data.type,
+        visible: true
       });
     }
   };
 
   const menu = (
     <Menu
-      onClick={onClick}
+      onClick={handleClickMenu}
       items={[
-        // {
-        //   label: '重命名',
-        //   key: 'rename'
-        // },
+        {
+          label: '重命名',
+          key: 'rename'
+        },
         {
           label: '删除',
           key: 'delete'
@@ -245,7 +280,7 @@ function TreeNode({ nodeData }: { nodeData: ContractNode }) {
   return (
     <Dropdown overlay={menu} trigger={['contextMenu']}>
       <div className="flex items-center overflow-hidden text-ellipsis whitespace-nowrap">
-        {nodeData.title}
+        {nodeData.data.name}
       </div>
     </Dropdown>
   );
