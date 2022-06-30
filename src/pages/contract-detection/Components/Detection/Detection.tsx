@@ -3,6 +3,7 @@ import { Form, Input, Select, Tooltip } from 'antd';
 import cn from 'classnames';
 import { useEffect } from 'react';
 import { useMutation } from 'react-query';
+import { useNavigate } from 'react-router';
 
 import { DefaultButton, PrimaryButton } from '@/components/Button';
 import {
@@ -18,6 +19,7 @@ import styles from './Detection.module.less';
 const Option = Select.Option;
 
 export function Detection() {
+  const navigate = useNavigate();
   const [form] = Form.useForm();
 
   const {
@@ -32,9 +34,7 @@ export function Detection() {
     }
   }, [focusFileId, form, openFiles]);
 
-  const { mutate, data, status, reset } = useMutation(async (data: unknown) => {
-    console.log({ data });
-
+  const { mutate, data, status, reset } = useMutation(async () => {
     await waitTime(1000);
     return {
       file: 'ETH_default/Basic.sol',
@@ -44,8 +44,12 @@ export function Detection() {
 
   const handleSubmit = () => {
     void form.validateFields().then((data) => {
-      mutate(data);
+      mutate();
     });
+  };
+
+  const handleClickView = () => {
+    navigate('/threat-detection/detection-chart');
   };
 
   const handleReset = () => {
@@ -147,7 +151,9 @@ export function Detection() {
               </li>
             ))}
           </ul>
-          <PrimaryButton className="mb-2">查看报告</PrimaryButton>
+          <PrimaryButton onClick={handleClickView} className="mb-2">
+            查看报告
+          </PrimaryButton>
           <DefaultButton onClick={handleReset}>返回</DefaultButton>
         </div>
       )}

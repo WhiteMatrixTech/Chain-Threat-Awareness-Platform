@@ -63,7 +63,7 @@ export function CreateFile(props: ICreateFileProps) {
     notification.success({
       message: modalData ? '重命名' : `新增文件 ${data.fileName} 成功`,
       top: 64,
-      duration: 3
+      duration: 2
     });
     handleClose();
 

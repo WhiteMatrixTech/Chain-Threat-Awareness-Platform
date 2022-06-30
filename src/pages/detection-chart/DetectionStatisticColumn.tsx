@@ -42,6 +42,22 @@ const DemoColumn = () => {
     xField: 'projectNumber',
     yField: 'amount',
     xAxis: {
+      top: true,
+      position: 'bottom',
+      title: {
+        text: '项目编号'
+      },
+      label: {
+        autoHide: false,
+        autoRotate: false
+      }
+    },
+    yAxis: {
+      top: true,
+      position: 'left',
+      title: {
+        text: '问题数量'
+      },
       label: {
         autoHide: false,
         autoRotate: false

@@ -40,7 +40,7 @@ export function DeleteConfirm(props: IDeleteConfirmProps) {
     notification.success({
       message: '删除成功',
       top: 64,
-      duration: 3
+      duration: 2
     });
     handleClose();
 

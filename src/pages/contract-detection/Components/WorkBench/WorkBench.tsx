@@ -3,6 +3,8 @@ import { Tabs, Tooltip } from 'antd';
 import cn from 'classnames';
 import { useEffect, useState } from 'react';
 
+import { emitter, InternalEventType } from '@/services/event';
+
 import { ContractAction, useContractContext } from '../../ContractStore';
 import { ContractEditor } from './ContractEditor';
 import styles from './WorkBench.module.less';
@@ -59,13 +61,20 @@ export function WorkBench() {
     });
   };
 
+  const onClickSave = () => {
+    emitter.emit(InternalEventType.SAVE_CONTRACT);
+  };
+
   return (
     <div className={cn(styles.WorkBench, 'relative h-full flex-1 bg-white')}>
-      {/* <div className="absolute right-4 top-1 cursor-pointer">
-        <Tooltip title="保存">
-          <SaveOutlined className="text-base" />
+      <div
+        onClick={onClickSave}
+        className="absolute right-6 top-2 z-50 cursor-pointer"
+      >
+        <Tooltip title="保存当前结果">
+          <SaveOutlined className="cursor-pointer text-xl hover:text-[#465ebf]" />
         </Tooltip>
-      </div> */}
+      </div>
       <Tabs
         className="h-full"
         type="editable-card"

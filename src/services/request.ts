@@ -52,7 +52,7 @@ export async function getData<T>(url: string, withoutToastError = false) {
           'An unexpected error occurred during fetching data'
         }`,
         top: 64,
-        duration: 3
+        duration: 2
       });
     throw e;
   }
@@ -74,7 +74,7 @@ export async function postData<D, T>(
           'post data failed'
         }`,
         top: 64,
-        duration: 3
+        duration: 2
       });
 
     const error = (e as AxiosError<RequestBody<T>>).response?.data.message;
@@ -96,7 +96,7 @@ export async function getJson<T>(url: string, withoutToastError = false) {
           'An unexpected error occurred during fetching data'
         }`,
         top: 64,
-        duration: 3
+        duration: 2
       });
 
     throw e;

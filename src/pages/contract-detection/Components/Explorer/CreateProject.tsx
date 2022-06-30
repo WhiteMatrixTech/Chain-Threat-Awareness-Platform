@@ -79,7 +79,7 @@ export function CreateProject(props: ICreateProjectProps) {
     notification.success({
       message: modalData ? '修改项目成功' : `新增项目 ${data.projectName} 成功`,
       top: 64,
-      duration: 3
+      duration: 2
     });
     handleClose();
 

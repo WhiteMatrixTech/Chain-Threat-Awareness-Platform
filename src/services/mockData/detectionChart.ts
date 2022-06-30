@@ -24,7 +24,7 @@ interface IDetectionDetail {
 
 const DetectionResults: IDetectionDetail[] = [
   {
-    filePath: 'ETH_default/BusinessLogic.sol',
+    filePath: 'ETH_default/Storage.sol',
     type: DetectionResultType.ERROR,
     message:
       '未初始化的状态变量: variable `revealedMoves`used before assign a value',
@@ -37,7 +37,7 @@ const DetectionResults: IDetectionDetail[] = [
       'https://solidity.readthedocs.io/en/v0.5.0/contracts.html#state-variables'
   },
   {
-    filePath: 'ETH_default/BusinessLogic.sol',
+    filePath: 'ETH_default/Storage.sol',
     type: DetectionResultType.INFO,
     message:
       '公开函数可以被声明为外部函数: ETHGame.resolveTimedOutDuel(uint256,uint256) can be set to external',

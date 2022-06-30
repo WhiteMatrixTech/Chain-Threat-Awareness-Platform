@@ -27,7 +27,8 @@ export enum ContractAction {
   DELETE_ITEM = 'DELETE_ITEM',
   OPEN_FILE = 'OPEN_FILE',
   CLOSE_FILE = 'CLOSE_FILE',
-  SET_FOCUS_FILE = 'SET_FOCUS_FILE'
+  SET_FOCUS_FILE = 'SET_FOCUS_FILE',
+  SAVE_FILE_CONTENT = 'SAVE_FILE_CONTENT'
 }
 
 export interface IExplorerItem extends Record<string, unknown> {
@@ -85,6 +86,14 @@ interface CloseFileAction {
   };
 }
 
+interface SaveFileContentAction {
+  type: ContractAction.SAVE_FILE_CONTENT;
+  data: {
+    id: string;
+    content: string;
+  };
+}
+
 interface SetFocusFileAction {
   type: ContractAction.SET_FOCUS_FILE;
   data: {
@@ -98,7 +107,8 @@ type IContractAction =
   | DeleteItemAction
   | OpenFileAction
   | CloseFileAction
-  | SetFocusFileAction;
+  | SetFocusFileAction
+  | SaveFileContentAction;
 
 const initialContractState: ContractState = {
   explorerList: [
@@ -113,7 +123,7 @@ const initialContractState: ContractState = {
       id: initFileId,
       parentId: initProjectId,
       type: ExplorerItemType.FILE,
-      name: 'BaseAudioContext.sol',
+      name: 'Storage.sol',
       content: BasicContract
     }
   ],
@@ -121,7 +131,7 @@ const initialContractState: ContractState = {
     {
       id: initFileId,
       type: ExplorerItemType.FILE,
-      name: 'BaseAudioContext.sol',
+      name: 'Storage.sol',
       content: BasicContract
     }
   ],
@@ -154,6 +164,16 @@ const reducer = (
       );
       state.explorerList = [...newExplorerList];
       state.openFiles = [...newOpenFiles];
+
+      break;
+    }
+    case ContractAction.SAVE_FILE_CONTENT: {
+      state.explorerList = state.explorerList.map((item) => {
+        if (item.id === action.data.id) {
+          item.content = action.data.content;
+        }
+        return item;
+      });
 
       break;
     }
