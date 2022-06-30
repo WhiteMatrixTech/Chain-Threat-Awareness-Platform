@@ -50,7 +50,7 @@ export function AddressAnalysis() {
     ['getAddressData', selectedHexData, formData.address],
     async () => {
       await waitTime(1000);
-      if (selectedHexData.length > 42) {
+      if (!selectedHexData || selectedHexData.length >= 64) {
         return undefined;
       }
       return generateAddressData(selectedHexData || formData.address);
@@ -154,6 +154,7 @@ export function AddressAnalysis() {
         <div className="relative flex-1 overflow-hidden rounded bg-white shadow-card">
           <AddressTxGraph
             focusedId={selectedHexData}
+            queryAddress={formData.address}
             handleClick={handleClickGraphin}
             changeData={setGraphData}
           />

@@ -63,3 +63,20 @@ export function flatTreeData(treeData: ITree[] | null, parentKey = '') {
 
   return result;
 }
+
+export function deduplicate<T extends Record<string, unknown>>(
+  arr: T[],
+  key = 'id'
+) {
+  const record: Record<string, boolean> = {};
+  const newList: T[] = [];
+  arr.forEach((item) => {
+    const recordKey = item[key] as string;
+    if (!record[recordKey]) {
+      newList.push(item);
+      record[recordKey] = true;
+    }
+  });
+
+  return newList;
+}

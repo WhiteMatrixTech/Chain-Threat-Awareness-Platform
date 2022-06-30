@@ -1,4 +1,5 @@
-import { Tabs } from 'antd';
+import { SaveOutlined } from '@ant-design/icons';
+import { Tabs, Tooltip } from 'antd';
 import cn from 'classnames';
 import { useEffect, useState } from 'react';
 
@@ -16,7 +17,7 @@ export interface IPanesProps {
 
 export function WorkBench() {
   const {
-    contractState: { openFiles, focusFile },
+    contractState: { openFiles, focusFileId },
     dispatch
   } = useContractContext();
 
@@ -26,8 +27,8 @@ export function WorkBench() {
       openFiles.map((file) => {
         return {
           title: file.name,
-          content: file.content,
-          key: file.name
+          content: file.content ?? '',
+          key: file.id
         };
       })
     );
@@ -38,7 +39,7 @@ export function WorkBench() {
     dispatch({
       type: ContractAction.CLOSE_FILE,
       data: {
-        fileName: targetKey
+        id: targetKey
       }
     });
   };
@@ -53,19 +54,24 @@ export function WorkBench() {
     dispatch({
       type: ContractAction.SET_FOCUS_FILE,
       data: {
-        fileName: newActiveKey
+        id: newActiveKey
       }
     });
   };
 
   return (
-    <div className={cn(styles.WorkBench, 'h-full flex-1 bg-white')}>
+    <div className={cn(styles.WorkBench, 'relative h-full flex-1 bg-white')}>
+      {/* <div className="absolute right-4 top-1 cursor-pointer">
+        <Tooltip title="保存">
+          <SaveOutlined className="text-base" />
+        </Tooltip>
+      </div> */}
       <Tabs
         className="h-full"
         type="editable-card"
         hideAdd={true}
         onChange={onChange}
-        activeKey={focusFile}
+        activeKey={focusFileId}
         onEdit={onEdit}
       >
         {panes.map((pane) => (

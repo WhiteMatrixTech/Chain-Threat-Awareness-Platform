@@ -14,8 +14,8 @@ const editorOptions = {
 };
 
 const LANGUAGE_MAP: { [key: string]: string } = {
-  sol: 'solidity',
-  go: 'golang'
+  sol: 'sol',
+  go: 'go'
 };
 
 const getLanguage = (filePath: string): string => {
@@ -56,7 +56,7 @@ export function ContractEditor({ contractData }: IContractEditorProps) {
         width="100%"
         height="100%"
         ref={editorContainer}
-        language={getLanguage(contractData.key)}
+        language={getLanguage(contractData.title)}
         value={contractData.content}
         options={editorOptions}
       />

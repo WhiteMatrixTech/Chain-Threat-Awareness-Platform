@@ -5,7 +5,8 @@ import { useAsyncFn } from 'react-use';
 import { AnalysisLoading } from '@/components/AnalysisLoading';
 import {
   initGraphData,
-  initQueryAddress
+  initQueryAddress,
+  setNode
 } from '@/services/mockData/addressAnalysis';
 import { waitTime } from '@/utils/common';
 
@@ -13,22 +14,25 @@ import { GraphDataBar } from './GraphDataBar';
 import { MouseBehavior } from './MouseBehavior';
 import { ToolBar } from './ToolBar';
 
-const { ZoomCanvas, Hoverable, FontPaint } = Behaviors;
+const { ZoomCanvas, Hoverable, ActivateRelations, FontPaint } = Behaviors;
 
 export type TGraphinClickTarget = 'node' | 'edge' | 'canvas';
 interface IAddressTxGraphProps {
   focusedId: string;
+  queryAddress: string;
   changeData: (data: GraphinData) => void;
   handleClick: (hexString: string, type?: TGraphinClickTarget) => void;
 }
 
 const layout = {
+  type: 'concentric',
   center: [100, 100], // 可选，
-  linkDistance: 500 // 可选，边长
+  linkDistance: 100, // 可选，边长,
+  nodeSize: 150
 };
 
 export function AddressTxGraph(props: IAddressTxGraphProps) {
-  const { focusedId, handleClick, changeData } = props;
+  const { focusedId, queryAddress, handleClick, changeData } = props;
 
   const graphRef = useRef<Graphin | null>(null);
   const [graphData, setGraphData] = useState<GraphinData>(initGraphData);
@@ -45,18 +49,28 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
       }
 
       setGraphData(data);
+
+      if (graphRef.current && focusedId) {
+        const { apis } = graphRef.current;
+        apis.focusNodeById(focusedId);
+      }
+
       return data;
     },
     []
   );
 
   useEffect(() => {
-    if (graphRef.current && focusedId) {
-      const { apis } = graphRef.current;
-      apis.focusNodeById(focusedId);
-    }
+    const initGraphData = {
+      edges: [],
+      nodes: [setNode(queryAddress)]
+    };
+    void handleChangeData(initGraphData);
+  }, [handleChangeData, queryAddress]);
+
+  useEffect(() => {
     changeData(graphData);
-  }, [graphData, focusedId, changeData]);
+  }, [changeData, graphData]);
 
   return (
     <div id="AddressTxGraphContainer" className="relative h-full w-full">
@@ -70,8 +84,9 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
       >
         <ZoomCanvas />
         <FontPaint />
+        <ActivateRelations trigger="click" />
         <Hoverable bindType="edge" />
-        <MouseBehavior handleClick={handleClick} focusedId={focusedId} />
+        <MouseBehavior handleClick={handleClick} />
         <ToolBar handleReset={handleReset} />
         <GraphDataBar
           graphData={graphData}

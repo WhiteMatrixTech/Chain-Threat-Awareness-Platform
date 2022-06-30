@@ -99,8 +99,8 @@ export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
       edges: [...inflowEdges, ...outflowEdges]
     };
 
-    setTxGraphData(randomData);
-  }, [queryHash, tokenUnit]);
+    void handleChangeData(randomData, true);
+  }, [handleChangeData, queryHash, tokenUnit]);
 
   return (
     <div id="AddressTxGraphContainer" className="relative h-full w-full">

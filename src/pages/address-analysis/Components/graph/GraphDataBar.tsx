@@ -1,4 +1,5 @@
 import { GraphinData } from '@antv/graphin';
+import { message } from 'antd';
 import cn from 'classnames';
 import { useCallback, useMemo } from 'react';
 
@@ -25,6 +26,25 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
 
   const handleGenerateData = useCallback(
     (type: EdgeType) => {
+      const haveTargetData = graphData.edges.filter((edge) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        const edgeType = edge.data.type as EdgeType;
+        switch (type) {
+          case EdgeType.SOURCE:
+            return edgeType === EdgeType.SOURCE && edge.target === focusedId;
+          case EdgeType.PLACE:
+            return edgeType === EdgeType.PLACE && edge.source === focusedId;
+          case EdgeType.TARGET:
+            return edgeType === EdgeType.TARGET && edge.source === focusedId;
+          default:
+            return false;
+        }
+      });
+      if (haveTargetData.length) {
+        void message.warning('请勿重复查询');
+        return;
+      }
+
       const randomData = generateGraphData(focusedId, type);
       randomData.edges = [...randomData.edges, ...graphData.edges];
       randomData.nodes = [...randomData.nodes, ...graphData.nodes];
@@ -66,7 +86,7 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
   ]);
 
   const address = useMemo(() => {
-    if (focusedId.length > 42) {
+    if (focusedId.length >= 64) {
       return '';
     }
 

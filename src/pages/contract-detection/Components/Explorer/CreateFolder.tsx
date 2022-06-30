@@ -14,31 +14,30 @@ import {
 import { formItemLayout } from './CreateProject';
 
 const { Item } = Form;
-const FileSuffix = '.sol';
 
-interface ICreateFileProps {
+interface ICreateFolderProps {
   visible: boolean;
   selectedId: string;
   onCancel: (type: ExplorerItemType) => void;
 }
 
-interface ICreateFileData {
-  fileName: string;
+interface ICreateFolderData {
+  folderName: string;
 }
 
-export function CreateFile({
+export function CreateFolder({
   visible,
   selectedId,
   onCancel
-}: ICreateFileProps) {
+}: ICreateFolderProps) {
   const [form] = Form.useForm();
   const { contractState, dispatch } = useContractContext();
 
   const handleClose = () => {
-    onCancel(ExplorerItemType.FILE);
+    onCancel(ExplorerItemType.FOLDER);
   };
 
-  const { mutate, status } = useMutation(async (data: ICreateFileData) => {
+  const { mutate, status } = useMutation(async (data: ICreateFolderData) => {
     await waitTime(1000);
 
     dispatch({
@@ -46,14 +45,14 @@ export function CreateFile({
       data: {
         id: uuidv4(),
         parentId: selectedId,
-        name: data.fileName,
-        type: ExplorerItemType.FILE,
+        name: data.folderName,
+        type: ExplorerItemType.FOLDER,
         content: ''
       }
     });
 
     notification.success({
-      message: `新增文件 ${data.fileName} 成功`,
+      message: `新增文件夹 ${data.folderName} 成功`,
       top: 64,
       duration: 3
     });
@@ -63,11 +62,11 @@ export function CreateFile({
   });
 
   const handleSubmit = useCallback(() => {
-    void form.validateFields().then((data: ICreateFileData) => {
-      data.fileName = `${data.fileName}${FileSuffix}`;
+    void form.validateFields().then((data: ICreateFolderData) => {
+      const folderName = data.folderName;
       const checkSucceed = checkFileName(
         selectedId,
-        data.fileName,
+        folderName,
         contractState.explorerList
       );
       if (!checkSucceed) {
@@ -82,7 +81,7 @@ export function CreateFile({
     visible: visible,
     closable: true,
     destroyOnClose: true,
-    title: '新增合约文件',
+    title: '新增合约文件夹',
     onCancel: handleClose,
     footer: [
       <Button
@@ -103,8 +102,8 @@ export function CreateFile({
     <Modal {...modalProps}>
       <Form {...formItemLayout} form={form}>
         <Item
-          label="合约文件名称"
-          name="fileName"
+          label="文件夹名称"
+          name="folderName"
           rules={[
             {
               required: true,
@@ -116,11 +115,7 @@ export function CreateFile({
             }
           ]}
         >
-          <Input
-            required={true}
-            suffix={FileSuffix}
-            placeholder="请输入100字符以内"
-          />
+          <Input required={true} placeholder="请输入100字符以内" />
         </Item>
       </Form>
     </Modal>
@@ -129,20 +124,18 @@ export function CreateFile({
 
 function checkFileName(
   selectedId: string,
-  fileName: string,
+  folderName: string,
   itemList: IExplorerItem[]
 ) {
-  const files = itemList.filter(
+  const folders = itemList.filter(
     (item) =>
-      item.type === ExplorerItemType.FILE && item.parentId === selectedId
+      item.type === ExplorerItemType.FOLDER && item.parentId === selectedId
   );
   const targetItem = itemList.find((item) => item.id === selectedId);
 
-  if (files.find((file) => file.name === fileName)) {
+  if (folders.find((file) => file.name === folderName)) {
     void message.error(
-      `${targetItem?.type === ExplorerItemType.PROJECT ? '项目' : '文件夹'}${
-        targetItem?.name ?? ''
-      }下合约文件 ${fileName} 已存在`
+      `项目${targetItem?.name ?? ''}下合约文件夹 ${folderName} 已存在`
     );
 
     return false;

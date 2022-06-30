@@ -8,11 +8,13 @@ import {
   Select
 } from 'antd';
 import { useMutation } from 'react-query';
+import { v4 as uuidv4 } from 'uuid';
 
 import { waitTime } from '@/utils/common';
 
 import {
   ContractAction,
+  ExplorerItemType,
   ProjectType,
   useContractContext
 } from '../../ContractStore';
@@ -30,7 +32,7 @@ export const formItemLayout = {
 
 interface ICreateProjectProps {
   visible: boolean;
-  onCancel: () => void;
+  onCancel: (type: ExplorerItemType) => void;
 }
 
 interface ICreateProjectData {
@@ -42,15 +44,30 @@ export function CreateProject({ visible, onCancel }: ICreateProjectProps) {
   const [form] = Form.useForm();
   const { contractState, dispatch } = useContractContext();
 
+  const handleClose = () => {
+    onCancel(ExplorerItemType.PROJECT);
+  };
+
   const { mutate, status } = useMutation(async (data: ICreateProjectData) => {
     await waitTime(1000);
+
+    dispatch({
+      type: ContractAction.ADD_ITEM,
+      data: {
+        id: uuidv4(),
+        parentId: null,
+        name: data.projectName,
+        type: ExplorerItemType.PROJECT,
+        projectType: ProjectType.ETH
+      }
+    });
 
     notification.success({
       message: `新增项目 ${data.projectName} 成功`,
       top: 64,
       duration: 3
     });
-    onCancel();
+    handleClose();
 
     return true;
   });
@@ -58,20 +75,13 @@ export function CreateProject({ visible, onCancel }: ICreateProjectProps) {
   const handleSubmit = () => {
     void form.validateFields().then((data: ICreateProjectData) => {
       if (
-        contractState.projects.find(
-          (project) => project.name === data.projectName
+        contractState.explorerList.find(
+          (item) => item.projectType && item.name === data.projectName
         )
       ) {
         void message.error(`项目名称 ${data.projectName} 已存在`);
         return;
       }
-
-      dispatch({
-        type: ContractAction.ADD_PROJECT,
-        data: {
-          name: data.projectName
-        }
-      });
 
       mutate(data);
     });
@@ -82,7 +92,7 @@ export function CreateProject({ visible, onCancel }: ICreateProjectProps) {
     closable: true,
     destroyOnClose: true,
     title: '新增项目',
-    onCancel: onCancel,
+    onCancel: handleClose,
     footer: [
       <Button
         key="submit"
@@ -92,7 +102,7 @@ export function CreateProject({ visible, onCancel }: ICreateProjectProps) {
       >
         确定
       </Button>,
-      <Button key="cancel" onClick={onCancel}>
+      <Button key="cancel" onClick={handleClose}>
         取消
       </Button>
     ]

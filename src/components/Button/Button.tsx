@@ -31,7 +31,7 @@ export function DefaultButton(props: ButtonProps) {
       className={cn(
         styles.Button,
         className,
-        '!h-fit w-full rounded border border-solid !border-[#166CDD] !bg-common !text-lg !text-[#166CDD]'
+        '!h-fit w-full rounded border border-solid !border-[#166CDD] !text-lg !text-[#166CDD]'
       )}
     >
       {children}

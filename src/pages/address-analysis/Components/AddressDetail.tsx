@@ -86,7 +86,7 @@ export function AddressDetail(props: IAddressDetailPros) {
         <div className="mb-4 text-xl font-semibold">地址健康度</div>
         <div className="flex">
           <div className="flex-1 p-4">
-            <HealthGauge percent={addressData.addressHealth / 10} />
+            <HealthGauge percent={addressData.addressHealth} />
           </div>
           <div className="flex flex-col justify-center gap-y-3">
             {addressData.healthTags.map((text, index) => (
@@ -105,7 +105,7 @@ export function AddressDetail(props: IAddressDetailPros) {
   );
 }
 
-function HealthGauge({ percent }: { percent: number }) {
+function HealthGauge({ percent = 0 }: { percent: number }) {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   registerPlotsShape();
 

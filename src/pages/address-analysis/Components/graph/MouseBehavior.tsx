@@ -11,11 +11,9 @@ import { useMount, useUnmount } from 'react-use';
 import { TGraphinClickTarget } from './AddressTxGraph';
 
 export const MouseBehavior = ({
-  handleClick,
-  focusedId
+  handleClick
 }: {
   handleClick: (hexString: string, type?: TGraphinClickTarget) => void;
-  focusedId: string;
 }) => {
   const { graph, apis } = useContext(GraphinContext);
 
@@ -27,11 +25,9 @@ export const MouseBehavior = ({
       // 每次点击聚焦到点击节点上
       apis.focusNodeById(model.id);
 
-      if (focusedId !== model.id) {
-        handleClick(model.id, 'node');
-      }
+      handleClick(model.id, 'node');
     },
-    [apis, handleClick, focusedId]
+    [apis, handleClick]
   );
 
   const handleClickEdge = useCallback(

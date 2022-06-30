@@ -1,3 +1,7 @@
+import { cloneDeep } from 'lodash';
+
+import { IExplorerItem, IFile } from '@/pages/contract-detection/ContractStore';
+
 const BasicContract = `pragma solidity >=0.6.2 <0.7.0;
 
 /**
@@ -73,9 +77,57 @@ const ContractDetectionResults = [
   }
 ];
 
+const getShouldRemoveIds = (
+  targetId: string,
+  explorerList: IExplorerItem[]
+) => {
+  let ids = [targetId];
+  const childrenIds = explorerList
+    .filter((item) => item.parentId === targetId)
+    .map((item) => item.id);
+  childrenIds.forEach((id) => {
+    const nextChildrenIds = getShouldRemoveIds(id, explorerList);
+    ids = ids.concat(nextChildrenIds);
+  });
+
+  ids = ids.concat(childrenIds);
+
+  return ids;
+};
+
+const removeExplorerItems = (
+  targetId: string,
+  explorerList: IExplorerItem[],
+  openFiles: IFile[]
+) => {
+  const preList = cloneDeep(explorerList);
+  const preFiles = cloneDeep(openFiles);
+  const shouldRemoveIds = getShouldRemoveIds(targetId, explorerList);
+
+  const newExplorerList = preList.filter(
+    (item) => !shouldRemoveIds.includes(item.id)
+  );
+
+  const newOpenFiles = preFiles.filter(
+    (file) => shouldRemoveIds.indexOf(file.id) < 0
+  );
+
+  return { newExplorerList, newOpenFiles };
+};
+
+const arrToTreeData = (arr: IExplorerItem[]) => {
+  arr.forEach((item) => {
+    const children = arr.filter((v) => item.id === v.parentId);
+    item.children = children.length > 0 ? (item.children = children) : [];
+  });
+  return arr.filter((item) => item.projectType);
+};
+
 export {
+  arrToTreeData,
   BasicContract,
   ContractDetectionResults,
   DetectionResultType,
+  removeExplorerItems,
   ResultIconColor
 };

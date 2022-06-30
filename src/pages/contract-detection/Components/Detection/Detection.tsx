@@ -21,16 +21,16 @@ export function Detection() {
   const [form] = Form.useForm();
 
   const {
-    contractState: { openFiles, focusFile }
+    contractState: { openFiles, focusFileId }
   } = useContractContext();
 
   useEffect(() => {
-    if (focusFile) {
+    if (focusFileId) {
       form.setFieldsValue({
-        file: focusFile
+        file: openFiles.find((file) => file.id === focusFileId)?.id
       });
     }
-  }, [focusFile, form]);
+  }, [focusFileId, form, openFiles]);
 
   const { mutate, data, status, reset } = useMutation(async (data: unknown) => {
     console.log({ data });
@@ -68,7 +68,7 @@ export function Detection() {
           >
             <Select placeholder="请选择检测合约文件">
               {openFiles.map((file) => (
-                <Option key={file.name} value={file.name}>
+                <Option key={file.id} value={file.id}>
                   {file.name}
                 </Option>
               ))}

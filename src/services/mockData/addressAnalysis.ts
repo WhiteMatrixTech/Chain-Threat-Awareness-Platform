@@ -45,6 +45,7 @@ interface ITxDetail {
   txNumber: number;
   txAmount: number;
   firstTxTimestamp: string;
+  recentTxTimestamp: string;
 }
 
 const setEdge = (data: {
@@ -64,7 +65,8 @@ const setEdge = (data: {
     id: hash,
     data: {
       txAmount,
-      txNumber
+      txNumber,
+      type
     },
     style: {
       label: {
@@ -118,7 +120,7 @@ const AddressDetailData: IAddressAnalysisDetail = {
   maxTxAmount: 499999,
   allReceivedAmount: 916202.32195907,
   allSendedAmount: 916146.62730697,
-  addressHealth: 5.3,
+  addressHealth: 1,
   healthTags: [
     HealthTag.IRREGULARS_TRANSACTION,
     HealthTag.LARGE_TRANSACTION,
@@ -161,7 +163,7 @@ const generateAddressData = (address: string): IAddressAnalysisDetail => {
   const maxTxAmount = randomNum(10, 10000);
   const allReceivedAmount = Number((Math.random() * 1000).toFixed(4));
   const allSendedAmount = Number((Math.random() * 1000).toFixed(4));
-  const addressHealth = Number((Math.random() * 10).toFixed(1));
+  const addressHealth = Number(Math.random().toFixed(1));
   const healthTags = [
     HealthTag.IRREGULARS_TRANSACTION,
     HealthTag.LARGE_TRANSACTION,
@@ -191,9 +193,13 @@ const generateEdgeTxData = (
     };
   }
 ): ITxDetail => {
+  const randomDate = randomNum(1, 20);
   const firstTxTimestamp = dayjs()
-    .subtract(randomNum(1, 20), 'second')
-    .format('YYYY-MM-DD hhmmss');
+    .subtract(randomNum(2, 20), 'second')
+    .format('YYYY-MM-DD hh:mm:ss');
+  const recentTxTimestamp = dayjs()
+    .subtract(randomNum(1, randomDate), 'second')
+    .format('YYYY-MM-DD hh:mm:ss');
 
   const txNumber = edge.data.txNumber;
   const txAmount = Number(edge.data.txAmount);
@@ -203,7 +209,8 @@ const generateEdgeTxData = (
     to: edge.target ?? '',
     txNumber,
     txAmount,
-    firstTxTimestamp
+    firstTxTimestamp,
+    recentTxTimestamp
   };
 };
 
