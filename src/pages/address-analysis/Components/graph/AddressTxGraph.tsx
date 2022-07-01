@@ -1,3 +1,5 @@
+import '@antv/graphin-icons/dist/index.css';
+
 import Graphin, { Behaviors, GraphinData } from '@antv/graphin';
 import cn from 'classnames';
 import { useEffect, useRef, useState } from 'react';

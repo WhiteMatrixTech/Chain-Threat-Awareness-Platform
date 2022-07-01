@@ -98,7 +98,7 @@ const setNode = (address: string) => {
       icon: {
         fontFamily: 'graphin',
         type: 'font' as 'font' | 'text' | 'image',
-        value: icons.home as string
+        value: icons.question as string
       }
     }
   };
