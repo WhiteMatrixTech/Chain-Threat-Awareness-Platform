@@ -58,7 +58,7 @@ export const ToolBar = (props: { handleReset: () => void }) => {
 
   return (
     <div className="absolute top-5 right-5">
-      <div className="flex flex-col items-center justify-between gap-y-3 rounded-3xl bg-[#B2BACB33] py-5">
+      <div className="flex flex-col items-center justify-between gap-y-3 rounded-3xl bg-[#efefef] py-5">
         <Tooltip title="放大">
           <PlusCircleOutlined
             onClick={handleZoomIn}
@@ -73,7 +73,7 @@ export const ToolBar = (props: { handleReset: () => void }) => {
           />
         </Tooltip>
       </div>
-      <div className="mt-6 flex flex-col justify-between gap-y-4 rounded-3xl bg-[#B2BACB33] py-5 px-3">
+      <div className="mt-6 flex flex-col justify-between gap-y-4 rounded-3xl bg-[#efefef] py-5 px-3">
         <Tooltip title="重置">
           <SyncOutlined
             onClick={handleReset}

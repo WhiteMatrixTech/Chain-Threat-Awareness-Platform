@@ -44,7 +44,7 @@ export function AnalysisTool(props: IAnalysisToolProps) {
   return (
     <div
       onClick={onClick}
-      className="flex cursor-pointer flex-col items-center justify-center gap-y-2 text-[#303133B2] hover:text-[#004cff]"
+      className="flex cursor-pointer flex-col items-center justify-center gap-y-2 text-common hover:text-[#004cff]"
     >
       {icon}
       <span className="select-none text-sm">{title}</span>

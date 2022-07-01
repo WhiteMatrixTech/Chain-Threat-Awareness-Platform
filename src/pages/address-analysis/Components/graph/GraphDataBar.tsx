@@ -120,7 +120,7 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
     <div
       className={cn(
         styles.toolBarContainer,
-        'absolute bottom-[10%] left-0 right-0 flex justify-between gap-x-4 rounded-3xl bg-[#B2BACB33] px-10 py-3'
+        'absolute bottom-[10%] left-0 right-0 flex justify-between gap-x-4 rounded-3xl bg-[#efefef] px-10 py-3'
       )}
     >
       {tools.map((tool) => (

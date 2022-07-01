@@ -1,7 +1,6 @@
 import {
   DownloadOutlined,
   FullscreenOutlined,
-  InfoCircleOutlined,
   MinusCircleOutlined,
   PlusCircleOutlined
 } from '@ant-design/icons';
@@ -130,7 +129,7 @@ export const MouseBehavior = ({
 
   return (
     <div className="absolute top-5 right-6">
-      <div className="flex flex-col items-center justify-between gap-y-3 rounded-3xl bg-[#B2BACB33] py-5">
+      <div className="flex flex-col items-center justify-between gap-y-3 rounded-3xl bg-[#efefef] py-5">
         <Tooltip title="放大">
           <PlusCircleOutlined
             onClick={handleZoomIn}
@@ -145,7 +144,7 @@ export const MouseBehavior = ({
           />
         </Tooltip>
       </div>
-      <div className="mt-6 flex flex-col justify-between gap-y-4 rounded-3xl bg-[#B2BACB33] py-5 px-3">
+      <div className="mt-6 flex flex-col justify-between gap-y-4 rounded-3xl bg-[#efefef] py-5 px-3">
         <Tooltip title="定位到中心">
           <svg
             className="iconfont !h-[17px] !w-[17px] cursor-pointer hover:text-[#004cff]"

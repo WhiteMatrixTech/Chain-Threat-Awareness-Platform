@@ -1,7 +1,7 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { createNodeFromReact } from '@antv/g6-react-node';
 import Graphin, { Behaviors, EdgeStyle, GraphinData } from '@antv/graphin';
-import { Alert, Tooltip } from 'antd';
+import { Tooltip } from 'antd';
 import cn from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
