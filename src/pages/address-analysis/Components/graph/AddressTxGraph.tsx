@@ -1,4 +1,5 @@
 import Graphin, { Behaviors, GraphinData } from '@antv/graphin';
+import cn from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -10,6 +11,7 @@ import {
 } from '@/services/mockData/addressAnalysis';
 import { waitTime } from '@/utils/common';
 
+import styles from '../../AddressAnalysis.module.less';
 import { GraphDataBar } from './GraphDataBar';
 import { MouseBehavior } from './MouseBehavior';
 import { ToolBar } from './ToolBar';
@@ -75,26 +77,31 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
   return (
     <div id="AddressTxGraphContainer" className="relative h-full w-full">
       {loading && <AnalysisLoading />}
-      <Graphin
-        data={graphData}
-        ref={graphRef}
-        layout={layout}
-        fitView={true}
-        theme={{ background: '#e5e8ee33' }}
+      <div
+        id="AddressTxGraphContainer"
+        className={cn(styles.canvasBg, 'absolute inset-0')}
       >
-        <ZoomCanvas />
-        <FontPaint />
-        <ActivateRelations trigger="click" />
-        <Hoverable bindType="edge" />
-        <MouseBehavior handleClick={handleClick} />
-        <ToolBar handleReset={handleReset} />
-        <GraphDataBar
-          graphData={graphData}
-          focusedId={focusedId}
-          changeData={handleChangeData}
-          changeFocusedId={handleClick}
-        />
-      </Graphin>
+        <Graphin
+          data={graphData}
+          ref={graphRef}
+          layout={layout}
+          fitView={true}
+          theme={{ background: '#e5e8ee33' }}
+        >
+          <ZoomCanvas />
+          <FontPaint />
+          <ActivateRelations trigger="click" />
+          <Hoverable bindType="edge" />
+          <MouseBehavior handleClick={handleClick} />
+          <ToolBar handleReset={handleReset} />
+          <GraphDataBar
+            graphData={graphData}
+            focusedId={focusedId}
+            changeData={handleChangeData}
+            changeFocusedId={handleClick}
+          />
+        </Graphin>
+      </div>
     </div>
   );
 }

@@ -37,7 +37,7 @@ export function Detection() {
   const { mutate, data, status, reset } = useMutation(async () => {
     await waitTime(1000);
     return {
-      file: 'ETH_default/Basic.sol',
+      file: 'ETH_default/Storage.sol',
       result: ContractDetectionResults
     };
   });

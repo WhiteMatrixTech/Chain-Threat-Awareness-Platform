@@ -1,6 +1,8 @@
+import { InfoCircleOutlined } from '@ant-design/icons';
 import { createNodeFromReact } from '@antv/g6-react-node';
 import Graphin, { Behaviors, EdgeStyle, GraphinData } from '@antv/graphin';
-import { Alert } from 'antd';
+import { Alert, Tooltip } from 'antd';
+import cn from 'classnames';
 import { useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
@@ -16,6 +18,7 @@ import {
 } from '@/services/mockData/transactionGraph';
 import { waitTime } from '@/utils/common';
 
+import styles from '../../TransactionGraph.module.less';
 import { GraphContextMenu } from './GraphContextMenu';
 import { MouseBehavior } from './MouseBehavior';
 
@@ -73,11 +76,6 @@ export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
     []
   );
 
-  const [tipVisible, setTipVisible] = useState(true);
-  const handleClose = () => {
-    setTipVisible(false);
-  };
-
   useEffect(() => {
     const initNode = {
       id: queryHash,
@@ -103,31 +101,33 @@ export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
   }, [handleChangeData, queryHash, tokenUnit]);
 
   return (
-    <div id="AddressTxGraphContainer" className="relative h-full w-full">
+    <div className="relative h-full w-full">
       {loading && <AnalysisLoading />}
-      {tipVisible && (
-        <Alert
-          message="右键点击节点进行展开"
-          afterClose={handleClose}
-          closable={true}
-          type="info"
-        />
-      )}
-      <Graphin
-        data={txGraphData as GraphinData}
-        ref={graphRef}
-        {...graphinDefaultConfig}
+      <div className="absolute top-4 left-5 z-50 text-lg">
+        <Tooltip title="右键点击节点进行展开">
+          <InfoCircleOutlined />
+        </Tooltip>
+      </div>
+      <div
+        id="TxTraceGraphContainer"
+        className={cn(styles.canvasBg, 'absolute inset-0')}
       >
-        <ZoomCanvas />
-        <FontPaint />
-        <DragNode />
-        <Hoverable bindType="node" />
-        <GraphContextMenu
-          txGraphData={txGraphData}
-          changeData={handleChangeData}
-        />
-        <MouseBehavior queryHash={queryHash} handleClick={handleClick} />
-      </Graphin>
+        <Graphin
+          data={txGraphData as GraphinData}
+          ref={graphRef}
+          {...graphinDefaultConfig}
+        >
+          <ZoomCanvas />
+          <FontPaint />
+          <DragNode />
+          <Hoverable bindType="node" />
+          <GraphContextMenu
+            txGraphData={txGraphData}
+            changeData={handleChangeData}
+          />
+          <MouseBehavior queryHash={queryHash} handleClick={handleClick} />
+        </Graphin>
+      </div>
     </div>
   );
 }

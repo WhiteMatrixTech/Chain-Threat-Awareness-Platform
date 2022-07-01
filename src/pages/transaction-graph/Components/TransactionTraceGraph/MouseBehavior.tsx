@@ -1,6 +1,7 @@
 import {
   DownloadOutlined,
   FullscreenOutlined,
+  InfoCircleOutlined,
   MinusCircleOutlined,
   PlusCircleOutlined
 } from '@ant-design/icons';
@@ -128,7 +129,7 @@ export const MouseBehavior = ({
   });
 
   return (
-    <div className="absolute top-5 right-5">
+    <div className="absolute top-5 right-6">
       <div className="flex flex-col items-center justify-between gap-y-3 rounded-3xl bg-[#B2BACB33] py-5">
         <Tooltip title="放大">
           <PlusCircleOutlined
