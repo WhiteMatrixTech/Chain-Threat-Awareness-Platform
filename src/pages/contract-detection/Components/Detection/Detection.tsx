@@ -43,7 +43,7 @@ export function Detection() {
   });
 
   const handleSubmit = () => {
-    void form.validateFields().then((data) => {
+    void form.validateFields().then((_data) => {
       mutate();
     });
   };

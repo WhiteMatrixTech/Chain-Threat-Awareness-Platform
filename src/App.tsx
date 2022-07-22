@@ -7,6 +7,7 @@ import NoFoundPage from '@/pages/404';
 
 import { AddressAnalysis } from './pages/address-analysis';
 import { ContractDetection } from './pages/contract-detection';
+import { DataScreens } from './pages/data-screens';
 import { DataStore } from './pages/data-store';
 import { DetectionChart } from './pages/detection-chart';
 import { TransactionGraph } from './pages/transaction-graph';
@@ -37,6 +38,7 @@ function App() {
           path="/threat-evidence/transaction-graph"
           element={<TransactionGraph />}
         />
+        <Route path="/data-screens" element={<DataScreens />} />
       </Routes>
     </AppLayout>
   );

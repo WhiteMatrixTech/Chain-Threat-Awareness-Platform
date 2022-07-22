@@ -33,8 +33,7 @@ const DetectionResults: IDetectionDetail[] = [
       columns: 36
     },
     suggestion: '尽可能在声明状态变量时便初始化该状态变量。',
-    documentLink:
-      'https://solidity.readthedocs.io/en/v0.5.0/contracts.html#state-variables'
+    documentLink: 'http://cw.hubwiz.com/card/c/swc-registry/1/1/1/'
   },
   {
     filePath: 'ETH_default/Storage.sol',
@@ -46,8 +45,7 @@ const DetectionResults: IDetectionDetail[] = [
       columns: 21
     },
     suggestion: '使用`external`声明未被合约内其他函数调用的公开函数。',
-    documentLink:
-      'https://solidity.readthedocs.io/en/v0.5.0/contracts.html#external-functions'
+    documentLink: 'http://cw.hubwiz.com/card/c/swc-registry/1/1/1/'
   }
 ];
 
