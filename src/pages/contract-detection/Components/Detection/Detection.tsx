@@ -133,7 +133,7 @@ export function Detection() {
               </span>
             </Tooltip>
           </div>
-          <ul className="mb-20 flex flex-col items-center justify-center gap-y-2 text-center">
+          <ul className="mb-20 flex flex-col items-start justify-center gap-y-2 text-center">
             {data.result.map((item, index) => (
               <li
                 key={`${index}-${item.message}`}

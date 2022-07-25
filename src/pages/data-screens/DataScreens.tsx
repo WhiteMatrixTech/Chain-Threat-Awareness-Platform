@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from 'classnames';
 import * as GIO from 'giojs';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import CountUp from 'react-countup';
 
 import data from '../../utils/json/sampleData.json';
@@ -14,8 +15,25 @@ interface dataScreensProps {
   className?: string;
 }
 
+interface countryDataType {
+  name: string;
+  ISOCode: string;
+  lat?: number;
+}
+
 export function DataScreens(props: dataScreensProps) {
   const { className } = props;
+  const [countryData, setCountryData] = useState<countryDataType>({
+    name: 'CHINA',
+    ISOCode: 'CN'
+  });
+
+  const [relatedCountries, setRelatedCountries] = useState<countryDataType[]>([
+    {
+      name: 'CHINA',
+      ISOCode: 'CN'
+    }
+  ]);
 
   const screenData1 = [
     {
@@ -98,67 +116,6 @@ export function DataScreens(props: dataScreensProps) {
     }
   ];
 
-  const lookupData = {
-    France: 'FR',
-    'United States': 'US',
-    China: 'CN',
-    Russia: 'RU'
-  };
-
-  const importData = [
-    {
-      name: 'France',
-      y: 1000000,
-      sliced: false,
-      selected: false
-    },
-    {
-      name: 'United States',
-      y: 1100000,
-      sliced: false,
-      selected: false
-    },
-    {
-      name: 'China',
-      y: 1000000,
-      sliced: true,
-      selected: true
-    },
-    {
-      name: 'Russia',
-      y: 3000000,
-      sliced: false,
-      selected: false
-    }
-  ];
-
-  const exportData = [
-    {
-      name: 'France',
-      y: 1000000,
-      sliced: false,
-      selected: false
-    },
-    {
-      name: 'United States',
-      y: 1000000,
-      sliced: false,
-      selected: false
-    },
-    {
-      name: 'China',
-      y: 3100000,
-      sliced: true,
-      selected: true
-    },
-    {
-      name: 'Russia',
-      y: 1000000,
-      sliced: false,
-      selected: false
-    }
-  ];
-
   useEffect(() => {
     const container = document.getElementById('screen');
 
@@ -176,10 +133,19 @@ export function DataScreens(props: dataScreensProps) {
     });
 
     controller.addData(data);
-    // controller.setSurfaceColor('#FF0000');
+    // controller.setSurfaceColor('#214b21');
+    // controller.lightenMentioned(true);
     controller.adjustOceanBrightness(0.9);
-    // controller.setTransparentBackground(true);
+    controller.setTransparentBackground(true);
     controller.setAutoRotation(true, 1);
+    controller.onCountryPicked(
+      (selectedCountry: any, relatedCountries: any) => {
+        setCountryData(selectedCountry);
+        setRelatedCountries(relatedCountries);
+        console.log('selectedCountry', selectedCountry);
+        console.log('relatedCountries', relatedCountries);
+      }
+    );
     controller.init();
     // console.log('gio', controller);
   }, []);
@@ -187,7 +153,7 @@ export function DataScreens(props: dataScreensProps) {
   return (
     <div className={cn(styles.dataScreens, className)}>
       <div className="flex justify-between">
-        <div className="shadow-[0_4px_12px_rgba(163, 174, 191, 0.2)] flex w-[49%] flex-wrap rounded-[4px] bg-[#FFFFFF] p-[11px] px-[22px]">
+        <div className="shadow-[0_4px_12px_rgba(163, 174, 191, 0.2)] flex w-[49%] flex-wrap  rounded-[4px] bg-[#FFFFFF] p-[11px] px-[22px]">
           {screenData1.map((item, index) => (
             <div key={index} className="my-[11px] w-[25%]">
               <div className="text-[24px] font-[1000] leading-[24px] text-[#166CDD]">
@@ -221,7 +187,44 @@ export function DataScreens(props: dataScreensProps) {
         </div>
       </div>
 
-      <div id="screen" className="mt-[20px] h-[1000px] w-[100%]"></div>
+      <div className="relative">
+        <div
+          id="screen"
+          className={cn('mt-[20px] min-h-[1000px] w-[100%]', styles.screen)}
+        />
+        <div className="shadow-[0px_6px_20px_rgba(96, 111, 148, 0.2)] absolute top-[10px] right-[10px] min-w-[240px] rounded-[4px] bg-[#FFFFFF] bg-opacity-[0.5] p-[15px] text-[20px]">
+          <div>{countryData.name}</div>
+          <div className="my-[5px] flex items-center justify-between">
+            <div className="text-[14px] text-[#303133B2]">地址标签：</div>
+            <div>{countryData.ISOCode}</div>
+          </div>
+          <div className="my-[5px] flex items-center justify-between">
+            <div className="text-[14px] text-[#303133B2]">已监控地址：</div>
+            <div>{relatedCountries.length}</div>
+          </div>
+          <div className="my-[5px] flex items-center justify-between">
+            <div className="text-[14px] text-[#303133B2]">转出监控：</div>
+            <div>
+              {Math.floor(Math.random() * 10) || 8}
+              <span>M</span>
+            </div>
+          </div>
+          <div className="my-[5px] flex items-center justify-between">
+            <div className="text-[14px] text-[#303133B2]">已审计智能合约：</div>
+            <div>
+              {Math.floor(Math.random() * 100)}
+              <span>M</span>
+            </div>
+          </div>
+          <div className="my-[5px] flex items-center justify-between">
+            <div className="text-[14px] text-[#303133B2]">已发现漏洞合约：</div>
+            <div>
+              {Math.floor(Math.random() * 200)}
+              <span>K</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
