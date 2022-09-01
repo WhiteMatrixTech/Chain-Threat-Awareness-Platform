@@ -10,37 +10,44 @@ import { ContractDetection } from './pages/contract-detection';
 import { DataScreens } from './pages/data-screens';
 import { DataStore } from './pages/data-store';
 import { DetectionChart } from './pages/detection-chart';
+import { Login } from './pages/login';
+import { Register } from './pages/register';
 import { TransactionGraph } from './pages/transaction-graph';
+import { UserProvider } from './services/context';
 
 function App() {
   return (
-    <AppLayout>
-      <Routes>
-        <Route
-          path="/"
-          element={<Navigate to="/data-store" replace={true} />}
-        />
-        <Route path="/404" element={<NoFoundPage />} />
-        <Route path="/data-store" element={<DataStore />} />
-        <Route
-          path="/threat-detection/contract-detection"
-          element={<ContractDetection />}
-        />
-        <Route
-          path="/threat-detection/detection-chart"
-          element={<DetectionChart />}
-        />
-        <Route
-          path="/threat-evidence/address-analysis"
-          element={<AddressAnalysis />}
-        />
-        <Route
-          path="/threat-evidence/transaction-graph"
-          element={<TransactionGraph />}
-        />
-        <Route path="/data-screens" element={<DataScreens />} />
-      </Routes>
-    </AppLayout>
+    <UserProvider>
+      <AppLayout>
+        <Routes>
+          <Route
+            path="/"
+            element={<Navigate to="/data-store" replace={true} />}
+          />
+          <Route path="/404" element={<NoFoundPage />} />
+          <Route path="/data-store" element={<DataStore />} />
+          <Route
+            path="/threat-detection/contract-detection"
+            element={<ContractDetection />}
+          />
+          <Route
+            path="/threat-detection/detection-chart"
+            element={<DetectionChart />}
+          />
+          <Route
+            path="/threat-evidence/address-analysis"
+            element={<AddressAnalysis />}
+          />
+          <Route
+            path="/threat-evidence/transaction-graph"
+            element={<TransactionGraph />}
+          />
+          <Route path="/data-screens" element={<DataScreens />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </AppLayout>
+    </UserProvider>
   );
 }
 

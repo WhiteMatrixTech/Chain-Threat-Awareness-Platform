@@ -5,7 +5,7 @@
 const solVersionTextRegex = /soljson-(.*)\.js/;
 
 const getSolcVersionsMap = () => {
-  const originSolcVersionMap = window.soljsonReleases || {};
+  const originSolcVersionMap = window.soljsonReleases;
   const solcVersionsMap: Map<string, string> = new Map();
   Object.keys(originSolcVersionMap).forEach((key) => {
     const oVersion = originSolcVersionMap[key];

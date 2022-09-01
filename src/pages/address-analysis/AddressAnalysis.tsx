@@ -84,7 +84,7 @@ export function AddressAnalysis() {
 
   const handleClickGraphin = (
     hexString: string,
-    type?: TGraphinClickTarget
+    _type?: TGraphinClickTarget
   ) => {
     setSelectedHexData(hexString);
   };

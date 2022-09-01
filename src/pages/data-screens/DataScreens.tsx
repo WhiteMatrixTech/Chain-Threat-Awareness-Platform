@@ -142,8 +142,6 @@ export function DataScreens(props: dataScreensProps) {
       (selectedCountry: any, relatedCountries: any) => {
         setCountryData(selectedCountry);
         setRelatedCountries(relatedCountries);
-        console.log('selectedCountry', selectedCountry);
-        console.log('relatedCountries', relatedCountries);
       }
     );
     controller.init();
@@ -192,7 +190,7 @@ export function DataScreens(props: dataScreensProps) {
           id="screen"
           className={cn('mt-[20px] min-h-[1000px] w-[100%]', styles.screen)}
         />
-        <div className="shadow-[0px_6px_20px_rgba(96, 111, 148, 0.2)] absolute top-[10px] right-[10px] min-w-[240px] rounded-[4px] bg-[#FFFFFF] bg-opacity-[0.5] p-[15px] text-[20px]">
+        <div className="shadow-[0px_6px_20px_rgba(96, 111, 148, 0.2)] absolute top-[10px] right-[10px] min-w-[240px] rounded-[4px] bg-[#FFFFFF] bg-opacity-[0.9] p-[15px] text-[20px]">
           <div>{countryData.name}</div>
           <div className="my-[5px] flex items-center justify-between">
             <div className="text-[14px] text-[#303133B2]">地址标签：</div>

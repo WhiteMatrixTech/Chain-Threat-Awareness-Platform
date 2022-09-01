@@ -1,6 +1,7 @@
 import { Layout } from 'antd';
 import cn from 'classnames';
 import React, { useState } from 'react';
+import { useLocation } from 'react-router';
 
 import { Header } from '../Header';
 import { LeftMenu } from '../LeftMenu';
@@ -10,6 +11,18 @@ const { Content, Sider } = Layout;
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
+
+  const { pathname } = useLocation();
+  const withoutLayout = ['/login', '/login/', '/register/', '/register'];
+
+  if (withoutLayout.includes(pathname)) {
+    return (
+      <Layout className={styles['auth-layout']}>
+        <Content>{children}</Content>
+      </Layout>
+    );
+  }
+
   return (
     <Layout className="h-screen overflow-hidden">
       <Sider

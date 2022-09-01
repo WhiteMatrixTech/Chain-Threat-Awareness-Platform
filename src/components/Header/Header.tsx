@@ -1,6 +1,12 @@
 import { BellOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
 import { Dropdown, Input, Layout, Menu } from 'antd';
-import React from 'react';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router';
+import store from 'store2';
+
+import { UserContext } from '@/services/context';
+import { emitter, EmitterEvent } from '@/services/event';
+import { ellipsisAddress } from '@/utils/common';
 
 import styles from './Header.module.less';
 
@@ -16,6 +22,18 @@ const prefix = (
 );
 
 export function Header() {
+  const navigate = useNavigate();
+  const { userInfo } = useContext(UserContext);
+
+  const handleLogout = ({ key }: { key: string }) => {
+    if (key === 'loginOut') {
+      emitter.emit(EmitterEvent.logout);
+
+      store.clearAll();
+      navigate('/login');
+    }
+  };
+
   return (
     <AntdHeader className={styles.Header}>
       <div className="flex flex-1 items-center">
@@ -33,6 +51,7 @@ export function Header() {
           overlay={
             <Menu
               theme="dark"
+              onClick={handleLogout}
               items={[{ label: '退出账号', key: 'loginOut' }]}
             />
           }
@@ -42,7 +61,9 @@ export function Header() {
             onClick={(e) => e.preventDefault()}
           >
             <UserOutlined />
-            <span className="pl-1">Admin</span>
+            <span className="pl-1">
+              {ellipsisAddress(userInfo?.userId || '')}
+            </span>
           </a>
         </Dropdown>
       </div>

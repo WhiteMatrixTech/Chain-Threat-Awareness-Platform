@@ -22,8 +22,8 @@ export const dataStoreList = [
     name: '以太坊交易数据',
     databaseType: 'OSS',
     description: '以太坊交易数据 soildity0.8~0.9',
-    chainType: 'BSC',
-    version: 'Bitcoin',
+    chainType: 'Ethereum',
+    version: 'Ethereum2.0',
     createTime: '2022-04-02 15:55:34'
   }
 ];

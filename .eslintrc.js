@@ -6,6 +6,8 @@ module.exports = {
     project: require.resolve('./tsconfig.json')
   },
   rules: {
-    '@typescript-eslint/explicit-module-boundary-types': 'off'
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-unsafe-assignment': 'off',
+    '@typescript-eslint/no-explicit-any': 'off'
   }
 };

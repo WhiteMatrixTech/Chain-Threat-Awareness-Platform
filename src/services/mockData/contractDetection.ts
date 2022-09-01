@@ -133,26 +133,26 @@ const ContractDetectionResults = [
   },
   {
     type: DetectionResultType.ERROR,
-    message: '重入风险',
+    message: '未检查的send方法',
     position: {
-      line: 66,
-      columns: 66
+      line: 82,
+      columns: 82
     }
   },
   {
     type: DetectionResultType.WARNING,
-    message: '未检查的send方法',
+    message: '缺少零地址校验',
     position: {
-      line: 66,
-      columns: 66
+      line: 74,
+      columns: 74
     }
   },
   {
     type: DetectionResultType.INFO,
-    message: '转账地址未知',
+    message: 'Solidity命名规范',
     position: {
-      line: 66,
-      columns: 66
+      line: 9,
+      columns: 9
     }
   }
 ];

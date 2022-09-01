@@ -83,11 +83,13 @@ export function Detection() {
             rules={[
               {
                 required: true,
-                message: '请输入主合约名称'
+                message: '请选择检测模式'
               }
             ]}
           >
-            <Input placeholder="请输入主合约名称" />
+            <Select placeholder="选择检测模式">
+              <Option value="模糊测试">模糊测试</Option>
+            </Select>
           </Form.Item>
           <Form.Item
             name="contract0"
