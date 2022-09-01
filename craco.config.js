@@ -45,5 +45,15 @@ module.exports = {
       }),
       new MonacoWebpackPlugin()
     ]
+  },
+
+  devServer: {
+    port: 8000,
+    proxy: {
+      '/chainthreat': {
+        target: 'https://alpha.api.whitematrixdev.com/chainthreat',
+        changeOrigin: true
+      }
+    }
   }
 };

@@ -38,6 +38,10 @@ export const MenuList: MenuItem[] = [
         key: '/threat-evidence/transaction-graph'
       }
     ]
+  },
+  {
+    label: '数据大屏',
+    key: '/data-screens'
   }
 ];
 

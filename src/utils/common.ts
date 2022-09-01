@@ -7,6 +7,12 @@ export function waitTime(timeMs: number) {
   });
 }
 
+export function getParams(key: string) {
+  // eslint-disable-next-line node/no-unsupported-features/node-builtins
+  const params = new window.URLSearchParams(window.location.search);
+  return params.get(key) ?? '';
+}
+
 // 生成从minNum到maxNum的随机数
 export function randomNum(minNum: number, maxNum: number) {
   let num = '';
@@ -79,4 +85,33 @@ export function deduplicate<T extends Record<string, unknown>>(
   });
 
   return newList;
+}
+
+export function validEmail(
+  value: string,
+  fn: (error?: string | undefined) => void
+) {
+  // eslint-disable-next-line prefer-regex-literals
+  const reg = new RegExp(
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
+  if (!value) {
+    return fn('请输入邮箱！');
+  }
+
+  if (value && reg.test(value)) {
+    fn();
+    return true;
+  } else {
+    fn('请输入正确邮箱');
+  }
+}
+
+// 邮箱展示前两位 后两位@
+export function ellipsisAddress(address: string) {
+  if (address) {
+    const list = address.split('@');
+    return `${list[0].slice(0, 2)}...${list[0].slice(-2)}@${list[1]}`;
+  }
+  return address;
 }

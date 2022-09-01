@@ -30,6 +30,7 @@
     "ethers": "^5.6.9",
     "eventemitter3": "^4.0.7",
     "file-loader": "^6.2.0",
+    "giojs": "^2.2.2",
     "husky": "8.0.1",
     "i18next": "^21.8.4",
     "insert-css": "^2.0.0",
@@ -43,7 +44,9 @@
     "react": "^18.2.0",
     "react-app-alias": "^2.2.0",
     "react-copy-to-clipboard": "^5.1.0",
+    "react-countup": "^6.3.0",
     "react-dom": "^18.2.0",
+    "react-giojs": "^0.0.5",
     "react-i18next": "^11.16.9",
     "react-monaco-editor": "^0.48.0",
     "react-query": "^3.39.1",
@@ -59,7 +62,9 @@
     "wrangler": "^2.0.7"
   },
   "scripts": {
-    "start": "cross-env GENERATE_SOURCEMAP=false craco start",
+    "start": "craco start --mode beta",
+    "build:beta": "craco build --mode beta",
+    "build:prod": "craco build --mode prod",
     "build": "cross-env GENERATE_SOURCEMAP=false craco build",
     "test": "craco test",
     "lint": "eslint -c ./.eslintrc.js --ext .ts,.tsx,.js,.jsx",

@@ -43,7 +43,7 @@ export function Detection() {
   });
 
   const handleSubmit = () => {
-    void form.validateFields().then((data) => {
+    void form.validateFields().then((_data) => {
       mutate();
     });
   };
@@ -83,11 +83,13 @@ export function Detection() {
             rules={[
               {
                 required: true,
-                message: '请输入主合约名称'
+                message: '请选择检测模式'
               }
             ]}
           >
-            <Input placeholder="请输入主合约名称" />
+            <Select placeholder="选择检测模式">
+              <Option value="模糊测试">模糊测试</Option>
+            </Select>
           </Form.Item>
           <Form.Item
             name="contract0"
@@ -133,7 +135,7 @@ export function Detection() {
               </span>
             </Tooltip>
           </div>
-          <ul className="mb-20 flex flex-col items-center justify-center gap-y-2 text-center">
+          <ul className="mb-20 flex flex-col items-start justify-center gap-y-2 text-center">
             {data.result.map((item, index) => (
               <li
                 key={`${index}-${item.message}`}
