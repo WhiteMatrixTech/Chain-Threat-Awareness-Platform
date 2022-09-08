@@ -126,15 +126,11 @@ export function DataScreens(props: dataScreensProps) {
         surface: 0x1890ff,
         selected: '#FF6868',
         related: '#FF686899',
-        // in: '#FF686899',
-        // out: '#FF686899',
         halo: '#FF686899'
       }
     });
 
     controller.addData(data);
-    // controller.setSurfaceColor('#214b21');
-    // controller.lightenMentioned(true);
     controller.adjustOceanBrightness(0.9);
     controller.setTransparentBackground(true);
     controller.setAutoRotation(true, 1);
@@ -145,7 +141,6 @@ export function DataScreens(props: dataScreensProps) {
       }
     );
     controller.init();
-    // console.log('gio', controller);
   }, []);
 
   return (

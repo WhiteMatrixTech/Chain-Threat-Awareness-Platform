@@ -12,6 +12,7 @@
     "giojs",
     "Gragh",
     "Graphin",
+    "Hoverable",
     "immer",
     "infamousnft",
     "intervalplural",
@@ -23,7 +24,8 @@
     "Swei",
     "Swiper",
     "toastify",
-    "unauthenticate"
+    "unauthenticate",
+    "uuidv"
   ],
   "prettier.configPath": ".prettierrc.js",
   "editor.codeActionsOnSave": {

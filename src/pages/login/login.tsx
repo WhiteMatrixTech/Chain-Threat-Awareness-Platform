@@ -1,5 +1,5 @@
 import { LockOutlined, MailOutlined } from '@ant-design/icons';
-import { Button, Form, Input } from 'antd';
+import { Button, Form, Input, notification } from 'antd';
 import cn from 'classnames';
 import { useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -25,6 +25,13 @@ export function Login(props: loginProps) {
   const [{ loading: loginLoading }, login] = useAsyncFn(
     async (params: loginRequestType) => {
       const data = await loginService(params);
+      if (data) {
+        store.set('authInfo', { ...data, signTime: new Date().getTime() });
+        notification.success({ message: '登陆成功！' });
+        const redirectUri = getParams('redirectUri') || '/data-store';
+        navigate(redirectUri);
+      }
+
       return data;
     }
   );
@@ -33,13 +40,10 @@ export function Login(props: loginProps) {
     form
       .validateFields()
       .then(async (data: loginRequestType) => {
-        const res = await login(data);
-        store.set('authInfo', { ...res, signTime: new Date().getTime() });
-        const redirectUri = getParams('redirectUri') || '/data-store';
-        navigate(redirectUri);
+        await login(data);
       })
       .catch((e) => console.log('e', e));
-  }, [form, login, navigate]);
+  }, [form, login]);
 
   return (
     <div

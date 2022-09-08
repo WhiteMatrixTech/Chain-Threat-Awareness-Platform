@@ -6,13 +6,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 
 import { AnalysisLoading } from '@/components/AnalysisLoading';
-import {
-  initGraphData,
-  initQueryAddress,
-  setNode
-} from '@/services/mockData/addressAnalysis';
+import { initGraphData, setNode } from '@/services/mockData/addressAnalysis';
 import { waitTime } from '@/utils/common';
 
+import { IGraphFormData } from '../../AddressAnalysis';
 import styles from '../../AddressAnalysis.module.less';
 import { GraphDataBar } from './GraphDataBar';
 import { MouseBehavior } from './MouseBehavior';
@@ -23,7 +20,7 @@ const { ZoomCanvas, Hoverable, ActivateRelations, FontPaint } = Behaviors;
 export type TGraphinClickTarget = 'node' | 'edge' | 'canvas';
 interface IAddressTxGraphProps {
   focusedId: string;
-  queryAddress: string;
+  formData: IGraphFormData;
   changeData: (data: GraphinData) => void;
   handleClick: (hexString: string, type?: TGraphinClickTarget) => void;
 }
@@ -36,14 +33,14 @@ const layout = {
 };
 
 export function AddressTxGraph(props: IAddressTxGraphProps) {
-  const { focusedId, queryAddress, handleClick, changeData } = props;
+  const { focusedId, formData, handleClick, changeData } = props;
 
   const graphRef = useRef<Graphin | null>(null);
   const [graphData, setGraphData] = useState<GraphinData>(initGraphData);
 
   const handleReset = () => {
-    setGraphData(initGraphData);
-    handleClick(initQueryAddress);
+    setGraphData({ edges: [], nodes: [setNode(formData.address)] });
+    handleClick(formData.address);
   };
 
   const [{ loading }, handleChangeData] = useAsyncFn(
@@ -67,10 +64,10 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
   useEffect(() => {
     const initGraphData = {
       edges: [],
-      nodes: [setNode(queryAddress)]
+      nodes: [setNode(formData.address)]
     };
     void handleChangeData(initGraphData);
-  }, [handleChangeData, queryAddress]);
+  }, [formData.address, handleChangeData]);
 
   useEffect(() => {
     changeData(graphData);
@@ -97,6 +94,7 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
           <MouseBehavior handleClick={handleClick} />
           <ToolBar handleReset={handleReset} />
           <GraphDataBar
+            formData={formData}
             graphData={graphData}
             focusedId={focusedId}
             changeData={handleChangeData}
