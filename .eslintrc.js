@@ -8,7 +8,6 @@ module.exports = {
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-unsafe-assignment': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/await-thenable': 'error'
+    '@typescript-eslint/no-explicit-any': 'off'
   }
 };
