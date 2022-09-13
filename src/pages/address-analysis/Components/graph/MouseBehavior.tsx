@@ -24,7 +24,6 @@ export const MouseBehavior = ({
 
       // 每次点击聚焦到点击节点上
       apis.focusNodeById(model.id);
-
       handleClick(model.id, 'node');
     },
     [apis, handleClick]
@@ -34,7 +33,6 @@ export const MouseBehavior = ({
     (evt: IG6GraphEvent) => {
       const edge = evt.item as IEdge;
       const model = edge.getModel() as EdgeConfig;
-
       graph.setItemState(edge as unknown as string, 'selected', true);
       handleClick(model.id ?? '', 'edge');
     },

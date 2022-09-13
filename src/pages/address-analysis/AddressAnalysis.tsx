@@ -12,6 +12,7 @@ import {
   initQueryAddress
 } from '@/services/mockData/addressAnalysis';
 import { waitTime } from '@/utils/common';
+import { getBlockByDate } from '@/utils/getBlockByDate';
 
 import styles from './AddressAnalysis.module.less';
 import { AddressDetail } from './Components/AddressDetail';
@@ -24,8 +25,14 @@ import { TxDetail } from './Components/TxDetail';
 const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
-interface IGraphFormData {
-  date: undefined;
+export interface IGraphFormData {
+  date: string[];
+  tokenType: string;
+  address: string;
+}
+
+interface formDateType {
+  date: moment.MomentInput[];
   tokenType: string;
   address: string;
 }
@@ -35,7 +42,7 @@ export function AddressAnalysis() {
   const [graphData, setGraphData] = useState<GraphinData>(initGraphData);
 
   const [formData, setFormData] = useState<IGraphFormData>({
-    date: undefined,
+    date: ['0', 'latest'],
     tokenType: 'ETH',
     address: initQueryAddress
   });
@@ -50,9 +57,11 @@ export function AddressAnalysis() {
     ['getAddressData', selectedHexData, formData.address],
     async () => {
       await waitTime(1000);
+
       if (!selectedHexData || selectedHexData.length >= 64) {
         return undefined;
       }
+
       return generateAddressData(selectedHexData || formData.address);
     }
   );
@@ -76,8 +85,29 @@ export function AddressAnalysis() {
   );
 
   const onClickAnalysis = () => {
-    void form.validateFields().then((allValues: IGraphFormData) => {
-      setFormData(allValues);
+    void form.validateFields().then(async (allValues: formDateType) => {
+      if (allValues.date) {
+        try {
+          const fromBlock = await getBlockByDate(allValues.date[0]);
+          const toBlock = await getBlockByDate(allValues.date[1]);
+
+          setFormData({
+            date: [fromBlock.toString(), toBlock.toString()],
+            tokenType: allValues.tokenType,
+            address: allValues.address
+          });
+          setSelectedHexData(allValues.address);
+          return;
+        } catch (e) {
+          console.log('e', e);
+        }
+      }
+
+      setFormData({
+        date: ['0', 'latest'],
+        tokenType: allValues.tokenType,
+        address: allValues.address
+      });
       setSelectedHexData(allValues.address);
     });
   };
@@ -102,7 +132,7 @@ export function AddressAnalysis() {
         >
           <Form.Item className="max-w-3xl !flex-1">
             <Input.Group compact={true}>
-              <Form.Item name="tokenType" noStyle={true} initialValue={['ETH']}>
+              <Form.Item name="tokenType" noStyle={true} initialValue={'ETH'}>
                 <Select
                   size="large"
                   style={{ width: '30%' }}
@@ -154,7 +184,7 @@ export function AddressAnalysis() {
         <div className="relative flex-1 overflow-hidden rounded bg-white shadow-card">
           <AddressTxGraph
             focusedId={selectedHexData}
-            queryAddress={formData.address}
+            formData={formData}
             handleClick={handleClickGraphin}
             changeData={setGraphData}
           />

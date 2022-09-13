@@ -135,6 +135,7 @@ const generateGraphData = (address: string, type: EdgeType): GraphinData => {
 
   for (let i = 0; i < nodeNumber; i++) {
     const id = `0x${uuidv4().replaceAll('-', '')}`;
+
     const hash = `0x${uuidv4()}${uuidv4()}`.replaceAll('-', '');
     const txNumber = randomNum(1, 3);
     const txAmount = Math.random().toFixed(3);

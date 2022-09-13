@@ -2,7 +2,7 @@ import { QuestionCircleFilled } from '@ant-design/icons';
 import { Gauge, GaugeConfig } from '@ant-design/plots';
 import { Empty, Tag, Tooltip } from 'antd';
 import { get } from 'lodash';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { CopyClipboard } from '@/components/Clipboard';
 import { DescriptionItem } from '@/components/DescriptionCard';
@@ -10,6 +10,7 @@ import {
   AddressDetailData,
   IAddressAnalysisDetail
 } from '@/services/mockData/addressAnalysis';
+import { getBaseInfo } from '@/services/transaction';
 import { transformAddress } from '@/utils/common';
 import { registerPlotsShape } from '@/utils/drawAntvGragh';
 
@@ -28,8 +29,22 @@ const AddressDetailField: { [key: string]: string } = {
   allSendedAmount: '累计发送金额'
 };
 
+interface infoType {
+  address: string;
+  balance: number;
+}
+
 export function AddressDetail(props: IAddressDetailPros) {
   const { unit, addressData = AddressDetailData } = props;
+  const [info, setInfo] = useState<infoType>();
+
+  useEffect(() => {
+    if (addressData) {
+      void getBaseInfo(addressData.address)
+        .then((data) => setInfo(data))
+        .catch((e) => console.log('e', e));
+    }
+  }, [addressData, setInfo]);
 
   if (!addressData) {
     return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
@@ -71,7 +86,7 @@ export function AddressDetail(props: IAddressDetailPros) {
         />
         <DescriptionItem
           label={`当前余额(${unit})`}
-          content={addressData.balance}
+          content={(info && info.balance / 1e18) || 0}
         />
         {Object.keys(AddressDetailField).map((fieldLey) => (
           <DescriptionItem

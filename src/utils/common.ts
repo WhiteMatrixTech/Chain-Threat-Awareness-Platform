@@ -49,6 +49,7 @@ export interface ITree {
   children?: ITree[];
   parentKeys: string[];
 }
+
 export function flatTreeData(treeData: ITree[] | null, parentKey = '') {
   const result: ITree[] = [];
   if (!treeData) {

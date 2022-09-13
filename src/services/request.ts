@@ -4,8 +4,7 @@ import store from 'store2';
 
 import { emitter, EmitterEvent } from './event';
 
-const baseURL =
-  process.env.REACT_APP_API_BASE_URL || 'https://alpha.api.whitematrixdev.com';
+const baseURL = process.env.REACT_APP_API_BASE_URL || '';
 
 export interface ResponseBody<R> {
   code: string;
@@ -128,10 +127,14 @@ async function refreshToken(data: RefreshTokenParams) {
 export async function getData<P, T>(
   url: string,
   params?: P,
+  headers?: AxiosRequestHeaders,
   withoutToastError = false
 ) {
   try {
-    const response: ResponseBody<T> = await axiosInstance.get(url, { params });
+    const response: ResponseBody<T> = await axiosInstance.get(url, {
+      params,
+      headers
+    });
     return response.data;
   } catch (e) {
     !withoutToastError &&
