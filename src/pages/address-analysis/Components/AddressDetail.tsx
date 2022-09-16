@@ -10,13 +10,20 @@ import {
   AddressDetailData,
   IAddressAnalysisDetail
 } from '@/services/mockData/addressAnalysis';
-import { getBaseInfo } from '@/services/transaction';
+import {
+  getBaseInfo,
+  getInAddressTransaction,
+  getOutAddressTransaction
+} from '@/services/transaction';
 import { transformAddress } from '@/utils/common';
 import { registerPlotsShape } from '@/utils/drawAntvGragh';
+
+import { IGraphFormData } from '../AddressAnalysis';
 
 interface IAddressDetailPros {
   unit: string;
   addressData: IAddressAnalysisDetail | undefined;
+  // formData: IGraphFormData;
 }
 
 const colors = ['magenta', 'red', 'purple', 'volcano', 'orange'];
@@ -43,6 +50,22 @@ export function AddressDetail(props: IAddressDetailPros) {
       void getBaseInfo(addressData.address)
         .then((data) => setInfo(data))
         .catch((e) => console.log('e', e));
+
+      /*  void getOutAddressTransaction({
+        address: addressData.address,
+        fromBlock: formData.date[0],
+        toBlock: formData.date[1]
+      })
+        .then((data) => console.log('data', data))
+        .catch((e) => console.log('error', e));
+
+      void getInAddressTransaction({
+        address: addressData.address,
+        fromBlock: formData.date[0],
+        toBlock: formData.date[1]
+      })
+        .then((data) => console.log('data==', data))
+        .catch((e) => console.log('error', e)); */
     }
   }, [addressData, setInfo]);
 
