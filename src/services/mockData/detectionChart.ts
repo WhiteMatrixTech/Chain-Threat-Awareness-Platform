@@ -1,13 +1,22 @@
 import { DetectionResultType } from './contractDetection';
 
 const SafetyInspectionItems = [
-  '编译器警告或错误',
-  '代码规范检测',
-  '函数调用检测',
-  '业务逻辑安全检测',
-  '溢出检测',
-  '异常可达状态检测',
-  'ERC20规范'
+  'SWC-101整数溢出',
+  'SWC-104未处理的异常',
+  'SWC-105以太泄漏',
+  'SWC-106无保护自毁',
+
+  'SWC-107重入漏洞',
+
+  'SWC-110触发assert断言',
+
+  'SWC-112不安全委托调用',
+
+  'SWC-114交易顺序依赖',
+
+  'SWC-120区块依赖',
+
+  'SWC-132以太锁定'
 ];
 
 interface IDetectionDetail {

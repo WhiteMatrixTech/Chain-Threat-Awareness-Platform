@@ -32,6 +32,18 @@ const data = [
   {
     projectNumber: '7',
     amount: 5
+  },
+  {
+    projectNumber: '8',
+    amount: 2
+  },
+  {
+    projectNumber: '9',
+    amount: 6
+  },
+  {
+    projectNumber: '10',
+    amount: 3
   }
 ];
 

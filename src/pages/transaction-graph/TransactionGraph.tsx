@@ -98,7 +98,7 @@ export function TransactionGraph() {
                   allowClear={true}
                   style={{ width: '70%' }}
                   className={styles.input}
-                  placeholder="请输入交易哈希"
+                  placeholder="请输入交易地址"
                 />
               </Form.Item>
             </Input.Group>

@@ -80,6 +80,7 @@ export function Detection() {
           </Form.Item>
           <Form.Item
             name="contractName"
+            initialValue="模糊测试"
             rules={[
               {
                 required: true,
@@ -95,7 +96,7 @@ export function Detection() {
             name="contract0"
             rules={[
               {
-                required: true,
+                required: false,
                 message: '请输入主合约部署参数'
               }
             ]}
@@ -104,6 +105,7 @@ export function Detection() {
           </Form.Item>
           <Form.Item
             name="compileVersion"
+            initialValue={originSolcVersionList[0]}
             rules={[
               {
                 required: true,
