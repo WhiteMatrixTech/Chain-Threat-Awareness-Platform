@@ -70,7 +70,6 @@ export function AddressAnalysis() {
     ['getEdgeTxData', selectedHexData],
     async () => {
       await waitTime(1000);
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const edge = graphData.edges.find(
         (edge) => edge.id === selectedHexData
       ) as any;
