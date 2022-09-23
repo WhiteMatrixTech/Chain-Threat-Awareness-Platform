@@ -152,7 +152,7 @@ export function AddressAnalysis() {
                   allowClear={true}
                   style={{ width: '70%' }}
                   className={styles.input}
-                  placeholder="请输入交易地址"
+                  placeholder="请输入钱包地址"
                 />
               </Form.Item>
             </Input.Group>
@@ -172,7 +172,11 @@ export function AddressAnalysis() {
         <div className="w-80 max-w-sm rounded bg-white shadow-card">
           <Spin spinning={qryAddressLoading || qryEdgeTxLoading}>
             {isEdge ? (
-              <TxDetail unit={formData.tokenType} txData={edgeTxData} />
+              <TxDetail
+                unit={formData.tokenType}
+                edge={graphData.edges}
+                txData={edgeTxData}
+              />
             ) : (
               <AddressDetail
                 unit={formData.tokenType}

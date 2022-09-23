@@ -26,11 +26,11 @@ const getMenuItem = (
         flowType === 'inflow'
           ? TxGraphMenuItemKeys.EXPAND_LEFT_SIDES
           : TxGraphMenuItemKeys.EXPAND_RIGHT_SIDES
-    },
-    {
-      label: flowType === 'inflow' ? '向右收起' : '向左收起',
-      key: TxGraphMenuItemKeys.COLLAPSE_TO_CENTER
     }
+    // {
+    //   label: flowType === 'inflow' ? '向右收起' : '向左收起',
+    //   key: TxGraphMenuItemKeys.COLLAPSE_BOTH_SIDES
+    // }
   ];
 
   const haveRelativeNode = txGraphData.edges.find((edge) => {
@@ -105,6 +105,7 @@ export const MenuContent = (props: {
   const { type, flowType = '' } = item?.getModel() as ITxGraphNode;
 
   const handleClick = (e: { key: string }) => {
+    console.log('txGraphData', txGraphData);
     const nextGraphData = getGraphData({
       menuKey: e.key as TxGraphMenuItemKeys,
       txHash: id,
@@ -122,18 +123,18 @@ export const MenuContent = (props: {
   };
 
   const menuItems = useMemo(() => {
-    if (type === 'DefaultTxNode') {
+    if (type === 'AmountFlowAddressNode') {
       const items = getMenuItem(id, flowType, txGraphData);
 
       return items;
     }
-    return [
-      { label: '展开左侧', key: TxGraphMenuItemKeys.EXPAND_LEFT_SIDES },
-      { label: '展开右侧', key: TxGraphMenuItemKeys.EXPAND_RIGHT_SIDES }
-    ];
+    // return [
+    //   { label: '展开左侧', key: TxGraphMenuItemKeys.EXPAND_LEFT_SIDES },
+    //   { label: '展开右侧', key: TxGraphMenuItemKeys.EXPAND_RIGHT_SIDES }
+    // ];
   }, [id, type, flowType, txGraphData]);
 
-  if (type === 'AmountFlowAddressNode') {
+  if (type === 'CenterTxNode') {
     return null;
   }
 

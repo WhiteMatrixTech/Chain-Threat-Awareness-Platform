@@ -31,12 +31,12 @@ export function TransactionGraph() {
 
   const [formData, setFormData] = useState<IGraphFormData>({
     date: undefined,
-    tokenType: 'BTC',
+    tokenType: 'ETH',
     transactionHash:
-      'a893e394120135be6431254bc5b7184b33ec1fe8eb38e88a4ba05e30f04e3966'
+      '0x3c2eacee8cb9ea750ae4cc51f41c40e73b5099b8ed5df0fd2dd9cb72d58dbb62'
   });
   const [selectedHexData, setSelectedHexData] = useState(
-    'a893e394120135be6431254bc5b7184b33ec1fe8eb38e88a4ba05e30f04e3966'
+    '0x3c2eacee8cb9ea750ae4cc51f41c40e73b5099b8ed5df0fd2dd9cb72d58dbb62'
   );
   const isTx = useMemo(
     () => selectedHexData.length > 32,
@@ -78,7 +78,7 @@ export function TransactionGraph() {
         >
           <Form.Item className="max-w-3xl !flex-1">
             <Input.Group compact={true}>
-              <Form.Item name="tokenType" noStyle={true} initialValue={['BTC']}>
+              <Form.Item name="tokenType" noStyle={true} initialValue={['ETH']}>
                 <Select
                   size="large"
                   style={{ width: '30%' }}
@@ -91,14 +91,14 @@ export function TransactionGraph() {
               <Form.Item
                 name="transactionHash"
                 noStyle={true}
-                initialValue="a893e394120135be6431254bc5b7184b33ec1fe8eb38e88a4ba05e30f04e3966"
+                initialValue="0x3c2eacee8cb9ea750ae4cc51f41c40e73b5099b8ed5df0fd2dd9cb72d58dbb62"
               >
                 <Input
                   size="large"
                   allowClear={true}
                   style={{ width: '70%' }}
                   className={styles.input}
-                  placeholder="请输入交易地址"
+                  placeholder="请输入交易hash"
                 />
               </Form.Item>
             </Input.Group>

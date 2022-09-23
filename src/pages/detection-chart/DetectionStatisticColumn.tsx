@@ -97,11 +97,11 @@ export function DetectionStatisticColumn() {
             自动形式化验证工具支持
           </span>
         </div>
-        <div className="mt-5">
+        <div className="mt-5 h-[300px]">
           <DemoColumn />
         </div>
       </div>
-      <div className="w-[180px] bg-[#F6F4FD] py-[18px] px-5">
+      <div className="w-[220px] bg-[#F6F4FD] py-[18px] px-5">
         <div className="text-xl font-medium">安全检测项</div>
         <ul className="mt-5 flex flex-col gap-y-2">
           {SafetyInspectionItems.map((label, index) => (

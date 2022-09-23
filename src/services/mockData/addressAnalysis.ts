@@ -48,6 +48,40 @@ interface ITxDetail {
   recentTxTimestamp: string;
 }
 
+export interface IEdgeData {
+  type: EdgeType;
+  txNumber: number;
+  txAmount: number | string;
+  firstTransactionTimestamp: number | string;
+  lastTransactionTimestamp: number | string;
+}
+
+interface labelType {
+  value: string;
+  fill: string;
+  fontSize: number;
+}
+
+interface keyshapeType {
+  stroke: string;
+  endArrow: {
+    path: string;
+    fill: string;
+  };
+}
+
+interface IEdgeStyle {
+  label: labelType;
+  keyshape: keyshapeType;
+}
+export interface IEdge {
+  source: string;
+  target: string;
+  id: string;
+  data: IEdgeData;
+  style: IEdgeStyle;
+}
+
 const setEdge = (data: {
   hash: string;
   source: string;
@@ -55,8 +89,19 @@ const setEdge = (data: {
   type: EdgeType;
   txNumber: number;
   txAmount: number | string;
+  firstTransactionTimestamp: number | string;
+  lastTransactionTimestamp: number | string;
 }) => {
-  const { hash, source, target, type, txNumber, txAmount } = data;
+  const {
+    hash,
+    source,
+    target,
+    type,
+    txNumber,
+    txAmount,
+    firstTransactionTimestamp,
+    lastTransactionTimestamp
+  } = data;
   const text = `${txAmount}ETH - ${txNumber}笔`;
 
   return {
@@ -66,6 +111,8 @@ const setEdge = (data: {
     data: {
       txAmount,
       txNumber,
+      firstTransactionTimestamp,
+      lastTransactionTimestamp,
       type
     },
     style: {
@@ -139,12 +186,30 @@ const generateGraphData = (address: string, type: EdgeType): GraphinData => {
     const hash = `0x${uuidv4()}${uuidv4()}`.replaceAll('-', '');
     const txNumber = randomNum(1, 3);
     const txAmount = Math.random().toFixed(3);
+    const firstTransactionTimestamp = dayjs()
+      .subtract(randomNum(1, 20), 'second')
+      .format('YYYY-MM-DD hh:mm:ss');
+
+    const lastTransactionTimestamp = dayjs()
+      .subtract(randomNum(1, 20), 'second')
+      .format('YYYY-MM-DD hh:mm:ss');
 
     const source = type === EdgeType.SOURCE ? id : address;
     const target = type === EdgeType.SOURCE ? address : id;
 
     nodes.push(setNode(id));
-    edges.push(setEdge({ hash, source, target, type, txAmount, txNumber }));
+    edges.push(
+      setEdge({
+        hash,
+        source,
+        target,
+        type,
+        txAmount,
+        firstTransactionTimestamp,
+        lastTransactionTimestamp,
+        txNumber
+      })
+    );
   }
 
   return {
