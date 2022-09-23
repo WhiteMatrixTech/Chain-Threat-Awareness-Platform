@@ -12,13 +12,14 @@ import {
 } from '@/services/transaction';
 import { transformAddress } from '@/utils/common';
 
-interface IEdge extends IUserEdge {
-  data: IEdgeData;
-}
 interface ITxDetailPros {
   txData: ITxDetail | undefined;
   unit: string;
-  edge: IEdge[];
+  edge: IUserEdge[];
+}
+
+interface IEdge extends IUserEdge {
+  data: IEdgeData;
 }
 
 export function TxDetail(props: ITxDetailPros) {
@@ -32,7 +33,7 @@ export function TxDetail(props: ITxDetailPros) {
       const data = edge.filter(
         (item) => item.source === txData.from && item.target === txData.to
       );
-      setTransactionData(data[0]);
+      setTransactionData(data[0] as IEdge);
     }
   }, [edge, txData]);
 
