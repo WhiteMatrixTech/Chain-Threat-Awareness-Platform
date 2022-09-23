@@ -49,6 +49,8 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
         await waitTime(800);
       }
 
+      console.log('data', data);
+
       setGraphData(data);
 
       if (graphRef.current && focusedId) {
@@ -66,6 +68,7 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
       edges: [],
       nodes: [setNode(formData.address)]
     };
+
     void handleChangeData(initGraphData);
   }, [formData.address, handleChangeData]);
 

@@ -54,11 +54,11 @@ interface IAddressDetailData {
 const generateTxGraphData = (
   txHash: string,
   flowType: 'inflow' | 'outflow',
-  tokenUnit = 'BTC'
+  tokenUnit = 'ETH'
 ): [ITxGraphNode[], ITxGraphEdge[]] => {
   const addresses = [
-    `${uuidv4().replaceAll('-', '')}`,
     `${uuidv4().replaceAll('-', '')}`
+    // `${uuidv4().replaceAll('-', '')}`
   ];
   const transactions = [`${uuidv4()}${uuidv4()}`, `${uuidv4()}${uuidv4()}`].map(
     (tx) => tx.replaceAll('-', '')
@@ -74,44 +74,44 @@ const generateTxGraphData = (
       tokenUnit,
       flowType
     };
-    const node2: ITxGraphNode = {
-      id: transactions[index],
-      type: 'DefaultTxNode',
-      tokenAmount: Number(tokenAmount).toFixed(0),
-      tokenUnit,
-      flowType
-    };
+    // const node2: ITxGraphNode = {
+    //   id: transactions[index],
+    //   type: 'DefaultTxNode',
+    //   tokenAmount: Number(tokenAmount).toFixed(0),
+    //   tokenUnit,
+    //   flowType
+    // };
 
     nodes.push(node1);
-    nodes.push(node2);
+    // nodes.push(node2);
 
     let edge1: ITxGraphEdge;
-    let edge2: ITxGraphEdge;
+    // let edge2: ITxGraphEdge;
     if (flowType === 'inflow') {
       edge1 = {
-        id: `${uuidv4().replaceAll('-', '')}`,
-        source: transactions[index],
-        target: address
-      };
-      edge2 = {
         id: `${uuidv4().replaceAll('-', '')}`,
         source: address,
         target: txHash
       };
+      // edge2 = {
+      //   id: `${uuidv4().replaceAll('-', '')}`,
+      //   source: address,
+      //   target: txHash
+      // };
     } else {
       edge1 = {
         id: `${uuidv4().replaceAll('-', '')}`,
         source: txHash,
         target: address
       };
-      edge2 = {
-        id: `${uuidv4().replaceAll('-', '')}`,
-        source: address,
-        target: transactions[index]
-      };
+      // edge2 = {
+      //   id: `${uuidv4().replaceAll('-', '')}`,
+      //   source: address,
+      //   target: transactions[index]
+      // };
     }
     edges.push(edge1);
-    edges.push(edge2);
+    // edges.push(edge2);
   });
 
   return [nodes, edges];
@@ -252,6 +252,17 @@ const removeDataFromGraph = (
     removeNodeMap.set(edge.target, edge.target);
   });
   removeNodeMap.delete(lastNodeId);
+
+  removeNodeMap.set(txHash, txHash);
+  if (flowType === 'inflow') {
+    const ede = txGraphData.edges.find((item) => item.source === txHash);
+    ede && removeEdgeIdMap.set(ede.id, ede.id);
+  }
+
+  if (flowType === 'outflow') {
+    const ede = txGraphData.edges.find((item) => item.target === txHash);
+    ede && removeEdgeIdMap.set(ede.id, ede.id);
+  }
 
   const nodes: ITxGraphNode[] = [];
   const edges: ITxGraphEdge[] = [];

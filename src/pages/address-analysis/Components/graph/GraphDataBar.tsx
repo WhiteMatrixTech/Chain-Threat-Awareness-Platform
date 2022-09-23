@@ -1,6 +1,7 @@
 import { GraphinData, IUserEdge, IUserNode } from '@antv/graphin';
 import { message } from 'antd';
 import cn from 'classnames';
+import dayjs from 'dayjs';
 import { useCallback, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -72,6 +73,12 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
         const hash = `0x${uuidv4()}${uuidv4()}`.replaceAll('-', '');
         const txNumber = item.count;
         const txAmount = Number(item.value) / 1e18;
+        const firstTransactionTimestamp = dayjs(
+          Number(item.firstTransactionTimestamp) * 1000
+        ).format('YYYY-MM-DD hh:mm:ss');
+        const lastTransactionTimestamp = dayjs(
+          Number(item.lastTransactionTimestamp) * 1000
+        ).format('YYYY-MM-DD hh:mm:ss');
         const source = item.address;
         const target = focusedId;
         nodes.push(setNode(id));
@@ -82,7 +89,9 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
             target,
             type: EdgeType.SOURCE,
             txAmount,
-            txNumber
+            txNumber,
+            firstTransactionTimestamp,
+            lastTransactionTimestamp
           })
         );
       });
@@ -122,6 +131,12 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
         const hash = `0x${uuidv4()}${uuidv4()}`.replaceAll('-', '');
         const txNumber = item.count;
         const txAmount = Number(item.value) / 1e18;
+        const firstTransactionTimestamp = dayjs(
+          Number(item.firstTransactionTimestamp) * 1000
+        ).format('YYYY-MM-DD hh:mm:ss');
+        const lastTransactionTimestamp = dayjs(
+          Number(item.lastTransactionTimestamp) * 1000
+        ).format('YYYY-MM-DD hh:mm:ss');
         const source = focusedId;
         const target = item.address;
         nodes.push(setNode(id));
@@ -132,7 +147,9 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
             target,
             type: EdgeType.PLACE,
             txAmount,
-            txNumber
+            txNumber,
+            firstTransactionTimestamp,
+            lastTransactionTimestamp
           })
         );
       });
@@ -183,6 +200,12 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
           const hash = `0x${uuidv4()}${uuidv4()}`.replaceAll('-', '');
           const txNumber = item.count;
           const txAmount = Number(item.value) / 1e18;
+          const firstTransactionTimestamp = dayjs(
+            Number(item.firstTransactionTimestamp) * 1000
+          ).format('YYYY-MM-DD hh:mm:ss');
+          const lastTransactionTimestamp = dayjs(
+            Number(item.lastTransactionTimestamp) * 1000
+          ).format('YYYY-MM-DD hh:mm:ss');
           const source = focusedId;
           const target = item.address;
           nodes.push(setNode(id));
@@ -193,7 +216,9 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
               target,
               type: EdgeType.PLACE,
               txAmount,
-              txNumber
+              txNumber,
+              firstTransactionTimestamp,
+              lastTransactionTimestamp
             })
           );
         });
@@ -207,6 +232,12 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
           const hash = `0x${uuidv4()}${uuidv4()}`.replaceAll('-', '');
           const txNumber = item.count;
           const txAmount = Number(item.value) / 1e18;
+          const firstTransactionTimestamp = dayjs(
+            Number(item.firstTransactionTimestamp) * 1000
+          ).format('YYYY-MM-DD hh:mm:ss');
+          const lastTransactionTimestamp = dayjs(
+            Number(item.lastTransactionTimestamp) * 1000
+          ).format('YYYY-MM-DD hh:mm:ss');
           const source = item.address;
           const target = focusedId;
           nodes.push(setNode(id));
@@ -217,7 +248,9 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
               target,
               type: EdgeType.SOURCE,
               txAmount,
-              txNumber
+              txNumber,
+              firstTransactionTimestamp,
+              lastTransactionTimestamp
             })
           );
         });

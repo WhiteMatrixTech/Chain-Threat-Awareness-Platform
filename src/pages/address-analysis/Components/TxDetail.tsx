@@ -1,17 +1,40 @@
 // import { QuestionCircleFilled } from '@ant-design/icons';
+import { IUserEdge } from '@antv/graphin';
 import { Empty, Tooltip } from 'antd';
+import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 
 import { DescriptionItem } from '@/components/DescriptionCard';
-import { ITxDetail } from '@/services/mockData/addressAnalysis';
+import { IEdgeData, ITxDetail } from '@/services/mockData/addressAnalysis';
+import {
+  getOutAddressTransaction,
+  ITransactionResponse
+} from '@/services/transaction';
 import { transformAddress } from '@/utils/common';
 
+interface IEdge extends IUserEdge {
+  data: IEdgeData;
+}
 interface ITxDetailPros {
   txData: ITxDetail | undefined;
   unit: string;
+  edge: IEdge[];
 }
 
 export function TxDetail(props: ITxDetailPros) {
-  const { unit, txData } = props;
+  const { unit, txData, edge } = props;
+  const [transactionData, setTransactionData] = useState<IEdge>();
+
+  console.log('edge', transactionData?.data.firstTransactionTimestamp);
+
+  useEffect(() => {
+    if (txData) {
+      const data = edge.filter(
+        (item) => item.source === txData.from && item.target === txData.to
+      );
+      setTransactionData(data[0]);
+    }
+  }, [edge, txData]);
 
   if (!txData) {
     return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
@@ -63,17 +86,16 @@ export function TxDetail(props: ITxDetailPros) {
       <div className="flex flex-col gap-y-4 overflow-y-auto">
         <DescriptionItem label="交易笔数" content={`${txData.txNumber}笔`} />
         <DescriptionItem
-          label="交易金额"
-          unit={unit}
+          label={`交易金额(${unit})`}
           content={txData.txAmount}
         />
         <DescriptionItem
           label="首次交易时间"
-          content={txData.firstTxTimestamp}
+          content={transactionData?.data.firstTransactionTimestamp}
         />
         <DescriptionItem
           label="最近交易时间"
-          content={txData.recentTxTimestamp}
+          content={transactionData?.data.lastTransactionTimestamp}
         />
       </div>
       <div className="mt-4 border-t-[0.0469rem] py-4">

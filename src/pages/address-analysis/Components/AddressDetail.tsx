@@ -1,7 +1,7 @@
 import { QuestionCircleFilled } from '@ant-design/icons';
 import { Gauge, GaugeConfig } from '@ant-design/plots';
 import { Empty, Tag, Tooltip } from 'antd';
-import { get } from 'lodash';
+import dayjs from 'dayjs';
 import { useEffect, useMemo, useState } from 'react';
 
 import { CopyClipboard } from '@/components/Clipboard';
@@ -12,13 +12,14 @@ import {
 } from '@/services/mockData/addressAnalysis';
 import {
   getBaseInfo,
-  getInAddressTransaction,
-  getOutAddressTransaction
+  // getInAddressTransaction,
+  // getOutAddressTransaction,
+  IBaseInfoResponse
 } from '@/services/transaction';
 import { transformAddress } from '@/utils/common';
 import { registerPlotsShape } from '@/utils/drawAntvGragh';
 
-import { IGraphFormData } from '../AddressAnalysis';
+// import { IGraphFormData } from '../AddressAnalysis';
 
 interface IAddressDetailPros {
   unit: string;
@@ -28,44 +29,33 @@ interface IAddressDetailPros {
 
 const colors = ['magenta', 'red', 'purple', 'volcano', 'orange'];
 
-const AddressDetailField: { [key: string]: string } = {
-  firstTxTimestamp: '首次交易时间',
-  txNumber: '交易次数',
-  maxTxAmount: '最大一笔交易金额',
-  allReceivedAmount: '累计接收金额',
-  allSendedAmount: '累计发送金额'
-};
-
-interface infoType {
-  address: string;
-  balance: number;
-}
+// const AddressDetailField: { [key: string]: string } = {
+//   firstTxTimestamp: '首次交易时间',
+//   txNumber: '交易次数',
+//   maxTxAmount: '最大一笔交易金额',
+//   allReceivedAmount: '累计接收金额',
+//   allSendedAmount: '累计发送金额'
+// };
 
 export function AddressDetail(props: IAddressDetailPros) {
   const { unit, addressData = AddressDetailData } = props;
-  const [info, setInfo] = useState<infoType>();
+  const [info, setInfo] = useState<IBaseInfoResponse>({
+    address: '',
+    balance: '',
+    firstTransactionTimestamp: '',
+    inUserCount: '',
+    outUserCount: '',
+    transactionCount: '',
+    transactionInAmountSum: '',
+    transactionMaxAmount: '',
+    transactionOutAmountSum: ''
+  });
 
   useEffect(() => {
     if (addressData) {
       void getBaseInfo(addressData.address)
         .then((data) => setInfo(data))
         .catch((e) => console.log('e', e));
-
-      /*  void getOutAddressTransaction({
-        address: addressData.address,
-        fromBlock: formData.date[0],
-        toBlock: formData.date[1]
-      })
-        .then((data) => console.log('data', data))
-        .catch((e) => console.log('error', e));
-
-      void getInAddressTransaction({
-        address: addressData.address,
-        fromBlock: formData.date[0],
-        toBlock: formData.date[1]
-      })
-        .then((data) => console.log('data==', data))
-        .catch((e) => console.log('error', e)); */
     }
   }, [addressData, setInfo]);
 
@@ -105,20 +95,31 @@ export function AddressDetail(props: IAddressDetailPros) {
       <div className="flex flex-col gap-y-4 overflow-y-auto">
         <DescriptionItem
           label="转出/转入对手数量"
-          content={`${addressData.transferOutMatchAmount}/${addressData.transferInMatchAmount}`}
+          content={`${info?.outUserCount}/${info?.inUserCount}`}
         />
         <DescriptionItem
           label={`当前余额(${unit})`}
-          content={(info && info.balance / 1e18) || 0}
+          content={Number(info.balance) / 1e18}
         />
-        {Object.keys(AddressDetailField).map((fieldLey) => (
-          <DescriptionItem
-            key={fieldLey}
-            label={AddressDetailField[fieldLey]}
-            content={get(addressData, `${fieldLey}`, '') as string}
-            unit={unit}
-          />
-        ))}
+        <DescriptionItem
+          label={`首次交易时间`}
+          content={dayjs(Number(info.firstTransactionTimestamp) * 1000).format(
+            'YYYY-MM-DD HH:mm:ss'
+          )}
+        />
+        <DescriptionItem label={`交易次数`} content={info.transactionCount} />
+        <DescriptionItem
+          label={`最大一笔交易金额(${unit})`}
+          content={`${Number(info.transactionMaxAmount) / 1e18}`}
+        />
+        <DescriptionItem
+          label={`累计接受金额(${unit})`}
+          content={`${Number(info.transactionInAmountSum) / 1e18}`}
+        />
+        <DescriptionItem
+          label={`累计发送金额(${unit})`}
+          content={`${Number(info.transactionOutAmountSum) / 1e18}`}
+        />
       </div>
       <div className="mt-4 border-t-[0.0469rem] py-4">
         <div className="mb-4 text-xl font-semibold">地址健康度</div>
