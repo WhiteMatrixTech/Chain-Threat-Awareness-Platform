@@ -1,4 +1,4 @@
-import { getData } from './request';
+import { getData, postData } from './request';
 
 interface ITransactionType {
   address: string;
@@ -33,13 +33,30 @@ export interface IBaseInfoResponse {
   transactionOutAmountSum: string;
 }
 
-interface ITransactionBaseInfoResponse {
+export interface ITransactionBaseInfoResponse {
   blockNumber: string;
   blockTimestamp: string;
   from: string;
   to: string;
   hash: string;
   value: string;
+  inputAddressNumber?: number;
+  outputAddressNumber?: number;
+  inputTxNumber?: number;
+  outputTxNumber?: number;
+}
+
+export interface IDetectContractRequest {
+  model: string;
+  source_code: string;
+  version: string;
+}
+
+interface IDetectContractResponse {
+  description: string;
+  line: number;
+  security: 'Medium' | 'Low' | 'High';
+  swcId: number;
 }
 
 export async function getInAddressTransaction(params: ITransactionType) {
@@ -79,5 +96,12 @@ export async function getTransactionBaseInfo(transaction: string) {
     {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
+  );
+}
+
+export async function detectContract(data: IDetectContractRequest) {
+  return postData<IDetectContractRequest, IDetectContractResponse[]>(
+    '/chainthreat/v1/contract/detect',
+    data
   );
 }

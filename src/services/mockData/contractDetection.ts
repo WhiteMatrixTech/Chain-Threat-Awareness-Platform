@@ -2,110 +2,32 @@ import { cloneDeep } from 'lodash';
 
 import { IExplorerItem, IFile } from '@/pages/contract-detection/ContractStore';
 
-const BasicContract = `pragma solidity ^0.7.0;
-
-/**
- * @title Storage
- * @dev Store & retrieve value in a variable
- */
- contract TestToken {
-  event Transfer(address indexed _from, address indexed _to, uint256 _value);
-  event Approval(address indexed _owner, address indexed _spender, uint256 _value);
-  event Deposit(address _from, uint value);
-  address constant _walletLibrary = 0x0000000000000000000000000000000000000000;
-  address public owner = _walletLibrary;
-  mapping (address => uint256) balances;
-  mapping (address => mapping (address => uint256)) allowed;
-  uint256 public totalSupply;
-  uint256 public settime;
-
-  constructor() public {
-      totalSupply=100000000;
-      settime = block.timestamp;
+const BasicContract = `pragma solidity ^0.4.26;
+interface Token {
+  function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
+  function allowance(address owner, address spender) external view returns (uint256);
+}
+contract TokenSale {
+  uint256 start = now;
+  uint256 end = now + 30 days;
+  address wallet = 0xCafEBAbECAFEbAbEcaFEbabECAfebAbEcAFEBaBe;
+  Token token = Token(0x1234567812345678123456781234567812345678);
+  address owner;
+  bool sold;
+  function Tokensale() public {
+    owner = msg.sender;
   }
-
-  function transfer(address _to, uint256 _value) external returns (bool success) {
-      require (balances[msg.sender] >= _value);
-      require (_value > 0);
-      balances[msg.sender] -= _value;
-      balances[_to] += _value;
-      emit Transfer(msg.sender, _to, _value);
-      return true;
+  function buy() public payable {
+    require(now < end);
+    require(msg.value == 42 ether + (now - start) / 60 / 60 / 24 * 1 ether);
+    require(token.transferFrom(this, msg.sender, token.allowance(wallet, this)));
+    sold = true;
   }
-
-  function transferFrom(address _from, address _to, uint256 _value) external  returns (bool success) {
-      require (balances[_from] >= _value);
-      require (balances[_to] + _value > balances[_to]);
-      balances[_to] += _value;
-      balances[_from] -= _value;
-      allowed[_from][msg.sender] -= _value;
-      emit Transfer(_from, _to, _value);
-      return true;
-  }
-
-  function mint(address account, uint256 amount) external {
-      require(account != address(0));
-
-      totalSupply += amount;
-      balances[account] += amount;
-      emit Transfer(address(0), account, amount);
-  }
-
-  function balanceOf(address _owner)external view returns (uint256 balance) {
-      return balances[_owner];
-  }
-
-  function approve(address _spender, uint256 _value) external returns (bool success) {
-      allowed[msg.sender][_spender] = _value;
-      Approval(msg.sender, _spender, _value);
-      return true;
-  }
-
-  function allowance(address _owner, address _spender) external view returns (uint256 remaining) {
-    return allowed[_owner][_spender];
-  }
-
-  function withdraw(address to, uint256 amount) public{
-      assert (to!=address(0x0));
-      require(balances[msg.sender] > amount);
-      require(address(this).balance > amount);
-      to.call{value:amount}('');
-      balances[msg.sender] -= amount;
-  }
-
-  fallback() external payable {
-    if (msg.value > 0)
-         Deposit(msg.sender, msg.value);
-    else if (msg.data.length > 0)
-       _walletLibrary.delegatecall(msg.data);
-  }
-
-  function getNow() external view returns(uint){
-      return block.timestamp;
-  }
-
-  function  senderther() public{
-      msg.sender.send(address(this).balance);
-  }
-
-  function allocate() public{
-      balances[msg.sender] += 100;
-  }
-
-  function dosomething() external{
-      bytes32 hash = blockhash(block.number);
-      uint256 time = block.timestamp;
-      if(time >= settime){
-          allocate();
-      }
-      uint256 num = block.number;
-      if(num >= 255556){
-          senderther();
-      }
-  }
-
-  function selfdestroy() public{
-      selfdestruct(msg.sender);
+  function withdraw() public {
+    require(msg.sender == owner);
+    require(now >= end);
+    require(sold);
+    owner.transfer(address(this).balance);
   }
 }
 `;
@@ -120,6 +42,12 @@ const ResultIconColor = {
   [DetectionResultType.ERROR]: '#FF8787',
   [DetectionResultType.WARNING]: '#FFDD65',
   [DetectionResultType.INFO]: '#5DA4F7'
+};
+
+const ResultColor = {
+  Low: '#5DA4F7',
+  Medium: '#FFDD65',
+  High: '#FF8787'
 };
 
 const ContractDetectionResults = [
@@ -209,5 +137,6 @@ export {
   ContractDetectionResults,
   DetectionResultType,
   removeExplorerItems,
+  ResultColor,
   ResultIconColor
 };

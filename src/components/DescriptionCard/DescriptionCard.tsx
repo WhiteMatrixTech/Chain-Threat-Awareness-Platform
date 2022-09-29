@@ -31,21 +31,21 @@ export function DescriptionCard(props: IDescriptionCardProps) {
 
 export function DescriptionItem({
   label,
-  content,
-  unit
-}: {
+  content
+}: // unit
+{
   label: string;
   content: string | number | ReactNode;
   unit?: string;
 }) {
-  const showUnit = unit && isNumber(content);
+  // const showUnit = unit && isNumber(content);
 
   return (
     <div>
       <div className="text-lg font-medium">{label}</div>
       <div>
         <span className="text-lg opacity-70">{content}</span>
-        {showUnit && <span className="pl-1 text-sm opacity-40">{unit}</span>}
+        {/* {showUnit && <span className="pl-1 text-sm opacity-40">{unit}</span>} */}
       </div>
     </div>
   );

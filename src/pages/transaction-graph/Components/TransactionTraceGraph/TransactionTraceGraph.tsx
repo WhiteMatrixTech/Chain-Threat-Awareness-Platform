@@ -84,16 +84,6 @@ export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
   );
 
   useEffect(() => {
-    // const [inflowNodes, inflowEdges] = generateTxGraphData(
-    //   queryHash,
-    //   'inflow',
-    //   tokenUnit
-    // );
-    // const [outflowNodes, outflowEdges] = generateTxGraphData(
-    //   queryHash,
-    //   'outflow',
-    //   tokenUnit
-    // );
     getTransactionBaseInfo(queryHash)
       .then((data) => {
         const initNode = {
@@ -135,6 +125,17 @@ export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
         void handleChangeData(randomData, true);
       })
       .catch((e) => console.log('e', e));
+
+    // const [inflowNodes, inflowEdges] = generateTxGraphData(
+    //   queryHash,
+    //   'inflow',
+    //   tokenUnit
+    // );
+    // const [outflowNodes, outflowEdges] = generateTxGraphData(
+    //   queryHash,
+    //   'outflow',
+    //   tokenUnit
+    // );
     // const randomData = {
     //   nodes: [initNode, ...inflowNodes, ...outflowNodes],
     //   edges: [...inflowEdges, ...outflowEdges]

@@ -1,16 +1,22 @@
+/* eslint-disable no-case-declarations */
 import { Components, ContextMenuValue } from '@antv/graphin';
 import { Menu } from 'antd';
 import { cloneDeep } from 'lodash';
 import { useMemo } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import {
-  generateTxGraphData,
+  // generateTxGraphData,
   ITxGraphData,
   ITxGraphEdge,
   ITxGraphNode,
   removeDataFromGraph,
   TxGraphMenuItemKeys
 } from '@/services/mockData/transactionGraph';
+import {
+  getInAddressTransaction,
+  getOutAddressTransaction
+} from '@/services/transaction';
 
 const { ContextMenu } = Components;
 
@@ -27,10 +33,10 @@ const getMenuItem = (
           ? TxGraphMenuItemKeys.EXPAND_LEFT_SIDES
           : TxGraphMenuItemKeys.EXPAND_RIGHT_SIDES
     }
-    // {
-    //   label: flowType === 'inflow' ? '向右收起' : '向左收起',
-    //   key: TxGraphMenuItemKeys.COLLAPSE_BOTH_SIDES
-    // }
+    /* {
+      label: flowType === 'inflow' ? '向右收起' : '向左收起',
+      key: TxGraphMenuItemKeys.COLLAPSE_BOTH_SIDES
+    } */
   ];
 
   const haveRelativeNode = txGraphData.edges.find((edge) => {
@@ -49,7 +55,7 @@ const getMenuItem = (
   ]);
 };
 
-const getGraphData = (data: {
+const getGraphData = async (data: {
   menuKey: TxGraphMenuItemKeys;
   txHash: string;
   txGraphData: ITxGraphData;
@@ -61,16 +67,66 @@ const getGraphData = (data: {
   let nodes: ITxGraphNode[] = [];
   let edges: ITxGraphEdge[] = [];
 
+  const nodeItem: ITxGraphNode[] = [];
+  const edgeItem: ITxGraphEdge[] = [];
+
   switch (menuKey) {
     case TxGraphMenuItemKeys.EXPAND_LEFT_SIDES:
-      [nodes, edges] = generateTxGraphData(txHash, 'inflow');
-      nodes = preGraphData.nodes.concat(nodes);
-      edges = preGraphData.edges.concat(edges);
+      const inData = await getInAddressTransaction({
+        address: txHash,
+        fromBlock: '0',
+        toBlock: 'latest'
+      });
+
+      inData.forEach((item) => {
+        nodeItem.push({
+          id: item.address,
+          type: 'AmountFlowAddressNode',
+          tokenAmount: item.value,
+          tokenUnit: 'ETH',
+          flowType: 'inflow'
+        });
+
+        edgeItem.push({
+          id: `${uuidv4().replaceAll('-', '')}`,
+          source: item.address,
+          target: txHash
+        });
+      });
+      // [nodes, edges] = generateTxGraphData(txHash, 'inflow');
+
+      nodes = preGraphData.nodes.concat(nodeItem);
+      edges = preGraphData.edges.concat(edgeItem);
       break;
     case TxGraphMenuItemKeys.EXPAND_RIGHT_SIDES:
-      [nodes, edges] = generateTxGraphData(txHash, 'outflow');
-      nodes = preGraphData.nodes.concat(nodes);
-      edges = preGraphData.edges.concat(edges);
+      // eslint-disable-next-line no-case-declarations
+      const outData = await getOutAddressTransaction({
+        address: txHash,
+        fromBlock: '0',
+        toBlock: 'latest'
+      });
+
+      outData.forEach((item) => {
+        nodeItem.push({
+          id: item.address,
+          type: 'AmountFlowAddressNode',
+          tokenAmount: item.value,
+          tokenUnit: 'ETH',
+          flowType: 'outflow'
+        });
+
+        edgeItem.push({
+          id: `${uuidv4().replaceAll('-', '')}`,
+          source: txHash,
+          target: item.address
+        });
+      });
+
+      // [nodes, edges] = generateTxGraphData(txHash, 'outflow');
+
+      nodes = preGraphData.nodes.concat(nodeItem);
+      edges = preGraphData.edges.concat(edgeItem);
+
       break;
     case TxGraphMenuItemKeys.COLLAPSE_TO_CENTER:
       // 向中心收缩，具体流向由flowType决定
@@ -104,9 +160,8 @@ export const MenuContent = (props: {
   const { id, item, onClose } = value;
   const { type, flowType = '' } = item?.getModel() as ITxGraphNode;
 
-  const handleClick = (e: { key: string }) => {
-    console.log('txGraphData', txGraphData);
-    const nextGraphData = getGraphData({
+  const handleClick = async (e: { key: string }) => {
+    const nextGraphData = await getGraphData({
       menuKey: e.key as TxGraphMenuItemKeys,
       txHash: id,
       flowType,
@@ -117,7 +172,8 @@ export const MenuContent = (props: {
       TxGraphMenuItemKeys.COLLAPSE_TO_CENTER,
       TxGraphMenuItemKeys.COLLAPSE_BOTH_SIDES
     ].includes(e.key as TxGraphMenuItemKeys);
-    void changeData(nextGraphData, setLoading);
+
+    await changeData(nextGraphData, setLoading);
 
     onClose();
   };
@@ -138,7 +194,7 @@ export const MenuContent = (props: {
     return null;
   }
 
-  return <Menu onClick={handleClick} items={menuItems} />;
+  return <Menu onClick={(e) => void handleClick(e)} items={menuItems} />;
 };
 
 export const GraphContextMenu = ({

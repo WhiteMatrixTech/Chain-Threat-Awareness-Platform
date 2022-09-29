@@ -1,5 +1,6 @@
 import { DatePicker, Form, Input, Select, Spin } from 'antd';
 import cn from 'classnames';
+import dayjs from 'dayjs';
 import { useMemo, useState } from 'react';
 import { useQuery } from 'react-query';
 
@@ -8,7 +9,8 @@ import {
   randomAddressData,
   randomTxDetailData
 } from '@/services/mockData/transactionGraph';
-import { waitTime } from '@/utils/common';
+import { getBaseInfo, getTransactionBaseInfo } from '@/services/transaction';
+import { randomNum, waitTime } from '@/utils/common';
 
 import {
   AddressDetailCard,
@@ -39,27 +41,50 @@ export function TransactionGraph() {
     '0x3c2eacee8cb9ea750ae4cc51f41c40e73b5099b8ed5df0fd2dd9cb72d58dbb62'
   );
   const isTx = useMemo(
-    () => selectedHexData.length > 32,
+    () => selectedHexData.length > 42,
     [selectedHexData.length]
   );
 
   const { data: txDetailData, isLoading: qryTxLoading } = useQuery(
     ['getTxDetailData', selectedHexData],
     async () => {
-      await waitTime(1000);
-      return randomTxDetailData(selectedHexData);
+      if (isTx) {
+        const data = await getTransactionBaseInfo(selectedHexData);
+        data.blockTimestamp = dayjs(Number(data.blockTimestamp) * 1000).format(
+          'YYYY-MM-DD hh:mm:ss'
+        );
+        data.value = (Number(data.value) / 1e18).toString();
+        return data;
+
+        // await waitTime(1000);
+        // return randomTxDetailData(selectedHexData);
+      }
     }
   );
+
   const { data: addressDetailData, isLoading: qryAddressLoading } = useQuery(
     ['getAddressDetailData', selectedHexData],
     async () => {
-      await waitTime(1000);
-      return randomAddressData(selectedHexData);
+      if (!isTx) {
+        const data = await getBaseInfo(selectedHexData);
+        data.balance = (Number(data.balance) / 1e18).toString();
+        data.transactionInAmountSum = (
+          Number(data.transactionInAmountSum) / 1e18
+        ).toString();
+        data.transactionOutAmountSum = (
+          Number(data.transactionOutAmountSum) / 1e18
+        ).toString();
+
+        return data;
+        // await waitTime(1000);
+        // return randomAddressData(selectedHexData);
+      }
     }
   );
 
   const onClickAnalysis = () => {
     void form.validateFields().then((allValues: IGraphFormData) => {
+      allValues.tokenType = allValues.tokenType[0];
       setFormData(allValues);
       setSelectedHexData(allValues.transactionHash);
     });

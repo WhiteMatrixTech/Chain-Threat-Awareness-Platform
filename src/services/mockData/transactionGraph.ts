@@ -11,6 +11,7 @@ enum TxGraphMenuItemKeys {
   COLLAPSE_TO_CENTER = 'collapse-to-center', // 向中心收缩
   COLLAPSE_BOTH_SIDES = 'collapse-both-sides' // 收起左侧或右侧
 }
+
 interface ITxGraphNode extends NodeConfig {
   id: string;
   type: 'DefaultTxNode' | 'CenterTxNode' | 'AmountFlowAddressNode' | string;
@@ -46,9 +47,11 @@ interface ITransactionDetailData {
 
 interface IAddressDetailData {
   address: string;
-  balance: number;
-  inflowAmount: number;
-  outflowAmount: number;
+  balance: string;
+  transactionInAmountSum: string;
+  transactionOutAmountSum: string;
+  inUserCount: string;
+  outUserCount: string;
 }
 
 const generateTxGraphData = (
@@ -150,9 +153,11 @@ const randomTxDetailData = (
 const randomAddressData = (address: string): IAddressDetailData => {
   return {
     address,
-    balance: Math.random() * randomNum(0, 100),
-    inflowAmount: Math.random() * randomNum(100, 1000),
-    outflowAmount: Math.random() * randomNum(100, 1000)
+    balance: (Math.random() * randomNum(0, 100)).toString(),
+    transactionInAmountSum: (Math.random() * randomNum(100, 1000)).toString(),
+    transactionOutAmountSum: (Math.random() * randomNum(100, 1000)).toString(),
+    inUserCount: (Math.random() * randomNum(0, 20)).toString(),
+    outUserCount: (Math.random() * randomNum(0, 20)).toString()
   };
 };
 
@@ -235,12 +240,12 @@ const removeDataFromGraph = (
   flowType: 'inflow' | 'outflow' | '',
   isCollapseToCenter?: boolean
 ): [ITxGraphNode[], ITxGraphEdge[]] => {
-  let lastNodeId = txHash;
+  // let lastNodeId = txHash;
   let shouldRemoveEdges = getShouldRemoveEdges(txHash, txGraphData, flowType);
 
   if (isCollapseToCenter) {
     const data = getRestShouldRemoveEdges(txHash, txGraphData, flowType);
-    lastNodeId = data.lastNodeId;
+    // lastNodeId = data.lastNodeId;
     shouldRemoveEdges = [...shouldRemoveEdges, ...data.shouldRemoveEdges];
   }
 
@@ -249,20 +254,20 @@ const removeDataFromGraph = (
   shouldRemoveEdges.forEach((edge) => {
     removeEdgeIdMap.set(edge.id, edge.id);
     removeNodeMap.set(edge.source, edge.source);
-    removeNodeMap.set(edge.target, edge.target);
+    // removeNodeMap.set(edge.target, edge.target);
   });
-  removeNodeMap.delete(lastNodeId);
+  // removeNodeMap.delete(lastNodeId);
 
-  removeNodeMap.set(txHash, txHash);
-  if (flowType === 'inflow') {
-    const ede = txGraphData.edges.find((item) => item.source === txHash);
-    ede && removeEdgeIdMap.set(ede.id, ede.id);
-  }
+  // removeNodeMap.set(txHash, txHash);
+  // if (flowType === 'inflow') {
+  //   const ede = txGraphData.edges.find((item) => item.source === txHash);
+  //   ede && removeEdgeIdMap.set(ede.id, ede.id);
+  // }
 
-  if (flowType === 'outflow') {
-    const ede = txGraphData.edges.find((item) => item.target === txHash);
-    ede && removeEdgeIdMap.set(ede.id, ede.id);
-  }
+  // if (flowType === 'outflow') {
+  //   const ede = txGraphData.edges.find((item) => item.target === txHash);
+  //   ede && removeEdgeIdMap.set(ede.id, ede.id);
+  // }
 
   const nodes: ITxGraphNode[] = [];
   const edges: ITxGraphEdge[] = [];
@@ -271,6 +276,7 @@ const removeDataFromGraph = (
       nodes.push(node);
     }
   });
+
   txGraphData.edges.forEach((edge) => {
     if (!removeEdgeIdMap.has(edge.id)) {
       edges.push(edge);

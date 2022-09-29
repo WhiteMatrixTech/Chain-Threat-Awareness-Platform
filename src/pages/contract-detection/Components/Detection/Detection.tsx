@@ -1,19 +1,23 @@
 import { BellOutlined, FileOutlined } from '@ant-design/icons';
 import { Form, Input, Select, Tooltip } from 'antd';
 import cn from 'classnames';
-import { useEffect } from 'react';
+import { cloneDeep } from 'lodash';
+import { useEffect, useMemo } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router';
 
 import { DefaultButton, PrimaryButton } from '@/components/Button';
 import {
+  arrToTreeData,
   ContractDetectionResults,
+  ResultColor,
   ResultIconColor
 } from '@/services/mockData/contractDetection';
+import { detectContract, IDetectContractRequest } from '@/services/transaction';
 import { waitTime } from '@/utils/common';
 import { originSolcVersionList } from '@/utils/constants';
 
-import { useContractContext } from '../../ContractStore';
+import { IExplorerItem, useContractContext } from '../../ContractStore';
 import styles from './Detection.module.less';
 
 const Option = Select.Option;
@@ -23,7 +27,7 @@ export function Detection() {
   const [form] = Form.useForm();
 
   const {
-    contractState: { openFiles, focusFileId }
+    contractState: { openFiles, focusFileId, explorerList }
   } = useContractContext();
 
   useEffect(() => {
@@ -34,18 +38,34 @@ export function Detection() {
     }
   }, [focusFileId, form, openFiles]);
 
-  const { mutate, data, status, reset } = useMutation(async () => {
-    await waitTime(1000);
-    return {
-      file: 'ETH_default/Storage.sol',
-      result: ContractDetectionResults
-    };
-  });
+  const { mutate, data, status, reset } = useMutation(
+    async (params: IDetectContractRequest) => {
+      const data = await detectContract(params);
+
+      return {
+        file: 'ETH_default/Storage.sol',
+        result: data
+      };
+      // await waitTime(1000);
+      // return {
+      //   file: 'ETH_default/Storage.sol',
+      //   result: ContractDetectionResults
+      // };
+    }
+  );
 
   const handleSubmit = () => {
-    void form.validateFields().then((_data) => {
-      mutate();
-    });
+    void form
+      .validateFields()
+      .then((data: { fileContent: string; compileVersion: string }) => {
+        const { fileContent, compileVersion } = data;
+
+        mutate({
+          source_code: fileContent,
+          version: compileVersion,
+          model: 'contractFuzzer'
+        });
+      });
   };
 
   const handleClickView = () => {
@@ -57,11 +77,18 @@ export function Detection() {
     form.resetFields();
   };
 
+  // const contractTreeData = useMemo(() => {
+  //   const List = cloneDeep(explorerList);
+  //   const treeData = arrToTreeData(List);
+
+  //   return treeData;
+  // }, [explorerList]);
+
   return (
     <div className={cn(styles.Detection, 'h-full bg-white px-2 py-[18px]')}>
       {!data && (
         <Form form={form} wrapperCol={{ span: 24 }}>
-          <Form.Item
+          {/* <Form.Item
             name="file"
             rules={[
               {
@@ -72,7 +99,25 @@ export function Detection() {
           >
             <Select placeholder="请选择检测合约文件">
               {openFiles.map((file) => (
-                <Option key={file.id} value={file.id}>
+                <Option key={file.id} value={file.name}>
+                  {file.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item> */}
+          <Form.Item
+            name="fileContent"
+            rules={[
+              {
+                required: true,
+                message: '请选择检测合约文件'
+              }
+            ]}
+            initialValue={openFiles[0].content}
+          >
+            <Select placeholder="请选择检测合约文件">
+              {openFiles.map((file) => (
+                <Option key={file.id} value={file.content}>
                   {file.name}
                 </Option>
               ))}
@@ -105,7 +150,7 @@ export function Detection() {
           </Form.Item>
           <Form.Item
             name="compileVersion"
-            initialValue={originSolcVersionList[0]}
+            initialValue="0.4.26"
             rules={[
               {
                 required: true,
@@ -114,11 +159,12 @@ export function Detection() {
             ]}
           >
             <Select placeholder="请选择编译版本">
-              {originSolcVersionList.map((version) => (
+              {/*  {originSolcVersionList.map((version) => (
                 <Option key={version} value={version}>
                   {version}
                 </Option>
-              ))}
+              ))} */}
+              <Option value="o.4.26">0.4.24</Option>
             </Select>
           </Form.Item>
           <PrimaryButton onClick={handleSubmit} loading={status === 'loading'}>
@@ -140,17 +186,17 @@ export function Detection() {
           <ul className="mb-20 flex flex-col items-start justify-center gap-y-2 text-center">
             {data.result.map((item, index) => (
               <li
-                key={`${index}-${item.message}`}
-                className="flex items-center justify-center"
+                key={`${index}-${item.description}`}
+                className="flex items-start justify-center"
               >
                 <BellOutlined
-                  className="text-base"
-                  style={{ color: ResultIconColor[item.type] }}
+                  className="mt-1 text-base"
+                  style={{ color: ResultColor[item.security] }}
                 />
                 <Tooltip
-                  title={`${index}.${item.message}(${item.position.line} line)`}
+                  title={`${index}.${item.description}(${item.line} line)`}
                 >
-                  <span className="max-w-full overflow-hidden text-ellipsis pl-1 text-base">{`${index}.${item.message}(${item.position.line} line)`}</span>
+                  <span className="max-w-full overflow-hidden text-ellipsis pl-[1px] text-base">{`${index}.${item.description}(${item.line} line)`}</span>
                 </Tooltip>
               </li>
             ))}

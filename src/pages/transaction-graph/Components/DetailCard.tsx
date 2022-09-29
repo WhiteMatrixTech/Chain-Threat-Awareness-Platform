@@ -2,10 +2,16 @@ import { Empty } from 'antd';
 import { get } from 'lodash';
 
 import { DescriptionCard, DescriptionItem } from '@/components/DescriptionCard';
-import {
-  IAddressDetailData,
-  ITransactionDetailData
-} from '@/services/mockData/transactionGraph';
+import { IAddressDetailData } from '@/services/mockData/transactionGraph';
+import { ITransactionBaseInfoResponse } from '@/services/transaction';
+
+const EthTransactionDetailField: { [key: string]: string } = {
+  value: '交易金额(ETH)',
+  gas: '交易手续费(ETH',
+  blockTimestamp: '交易时间',
+  from: '输入地址',
+  to: '输出地址'
+};
 
 const TransactionDetailField: { [key: string]: string } = {
   type: '类型',
@@ -16,25 +22,47 @@ const TransactionDetailField: { [key: string]: string } = {
 };
 
 const AddressDetailField: { [key: string]: string } = {
-  balance: '余额',
-  inflowAmount: '流入金额',
-  outflowAmount: '流出金额'
+  balance: '余额(ETH)',
+  transactionInAmountSum: '流入金额(ETH',
+  transactionOutAmountSum: '流出金额(ETH)',
+  inUserCount: '流入地址数',
+  outUserCount: '流出地址数'
 };
 
 export function TransactionDetailCard({
   transactionData,
   unit
 }: {
-  transactionData: ITransactionDetailData | undefined;
+  transactionData: ITransactionBaseInfoResponse | undefined;
   unit: string;
 }) {
   if (!transactionData) {
     return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
   }
+
+  if (unit === 'ETH') {
+    return (
+      <DescriptionCard
+        title="交易信息"
+        hashOrAddress={transactionData.hash}
+        copyTip="复制哈希"
+      >
+        {Object.keys(EthTransactionDetailField).map((fieldLey) => (
+          <DescriptionItem
+            key={fieldLey}
+            label={EthTransactionDetailField[fieldLey]}
+            content={get(transactionData, `${fieldLey}`, '') as string}
+            unit={unit}
+          />
+        ))}
+      </DescriptionCard>
+    );
+  }
+
   return (
     <DescriptionCard
       title="交易信息"
-      hashOrAddress={transactionData.transactionHash}
+      hashOrAddress={transactionData.hash}
       copyTip="复制哈希"
     >
       {Object.keys(TransactionDetailField).map((fieldLey) => (
@@ -47,11 +75,15 @@ export function TransactionDetailCard({
       ))}
       <DescriptionItem
         label="输入/输出地址数"
-        content={`${transactionData.inputAddressNumber}/${transactionData.outputAddressNumber}`}
+        content={`${transactionData.inputAddressNumber || ''}/${
+          transactionData.outputAddressNumber || ''
+        }`}
       />
       <DescriptionItem
         label="输入/输出笔数"
-        content={`${transactionData.inputTxNumber}/${transactionData.outputTxNumber}`}
+        content={`${transactionData.inputTxNumber || ''}/${
+          transactionData.outputTxNumber || ''
+        }`}
       />
     </DescriptionCard>
   );
@@ -71,7 +103,7 @@ export function AddressDetailCard({
   return (
     <DescriptionCard
       title="地址信息"
-      hashOrAddress={addressData?.address}
+      hashOrAddress={addressData.address}
       copyTip="复制地址"
     >
       {Object.keys(AddressDetailField).map((fieldLey) => (
