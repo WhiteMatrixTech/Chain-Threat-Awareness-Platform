@@ -53,6 +53,7 @@ export function TransactionGraph() {
         data.blockTimestamp = dayjs(Number(data.blockTimestamp) * 1000).format(
           'YYYY-MM-DD hh:mm:ss'
         );
+        data.gas = (Number(data.gas) / 1e18).toString();
         data.value = (Number(data.value) / 1e18).toString();
         return data;
 

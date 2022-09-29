@@ -7,7 +7,7 @@ import { ITransactionBaseInfoResponse } from '@/services/transaction';
 
 const EthTransactionDetailField: { [key: string]: string } = {
   value: '交易金额(ETH)',
-  gas: '交易手续费(ETH',
+  gas: '交易手续费(ETH)',
   blockTimestamp: '交易时间',
   from: '输入地址',
   to: '输出地址'

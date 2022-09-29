@@ -36,6 +36,7 @@ export interface IBaseInfoResponse {
 export interface ITransactionBaseInfoResponse {
   blockNumber: string;
   blockTimestamp: string;
+  gas: string;
   from: string;
   to: string;
   hash: string;
