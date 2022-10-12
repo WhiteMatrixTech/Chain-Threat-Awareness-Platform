@@ -5,12 +5,14 @@ interface ITransactionType {
   pageKey?: string[];
   fromBlock: string;
   toBlock: string;
+  count?: number;
 }
 
 interface ITransactionRequest {
   pageKey?: string[];
   fromBlock: string;
   toBlock: string;
+  count?: number;
 }
 
 export interface ITransactionResponse {

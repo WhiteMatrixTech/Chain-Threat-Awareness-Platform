@@ -75,7 +75,8 @@ const getGraphData = async (data: {
       const inData = await getInAddressTransaction({
         address: txHash,
         fromBlock: '0',
-        toBlock: 'latest'
+        toBlock: 'latest',
+        count: 5
       });
 
       inData.forEach((item) => {
@@ -103,7 +104,8 @@ const getGraphData = async (data: {
       const outData = await getOutAddressTransaction({
         address: txHash,
         fromBlock: '0',
-        toBlock: 'latest'
+        toBlock: 'latest',
+        count: 5
       });
 
       outData.forEach((item) => {

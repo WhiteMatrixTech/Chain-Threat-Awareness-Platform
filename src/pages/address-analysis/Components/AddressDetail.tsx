@@ -1,6 +1,6 @@
 import { QuestionCircleFilled } from '@ant-design/icons';
 import { Gauge, GaugeConfig } from '@ant-design/plots';
-import { Empty, Tag, Tooltip } from 'antd';
+import { Empty, Spin, Tag, Tooltip } from 'antd';
 import dayjs from 'dayjs';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -20,6 +20,10 @@ import { transformAddress } from '@/utils/common';
 import { registerPlotsShape } from '@/utils/drawAntvGragh';
 
 // import { IGraphFormData } from '../AddressAnalysis';
+// interface IaddressDataDetail extends IBaseInfoResponse{
+//   addressHealth: number;
+//   healthTags: HealthTag[];
+// }
 
 interface IAddressDetailPros {
   unit: string;
@@ -39,6 +43,7 @@ const colors = ['magenta', 'red', 'purple', 'volcano', 'orange'];
 
 export function AddressDetail(props: IAddressDetailPros) {
   const { unit, addressData = AddressDetailData } = props;
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [info, setInfo] = useState<IBaseInfoResponse>({
     address: '',
     balance: '',
@@ -52,19 +57,23 @@ export function AddressDetail(props: IAddressDetailPros) {
   });
 
   useEffect(() => {
-    if (addressData) {
+    if (addressData.address) {
       void getBaseInfo(addressData.address)
-        .then((data) => setInfo(data))
-        .catch((e) => console.log('e', e));
+        .then((data) => {
+          setIsLoading(true);
+          setInfo(data);
+        })
+        .catch((e) => console.log('e', e))
+        .finally(() => setIsLoading(false));
     }
-  }, [addressData, setInfo]);
+  }, [addressData.address, setInfo]);
 
   if (!addressData) {
     return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
   }
 
   return (
-    <div className="h-full w-full p-6">
+    <div className="relative h-full w-full p-6">
       <div className="text-xl font-semibold">地址详情</div>
       <div className="my-6 flex items-center rounded-lg bg-[#f7f9fc] px-3 py-2">
         <div>
@@ -139,6 +148,10 @@ export function AddressDetail(props: IAddressDetailPros) {
             ))}
           </div>
         </div>
+      </div>
+
+      <div className="absolute top-0 left-0 mt-20 flex h-full w-full justify-center">
+        <Spin spinning={isLoading} />
       </div>
     </div>
   );

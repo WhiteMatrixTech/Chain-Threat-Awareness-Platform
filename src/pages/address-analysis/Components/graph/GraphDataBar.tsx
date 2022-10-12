@@ -66,7 +66,8 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
       const data = await getInAddressTransaction({
         address: focusedId,
         fromBlock: formData.date[0],
-        toBlock: formData.date[1]
+        toBlock: formData.date[1],
+        count: 5
       });
       data.forEach((item) => {
         const id = item.address;
@@ -124,7 +125,8 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
       const data = await getOutAddressTransaction({
         address: focusedId,
         fromBlock: formData.date[0],
-        toBlock: formData.date[1]
+        toBlock: formData.date[1],
+        count: 5
       });
       data.forEach((item) => {
         const id = item.address;
@@ -193,7 +195,8 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
         const dataIn = await getOutAddressTransaction({
           address: focusedId,
           fromBlock: formData.date[0],
-          toBlock: formData.date[1]
+          toBlock: formData.date[1],
+          count: 5
         });
         dataIn.forEach((item) => {
           const id = item.address;
@@ -225,7 +228,8 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
         const dataOut = await getInAddressTransaction({
           address: focusedId,
           fromBlock: formData.date[0],
-          toBlock: formData.date[1]
+          toBlock: formData.date[1],
+          count: 5
         });
         dataOut.forEach((item) => {
           const id = item.address;
