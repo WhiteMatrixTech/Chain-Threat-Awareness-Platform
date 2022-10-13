@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { BellOutlined } from '@ant-design/icons';
 import cn from 'classnames';
+import { sortBy } from 'lodash';
 import { useSearchParams } from 'react-router-dom';
 
 import { ERROR_DETAIL, ERROR_TIPS } from '@/constant';
@@ -27,7 +28,16 @@ export function DetectionDetail() {
         {`检测结果详述：${DetectionResults.length}`}
       </div>
       <div className="mt-4 flex flex-1 flex-col gap-y-8 overflow-y-auto">
-        {DetectionResults.map((item, index) => (
+        {sortBy(
+          DetectionResults.map((o) => {
+            const indexes: any = { High: 0, Medium: 1, Low: 2 };
+            return {
+              ...o,
+              type: indexes[o.security]
+            };
+          }),
+          'type'
+        ).map((item, index) => (
           <DetectionDetailItem key={index} {...item} />
         ))}
       </div>
