@@ -3,16 +3,19 @@ import { BellOutlined } from '@ant-design/icons';
 import cn from 'classnames';
 import { useSearchParams } from 'react-router-dom';
 
-import { ERROR_TIPS } from '@/constant';
+import { ERROR_DETAIL, ERROR_TIPS } from '@/constant';
 import { ResultIconColor } from '@/services/mockData/contractDetection';
 
 import styles from './DetectionChart.module.less';
 
 export function DetectionDetail() {
   const [searchParams] = useSearchParams();
-  const DetectionResults: any[] = JSON.parse(
-    window.atob(searchParams.get('result') || '') || ''
-  );
+  let DetectionResults: any[] = [];
+  try {
+    DetectionResults = JSON.parse(
+      window.atob(searchParams.get('result') || '') || ''
+    );
+  } catch (e) {}
   return (
     <div
       className={cn(
@@ -48,10 +51,10 @@ function DetectionDetailItem(data: any) {
         <div className="ml-2"> 代码行数：{data.line}</div>
       </div>
       <div className="ml-5 mb-2">
-        <span>{data.description}</span>
+        <span>{ERROR_DETAIL[data.swcId]?.desc}</span>
       </div>
       <div className="ml-5">
-        <span>修复建议:{data.suggestion}</span>
+        <span>修复建议:{ERROR_DETAIL[data.swcId]?.handle}</span>
         <span>
           <a
             href={ERROR_TIPS[data.swcId] || ''}

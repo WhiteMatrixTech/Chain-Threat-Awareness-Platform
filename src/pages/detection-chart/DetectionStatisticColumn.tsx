@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Column, ColumnConfig } from '@ant-design/plots';
 import cn from 'classnames';
 import { useSearchParams } from 'react-router-dom';
@@ -50,8 +49,57 @@ const data = [
 ];
 
 const DemoColumn = () => {
+  const [searchParams] = useSearchParams();
+  let DetectionResults: any[] = [];
+  try {
+    DetectionResults = JSON.parse(
+      window.atob(searchParams.get('result') || '') || ''
+    );
+  } catch (e) {}
+  console.log(DetectionResults);
   const config = {
-    data,
+    data: [
+      {
+        projectNumber: '1',
+        amount: DetectionResults.filter((o) => o.swcId === 101).length
+      },
+      {
+        projectNumber: '2',
+        amount: DetectionResults.filter((o) => o.swcId === 104).length
+      },
+      {
+        projectNumber: '3',
+        amount: DetectionResults.filter((o) => o.swcId === 105).length
+      },
+      {
+        projectNumber: '4',
+        amount: DetectionResults.filter((o) => o.swcId === 106).length
+      },
+      {
+        projectNumber: '5',
+        amount: DetectionResults.filter((o) => o.swcId === 107).length
+      },
+      {
+        projectNumber: '6',
+        amount: DetectionResults.filter((o) => o.swcId === 110).length
+      },
+      {
+        projectNumber: '7',
+        amount: DetectionResults.filter((o) => o.swcId === 112).length
+      },
+      {
+        projectNumber: '8',
+        amount: DetectionResults.filter((o) => o.swcId === 114).length
+      },
+      {
+        projectNumber: '9',
+        amount: DetectionResults.filter((o) => o.swcId === 120).length
+      },
+      {
+        projectNumber: '10',
+        amount: DetectionResults.filter((o) => o.swcId === 132).length
+      }
+    ],
     height: 200,
     xField: 'projectNumber',
     yField: 'amount',
@@ -90,11 +138,6 @@ const DemoColumn = () => {
 };
 
 export function DetectionStatisticColumn() {
-  const [searchParams] = useSearchParams();
-  const DetectionResults: any[] = JSON.parse(
-    window.atob(searchParams.get('result') || '') || ''
-  );
-  console.log(DetectionResults);
   return (
     <div className={cn(styles.detectResultCard, 'bg-[#fcfbff]')}>
       <div className={cn(styles.column, 'py-[18px] px-6')}>
@@ -111,14 +154,9 @@ export function DetectionStatisticColumn() {
       <div className="w-[220px] bg-[#F6F4FD] py-[18px] px-5">
         <div className="text-xl font-medium">安全检测项</div>
         <ul className="mt-5 flex flex-col gap-y-2">
-          {DetectionResults.map((item, index) => (
-            <li
-              key={index}
-              className="overflow-hidden text-ellipsis whitespace-nowrap"
-            >
-              <span className="text-sm">{`${index + 1}. ${
-                item.description
-              }`}</span>
+          {SafetyInspectionItems.map((label, index) => (
+            <li key={label}>
+              <span className="text-sm">{`${index + 1}. ${label}`}</span>
             </li>
           ))}
         </ul>
