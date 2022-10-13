@@ -103,7 +103,6 @@ const setEdge = (data: {
     lastTransactionTimestamp
   } = data;
   const text = `${txAmount}ETH - ${txNumber}笔`;
-
   return {
     source,
     target,

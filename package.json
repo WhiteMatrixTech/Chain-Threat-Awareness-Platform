@@ -8,7 +8,7 @@
     "@antv/g6": "^4.6.8",
     "@antv/g6-core": "^0.6.8",
     "@antv/g6-react-node": "^1.4.4",
-    "@antv/graphin": "^2.6.7",
+    "@antv/graphin": "^2.7.12",
     "@antv/graphin-components": "^2.4.0",
     "@antv/graphin-icons": "^1.0.0",
     "@cloudflare/kv-asset-handler": "^0.2.0",

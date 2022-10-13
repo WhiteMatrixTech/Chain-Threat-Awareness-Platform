@@ -51,12 +51,6 @@ const graphinDefaultConfig = {
     rankdir: 'LR', // 可选，默认为图的中心,
     controlPoints: true
   },
-  defaultEdge: {
-    type: 'cubic-horizontal' as 'graphin-line',
-    style: {
-      endArrow: true
-    } as unknown as EdgeStyle
-  },
   theme: { background: '#e5e8ee33' },
   fitCenter: true,
   fitView: true
@@ -76,7 +70,6 @@ export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
       if (setLoading) {
         await waitTime(800);
       }
-
       setTxGraphData(data);
       return data;
     },

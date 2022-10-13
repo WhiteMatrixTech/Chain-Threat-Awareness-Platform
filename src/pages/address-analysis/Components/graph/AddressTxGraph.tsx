@@ -28,8 +28,8 @@ interface IAddressTxGraphProps {
 const layout = {
   type: 'concentric',
   center: [100, 100], // 可选，
-  linkDistance: 100, // 可选，边长,
-  nodeSize: 150
+  linkDistance: 300, // 可选，边长,
+  nodeSize: 1500
 };
 
 export function AddressTxGraph(props: IAddressTxGraphProps) {
@@ -85,7 +85,7 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
           data={graphData}
           ref={graphRef}
           layout={layout}
-          fitView={true}
+          // fitView={true}
           theme={{ background: '#e5e8ee33' }}
         >
           <ZoomCanvas />

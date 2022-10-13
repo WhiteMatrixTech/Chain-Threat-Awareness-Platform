@@ -69,7 +69,11 @@ export function Detection() {
   };
 
   const handleClickView = () => {
-    navigate('/threat-detection/detection-chart');
+    navigate(
+      `/threat-detection/detection-chart?result=${window.btoa(
+        JSON.stringify(data?.result || '')
+      )}`
+    );
   };
 
   const handleReset = () => {
@@ -183,11 +187,11 @@ export function Detection() {
               </span>
             </Tooltip>
           </div>
-          <ul className="mb-20 flex flex-col items-start justify-center gap-y-2 text-center">
+          <ul className="mb-20 flex flex-col items-start justify-center gap-y-2 overflow-hidden text-ellipsis whitespace-nowrap text-center">
             {data.result.map((item, index) => (
               <li
                 key={`${index}-${item.description}`}
-                className="flex items-start justify-center"
+                className="flex w-full items-start justify-start"
               >
                 <BellOutlined
                   className="mt-1 text-base"

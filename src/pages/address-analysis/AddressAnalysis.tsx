@@ -57,7 +57,6 @@ export function AddressAnalysis() {
     ['getAddressData', selectedHexData, formData.address],
     async () => {
       await waitTime(1000);
-
       if (!selectedHexData || selectedHexData.length >= 64) {
         return undefined;
       }
@@ -115,7 +114,9 @@ export function AddressAnalysis() {
     hexString: string,
     _type?: TGraphinClickTarget
   ) => {
-    setSelectedHexData(hexString);
+    if (hexString) {
+      setSelectedHexData(hexString);
+    }
   };
 
   return (

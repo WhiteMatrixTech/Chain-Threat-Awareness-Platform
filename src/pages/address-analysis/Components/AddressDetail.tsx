@@ -67,7 +67,6 @@ export function AddressDetail(props: IAddressDetailPros) {
         .finally(() => setIsLoading(false));
     }
   }, [addressData.address, setInfo]);
-
   if (!addressData) {
     return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
   }

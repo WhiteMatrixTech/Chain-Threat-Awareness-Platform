@@ -87,11 +87,19 @@ const getGraphData = async (data: {
           tokenUnit: 'ETH',
           flowType: 'inflow'
         });
-
+        const txNumber = item.count;
+        const txAmount = Number(item.value) / 1e18;
         edgeItem.push({
           id: `${uuidv4().replaceAll('-', '')}`,
           source: item.address,
-          target: txHash
+          target: txHash,
+          style: {
+            type: 'poly',
+            label: {
+              value: `${txAmount}ETH - ${txNumber}笔`,
+              offset: [0, 0]
+            }
+          }
         });
       });
       // [nodes, edges] = generateTxGraphData(txHash, 'inflow');

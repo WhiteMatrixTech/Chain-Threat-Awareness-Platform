@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Column, ColumnConfig } from '@ant-design/plots';
 import cn from 'classnames';
+import { useSearchParams } from 'react-router-dom';
 
 import { SafetyInspectionItems } from '@/services/mockData/detectionChart';
 
@@ -88,6 +90,11 @@ const DemoColumn = () => {
 };
 
 export function DetectionStatisticColumn() {
+  const [searchParams] = useSearchParams();
+  const DetectionResults: any[] = JSON.parse(
+    window.atob(searchParams.get('result') || '') || ''
+  );
+  console.log(DetectionResults);
   return (
     <div className={cn(styles.detectResultCard, 'bg-[#fcfbff]')}>
       <div className={cn(styles.column, 'py-[18px] px-6')}>
@@ -104,9 +111,14 @@ export function DetectionStatisticColumn() {
       <div className="w-[220px] bg-[#F6F4FD] py-[18px] px-5">
         <div className="text-xl font-medium">安全检测项</div>
         <ul className="mt-5 flex flex-col gap-y-2">
-          {SafetyInspectionItems.map((label, index) => (
-            <li key={label}>
-              <span className="text-sm">{`${index + 1}. ${label}`}</span>
+          {DetectionResults.map((item, index) => (
+            <li
+              key={index}
+              className="overflow-hidden text-ellipsis whitespace-nowrap"
+            >
+              <span className="text-sm">{`${index + 1}. ${
+                item.description
+              }`}</span>
             </li>
           ))}
         </ul>

@@ -33,9 +33,9 @@ contract TokenSale {
 `;
 
 enum DetectionResultType {
-  ERROR = 'ERROR',
-  WARNING = 'WARNING',
-  INFO = 'INFO'
+  ERROR = 'High',
+  WARNING = 'Medium',
+  INFO = 'Low'
 }
 
 const ResultIconColor = {

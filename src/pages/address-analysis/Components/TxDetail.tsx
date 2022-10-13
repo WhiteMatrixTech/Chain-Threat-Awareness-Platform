@@ -25,7 +25,6 @@ interface IEdge extends IUserEdge {
 export function TxDetail(props: ITxDetailPros) {
   const { unit, txData, edge } = props;
   const [transactionData, setTransactionData] = useState<IEdge>();
-
   console.log('edge', transactionData?.data.firstTransactionTimestamp);
 
   useEffect(() => {
