@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import { GraphinData, IUserEdge, IUserNode } from '@antv/graphin';
 import { message } from 'antd';
 import cn from 'classnames';
@@ -128,6 +130,7 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
         toBlock: formData.date[1],
         count: 5
       });
+      console.log(data, 'dataIn');
       data.forEach((item) => {
         const id = item.address;
         const hash = `0x${uuidv4()}${uuidv4()}`.replaceAll('-', '');
@@ -151,7 +154,8 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
             txAmount,
             txNumber,
             firstTransactionTimestamp,
-            lastTransactionTimestamp
+            lastTransactionTimestamp,
+            transactionInfos: item.transactionInfos
           })
         );
       });

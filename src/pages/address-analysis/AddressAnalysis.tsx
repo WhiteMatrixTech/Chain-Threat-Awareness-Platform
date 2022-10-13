@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { GraphinData } from '@antv/graphin';
 import { DatePicker, Form, Input, Select, Spin } from 'antd';
 import cn from 'classnames';
@@ -81,7 +82,6 @@ export function AddressAnalysis() {
       return generateEdgeTxData(edge);
     }
   );
-
   const onClickAnalysis = () => {
     void form.validateFields().then(async (allValues: formDateType) => {
       if (allValues.date) {

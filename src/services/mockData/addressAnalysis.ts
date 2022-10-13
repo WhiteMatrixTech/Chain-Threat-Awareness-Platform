@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 import Graphin, { GraphinData, IUserEdge, IUserNode } from '@antv/graphin';
 import IconLoader from '@antv/graphin-icons';
 import dayjs from 'dayjs';
@@ -40,6 +42,7 @@ interface IAddressAnalysisDetail {
 }
 
 interface ITxDetail {
+  [x: string]: never[];
   from: string;
   to: string;
   txNumber: number;
@@ -91,6 +94,7 @@ const setEdge = (data: {
   txAmount: number | string;
   firstTransactionTimestamp: number | string;
   lastTransactionTimestamp: number | string;
+  transactionInfos: any;
 }) => {
   const {
     hash,
@@ -100,7 +104,8 @@ const setEdge = (data: {
     txNumber,
     txAmount,
     firstTransactionTimestamp,
-    lastTransactionTimestamp
+    lastTransactionTimestamp,
+    transactionInfos
   } = data;
   const text = `${txAmount}ETH - ${txNumber}笔`;
   return {
@@ -112,7 +117,8 @@ const setEdge = (data: {
       txNumber,
       firstTransactionTimestamp,
       lastTransactionTimestamp,
-      type
+      type,
+      transactionInfos
     },
     style: {
       label: {
@@ -275,7 +281,8 @@ const generateEdgeTxData = (
     txNumber,
     txAmount,
     firstTxTimestamp,
-    recentTxTimestamp
+    recentTxTimestamp,
+    transactionInfos: edge.data.transactionInfos
   };
 };
 

@@ -16,6 +16,7 @@ interface ITransactionRequest {
 }
 
 export interface ITransactionResponse {
+  transactionInfos?: any;
   address: string;
   count: number;
   value: string;

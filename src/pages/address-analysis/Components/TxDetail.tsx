@@ -1,15 +1,14 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 // import { QuestionCircleFilled } from '@ant-design/icons';
+// @ts-ignore
 import { IUserEdge } from '@antv/graphin';
-import { Empty, Tooltip } from 'antd';
+import { Empty, Table, Tooltip, Typography } from 'antd';
 import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 
 import { DescriptionItem } from '@/components/DescriptionCard';
 import { IEdgeData, ITxDetail } from '@/services/mockData/addressAnalysis';
-import {
-  getOutAddressTransaction,
-  ITransactionResponse
-} from '@/services/transaction';
 import { transformAddress } from '@/utils/common';
 
 interface ITxDetailPros {
@@ -25,7 +24,35 @@ interface IEdge extends IUserEdge {
 export function TxDetail(props: ITxDetailPros) {
   const { unit, txData, edge } = props;
   const [transactionData, setTransactionData] = useState<IEdge>();
-  console.log('edge', transactionData?.data.firstTransactionTimestamp);
+  const [tableData, setTableData] = useState<any[]>([]);
+
+  const columns = [
+    {
+      title: '时间/hash',
+      key: 'hash',
+      dataIndex: 'hash',
+      render(_: any, row: any) {
+        return (
+          <div className="flex flex-col">
+            <span>
+              {dayjs(row.blockTimestamp).format('YYYY/MM/DD HH:mm:ss')}
+            </span>
+            <Typography.Paragraph copyable={true} style={{ color: '#2F60D7' }}>
+              {transformAddress(row.hash, 4)}
+            </Typography.Paragraph>
+          </div>
+        );
+      }
+    },
+    {
+      title: '金额',
+      dataIndex: 'value',
+      key: 'value',
+      render(text: any) {
+        return <span>{text / 1e18} ETH</span>;
+      }
+    }
+  ];
 
   useEffect(() => {
     if (txData) {
@@ -33,9 +60,9 @@ export function TxDetail(props: ITxDetailPros) {
         (item) => item.source === txData.from && item.target === txData.to
       );
       setTransactionData(data[0] as IEdge);
+      setTableData(txData.transactionInfos || []);
     }
   }, [edge, txData]);
-
   if (!txData) {
     return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
   }
@@ -100,8 +127,8 @@ export function TxDetail(props: ITxDetailPros) {
       </div>
       <div className="mt-4 border-t-[0.0469rem] py-4">
         <div className="mb-4 text-xl font-semibold">交易列表</div>
-        <div className="flex w-full items-center justify-center">
-          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+        <div className="w-full items-center justify-center">
+          <Table columns={columns} dataSource={tableData} size="small" />
         </div>
       </div>
     </div>
