@@ -1,7 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+
 import { BellOutlined, FileOutlined } from '@ant-design/icons';
 import { Form, Input, Select, Tooltip } from 'antd';
 import cn from 'classnames';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, sortBy } from 'lodash';
 import { useEffect, useMemo } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router';
@@ -188,7 +191,16 @@ export function Detection() {
             </Tooltip>
           </div>
           <ul className="mb-20 flex flex-col items-start justify-center gap-y-2 overflow-hidden text-ellipsis whitespace-nowrap text-center">
-            {data.result.map((item, index) => (
+            {sortBy(
+              data.result.map((o) => {
+                const indexes: any = { High: 0, Medium: 1, Low: 2 };
+                return {
+                  ...o,
+                  type: indexes[o.security]
+                };
+              }),
+              'type'
+            ).map((item, index) => (
               <li
                 key={`${index}-${item.description}`}
                 className="flex w-full items-start justify-start"

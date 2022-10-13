@@ -79,7 +79,7 @@ const getGraphData = async (data: {
         count: 5
       });
 
-      inData.forEach((item) => {
+      inData.splice(0, 5).forEach((item) => {
         nodeItem.push({
           id: item.address,
           type: 'AmountFlowAddressNode',
@@ -116,7 +116,9 @@ const getGraphData = async (data: {
         count: 5
       });
 
-      outData.forEach((item) => {
+      outData.splice(0, 5).forEach((item) => {
+        const txNumber = item.count;
+        const txAmount = Number(item.value) / 1e18;
         nodeItem.push({
           id: item.address,
           type: 'AmountFlowAddressNode',
@@ -128,7 +130,14 @@ const getGraphData = async (data: {
         edgeItem.push({
           id: `${uuidv4().replaceAll('-', '')}`,
           source: txHash,
-          target: item.address
+          target: item.address,
+          style: {
+            type: 'poly',
+            label: {
+              value: `${txAmount}ETH - ${txNumber}笔`,
+              offset: [0, 0]
+            }
+          }
         });
       });
 

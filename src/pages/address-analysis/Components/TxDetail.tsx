@@ -35,7 +35,7 @@ export function TxDetail(props: ITxDetailPros) {
         return (
           <div className="flex flex-col">
             <span>
-              {dayjs(row.blockTimestamp).format('YYYY/MM/DD HH:mm:ss')}
+              {dayjs(row.blockTimestamp * 1000).format('YYYY/MM/DD HH:mm:ss')}
             </span>
             <Typography.Paragraph copyable={true} style={{ color: '#2F60D7' }}>
               {transformAddress(row.hash, 4)}
