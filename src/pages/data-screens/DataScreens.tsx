@@ -59,7 +59,7 @@ export function DataScreens(props: dataScreensProps) {
     {
       tab: '地址标签类型',
       number: 393,
-      unit: 'K'
+      unit: ''
     },
     {
       tab: '已监控地址',

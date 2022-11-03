@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { Components, ContextMenuValue } from '@antv/graphin';
-import { Menu, message } from 'antd';
+import { Menu, message, notification } from 'antd';
 import { cloneDeep } from 'lodash';
 import { useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -145,7 +145,11 @@ const getGraphData = async (data: {
       nodes = preGraphData.nodes.concat(nodeItem);
       edges = preGraphData.edges.concat(edgeItem);
       if (outData.length === 0) {
-        await message.info('没有数据了');
+        notification.info({
+          message: `没有数据了！`,
+          description: '没有数据了',
+          placement: 'top'
+        });
       }
       break;
     case TxGraphMenuItemKeys.COLLAPSE_TO_CENTER:
