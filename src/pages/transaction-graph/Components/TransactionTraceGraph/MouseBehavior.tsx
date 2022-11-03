@@ -109,8 +109,14 @@ export const MouseBehavior = ({
   };
 
   useEffect(() => {
-    setTimeout(() => handleFocusCenter(), 1000);
-  }, [handleFocusCenter, queryHash]);
+    setTimeout(() => handleFocusCenter(), 3000);
+    // graph.on('graphin:datachange', () => {
+    //   graph.focusItem(queryHash, true, {
+    //     easing: 'easeCubic',
+    //     duration: 400
+    //   });
+    // });
+  }, [handleFocusCenter, queryHash, graph]);
 
   useMount(() => {
     graph.on('node:click', handleClickNode);

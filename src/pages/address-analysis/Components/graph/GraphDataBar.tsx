@@ -130,7 +130,6 @@ export const GraphDataBar = (props: IGraphDataBarProps) => {
         toBlock: formData.date[1],
         count: 5
       });
-      console.log(data, 'dataIn');
       data.forEach((item) => {
         const id = item.address;
         const hash = `0x${uuidv4()}${uuidv4()}`.replaceAll('-', '');

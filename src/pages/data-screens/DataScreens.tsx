@@ -38,7 +38,7 @@ export function DataScreens(props: dataScreensProps) {
   const screenData1 = [
     {
       tab: '地址标签',
-      number: 128.7,
+      number: 17,
       unit: 'M'
     },
     {
@@ -58,7 +58,7 @@ export function DataScreens(props: dataScreensProps) {
     },
     {
       tab: '地址标签类型',
-      number: 8.7,
+      number: 393,
       unit: 'K'
     },
     {
@@ -81,7 +81,7 @@ export function DataScreens(props: dataScreensProps) {
   const screenData2 = [
     {
       tab: '已审计智能合约',
-      number: 280,
+      number: 8,
       unit: 'M'
     },
     {
@@ -91,7 +91,7 @@ export function DataScreens(props: dataScreensProps) {
     },
     {
       tab: '接入智能合约',
-      number: 81.8,
+      number: 10,
       unit: 'M'
     },
     {
@@ -106,7 +106,7 @@ export function DataScreens(props: dataScreensProps) {
     },
     {
       tab: '合约漏洞库',
-      number: 80,
+      number: 4,
       unit: 'K'
     },
     {

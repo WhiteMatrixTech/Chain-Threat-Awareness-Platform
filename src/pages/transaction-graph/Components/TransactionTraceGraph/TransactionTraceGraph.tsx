@@ -1,9 +1,9 @@
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { createNodeFromReact } from '@antv/g6-react-node';
-import Graphin, { Behaviors, EdgeStyle, GraphinData } from '@antv/graphin';
+import Graphin, { Behaviors, GraphinContext, GraphinData } from '@antv/graphin';
 import { Tooltip } from 'antd';
 import cn from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useAsyncFn } from 'react-use';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -48,18 +48,16 @@ Graphin.registerNode(
 const graphinDefaultConfig = {
   layout: {
     type: 'dagre',
-    rankdir: 'LR', // 可选，默认为图的中心,
-    controlPoints: true
+    rankdir: 'LR' // 可选，默认为图的中心,
   },
-  theme: { background: '#e5e8ee33' },
-  fitCenter: true,
-  fitView: true
+  theme: { background: '#e5e8ee33' }
 };
 
 export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
   const { queryHash, tokenUnit, handleClick } = props;
 
   const graphRef = useRef<Graphin | null>(null);
+  const { graph } = useContext(GraphinContext);
   const [txGraphData, setTxGraphData] = useState<ITxGraphData>({
     nodes: [],
     edges: []
@@ -71,6 +69,7 @@ export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
         await waitTime(800);
       }
       setTxGraphData(data);
+      // eslint-disable-next-line @typescript-eslint/unbound-method
       return data;
     },
     []
@@ -155,8 +154,8 @@ export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
           ref={graphRef}
           {...graphinDefaultConfig}
         >
-          <ZoomCanvas />
-          <FontPaint />
+          {/* <ZoomCanvas />
+          <FontPaint /> */}
           <DragNode />
           <Hoverable bindType="node" />
           <GraphContextMenu

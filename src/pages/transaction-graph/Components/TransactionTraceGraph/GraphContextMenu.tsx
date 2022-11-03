@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import { Components, ContextMenuValue } from '@antv/graphin';
-import { Menu } from 'antd';
+import { Menu, message } from 'antd';
 import { cloneDeep } from 'lodash';
 import { useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -115,7 +115,6 @@ const getGraphData = async (data: {
         toBlock: 'latest',
         count: 5
       });
-
       outData.splice(0, 5).forEach((item) => {
         const txNumber = item.count;
         const txAmount = Number(item.value) / 1e18;
@@ -145,7 +144,9 @@ const getGraphData = async (data: {
 
       nodes = preGraphData.nodes.concat(nodeItem);
       edges = preGraphData.edges.concat(edgeItem);
-
+      if (outData.length === 0) {
+        await message.info('没有数据了');
+      }
       break;
     case TxGraphMenuItemKeys.COLLAPSE_TO_CENTER:
       // 向中心收缩，具体流向由flowType决定
