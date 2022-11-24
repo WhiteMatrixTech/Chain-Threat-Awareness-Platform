@@ -48,16 +48,17 @@ Graphin.registerNode(
 const graphinDefaultConfig = {
   layout: {
     type: 'dagre',
-    rankdir: 'LR' // 可选，默认为图的中心,
+    rankdir: 'LR', // 可选，默认为图的中心,
+    controlPoints: true
   },
-  theme: { background: '#e5e8ee33' }
+  theme: { background: '#e5e8ee33' },
+  fitCenter: true
 };
 
 export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
   const { queryHash, tokenUnit, handleClick } = props;
 
   const graphRef = useRef<Graphin | null>(null);
-  const { graph } = useContext(GraphinContext);
   const [txGraphData, setTxGraphData] = useState<ITxGraphData>({
     nodes: [],
     edges: []
@@ -69,6 +70,7 @@ export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
         await waitTime(800);
       }
       setTxGraphData(data);
+      graphRef.current?.graph.render();
       // eslint-disable-next-line @typescript-eslint/unbound-method
       return data;
     },

@@ -5,7 +5,7 @@ import {
   IG6GraphEvent,
   NodeConfig
 } from '@antv/graphin';
-import { useCallback, useContext } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import { useMount, useUnmount } from 'react-use';
 
 import { TGraphinClickTarget } from './AddressTxGraph';
@@ -49,6 +49,9 @@ export const MouseBehavior = ({
     graph.on('click', handleClickGraphin);
     graph.on('node:click', handleClickNode);
     graph.on('edge:click', handleClickEdge);
+    graph.on('graphstatechange', () => {
+      graph.refresh();
+    });
   });
 
   useUnmount(() => {
