@@ -74,7 +74,7 @@ export async function getInAddressTransaction(params: ITransactionType) {
 }
 
 export async function getOutAddressTransaction(params: ITransactionType) {
-  return await getData<ITransactionRequest, ITransactionResponse[]>(
+  return getData<ITransactionRequest, ITransactionResponse[]>(
     `/chainthreat/v1/address/ethereum/${params.address}/from`,
     { fromBlock: params.fromBlock, toBlock: params.toBlock },
     {

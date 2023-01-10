@@ -115,7 +115,7 @@ const getGraphData = async (data: {
         toBlock: 'latest',
         count: 5
       });
-      outData.splice(0, 5).forEach((item) => {
+      [...outData].splice(0, 5).forEach((item) => {
         const txNumber = item.count;
         const txAmount = Number(item.value) / 1e18;
         nodeItem.push({
