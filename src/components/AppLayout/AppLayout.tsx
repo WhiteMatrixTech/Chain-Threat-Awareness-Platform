@@ -1,8 +1,9 @@
-import { Layout } from 'antd';
+import { Image, Layout } from 'antd';
 import cn from 'classnames';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router';
 
+import logo from '@/assets/logo.png';
 import { UserProvider } from '@/services/context';
 
 import { Header } from '../Header';
@@ -39,6 +40,13 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           collapsed={collapsed}
           onCollapse={(value) => setCollapsed(value)}
         >
+          <a
+            className="text-white flex w-full items-center justify-center py-4"
+            href="/"
+          >
+            <span className="sr-only">Home</span>
+            <Image width={75} src={logo} preview={false} />
+          </a>
           <LeftMenu />
         </Sider>
         <Layout>

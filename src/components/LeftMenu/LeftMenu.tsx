@@ -28,12 +28,7 @@ export function LeftMenu() {
   };
 
   return (
-    <div
-      className={cn(
-        styles.LeftMenu,
-        'h-screen overflow-hidden bg-common pt-32'
-      )}
-    >
+    <div className={cn(styles.LeftMenu, 'h-screen overflow-hidden')}>
       <Menu
         mode="inline"
         onClick={onClick}
