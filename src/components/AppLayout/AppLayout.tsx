@@ -41,11 +41,11 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           onCollapse={(value) => setCollapsed(value)}
         >
           <a
-            className="text-white flex w-full items-center justify-center py-4"
+            className="text-white flex w-full items-center justify-center py-3"
             href="/"
           >
             <span className="sr-only">Home</span>
-            <Image width={75} src={logo} preview={false} />
+            <Image width={180} src={logo} preview={false} />
           </a>
           <LeftMenu />
         </Sider>
