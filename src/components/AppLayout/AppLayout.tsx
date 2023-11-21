@@ -30,30 +30,32 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <UserProvider>
-      <Layout className="h-screen overflow-hidden">
-        <Sider
-          theme="light"
-          breakpoint="lg"
-          collapsedWidth="0"
-          className={cn('w-[265px] max-w-[265px]', styles.layoutAside)}
-          collapsible={true}
-          collapsed={collapsed}
-          onCollapse={(value) => setCollapsed(value)}
-        >
-          <a
-            className="text-white flex w-full items-center justify-center py-3"
-            href="/"
+      <Layout>
+        <Header />
+        <Layout className="h-screen overflow-hidden">
+          <Sider
+            theme="light"
+            breakpoint="lg"
+            collapsedWidth="0"
+            className={cn('w-[265px] max-w-[265px]', styles.layoutAside)}
+            collapsible={true}
+            collapsed={collapsed}
+            onCollapse={(value) => setCollapsed(value)}
           >
-            <span className="sr-only">Home</span>
-            <Image width={180} src={logo} preview={false} />
-          </a>
-          <LeftMenu />
-        </Sider>
-        <Layout>
-          <Header />
-          <Content className="overflow-y-auto overflow-x-hidden p-[24px]">
-            {children}
-          </Content>
+            {/* <a
+              className="flex w-full items-center justify-center py-3"
+              href="/"
+            >
+              <span className="sr-only">Home</span>
+              <Image width={180} src={logo} preview={false} />
+            </a> */}
+            <LeftMenu />
+          </Sider>
+          <Layout>
+            <Content className="overflow-y-auto overflow-x-hidden p-[24px]">
+              {children}
+            </Content>
+          </Layout>
         </Layout>
       </Layout>
     </UserProvider>

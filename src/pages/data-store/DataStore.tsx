@@ -43,7 +43,7 @@ const columns: ColumnsType<any> = [
     ellipsis: true
   },
   {
-    title: '版本',
+    title: '数据量',
     dataIndex: 'version',
     ellipsis: true
   },
