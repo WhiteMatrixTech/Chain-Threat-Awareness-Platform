@@ -1,4 +1,5 @@
 import { SyncOutlined } from '@ant-design/icons';
+import { Card, Col, Row } from 'antd';
 import Table, { ColumnsType } from 'antd/lib/table';
 import dayjs from 'dayjs';
 import { useQuery } from 'react-query';
@@ -74,16 +75,55 @@ export function DataStore() {
         <span className=" pl-2">更新</span>
       </div>
       <AppBreadcrumb breadCrumbItems={breadCrumbItems} />
-      <Table
-        rowKey="id"
-        rowClassName="hover:bg-[#F4FEFF]"
-        columns={columns}
-        dataSource={data}
-        loading={isLoading || isRefetching}
-        pagination={{
-          position: ['bottomCenter']
-        }}
-      />
+      <Row gutter={64} className="px-20">
+        {data?.map((item) => (
+          <Col span={8} key={item.id}>
+            <Card
+              title={item.name}
+              className="w-full overflow-hidden rounded-md"
+              hoverable={true}
+              style={{
+                background: 'linear-gradient(#E0E1ED, #fff)',
+                borderRadius: '10px',
+                cursor: 'pointer'
+              }}
+              bodyStyle={{ backgroundColor: 'transparent' }}
+              headStyle={{ backgroundColor: 'transparent' }}
+            >
+              <div className="flex flex-col gap-2">
+                <div className="flex justify-between">
+                  <span className="text-[#818181]">ID</span>
+                  <span>{item.id}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-[#818181]">数据库类型</span>
+                  <span>{item.databaseType}</span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className="text-[#818181]">描述</span>
+                  <span>{item.description}</span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className="text-[#818181]">链类型</span>
+                  <span>{item.chainType}</span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className="text-[#818181]">数据量</span>
+                  <span>{item.version}</span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className="text-[#818181]">创建时间</span>
+                  <span>{item.createTime}</span>
+                </div>
+              </div>
+            </Card>
+          </Col>
+        ))}
+      </Row>
     </div>
   );
 }

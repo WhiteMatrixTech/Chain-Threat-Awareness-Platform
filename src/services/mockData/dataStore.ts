@@ -19,9 +19,9 @@ export const dataStoreList = [
   },
   {
     id: '16597',
-    name: '波卡链交易数据',
+    name: '波场链交易数据',
     databaseType: 'OSS',
-    description: '波卡链交易数据',
+    description: '波场链交易数据',
     chainType: 'Tron',
     version: '500GB',
     createTime: '2023-11-18 15:36:18'

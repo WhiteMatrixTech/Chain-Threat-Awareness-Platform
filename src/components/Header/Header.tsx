@@ -1,5 +1,6 @@
 import { BellOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
 import { Dropdown, Input, Layout, Menu } from 'antd';
+import cn from 'classnames';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router';
 import store from 'store2';
@@ -35,15 +36,15 @@ export function Header() {
   };
 
   return (
-    <AntdHeader className={styles.Header}>
-      <div className="flex flex-1 items-center">
-        <div className="text-3xl font-black text-common">
-          区块链链上交易可视化平台
+    <AntdHeader className={cn(styles.Header)}>
+      <div className="flex flex-1 items-center justify-center bg-[#32355A]">
+        <div className="text-3xl font-black text-common text-[#E3E8F1]">
+          智器云区块链交易可视化平台
         </div>
-        <Input placeholder="Search" prefix={prefix} className={styles.search} />
+        {/* <Input placeholder="Search" prefix={prefix} className={styles.search} /> */}
       </div>
       <div className="flex items-center">
-        <div className="mr-5 cursor-pointer text-[#30313399] hover:text-[#40a9ff]">
+        <div className="mr-5 cursor-pointer text-[#E3E8F1] hover:text-[#40a9ff]">
           <BellOutlined className="text-xl" />
         </div>
         <Dropdown
@@ -57,7 +58,7 @@ export function Header() {
           }
         >
           <a
-            className="flex items-center text-xl text-[#30313399]"
+            className="flex items-center text-xl text-[#E3E8F1]"
             onClick={(e) => e.preventDefault()}
           >
             <UserOutlined />
