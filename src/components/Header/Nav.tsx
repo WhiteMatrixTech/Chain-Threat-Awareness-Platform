@@ -1,14 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /*
  * @Description:
  * @Author: didadida262
  * @Date: 2024-08-26 18:22:50
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-27 00:43:20
+ * @LastEditTime: 2024-08-27 01:12:18
  */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import ArrowPng from "@/assets/arrowNav.png";
@@ -26,6 +27,15 @@ export function Nav() {
   const navigate = useNavigate();
   const [arrowRotate, setArrowRotate] = useState("");
   const [activeNav, setActiveNav] = useState("");
+  useEffect(() => {
+    const item = MenuList.filter((i: any) => i.key === activeNav)[0] as any
+    setArrowRotate("");
+    if (item && item.children && item.children.length) {
+        setArrowRotate(item.key);
+    } else {
+      navigate(item.key);
+    }
+  }, [activeNav])
 
   return (
     <div className={`flex  ml-[74px] h-full px-[9px]`}>
@@ -50,15 +60,11 @@ export function Nav() {
                   // box-shadow: 0px 0px 8px 0px #3BA4FF;
                 )}
                 onClick={() => {
-                  setActiveNav(item.key);
-                  if (item.children && item.children.length) {
-                    if (arrowRotate === item.key) {
-                      setArrowRotate("");
-                    } else {
-                      setArrowRotate(item.key);
-                    }
+                  if (activeNav === item.key ) {
+                    setArrowRotate(arrowRotate === item.key? '': item.key)
                   } else {
-                    navigate(item.key);
+                    setActiveNav(item.key);
+
                   }
                 }}
               >
@@ -76,6 +82,18 @@ export function Nav() {
                     <img className="" src={ArrowPng} width={12} height={7} />
                   </div>}
               </div>
+                {item.children && item.children.length && arrowRotate === item.key && (
+                  <ul className="absolute top-[68px] left-[-15px]  w-[171px] bg-[#2A6CB6] z-1000">
+                    {item.children.map((liItem: any, liIndex: number) => (
+                      <li key={liIndex} className={`${pattern.flexCenter} w-full h-[34px] hover:cursor-pointer`}
+                        onClick={() => {
+                          navigate(liItem.key)
+                      }}
+                      >
+                        <span className="text-[#ffffff] text-[16px]">{liItem.label}</span></li>
+                      ))}
+                  </ul>
+              )}
             </div>
           )  :(
             <div

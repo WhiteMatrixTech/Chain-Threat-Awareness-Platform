@@ -21,8 +21,20 @@ export const MenuList: MenuItem[] = [
     key: '/threat-detection',
     children: [
       {
-        label: '合约检测',
+        label: '智能合约漏洞检测',
         key: '/threat-detection/contract-detection'
+      },
+      {
+        label: '自私挖矿检测',
+        key: '/threat-detection/privacy'
+      },
+      {
+        label: '抢跑攻击检测',
+        key: '/threat-detection/attack'
+      },
+      {
+        label: '钓鱼地址检测',
+        key: '/threat-detection/fisht'
       },
       {
         label: '查看报表',

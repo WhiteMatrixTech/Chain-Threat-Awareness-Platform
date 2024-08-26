@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:34:32
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-26 18:21:59
+ * @LastEditTime: 2024-08-27 01:08:12
  */
 import { Image, Layout } from "antd";
 import cn from "classnames";
@@ -71,7 +71,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         <Header />
 
         <Layout className="">
-          <Content className="overflow-y-auto overflow-x-hidden px-[40px]  z-[1]">
+          <Content className="overflow-y-auto overflow-x-hidden px-[40px] pt-[36px] z-[1]">
             {children}
           </Content>
         </Layout>
