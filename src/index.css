@@ -33,3 +33,10 @@
   background-color: rgba(178, 186, 203, 0.5);
   border-radius: 3px;
 }
+
+.markBorderG {
+  border: 1px solid green;
+}
+.markBorderR {
+  border: 1px solid red;
+}
