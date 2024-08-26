@@ -79,6 +79,8 @@ export function Login(props: loginProps) {
           </span>
         </div>
         <Form form={form}>
+          <span className="text-[#666666] text-[14px]">邮箱</span>
+
           <Form.Item
             name="userId"
             rules={[
@@ -89,19 +91,18 @@ export function Login(props: loginProps) {
               }
             ]}
           >
-            <span className="text-[#666666] text-[14px]">邮箱</span>
             <Input
               size="large"
               className="!border-t-0 !border-r-0 !border-l-0 !bg-[#ffffff] !h-[36px] !rounded-[0px] !border-[#00000080]"
               style={{ boxShadow: "0 0 0" }}
             />
           </Form.Item>
+          <span className="text-[#666666] text-[14px]">密码</span>
+
           <Form.Item
             name="password"
             rules={[{ required: true, message: "请输入密码！" }]}
           >
-            <span className="text-[#666666] text-[14px]">密码</span>
-
             <Input.Password
               size="large"
               className="!border-t-0 !border-r-0 !border-l-0 !bg-[#ffffff] !h-[36px] !rounded-[0px] !border-[#00000080] "
