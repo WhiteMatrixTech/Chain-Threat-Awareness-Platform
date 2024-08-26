@@ -14,8 +14,6 @@ import { loginRequestType, loginService } from "@/services/user";
 import pattern from "@/styles/pattern";
 import { getParams, validEmail } from "@/utils/common";
 
-// import loginBg1 from "../../assets/loginBg1.png";
-// import loginBg2 from "../../assets/loginBg2.png";
 import styles from "./login.module.less";
 
 interface loginProps {
@@ -59,7 +57,7 @@ export function Login(props: loginProps) {
       className={cn(
         styles.login,
         className,
-        "h-[100%] w-[100%] bg-[#F5F5F5] overflow-hidden"
+        "h-screen w-[100%] bg-[#F5F5F5] overflow-hidden"
       )}
     >
       <img
