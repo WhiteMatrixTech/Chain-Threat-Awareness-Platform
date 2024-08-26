@@ -1,22 +1,28 @@
-import { BellOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
-import { Dropdown, Input, Layout, Menu } from 'antd';
-import React, { useContext } from 'react';
-import { useNavigate } from 'react-router';
-import store from 'store2';
+/* eslint-disable prettier/prettier */
+import { BellOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
+import { Dropdown, Input, Layout, Menu } from "antd";
+import cn from "classnames";
+import React, { useContext } from "react";
+import { useNavigate } from "react-router";
+import store from "store2";
 
-import { UserContext } from '@/services/context';
-import { emitter, EmitterEvent } from '@/services/event';
-import { ellipsisAddress } from '@/utils/common';
+import ArrowPng from '@/assets/arrow.png'  
+import LogoBlock from "@/assets/logo_block.png";
+import MessagesPng from '@/assets/messages.png'  
+import UserPng from '@/assets/userPng.png'  
+import { SelectorCommon } from "@/components/SelectorCommon";
+import { UserContext } from "@/services/context";
+import { emitter, EmitterEvent } from "@/services/event";
+import pattern from "@/styles/pattern";
+import { ellipsisAddress } from "@/utils/common";
 
-import styles from './Header.module.less';
-
-const { Header: AntdHeader } = Layout;
+import styles from "./Header.module.less";
 
 const prefix = (
   <SearchOutlined
     style={{
       fontSize: 16,
-      color: 'rgba(48, 49, 51, 0.4)'
+      color: "rgba(48, 49, 51, 0.4)"
     }}
   />
 );
@@ -24,49 +30,71 @@ const prefix = (
 export function Header() {
   const navigate = useNavigate();
   const { userInfo } = useContext(UserContext);
+  console.log('userInfo>>>', userInfo)
 
   const handleLogout = ({ key }: { key: string }) => {
-    if (key === 'loginOut') {
+    if (key === "loginOut") {
       emitter.emit(EmitterEvent.logout);
 
       store.clearAll();
-      navigate('/login');
+      navigate("/login");
     }
   };
 
   return (
-    <AntdHeader className={styles.Header}>
-      <div className="flex flex-1 items-center">
-        <div className="text-3xl font-black text-common">
-          区块链安全威胁感知平台
+    <div
+      className={cn(
+        `${pattern.flexStart}  z-[1] h-[64px] w-full px-[31px] `
+      )}
+    >
+      <div
+        className={`text-[34px] font-[900] text-[#303133] ${pattern.flexCenter}`}
+      >
+        <div className="">
+          <img className="mr-[8px]" src={LogoBlock} width={40} height={40} />
         </div>
+
+        <span className="text-[27px] font-[500] text-[#00A0E9]">
+          区块链安全威胁感知平台
+        </span>
+      </div>
+      <div className="markBorderG">导航</div>
+      <div className="markBorderG">
         <Input placeholder="Search" prefix={prefix} className={styles.search} />
       </div>
-      <div className="flex items-center">
-        <div className="mr-5 cursor-pointer text-[#30313399] hover:text-[#40a9ff]">
-          <BellOutlined className="text-xl" />
-        </div>
-        <Dropdown
-          placement="bottom"
-          overlay={
-            <Menu
-              theme="dark"
-              onClick={handleLogout}
-              items={[{ label: '退出账号', key: 'loginOut' }]}
-            />
-          }
-        >
-          <a
-            className="flex items-center text-xl text-[#30313399]"
-            onClick={(e) => e.preventDefault()}
+      <div className=" absolute right-[40px] ">
+        <div className="flex items-center">
+          <div className=" mr-[10px] cursor-pointer text-[#30313399] hover:text-[#40a9ff] ">
+            <img className="" src={MessagesPng} width={32} height={32} />
+          </div>
+          <Dropdown
+            placement="bottom"
+            overlay={
+              <Menu
+                theme="dark"
+                onClick={handleLogout}
+                items={[{ label: '退出账号', key: 'loginOut' }]}
+              />
+            }
           >
-            <UserOutlined />
-            <span className="pl-1">
-              {ellipsisAddress(userInfo?.userId || '')}
-            </span>
-          </a>
-        </Dropdown>
+            <a
+              className="flex items-center text-xl text-[#30313399]"
+              onClick={(e) => e.preventDefault()}
+              >
+                <div className={`w-[110px] h-[32px]  ${pattern.flexbet} px-[8px] rounded-[4px] bg-[#02004D4D]`}>
+                  <img className="" src={UserPng} width={17} height={17} />
+                  <span className="text-[#FFFFFF] text-[13px]">
+                    {ellipsisAddress(userInfo?.userId || '')?ellipsisAddress(userInfo?.userId || ''): 'user001'}
+                </span>
+                <img className="" src={ArrowPng} />
+                
+                </div>
+
+            </a>
+          </Dropdown>
+        </div>
       </div>
-    </AntdHeader>
+      
+    </div>
   );
 }

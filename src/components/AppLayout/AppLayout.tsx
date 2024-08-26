@@ -1,14 +1,23 @@
-import { Image, Layout } from 'antd';
-import cn from 'classnames';
-import React, { useState } from 'react';
-import { useLocation } from 'react-router';
+/* eslint-disable prettier/prettier */
+/*
+ * @Description:
+ * @Author: didadida262
+ * @Date: 2024-08-26 10:34:32
+ * @LastEditors: didadida262
+ * @LastEditTime: 2024-08-26 17:31:30
+ */
+import { Image, Layout } from "antd";
+import cn from "classnames";
+import React, { useState } from "react";
+import { useLocation } from "react-router";
 
-import logo from '@/assets/logo.png';
-import { UserProvider } from '@/services/context';
+import BgNew from "@/assets/bgNew.png";
+import logo from "@/assets/logo.png";
+import { Header } from "@/components/Header";
+import { UserProvider } from "@/services/context";
 
-import { Header } from '../Header';
-import { LeftMenu } from '../LeftMenu';
-import styles from './AppLayout.module.less';
+import { LeftMenu } from "../LeftMenu";
+import styles from "./AppLayout.module.less";
 
 const { Content, Sider } = Layout;
 
@@ -16,13 +25,15 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
 
   const { pathname } = useLocation();
-  const withoutLayout = ['/login', '/login/', '/register/', '/register'];
+  const withoutLayout = ["/login", "/login/", "/register/", "/register"];
 
   if (withoutLayout.includes(pathname)) {
     return (
       <UserProvider>
-        <Layout className={styles['auth-layout']}>
-          <Content>{children}</Content>
+        <Layout className={styles["auth-layout"]}>
+          <Content>
+            {children}
+          </Content>
         </Layout>
       </UserProvider>
     );
@@ -30,8 +41,16 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <UserProvider>
-      <Layout className="h-screen overflow-hidden">
-        <Sider
+      <Layout className="h-screen overflow-hidden relative">
+        {/* 打点 */}
+        <div
+          className={cn(
+            `absolute top-[0px] left-[0px] h-full w-full overflow-hidden z-[0]`
+          )}
+        >
+          <img className="" src={BgNew} />
+        </div>
+        {/* <Sider
           theme="light"
           breakpoint="lg"
           collapsedWidth="0"
@@ -48,10 +67,10 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
             <Image width={180} src={logo} preview={false} />
           </a>
           <LeftMenu />
-        </Sider>
+        </Sider> */}
         <Layout>
           <Header />
-          <Content className="overflow-y-auto overflow-x-hidden p-[24px]">
+          <Content className="overflow-y-auto overflow-x-hidden p-[24px] z-[1]">
             {children}
           </Content>
         </Layout>
