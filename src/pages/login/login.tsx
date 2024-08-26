@@ -53,18 +53,16 @@ export function Login(props: loginProps) {
   );
 
   return (
-    <div
-      className={cn(
-        styles.login,
-        className,
-        "h-screen w-[100%] bg-[#F5F5F5] overflow-hidden"
-      )}
-    >
-      <img
-        className="absolute top-[0px] left-[0px] max-h-screen w-full"
-        src={LoginBg}
-      />
-      <div className=" rounded-[8px] bg-[#FFFFFF] pt-[30px] p-[60px] w-[541px] h-[416px] absolute right-[calc(19%)] top-[calc(50%_-_208px)] flex flex-col  ">
+    <div className={cn(className, `h-full w-full`)}>
+      <div
+        className={cn(
+          `absolute top-[0px] left-[0px] h-full w-full overflow-hidden`
+        )}
+      >
+        <img className="" src={LoginBg} />
+      </div>
+
+      <div className=" rounded-[8px] bg-[#FFFFFF] pt-[30px] p-[60px] w-[541px] h-[416px] absolute right-[calc(10%)] 3xl:right-[calc(20%)] top-[calc(50%_-_208px)] flex flex-col  ">
         <div
           className={`text-[34px] font-[900] text-[#303133] ${pattern.flexCenter} mb-[40px]`}
         >

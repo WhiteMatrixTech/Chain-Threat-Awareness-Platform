@@ -124,18 +124,21 @@ export function Register(props: registerProps) {
         "h-screen w-[100%] bg-[#F5F5F5] overflow-hidden"
       )}
     >
-      <img
-        className="absolute top-[0px] left-[0px] max-h-screen w-full"
-        src={LoginBg}
-      />
+      <div
+        className={cn(
+          `absolute top-[0px] left-[0px] h-full w-full overflow-hidden`
+        )}
+      >
+        <img className="" src={LoginBg} />
+      </div>
+
       {!isRegisterSuccess &&
         <div
           className={cn(
-            "absolute left-0 top-0 flex h-[100%] w-[100%] flex-col items-center ",
-            height >= 900 ? " justify-center" : " my-[30px]"
+            "absolute left-0 top-0 flex h-full w-full flex-col items-center overflow-hidden"
           )}
         >
-          <div className=" rounded-[8px] bg-[#FFFFFF] pt-[30px] p-[60px] w-[541px] h-[747px] absolute right-[calc(19%)] top-[calc(50%_-_410px)] flex flex-col  ">
+          <div className=" rounded-[8px] bg-[#FFFFFF] pt-[30px] p-[60px] w-[541px] h-[747px] absolute right-[calc(10%)] 3xl:right-[calc(20%)] top-[calc(50%_-_370px)] flex flex-col  ">
             <div
               className={`text-[34px] font-[900] text-[#303133] ${pattern.flexCenter} mb-[40px]`}
             >
