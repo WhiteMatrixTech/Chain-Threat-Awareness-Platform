@@ -13,6 +13,10 @@ export const MenuList: MenuItem[] = [
     key: '/data-store'
   },
   {
+    label: 'split',
+    key: ''
+  },
+  {
     label: '威胁感知',
     key: '/threat-detection',
     children: [
@@ -27,6 +31,10 @@ export const MenuList: MenuItem[] = [
     ]
   },
   {
+    label: 'split',
+    key: ''
+  },
+  {
     label: '威胁取证',
     key: '/threat-evidence',
     children: [
@@ -39,6 +47,10 @@ export const MenuList: MenuItem[] = [
         key: '/threat-evidence/transaction-graph'
       }
     ]
+  },
+  {
+    label: 'split',
+    key: ''
   },
   {
     label: '数据大屏',
