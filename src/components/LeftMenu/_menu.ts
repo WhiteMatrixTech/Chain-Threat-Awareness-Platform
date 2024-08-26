@@ -3,6 +3,7 @@ import type { MenuProps } from 'antd';
 import { cloneDeep } from 'lodash';
 
 import { flatTreeData, ITree } from '@/utils/common';
+
 // eslint-disable-next-line @typescript-eslint/no-type-alias
 type MenuItem = Required<MenuProps>['items'][number];
 

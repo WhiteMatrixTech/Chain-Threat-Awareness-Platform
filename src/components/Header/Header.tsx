@@ -17,6 +17,7 @@ import pattern from "@/styles/pattern";
 import { ellipsisAddress } from "@/utils/common";
 
 import styles from "./Header.module.less";
+import { Nav } from "./Nav";
 
 const prefix = (
   <SearchOutlined
@@ -58,10 +59,10 @@ export function Header() {
           区块链安全威胁感知平台
         </span>
       </div>
-      <div className="markBorderG">导航</div>
-      <div className="markBorderG">
+      <Nav />
+      {/* <div className="markBorderG ml-[36px]">
         <Input placeholder="Search" prefix={prefix} className={styles.search} />
-      </div>
+      </div> */}
       <div className=" absolute right-[40px] ">
         <div className="flex items-center">
           <div className=" mr-[10px] cursor-pointer text-[#30313399] hover:text-[#40a9ff] ">

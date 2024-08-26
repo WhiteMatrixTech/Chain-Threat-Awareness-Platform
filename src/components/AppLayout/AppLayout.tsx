@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:34:32
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-26 17:31:30
+ * @LastEditTime: 2024-08-26 18:21:59
  */
 import { Image, Layout } from "antd";
 import cn from "classnames";
@@ -41,7 +41,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <UserProvider>
-      <Layout className="h-screen overflow-hidden relative">
+      <Layout className="h-screen overflow-hidden relative pt-[23px]">
         {/* 打点 */}
         <div
           className={cn(
@@ -68,9 +68,10 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           </a>
           <LeftMenu />
         </Sider> */}
-        <Layout>
-          <Header />
-          <Content className="overflow-y-auto overflow-x-hidden p-[24px] z-[1]">
+        <Header />
+
+        <Layout className="">
+          <Content className="overflow-y-auto overflow-x-hidden px-[40px]  z-[1]">
             {children}
           </Content>
         </Layout>
