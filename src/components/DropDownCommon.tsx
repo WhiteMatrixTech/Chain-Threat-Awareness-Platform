@@ -25,7 +25,7 @@ export function DropDownCommon(props: IDropProps) {
   return (
     <div
       className={cn(
-        "rounded-[4px] border-[1px] border-solid relative w-[120px] hover:cursor-pointer px-[8px] py-[8px] relative",
+        "rounded-[4px] border-[1px] border-solid  w-[120px] hover:cursor-pointer px-[8px] py-[8px] relative",
         className
       )}
       ref={ref}
