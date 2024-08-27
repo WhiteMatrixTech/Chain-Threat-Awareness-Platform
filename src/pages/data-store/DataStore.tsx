@@ -5,12 +5,13 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-27 01:48:43
+ * @LastEditTime: 2024-08-27 15:00:37
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
 import cn from "classnames";
 import dayjs from "dayjs";
+import { useEffect } from "react";
 import { useQuery } from "react-query";
 
 import { AppBreadcrumb } from "@/components/Breadcrumb";
@@ -26,42 +27,47 @@ const breadCrumbItems = [
 
 const columns: ColumnsType<any> = [
   {
-    title: "ID",
-    dataIndex: "id",
+    title: "序号",
     ellipsis: true,
     width: 100
   },
   {
-    title: "名称",
+    title: "数据集名称",
     dataIndex: "name",
     ellipsis: true
   },
   {
-    title: "数据库类型",
-    dataIndex: "databaseType",
-    ellipsis: true
-  },
-  {
-    title: "描述",
-    dataIndex: "description",
-    ellipsis: true
-  },
-  {
-    title: "链类型",
+    title: "平台",
     dataIndex: "chainType",
     ellipsis: true
   },
   {
-    title: "版本",
-    dataIndex: "version",
+    title: "数量",
+    dataIndex: "number",
     ellipsis: true
-  },
-  {
-    title: "创建时间",
-    dataIndex: "createTime",
-    ellipsis: true,
-    render: (text: string) => dayjs(text).format("YYYY-MM-DD HH:mm:ss")
   }
+  // {
+  //   title: "数据库类型",
+  //   dataIndex: "databaseType",
+  //   ellipsis: true
+  // },
+  // {
+  //   title: "描述",
+  //   dataIndex: "description",
+  //   ellipsis: true
+  // },
+
+  // {
+  //   title: "版本",
+  //   dataIndex: "version",
+  //   ellipsis: true
+  // },
+  // {
+  //   title: "创建时间",
+  //   dataIndex: "createTime",
+  //   ellipsis: true,
+  //   render: (text: string) => dayjs(text).format("YYYY-MM-DD HH:mm:ss")
+  // }
 ];
 
 export function DataStore() {
@@ -74,10 +80,16 @@ export function DataStore() {
     await waitTime(1000);
     return dataStoreList;
   });
+  useEffect(
+    () => {
+      console.log(data);
+    },
+    [data]
+  );
 
   return (
     <div className={cn(" w-full h-full")}>
-      <div className="table w-full  max-h-[calc(100%_-_40px)] px-[20px] py-[20px] border-[2px] border-solid border-[#0D53B7]">
+      <div className="table w-full bg-[#02004D4D] max-h-[calc(100%_-_40px)] px-[20px] py-[20px] border-[2px] border-solid border-[#0D53B7]">
         <div
           className={cn(
             `header flex bg-[#00D2D51A] h-[40px] items-center w-full `
@@ -86,10 +98,8 @@ export function DataStore() {
           {columns &&
             columns.map((col: any, colkey: number) =>
               <div
-                className={cn(
-                  "px-[16px]",
-                  col.width ? `w-[${col.width}px]` : "flex-1"
-                )}
+                className={cn("px-[16px]", "")}
+                style={col.width ? { width: col.width } : { flexGrow: 1 }}
                 key={colkey}
               >
                 <span className={cn("text-[15px] text-[#ffffff]")}>
@@ -101,18 +111,19 @@ export function DataStore() {
         <div className="content w-full ">
           {data &&
             data.map((item: any, index: number) =>
-              <div className="w-full h-[40px] flex" key={index}>
+              <div
+                className="w-full h-[40px] flex border-solid border-[0px] border-b-[1px] border-[#083FAA]"
+                key={index}
+              >
                 {columns &&
                   columns.map((col: any, colkey: number) =>
                     <div
-                      className={cn(
-                        "px-[16px]  flex items-center",
-                        col.width ? `w-[${col.width}px]` : "flex-1"
-                      )}
+                      className={cn("px-[16px]  flex items-center", "")}
+                      style={col.width ? { width: col.width } : { flexGrow: 1 }}
                       key={colkey}
                     >
                       <span className={cn("text-[15px] text-[#ffffff]")}>
-                        {item[col.dataIndex]}
+                        {col.dataIndex ? item[col.dataIndex] : index + 1}
                       </span>
                     </div>
                   )}

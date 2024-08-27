@@ -58,12 +58,6 @@ export function Login(props: loginProps) {
         `h-screen w-full overflow-hidden bg-[url('./assets/login_bgNew.png')] bg-cover bg-center `
       )}
     >
-      {/* <div
-        className={cn(
-          `absolute top-[0px] left-[0px] h-full w-full overflow-hidden bg-[url('./assets/login_bgNew.png')] bg-cover bg-center`
-        )}
-      /> */}
-
       <div className=" rounded-[8px] bg-[#FFFFFF] pt-[30px] p-[60px] w-[541px] h-[416px] absolute right-[calc(10%)] 3xl:right-[calc(20%)] top-[calc(50%_-_208px)] flex flex-col  ">
         <div
           className={`text-[34px] font-[900] text-[#303133] ${pattern.flexCenter} mb-[40px]`}
