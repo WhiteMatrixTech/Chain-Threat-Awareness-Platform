@@ -5,12 +5,13 @@
  * @Author: didadida262
  * @Date: 2024-08-26 18:22:50
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-27 15:56:44
+ * @LastEditTime: 2024-08-27 16:00:12
  */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
-import { useEffect, useState } from "react";
+import { useEffect, useRef,useState } from "react";
 import { useNavigate } from "react-router";
+import { useClickAway } from "react-use";
 
 import ArrowPng from "@/assets/arrowNav.png";
 import SplitPg from "@/assets/splitePg.png";
@@ -25,6 +26,8 @@ interface MenuItem {
 
 export function Nav() {
   const navigate = useNavigate();
+  const ref = useRef<HTMLDivElement | null>(null);
+
   const [arrowRotate, setArrowRotate] = useState("");
   const [activeNav, setActiveNav] = useState(MenuList[0]?.key || '');
   useEffect(() => {
@@ -36,9 +39,15 @@ export function Nav() {
       navigate(item.key);
     }
   }, [activeNav])
+  useClickAway(ref, () => {
+    setArrowRotate("");
+  });
+
 
   return (
-    <div className={`flex  ml-[74px] h-full px-[9px]`}>
+    <div className={`flex  ml-[74px] h-full px-[9px]`}
+    ref={ref}
+    >
       {MenuList &&
         MenuList.map((item: any, index) =>
         <>

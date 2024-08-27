@@ -1,21 +1,29 @@
-import { Col, Row } from 'antd';
-import cn from 'classnames';
+/* eslint-disable prettier/prettier */
+/*
+ * @Description:
+ * @Author: didadida262
+ * @Date: 2024-08-26 10:16:45
+ * @LastEditors: didadida262
+ * @LastEditTime: 2024-08-27 15:58:41
+ */
+import { Col, Row } from "antd";
+import cn from "classnames";
 
-import { AppBreadcrumb } from '@/components/Breadcrumb';
+import { AppBreadcrumb } from "@/components/Breadcrumb";
 
-import styles from './DetectionChart.module.less';
-import { DetectionDetail } from './DetectionDetail';
-import { DetectionStatisticColumn } from './DetectionStatisticColumn';
-import { VulnerabilityStatistics } from './VulnerabilityStatisticsPie';
+import styles from "./DetectionChart.module.less";
+import { DetectionDetail } from "./DetectionDetail";
+import { DetectionStatisticColumn } from "./DetectionStatisticColumn";
+import { VulnerabilityStatistics } from "./VulnerabilityStatisticsPie";
 
 const breadCrumbItems = [
   {
-    menuHref: '/threat-detection',
-    menuName: '威胁感知'
+    menuHref: "/threat-detection",
+    menuName: "威胁感知"
   },
   {
-    menuHref: '/threat-detection/detection-chart',
-    menuName: '查看报表',
+    menuHref: "/threat-detection/detection-chart",
+    menuName: "查看报表",
     isLeftMenu: true
   }
 ];
@@ -23,11 +31,11 @@ const breadCrumbItems = [
 export function DetectionChart() {
   return (
     <div className={styles.detectionChart}>
-      <AppBreadcrumb breadCrumbItems={breadCrumbItems} />
+      {/* <AppBreadcrumb breadCrumbItems={breadCrumbItems} /> */}
       <div
         className={cn(
           styles.chart,
-          'flex max-w-full flex-col gap-y-[10px] overflow-hidden'
+          "flex max-w-full flex-col gap-y-[10px] overflow-hidden"
         )}
       >
         <Row gutter={[10, 10]}>
