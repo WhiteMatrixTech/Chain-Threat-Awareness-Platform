@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 18:22:50
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-27 14:17:54
+ * @LastEditTime: 2024-08-27 15:08:59
  */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
@@ -83,7 +83,7 @@ export function Nav() {
                   </div>}
               </div>
                 {item.children && item.children.length && arrowRotate === item.key && (
-                  <ul className="absolute top-[68px] left-[-15px]  w-[171px] bg-[#2A6CB6] z-1000 markBorderG">
+                  <ul className="absolute top-[68px] left-[-15px]  w-[171px] bg-[#2A6CB6] z-1000 ">
                     {item.children.map((liItem: any, liIndex: number) => (
                       <li key={liIndex} className={`${pattern.flexCenter} w-full h-[34px] hover:cursor-pointer`}
                         onClick={() => {

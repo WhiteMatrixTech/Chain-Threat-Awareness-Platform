@@ -6,10 +6,11 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router";
 import store from "store2";
 
-import ArrowPng from '@/assets/arrow.png'  
+import ArrowPng from "@/assets/arrow.png";
 import LogoBlock from "@/assets/logo_block.png";
-import MessagesPng from '@/assets/messages.png'  
-import UserPng from '@/assets/userPng.png'  
+import MessagesPng from "@/assets/messages.png";
+import UserPng from "@/assets/userPng.png";
+import { DropDownCommon } from "@/components/DropDownCommon";
 import { SelectorCommon } from "@/components/SelectorCommon";
 import { UserContext } from "@/services/context";
 import { emitter, EmitterEvent } from "@/services/event";
@@ -31,7 +32,7 @@ const prefix = (
 export function Header() {
   const navigate = useNavigate();
   const { userInfo } = useContext(UserContext);
-  console.log('userInfo>>>', userInfo)
+  console.log("userInfo>>>", userInfo);
 
   const handleLogout = ({ key }: { key: string }) => {
     if (key === "loginOut") {
@@ -44,9 +45,7 @@ export function Header() {
 
   return (
     <div
-      className={cn(
-        `${pattern.flexStart}  z-[1] h-[64px] w-full px-[31px] `
-      )}
+      className={cn(`${pattern.flexStart}  z-[1] h-[64px] w-full px-[31px] `)}
     >
       <div
         className={`text-[34px] font-[900] text-[#303133] ${pattern.flexCenter}`}
@@ -68,34 +67,21 @@ export function Header() {
           <div className=" mr-[10px] cursor-pointer text-[#30313399] hover:text-[#40a9ff] ">
             <img className="" src={MessagesPng} width={32} height={32} />
           </div>
-          <Dropdown
-            placement="bottom"
-            overlay={
-              <Menu
-                theme="dark"
-                onClick={handleLogout}
-                items={[{ label: '退出账号', key: 'loginOut' }]}
-              />
-            }
-          >
-            <a
-              className="flex items-center text-xl text-[#30313399]"
-              onClick={(e) => e.preventDefault()}
-              >
-                <div className={`w-[110px] h-[32px]  ${pattern.flexbet} px-[8px] rounded-[4px] bg-[#02004D4D]`}>
-                  <img className="" src={UserPng} width={17} height={17} />
-                  <span className="text-[#FFFFFF] text-[13px]">
-                    {ellipsisAddress(userInfo?.userId || '')?ellipsisAddress(userInfo?.userId || ''): 'user001'}
-                </span>
-                <img className="" src={ArrowPng} />
-                
-                </div>
-
-            </a>
-          </Dropdown>
+          <DropDownCommon className="bg-[#02004D4D] border-[0px] h-[32px]" handleEvent={() => {
+            handleLogout({key: 'loginOut'})
+          }}>
+            <div
+              className="flex items-center gap-x-[8px]"
+              onClick={e => e.preventDefault()}
+            >
+              <img className="" src={UserPng} width={17} height={17} />
+              <span className="text-[#FFFFFF] text-[13px]">
+                {ellipsisAddress(userInfo?.userId || '')?ellipsisAddress(userInfo?.userId || ''): 'user001'}
+              </span>
+            </div>
+          </DropDownCommon>
         </div>
       </div>
-      
     </div>
   );
 }
