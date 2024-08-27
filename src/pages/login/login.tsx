@@ -8,7 +8,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAsyncFn } from "react-use";
 import store from "store2";
 
-import LoginBg from "@/assets/login_bgNew.png";
 import LogoBlock from "@/assets/logo_block.png";
 import { loginRequestType, loginService } from "@/services/user";
 import pattern from "@/styles/pattern";
@@ -53,14 +52,17 @@ export function Login(props: loginProps) {
   );
 
   return (
-    <div className={cn(className, `h-full w-full`)}>
-      <div
+    <div
+      className={cn(
+        className,
+        `h-screen w-full overflow-hidden bg-[url('./assets/login_bgNew.png')] bg-cover bg-center `
+      )}
+    >
+      {/* <div
         className={cn(
-          `absolute top-[0px] left-[0px] h-full w-full overflow-hidden`
+          `absolute top-[0px] left-[0px] h-full w-full overflow-hidden bg-[url('./assets/login_bgNew.png')] bg-cover bg-center`
         )}
-      >
-        <img className="" src={LoginBg} />
-      </div>
+      /> */}
 
       <div className=" rounded-[8px] bg-[#FFFFFF] pt-[30px] p-[60px] w-[541px] h-[416px] absolute right-[calc(10%)] 3xl:right-[calc(20%)] top-[calc(50%_-_208px)] flex flex-col  ">
         <div

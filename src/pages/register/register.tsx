@@ -121,17 +121,9 @@ export function Register(props: registerProps) {
       className={cn(
         styles.register,
         className,
-        "h-screen w-[100%] bg-[#F5F5F5] overflow-hidden"
+        "h-screen w-[100%] bg-[#F5F5F5] overflow-hidden bg-[url('./assets/login_bgNew.png')] bg-cover bg-center"
       )}
     >
-      <div
-        className={cn(
-          `absolute top-[0px] left-[0px] h-full w-full overflow-hidden`
-        )}
-      >
-        <img className="" src={LoginBg} />
-      </div>
-
       {!isRegisterSuccess &&
         <div
           className={cn(

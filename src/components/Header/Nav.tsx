@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 18:22:50
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-27 01:12:18
+ * @LastEditTime: 2024-08-27 14:17:54
  */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
@@ -26,7 +26,7 @@ interface MenuItem {
 export function Nav() {
   const navigate = useNavigate();
   const [arrowRotate, setArrowRotate] = useState("");
-  const [activeNav, setActiveNav] = useState("");
+  const [activeNav, setActiveNav] = useState(MenuList[0]?.key || '');
   useEffect(() => {
     const item = MenuList.filter((i: any) => i.key === activeNav)[0] as any
     setArrowRotate("");
@@ -83,7 +83,7 @@ export function Nav() {
                   </div>}
               </div>
                 {item.children && item.children.length && arrowRotate === item.key && (
-                  <ul className="absolute top-[68px] left-[-15px]  w-[171px] bg-[#2A6CB6] z-1000">
+                  <ul className="absolute top-[68px] left-[-15px]  w-[171px] bg-[#2A6CB6] z-1000 markBorderG">
                     {item.children.map((liItem: any, liIndex: number) => (
                       <li key={liIndex} className={`${pattern.flexCenter} w-full h-[34px] hover:cursor-pointer`}
                         onClick={() => {

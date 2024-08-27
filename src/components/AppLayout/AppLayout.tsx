@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:34:32
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-27 01:08:12
+ * @LastEditTime: 2024-08-27 14:29:20
  */
 import { Image, Layout } from "antd";
 import cn from "classnames";
@@ -41,15 +41,12 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <UserProvider>
-      <Layout className="h-screen overflow-hidden relative pt-[23px]">
-        {/* 打点 */}
+      <Layout className="h-screen overflow-hidden relative pt-[23px] pb-[30px]">
         <div
           className={cn(
-            `absolute top-[0px] left-[0px] h-full w-full overflow-hidden z-[0]`
+            `absolute top-[0px] left-[0px] h-full w-full overflow-hidden z-[0] bg-[url('./assets/bgNew.png')] bg-cover bg-center`
           )}
-        >
-          <img className="" src={BgNew} />
-        </div>
+        />
         {/* <Sider
           theme="light"
           breakpoint="lg"
@@ -69,7 +66,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <LeftMenu />
         </Sider> */}
         <Header />
-
         <Layout className="">
           <Content className="overflow-y-auto overflow-x-hidden px-[40px] pt-[36px] z-[1]">
             {children}
