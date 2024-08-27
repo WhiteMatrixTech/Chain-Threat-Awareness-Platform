@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-27 15:00:37
+ * @LastEditTime: 2024-08-27 15:07:05
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -34,12 +34,14 @@ const columns: ColumnsType<any> = [
   {
     title: "数据集名称",
     dataIndex: "name",
-    ellipsis: true
+    ellipsis: true,
+    width: 320
   },
   {
     title: "平台",
     dataIndex: "chainType",
-    ellipsis: true
+    ellipsis: true,
+    width: 320
   },
   {
     title: "数量",
@@ -98,7 +100,7 @@ export function DataStore() {
           {columns &&
             columns.map((col: any, colkey: number) =>
               <div
-                className={cn("px-[16px]", "")}
+                className={cn("px-[16px] ")}
                 style={col.width ? { width: col.width } : { flexGrow: 1 }}
                 key={colkey}
               >
@@ -118,7 +120,7 @@ export function DataStore() {
                 {columns &&
                   columns.map((col: any, colkey: number) =>
                     <div
-                      className={cn("px-[16px]  flex items-center", "")}
+                      className={cn("px-[16px]  flex items-center ")}
                       style={col.width ? { width: col.width } : { flexGrow: 1 }}
                       key={colkey}
                     >
@@ -131,7 +133,7 @@ export function DataStore() {
             )}
         </div>
       </div>
-      <div className="pag markBorderG mt-[20px] h-[20px]" />
+      <div className="pag  mt-[20px] h-[20px]" />
     </div>
   );
 }
