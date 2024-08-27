@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 18:22:50
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-27 16:00:12
+ * @LastEditTime: 2024-08-27 16:02:14
  */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
@@ -96,6 +96,7 @@ export function Nav() {
                     {item.children.map((liItem: any, liIndex: number) => (
                       <li key={liIndex} className={`${pattern.flexCenter} w-full h-[34px] hover:cursor-pointer`}
                         onClick={() => {
+                          setArrowRotate("");
                           navigate(liItem.key)
                       }}
                       >

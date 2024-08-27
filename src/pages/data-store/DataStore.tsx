@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-27 15:08:27
+ * @LastEditTime: 2024-08-27 16:22:47
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -90,7 +90,7 @@ export function DataStore() {
   );
 
   return (
-    <div className={cn(" w-full h-full")}>
+    <div className={cn(" w-full")}>
       <div className="table w-full bg-[#02004D4D] max-h-[calc(100%_-_40px)] px-[20px] py-[20px] border-[2px] border-solid border-[#0D53B7]">
         <div
           className={cn(
