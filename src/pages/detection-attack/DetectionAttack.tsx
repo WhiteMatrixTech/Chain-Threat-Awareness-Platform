@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-28 13:44:06
+ * @LastEditTime: 2024-08-28 13:48:06
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -65,7 +65,7 @@ export function DetectionAttack() {
             <div className="w-full h-full  flex flex-col gap-y-[16px]">
               <div className={`w-full h-[36px] flex items-center`}>
                 <SelectorCommonV2
-                  placeholder="币种"
+                  placeholder="以太坊区块的区块号或区块哈希"
                   value={selectedType}
                   options={typeList}
                   setValue={(item: ISelectorItemProps) => {

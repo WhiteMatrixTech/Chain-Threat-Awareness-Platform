@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-28 13:36:35
+ * @LastEditTime: 2024-08-28 13:47:56
  */
 import cn from "classnames";
 import { useState } from "react";
@@ -21,37 +21,18 @@ import pattern from "@/styles/pattern";
 export function DetectionFish() {
   const typeList = [
     {
-      label: "比特币",
-      value: "bitcoin"
-    },
-    {
-      label: "火币",
-      value: "hot"
+      label: "账号地址",
+      value: "address"
     }
   ];
-  const rangeList = [
-    {
-      label: "0-100",
-      value: "0-100"
-    },
-    {
-      label: "100-200",
-      value: "100-200"
-    }
-  ];
+
   const [selectedType, setSelectedType] = useState<ISelectorItemProps | null>(
     null
   );
-  const [selectedRange, setSelectedRange] = useState<ISelectorItemProps | null>(
-    null
-  );
-  const [inputRange, setInputRange] = useState<any>("");
 
   const start = () => {
     const params = {
-      selectedType,
-      selectedRange,
-      inputRange
+      selectedType
     };
     console.log("params>>>>", params);
   };
@@ -68,12 +49,12 @@ export function DetectionFish() {
       >
         <div
           className={cn(
-            `w-[662px] h-[362px] bg-[url('./assets/privacyBg1.png')] bg-cover bg-center relative`
+            `w-[662px] h-[258px] bg-[url('./assets/attackBg1.png')] bg-cover bg-center relative`
           )}
         >
           <div
             className={cn(
-              `absolute top-0 left-0 w-full h-[54px] bg-[url('./assets/privacyBg1Title.png')] bg-cover bg-center`
+              `absolute top-0 left-0 w-full h-[54px] bg-[url('./assets/fishBg1Title.png')] bg-cover bg-center`
             )}
           />
           <div
@@ -84,29 +65,11 @@ export function DetectionFish() {
             <div className="w-full h-full  flex flex-col gap-y-[16px]">
               <div className={`w-full h-[36px] flex items-center`}>
                 <SelectorCommonV2
-                  placeholder="币种"
+                  placeholder="以太坊外部账号的地址"
                   value={selectedType}
                   options={typeList}
                   setValue={(item: ISelectorItemProps) => {
                     setSelectedType(item);
-                  }}
-                />
-              </div>
-              <div className={`w-full h-[36px] flex items-center`}>
-                <SelectorCommonV2
-                  placeholder="区块号范围"
-                  value={selectedRange}
-                  options={rangeList}
-                  setValue={(item: ISelectorItemProps) => {
-                    setSelectedRange(item);
-                  }}
-                />
-              </div>
-              <div className={`w-full h-[36px] flex items-center`}>
-                <InputCommon
-                  placeholder="1000到2000数值"
-                  onInput={(val: any) => {
-                    setInputRange(val);
                   }}
                 />
               </div>
