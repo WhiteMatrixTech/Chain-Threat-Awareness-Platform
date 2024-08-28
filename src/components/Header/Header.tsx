@@ -11,7 +11,6 @@ import LogoBlock from "@/assets/logo_block.png";
 import MessagesPng from "@/assets/messages.png";
 import UserPng from "@/assets/userPng.png";
 import { DropDownCommon } from "@/components/DropDownCommon";
-import { SelectorCommon } from "@/components/SelectorCommon";
 import { UserContext } from "@/services/context";
 import { emitter, EmitterEvent } from "@/services/event";
 import pattern from "@/styles/pattern";

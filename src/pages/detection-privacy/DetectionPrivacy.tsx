@@ -5,13 +5,13 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-28 10:53:24
+ * @LastEditTime: 2024-08-28 11:14:49
  */
 import cn from "classnames";
 import { useState } from "react";
 
+import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
 import { InputCommon } from "@/components/InputCommon";
-import { Search } from "@/components/Search";
 import {
   ISelectorItemProps,
   SelectorCommonV2
@@ -94,6 +94,17 @@ export function DetectionPrivacy() {
                     setInputRange(val);
                   }}
                 />
+              </div>
+              <div
+                className={`w-full h-[36px] flex items-center justify-end select-none`}
+              >
+                <ButtonCommonV2
+                  onClick={() => {
+                    console.log("start!");
+                  }}
+                >
+                  <span className="text-[#FFFFFF] text-[16px]">开始检测</span>
+                </ButtonCommonV2>
               </div>
             </div>
           </div>
