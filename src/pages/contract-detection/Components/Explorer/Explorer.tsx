@@ -183,7 +183,7 @@ export function Explorer() {
   ]);
 
   return (
-    <div className={cn(styles.Explorer, 'h-full bg-white p-3')}>
+    <div className={cn(styles.Explorer, ' h-full bg-white p-3')}>
       <div className="flex items-center justify-between border-b-[0.75px] border-solid border-[#EBF0F5] px-1 pt-1 pb-4">
         <Tooltip title="新增项目">
           <AppstoreAddOutlined
@@ -203,9 +203,9 @@ export function Explorer() {
             className="cursor-pointer text-base hover:text-[#40a9ff]"
           />
         </Tooltip>
-        <Tooltip title="上传（功能开发中）">
+        {/* <Tooltip title="上传（功能开发中）">
           <CloudUploadOutlined className="cursor-not-allowed text-base hover:text-[#40a9ff]" />
-        </Tooltip>
+        </Tooltip> */}
       </div>
       <div className="my-2">
         <Tree

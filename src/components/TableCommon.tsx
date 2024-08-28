@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-28 14:53:22
+ * @LastEditTime: 2024-08-28 15:53:53
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -49,11 +49,14 @@ export function TableCommon(props: IProps) {
               </div>
             )}
         </div>
-        <div className="content w-full ">
+        <div className="content w-full">
           {data &&
             data.map((item: any, index: number) =>
               <div
-                className="w-full h-[40px] flex border-solid border-[0px] border-b-[1px] border-[#083FAA]"
+                className={cn(
+                  `w-full h-[40px] flex border-solid border-[0px] border-b-[1px] border-[#083FAA]`,
+                  "hover:bg-[#00D2D51A]"
+                )}
                 key={index}
               >
                 {columns &&
