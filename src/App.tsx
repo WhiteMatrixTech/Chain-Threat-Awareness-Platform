@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-27 17:19:02
+ * @LastEditTime: 2024-08-28 13:37:41
  */
 import "./App.less";
 
@@ -17,7 +17,9 @@ import { AddressAnalysis } from "./pages/address-analysis";
 import { ContractDetection } from "./pages/contract-detection";
 import { DataScreens } from "./pages/data-screens";
 import { DataStore } from "./pages/data-store";
+import { DetectionAttack } from "./pages/detection-attack";
 import { DetectionChart } from "./pages/detection-chart";
+import { DetectionFish } from "./pages/detection-fish";
 import { DetectionPrivacy } from "./pages/detection-privacy";
 import { Login } from "./pages/login";
 import { Register } from "./pages/register";
@@ -45,14 +47,14 @@ function App() {
           path="/threat-detection/detection-privacy"
           element={<DetectionPrivacy />}
         />
-        {/* <Route
+        <Route
           path="/threat-detection/detection-attack"
-          element={<DetectionChart />}
+          element={<DetectionAttack />}
         />
         <Route
           path="/threat-detection/detection-fish"
-          element={<DetectionChart />}
-        /> */}
+          element={<DetectionFish />}
+        />
         <Route
           path="/threat-evidence/address-analysis"
           element={<AddressAnalysis />}
