@@ -1,6 +1,7 @@
 import { QuestionCircleFilled } from '@ant-design/icons';
 import { Gauge, GaugeConfig } from '@ant-design/plots';
 import { Empty, Spin, Tag, Tooltip } from 'antd';
+import cn from 'classnames';
 import dayjs from 'dayjs';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -73,64 +74,66 @@ export function AddressDetail(props: IAddressDetailPros) {
   }
 
   return (
-    <div className="relative h-full w-full p-6">
-      <div className="text-xl font-semibold">地址详情</div>
-      <div className="my-6 flex items-center rounded-lg bg-[#f7f9fc] px-3 py-2">
-        <div>
-          <svg className="iconfont !h-11 !w-11" aria-hidden="true">
-            <use xlinkHref={`#icon-${unit}`}></use>
-          </svg>
-        </div>
-        <div className="ml-2 flex flex-1 flex-col gap-y-1">
-          <div className="flex w-full items-center">
-            <span className="mr-2 text-lg text-[#166CDD]">
-              <Tooltip title={addressData.address}>
-                {transformAddress(addressData.address)}
-              </Tooltip>
-            </span>
-            <CopyClipboard text={addressData.address} tip="复制地址" />
+    <div className={cn(' relative flex flex-col gap-y-[10px]')}>
+      <div className=" relative h-full w-full rounded-[10px] bg-white p-6">
+        <div className="text-xl font-semibold">地址详情</div>
+        <div className="my-6 flex items-center rounded-lg bg-[#f7f9fc] px-3 py-2">
+          <div>
+            <svg className="iconfont !h-11 !w-11" aria-hidden="true">
+              <use xlinkHref={`#icon-${unit}`}></use>
+            </svg>
           </div>
-          <div className="flex items-center">
-            <div className="mr-2 flex items-center justify-center rounded-sm bg-gray-100 p-1 text-sm">
-              <QuestionCircleFilled />
-              <span className="ml-1 bg-[#ebebeb]">Vitalik Buterin</span>
+          <div className="ml-2 flex flex-1 flex-col gap-y-1">
+            <div className="flex w-full items-center">
+              <span className="mr-2 text-lg text-[#166CDD]">
+                <Tooltip title={addressData.address}>
+                  {transformAddress(addressData.address)}
+                </Tooltip>
+              </span>
+              <CopyClipboard text={addressData.address} tip="复制地址" />
             </div>
-            <Tag color="green" className="px-1 !text-sm">
-              Using
-            </Tag>
+            <div className="flex items-center">
+              <div className="mr-2 flex items-center justify-center rounded-sm bg-gray-100 p-1 text-sm">
+                <QuestionCircleFilled />
+                <span className="ml-1 bg-[#ebebeb]">Vitalik Buterin</span>
+              </div>
+              <Tag color="green" className="px-1 !text-sm">
+                Using
+              </Tag>
+            </div>
           </div>
         </div>
+        <div className="flex flex-col gap-y-4 overflow-y-auto">
+          <DescriptionItem
+            label="转出/转入对手数量"
+            content={`${info?.outUserCount}/${info?.inUserCount}`}
+          />
+          <DescriptionItem
+            label={`当前余额(${unit})`}
+            content={Number(info.balance) / 1e18}
+          />
+          <DescriptionItem
+            label={`首次交易时间`}
+            content={dayjs(
+              Number(info.firstTransactionTimestamp) * 1000
+            ).format('YYYY-MM-DD HH:mm:ss')}
+          />
+          <DescriptionItem label={`交易次数`} content={info.transactionCount} />
+          <DescriptionItem
+            label={`最大一笔交易金额(${unit})`}
+            content={`${Number(info.transactionMaxAmount) / 1e18}`}
+          />
+          <DescriptionItem
+            label={`累计接受金额(${unit})`}
+            content={`${Number(info.transactionInAmountSum) / 1e18}`}
+          />
+          <DescriptionItem
+            label={`累计发送金额(${unit})`}
+            content={`${Number(info.transactionOutAmountSum) / 1e18}`}
+          />
+        </div>
       </div>
-      <div className="flex flex-col gap-y-4 overflow-y-auto">
-        <DescriptionItem
-          label="转出/转入对手数量"
-          content={`${info?.outUserCount}/${info?.inUserCount}`}
-        />
-        <DescriptionItem
-          label={`当前余额(${unit})`}
-          content={Number(info.balance) / 1e18}
-        />
-        <DescriptionItem
-          label={`首次交易时间`}
-          content={dayjs(Number(info.firstTransactionTimestamp) * 1000).format(
-            'YYYY-MM-DD HH:mm:ss'
-          )}
-        />
-        <DescriptionItem label={`交易次数`} content={info.transactionCount} />
-        <DescriptionItem
-          label={`最大一笔交易金额(${unit})`}
-          content={`${Number(info.transactionMaxAmount) / 1e18}`}
-        />
-        <DescriptionItem
-          label={`累计接受金额(${unit})`}
-          content={`${Number(info.transactionInAmountSum) / 1e18}`}
-        />
-        <DescriptionItem
-          label={`累计发送金额(${unit})`}
-          content={`${Number(info.transactionOutAmountSum) / 1e18}`}
-        />
-      </div>
-      <div className="mt-4 border-t-[0.0469rem] py-4">
+      <div className=" rounded-[10px] bg-white py-4 px-6">
         <div className="mb-4 text-xl font-semibold">地址健康度</div>
         <div className="flex">
           <div className="flex-1 p-4">
@@ -149,7 +152,6 @@ export function AddressDetail(props: IAddressDetailPros) {
           </div>
         </div>
       </div>
-
       <div className="absolute top-0 left-0 mt-20 flex h-full w-full justify-center">
         <Spin spinning={isLoading} />
       </div>

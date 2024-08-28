@@ -1,33 +1,35 @@
+/* eslint-disable simple-import-sort/imports */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { GraphinData } from "@antv/graphin";
-import { DatePicker, Form, Input, Select, Spin } from "antd";
-import cn from "classnames";
-import { useMemo, useState } from "react";
-import { useQuery } from "react-query";
-
-import { PrimaryButton } from "@/components/Button";
-import { DateCommon } from "@/components/DateCommon";
-import { InputCommonV2 } from "@/components/InputCommonV2";
-import { SelectorCommonV3 } from "@/components/SelectorCommonV3";
 import {
   generateAddressData,
   generateEdgeTxData,
   initGraphData,
   initQueryAddress
 } from "@/services/mockData/addressAnalysis";
-import pattern from "@/styles/pattern";
-import { waitTime } from "@/utils/common";
-import { getBlockByDate } from "@/utils/getBlockByDate";
-
-import styles from "./AddressAnalysis.module.less";
-import { AddressDetail } from "./Components/AddressDetail";
 import {
   AddressTxGraph,
   TGraphinClickTarget
 } from "./Components/graph/AddressTxGraph";
+import { DatePicker, Form, Input, Select, Spin } from "antd";
+import cn from "classnames";
+import { useMemo, useState } from "react";
+import { useQuery } from "react-query";
+
+import { GraphinData } from "@antv/graphin";
+import { PrimaryButton } from "@/components/Button";
+import { DateCommon } from "@/components/DateCommon";
+import { InputCommonV2 } from "@/components/InputCommonV2";
+import { SelectorCommonV3 } from "@/components/SelectorCommonV3";
+import { waitTime } from "@/utils/common";
+import { getBlockByDate } from "@/utils/getBlockByDate";
+import pattern from "@/styles/pattern";
+
+import { AddressDetail } from "./Components/AddressDetail";
 import { TxDetail } from "./Components/TxDetail";
+import styles from "./AddressAnalysis.module.less";
 
 export interface IGraphFormData {
   date: any;
@@ -135,7 +137,7 @@ export function AddressAnalysis() {
   return (
     <div className={styles.AddressAnalysis}>
       <div className={cn(styles.transactionDataContainer, "mt-6 flex gap-x-2")}>
-        <div className="w-80 max-w-sm rounded bg-white shadow-card">
+        <div className="w-80 max-w-sm rounded shadow-card ">
           <Spin spinning={qryAddressLoading || qryEdgeTxLoading}>
             {isEdge
               ? <TxDetail
