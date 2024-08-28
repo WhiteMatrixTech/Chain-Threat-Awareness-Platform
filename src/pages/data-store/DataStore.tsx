@@ -1,89 +1,107 @@
-import { SyncOutlined } from '@ant-design/icons';
-import Table, { ColumnsType } from 'antd/lib/table';
-import dayjs from 'dayjs';
-import { useQuery } from 'react-query';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable prettier/prettier */
+/*
+ * @Description:
+ * @Author: didadida262
+ * @Date: 2024-08-26 10:16:45
+ * @LastEditors: didadida262
+ * @LastEditTime: 2024-08-28 15:48:20
+ */
+import { SyncOutlined } from "@ant-design/icons";
+import Table, { ColumnsType } from "antd/lib/table";
+import cn from "classnames";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { useLocation } from "react-router-dom";
 
-import { AppBreadcrumb } from '@/components/Breadcrumb';
-import { dataStoreList } from '@/services/mockData/dataStore';
-import { waitTime } from '@/utils/common';
-
-import styles from './DataStore.module.less';
-
-const breadCrumbItems = [
-  {
-    menuHref: '/',
-    menuName: '数据仓库'
-  }
-];
+import { AppBreadcrumb } from "@/components/Breadcrumb";
+import { PageCommon } from "@/components/PageCommon";
+import { TableCommon } from "@/components/TableCommon";
+import { dataStoreRequestType, getDataStoreList } from "@/services/detection";
+import { dataStoreList } from "@/services/mockData/dataStore";
+import pattern from "@/styles/pattern";
+import { waitTime } from "@/utils/common";
 
 const columns: ColumnsType<any> = [
   {
-    title: 'ID',
-    dataIndex: 'id',
-    ellipsis: true
-  },
-  {
-    title: '名称',
-    dataIndex: 'name',
-    ellipsis: true
-  },
-  {
-    title: '数据库类型',
-    dataIndex: 'databaseType',
-    ellipsis: true
-  },
-  {
-    title: '描述',
-    dataIndex: 'description',
-    ellipsis: true
-  },
-  {
-    title: '链类型',
-    dataIndex: 'chainType',
-    ellipsis: true
-  },
-  {
-    title: '版本',
-    dataIndex: 'version',
-    ellipsis: true
-  },
-  {
-    title: '创建时间',
-    dataIndex: 'createTime',
+    title: "序号",
     ellipsis: true,
-    render: (text: string) => dayjs(text).format('YYYY-MM-DD HH:mm:ss')
+    width: 100
+  },
+  {
+    title: "数据集名称",
+    dataIndex: "name",
+    ellipsis: true,
+    width: 320
+  },
+  {
+    title: "平台",
+    dataIndex: "chainType",
+    ellipsis: true,
+    width: 320
+  },
+  {
+    title: "数量",
+    dataIndex: "number",
+    ellipsis: true
   }
 ];
 
 export function DataStore() {
-  const { data, refetch, isRefetching, isLoading } = useQuery(
-    'getDataStore',
-    async () => {
-      await waitTime(1000);
-      return dataStoreList;
-    }
+  const location = useLocation();
+  const [data, setData] = useState<any[]>([]);
+  const [pageInfo, setpageInfo] = useState({
+    pageSize: 10,
+    currentPage: 1,
+    total: 0
+  });
+
+  // const {
+  //   data,
+  //   refetch,
+  //   isRefetching,
+  //   isLoading
+  // } = useQuery("getDataStore", async () => {
+  //   await waitTime(1000);
+  //   return dataStoreList || [];
+  // });
+  useEffect(
+    () => {
+      const params: dataStoreRequestType = {
+        currentPage: 1,
+        pageSize: 20
+      };
+      void getDataStoreList(params).then(data => {
+        console.log("data>>>", data);
+      });
+    },
+    [location.pathname]
   );
+  useEffect(() => {
+    setData(dataStoreList);
+  }, []);
 
   return (
-    <div className={styles.dataStore}>
-      <div
-        onClick={() => void refetch()}
-        className="absolute right-0 top-0 flex cursor-pointer items-center text-base text-[#166CDD]"
-      >
-        <SyncOutlined className={isRefetching ? 'animate-spin' : ''} />
-        <span className=" pl-2">更新</span>
-      </div>
-      <AppBreadcrumb breadCrumbItems={breadCrumbItems} />
-      <Table
-        rowKey="id"
-        rowClassName="hover:bg-[#F4FEFF]"
+    <div className={cn("fadeIn w-full")}>
+      <TableCommon
+        className=""
+        data={data}
         columns={columns}
-        dataSource={data}
-        loading={isLoading || isRefetching}
-        pagination={{
-          position: ['bottomCenter']
-        }}
+        pageInfo={pageInfo}
       />
+      <div className={cn(`w-full ${pattern.flexEnd}  mt-[20px]`)}>
+        <PageCommon
+          pageInfo={pageInfo}
+          handleEvent={(params: any) => {
+            setpageInfo({
+              ...params
+            });
+          }}
+        />
+      </div>
     </div>
   );
 }

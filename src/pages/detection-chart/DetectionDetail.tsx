@@ -1,3 +1,10 @@
+/*
+ * @Description:
+ * @Author: didadida262
+ * @Date: 2024-08-26 10:34:32
+ * @LastEditors: didadida262
+ * @LastEditTime: 2024-08-27 16:27:30
+ */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { BellOutlined } from '@ant-design/icons';
 import cn from 'classnames';
@@ -21,10 +28,10 @@ export function DetectionDetail() {
     <div
       className={cn(
         styles.detectResultCard,
-        'h-full flex-col bg-white py-[18px] px-6'
+        '  h-full  flex-col bg-white py-[18px] px-6'
       )}
     >
-      <div className="text-xl font-medium">
+      <div className=" text-xl font-medium">
         {`检测结果详述：${DetectionResults.length}`}
       </div>
       <div className="mt-4 flex flex-1 flex-col gap-y-8 overflow-y-auto">

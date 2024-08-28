@@ -20,6 +20,7 @@ import { transformAddress } from '@/utils/common';
 import { registerPlotsShape } from '@/utils/drawAntvGragh';
 
 // import { IGraphFormData } from '../AddressAnalysis';
+
 // interface IaddressDataDetail extends IBaseInfoResponse{
 //   addressHealth: number;
 //   healthTags: HealthTag[];
