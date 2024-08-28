@@ -1,23 +1,24 @@
-import '@antv/graphin-icons/dist/index.css';
+/* eslint-disable prettier/prettier */
+import "@antv/graphin-icons/dist/index.css";
 
-import Graphin, { Behaviors, GraphinData } from '@antv/graphin';
-import cn from 'classnames';
-import { useEffect, useRef, useState } from 'react';
-import { useAsyncFn } from 'react-use';
+import Graphin, { Behaviors, GraphinData } from "@antv/graphin";
+import cn from "classnames";
+import { useEffect, useRef, useState } from "react";
+import { useAsyncFn } from "react-use";
 
-import { AnalysisLoading } from '@/components/AnalysisLoading';
-import { initGraphData, setNode } from '@/services/mockData/addressAnalysis';
-import { waitTime } from '@/utils/common';
+import { AnalysisLoading } from "@/components/AnalysisLoading";
+import { initGraphData, setNode } from "@/services/mockData/addressAnalysis";
+import { waitTime } from "@/utils/common";
 
-import { IGraphFormData } from '../../AddressAnalysis';
-import styles from '../../AddressAnalysis.module.less';
-import { GraphDataBar } from './GraphDataBar';
-import { MouseBehavior } from './MouseBehavior';
-import { ToolBar } from './ToolBar';
+import { IGraphFormData } from "../../AddressAnalysis";
+import styles from "../../AddressAnalysis.module.less";
+import { GraphDataBar } from "./GraphDataBar";
+import { MouseBehavior } from "./MouseBehavior";
+import { ToolBar } from "./ToolBar";
 
 const { ZoomCanvas, Hoverable, ActivateRelations, FontPaint } = Behaviors;
 
-export type TGraphinClickTarget = 'node' | 'edge' | 'canvas';
+export type TGraphinClickTarget = "node" | "edge" | "canvas";
 interface IAddressTxGraphProps {
   focusedId: string;
   formData: IGraphFormData;
@@ -26,7 +27,7 @@ interface IAddressTxGraphProps {
 }
 
 const layout = {
-  type: 'concentric',
+  type: "concentric",
   center: [100, 100], // 可选，
   linkDistance: 300, // 可选，边长,
   nodeSize: 1500
@@ -43,50 +44,56 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
     handleClick(formData.address);
   };
 
-  const [{ loading }, handleChangeData] = useAsyncFn(
-    async (data: GraphinData, setLoading?: boolean) => {
-      if (setLoading) {
-        await waitTime(800);
-      }
+  const [
+    { loading },
+    handleChangeData
+  ] = useAsyncFn(async (data: GraphinData, setLoading?: boolean) => {
+    if (setLoading) {
+      await waitTime(800);
+    }
 
-      setGraphData(data);
+    setGraphData(data);
 
-      if (graphRef.current && focusedId) {
-        const { apis } = graphRef.current;
-        apis.focusNodeById(focusedId);
-      }
+    if (graphRef.current && focusedId) {
+      const { apis } = graphRef.current;
+      apis.focusNodeById(focusedId);
+    }
 
-      return data;
+    return data;
+  }, []);
+
+  useEffect(
+    () => {
+      const initGraphData = {
+        edges: [],
+        nodes: [setNode(formData.address)]
+      };
+
+      void handleChangeData(initGraphData);
     },
-    []
+    [formData.address, handleChangeData]
   );
 
-  useEffect(() => {
-    const initGraphData = {
-      edges: [],
-      nodes: [setNode(formData.address)]
-    };
-
-    void handleChangeData(initGraphData);
-  }, [formData.address, handleChangeData]);
-
-  useEffect(() => {
-    changeData(graphData);
-  }, [changeData, graphData]);
+  useEffect(
+    () => {
+      changeData(graphData);
+    },
+    [changeData, graphData]
+  );
 
   return (
-    <div id="AddressTxGraphContainer" className="relative h-full w-full">
+    <div id="AddressTxGraphContainer" className=" relative h-full w-full">
       {loading && <AnalysisLoading />}
       <div
         id="AddressTxGraphContainer"
-        className={cn(styles.canvasBg, 'absolute inset-0')}
+        className={cn(styles.canvasBg, "absolute inset-0")}
       >
         <Graphin
           data={graphData}
           ref={graphRef}
           layout={layout}
           // fitView={true}
-          theme={{ background: '#e5e8ee33' }}
+          theme={{ background: "#e5e8ee33" }}
         >
           <ZoomCanvas />
           <FontPaint />

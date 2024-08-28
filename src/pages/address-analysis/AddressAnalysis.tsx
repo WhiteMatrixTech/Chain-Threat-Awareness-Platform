@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import { GraphinData } from "@antv/graphin";
@@ -31,7 +32,7 @@ const Option = Select.Option;
 const { RangePicker } = DatePicker;
 
 export interface IGraphFormData {
-  date: string[];
+  date: any;
   tokenType: string;
   address: string;
 }
@@ -54,7 +55,6 @@ const typeList = [
 ];
 
 export function AddressAnalysis() {
-  const [form] = Form.useForm();
   const [graphData, setGraphData] = useState<GraphinData>(initGraphData);
 
   const [formData, setFormData] = useState<IGraphFormData>({
@@ -96,32 +96,33 @@ export function AddressAnalysis() {
       return generateEdgeTxData(edge);
     }
   );
-  const onClickAnalysis = () => {
-    void form.validateFields().then(async (allValues: formDateType) => {
-      if (allValues.date) {
-        try {
-          const fromBlock = await getBlockByDate(allValues.date[0]);
-          const toBlock = await getBlockByDate(allValues.date[1]);
+  const onClickAnalysis = async () => {
+    // void form.validateFields().then(async (allValues: formDateType) => {
+    const allValues = { ...formData };
+    if (allValues.date) {
+      try {
+        const fromBlock = await getBlockByDate(allValues.date[0]);
+        const toBlock = await getBlockByDate(allValues.date[1]);
 
-          setFormData({
-            date: [fromBlock.toString(), toBlock.toString()],
-            tokenType: allValues.tokenType,
-            address: allValues.address
-          });
-          setSelectedHexData(allValues.address);
-          return;
-        } catch (e) {
-          console.log("e", e);
-        }
+        setFormData({
+          date: [fromBlock.toString(), toBlock.toString()],
+          tokenType: allValues.tokenType,
+          address: allValues.address
+        });
+        setSelectedHexData(allValues.address);
+        return;
+      } catch (e) {
+        console.log("e", e);
       }
+    }
 
-      setFormData({
-        date: ["0", "latest"],
-        tokenType: allValues.tokenType,
-        address: allValues.address
-      });
-      setSelectedHexData(allValues.address);
+    setFormData({
+      date: ["0", "latest"],
+      tokenType: allValues.tokenType,
+      address: allValues.address
     });
+    setSelectedHexData(allValues.address);
+    // });
   };
 
   const handleClickGraphin = (
@@ -192,52 +193,19 @@ export function AddressAnalysis() {
                 <div
                   className={cn(`w-[291px] h-[36px]  ${pattern.flexCenter}`)}
                 >
-                  <RangePicker size="middle" className={styles.dataPicker} />
+                  <RangePicker
+                    size="middle"
+                    className={styles.dataPicker}
+                    onChange={dataInfo => {
+                      setFormData({
+                        ...formData,
+                        date: dataInfo
+                      });
+                      console.log("data>>", dataInfo);
+                    }}
+                  />
                 </div>
               </div>
-
-              {/* <Form
-                form={form}
-                layout="inline"
-                wrapperCol={{ span: 24 }}
-                name="transaction-graph-form"
-                className="flex flex-1 items-center justify-end"
-              >
-                <Form.Item className="max-w-3xl !flex-1">
-                  <Input.Group compact={true}>
-                    <Form.Item
-                      name="tokenType"
-                      noStyle={true}
-                      initialValue={"ETH"}
-                    >
-                      <Select
-                        size="large"
-                        style={{ width: "30%" }}
-                        placeholder="请选择TOKEN类型"
-                      >
-                        <Option value="BTC">BTC</Option>
-                        <Option value="ETH">ETH</Option>
-                      </Select>
-                    </Form.Item>
-                    <Form.Item
-                      name="address"
-                      noStyle={true}
-                      initialValue={initQueryAddress}
-                    >
-                      <Input
-                        size="large"
-                        allowClear={true}
-                        style={{ width: "70%" }}
-                        className={styles.input}
-                        placeholder="请输入钱包地址"
-                      />
-                    </Form.Item>
-                  </Input.Group>
-                </Form.Item>
-                <Form.Item name="date">
-                  <RangePicker size="large" className={styles.dataPicker} />
-                </Form.Item>
-              </Form> */}
             </div>
 
             <div
