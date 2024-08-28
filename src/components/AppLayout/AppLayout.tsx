@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:34:32
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-27 16:22:04
+ * @LastEditTime: 2024-08-27 16:29:48
  */
 import { Image, Layout } from "antd";
 import cn from "classnames";
@@ -61,7 +61,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
           <LeftMenu />
         </Sider> */}
         <Header />
-        <div className="overflow-y-auto overflow-x-hidden px-[40px] pt-[36px] h-[calc(100%_-_64px)]">
+        <div className="mt-[36px] overflow-y-auto overflow-x-hidden px-[40px] h-[calc(100%_-_100px)]">
           {children}
         </div>
       </div>

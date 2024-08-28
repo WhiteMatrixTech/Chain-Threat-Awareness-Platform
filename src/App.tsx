@@ -1,18 +1,27 @@
-import './App.less';
+/* eslint-disable prettier/prettier */
+/*
+ * @Description:
+ * @Author: didadida262
+ * @Date: 2024-08-26 10:16:45
+ * @LastEditors: didadida262
+ * @LastEditTime: 2024-08-27 17:19:02
+ */
+import "./App.less";
 
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from "react-router-dom";
 
-import { AppLayout } from '@/components/AppLayout';
-import NoFoundPage from '@/pages/404';
+import { AppLayout } from "@/components/AppLayout";
+import NoFoundPage from "@/pages/404";
 
-import { AddressAnalysis } from './pages/address-analysis';
-import { ContractDetection } from './pages/contract-detection';
-import { DataScreens } from './pages/data-screens';
-import { DataStore } from './pages/data-store';
-import { DetectionChart } from './pages/detection-chart';
-import { Login } from './pages/login';
-import { Register } from './pages/register';
-import { TransactionGraph } from './pages/transaction-graph';
+import { AddressAnalysis } from "./pages/address-analysis";
+import { ContractDetection } from "./pages/contract-detection";
+import { DataScreens } from "./pages/data-screens";
+import { DataStore } from "./pages/data-store";
+import { DetectionChart } from "./pages/detection-chart";
+import { DetectionPrivacy } from "./pages/detection-privacy";
+import { Login } from "./pages/login";
+import { Register } from "./pages/register";
+import { TransactionGraph } from "./pages/transaction-graph";
 
 function App() {
   return (
@@ -32,6 +41,18 @@ function App() {
           path="/threat-detection/detection-chart"
           element={<DetectionChart />}
         />
+        <Route
+          path="/threat-detection/detection-privacy"
+          element={<DetectionPrivacy />}
+        />
+        {/* <Route
+          path="/threat-detection/detection-attack"
+          element={<DetectionChart />}
+        />
+        <Route
+          path="/threat-detection/detection-fish"
+          element={<DetectionChart />}
+        /> */}
         <Route
           path="/threat-evidence/address-analysis"
           element={<AddressAnalysis />}

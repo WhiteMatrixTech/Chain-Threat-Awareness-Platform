@@ -26,15 +26,15 @@ export const MenuList: MenuItem[] = [
       },
       {
         label: '自私挖矿检测',
-        key: '/threat-detection/privacy'
+        key: '/threat-detection/detection-privacy'
       },
       {
         label: '抢跑攻击检测',
-        key: '/threat-detection/attack'
+        key: '/threat-detection/detection-attack'
       },
       {
         label: '钓鱼地址检测',
-        key: '/threat-detection/fisht'
+        key: '/threat-detection/detection-fish'
       },
       {
         label: '查看报表',
