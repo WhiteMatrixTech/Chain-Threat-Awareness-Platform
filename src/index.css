@@ -40,3 +40,16 @@
 .markBorderR {
   border: 1px solid red;
 }
+
+.fadeIn {
+  animation: fadeInAnimation 1.5s ease-in-out;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

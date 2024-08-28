@@ -5,16 +5,19 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-27 16:22:47
+ * @LastEditTime: 2024-08-28 14:50:33
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
 import cn from "classnames";
 import dayjs from "dayjs";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { useLocation } from "react-router-dom";
 
 import { AppBreadcrumb } from "@/components/Breadcrumb";
+import { TableCommon } from "@/components/TableCommon";
+import { dataStoreRequestType, getDataStoreList } from "@/services/detection";
 import { dataStoreList } from "@/services/mockData/dataStore";
 import { waitTime } from "@/utils/common";
 
@@ -48,91 +51,50 @@ const columns: ColumnsType<any> = [
     dataIndex: "number",
     ellipsis: true
   }
-  // {
-  //   title: "数据库类型",
-  //   dataIndex: "databaseType",
-  //   ellipsis: true
-  // },
-  // {
-  //   title: "描述",
-  //   dataIndex: "description",
-  //   ellipsis: true
-  // },
-
-  // {
-  //   title: "版本",
-  //   dataIndex: "version",
-  //   ellipsis: true
-  // },
-  // {
-  //   title: "创建时间",
-  //   dataIndex: "createTime",
-  //   ellipsis: true,
-  //   render: (text: string) => dayjs(text).format("YYYY-MM-DD HH:mm:ss")
-  // }
 ];
 
 export function DataStore() {
-  const {
-    data,
-    refetch,
-    isRefetching,
-    isLoading
-  } = useQuery("getDataStore", async () => {
-    await waitTime(1000);
-    return dataStoreList;
+  const location = useLocation();
+  const [data, setData] = useState<any[]>([]);
+  const [pageInfo, setpageInfo] = useState({
+    pageSize: 10,
+    currentPage: 1
   });
+
+  // const {
+  //   data,
+  //   refetch,
+  //   isRefetching,
+  //   isLoading
+  // } = useQuery("getDataStore", async () => {
+  //   await waitTime(1000);
+  //   return dataStoreList || [];
+  // });
   useEffect(
     () => {
-      console.log(data);
+      const params: dataStoreRequestType = {
+        currentPage: 1,
+        pageSize: 20
+      };
+      void getDataStoreList(params).then(data => {
+        console.log("data>>>", data);
+      });
     },
-    [data]
+    [location.pathname]
   );
+  useEffect(() => {
+    setData(dataStoreList);
+  }, []);
 
   return (
-    <div className={cn(" w-full")}>
-      <div className="table w-full bg-[#02004D4D] max-h-[calc(100%_-_40px)] px-[20px] py-[20px] border-[2px] border-solid border-[#0D53B7]">
-        <div
-          className={cn(
-            `header flex bg-[#00D2D51A] h-[40px] items-center w-full `
-          )}
-        >
-          {columns &&
-            columns.map((col: any, colkey: number) =>
-              <div
-                className={cn("px-[16px] ")}
-                style={col.width ? { width: col.width } : { flexGrow: 1 }}
-                key={colkey}
-              >
-                <span className={cn("text-[15px] text-[#ffffff]")}>
-                  {col.title}
-                </span>
-              </div>
-            )}
-        </div>
-        <div className="content w-full ">
-          {data &&
-            data.map((item: any, index: number) =>
-              <div
-                className="w-full h-[40px] flex border-solid border-[0px] border-b-[1px] border-[#083FAA]"
-                key={index}
-              >
-                {columns &&
-                  columns.map((col: any, colkey: number) =>
-                    <div
-                      className={cn("px-[16px]  flex items-center ")}
-                      style={col.width ? { width: col.width } : { flexGrow: 1 }}
-                      key={colkey}
-                    >
-                      <span className={cn("text-[15px] text-[#ffffff]")}>
-                        {col.dataIndex ? item[col.dataIndex] : index + 1}
-                      </span>
-                    </div>
-                  )}
-              </div>
-            )}
-        </div>
-      </div>
+    <div className={cn("fadeIn w-full")}>
+      <TableCommon
+        className=""
+        data={data}
+        columns={columns}
+        pageInfo={pageInfo}
+      />
+
       <div className="pag  mt-[20px] h-[20px]" />
     </div>
   );

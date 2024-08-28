@@ -121,7 +121,7 @@ export function Register(props: registerProps) {
       className={cn(
         styles.register,
         className,
-        "h-screen w-[100%] bg-[#F5F5F5] overflow-hidden bg-[url('./assets/login_bgNew.png')] bg-cover bg-center"
+        "fadeIn h-screen w-[100%] bg-[#F5F5F5] overflow-hidden bg-[url('./assets/login_bgNew.png')] bg-cover bg-center"
       )}
     >
       {!isRegisterSuccess &&
