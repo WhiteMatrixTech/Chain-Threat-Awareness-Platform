@@ -8,6 +8,7 @@ import { useMemo, useState } from "react";
 import { useQuery } from "react-query";
 
 import { PrimaryButton } from "@/components/Button";
+import { DateCommon } from "@/components/DateCommon";
 import { InputCommonV2 } from "@/components/InputCommonV2";
 import { SelectorCommonV3 } from "@/components/SelectorCommonV3";
 import {
@@ -27,9 +28,6 @@ import {
   TGraphinClickTarget
 } from "./Components/graph/AddressTxGraph";
 import { TxDetail } from "./Components/TxDetail";
-
-const Option = Select.Option;
-const { RangePicker } = DatePicker;
 
 export interface IGraphFormData {
   date: any;
@@ -193,15 +191,13 @@ export function AddressAnalysis() {
                 <div
                   className={cn(`w-[291px] h-[36px]  ${pattern.flexCenter}`)}
                 >
-                  <RangePicker
-                    size="middle"
-                    className={styles.dataPicker}
-                    onChange={dataInfo => {
+                  <DateCommon
+                    className="w-[291px] h-full"
+                    onSelect={(date: any) => {
                       setFormData({
                         ...formData,
-                        date: dataInfo
+                        date: date
                       });
-                      console.log("data>>", dataInfo);
                     }}
                   />
                 </div>
