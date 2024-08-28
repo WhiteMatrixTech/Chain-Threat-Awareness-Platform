@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-28 11:14:49
+ * @LastEditTime: 2024-08-28 11:33:26
  */
 import cn from "classnames";
 import { useState } from "react";
@@ -46,10 +46,25 @@ export function DetectionPrivacy() {
     null
   );
   const [inputRange, setInputRange] = useState<any>("");
+
+  const start = () => {
+    const params = {
+      selectedType,
+      selectedRange,
+      inputRange
+    };
+    console.log("params>>>>", params);
+  };
+
   return (
-    <div className={cn(" w-full h-full markBorderR", `${pattern.flexbet} `)}>
+    <div
+      className={cn(
+        " w-full h-full  pt-[0px] 3xl:pt-32",
+        `${pattern.flexbet} `
+      )}
+    >
       <div
-        className={`left markBorderR w-[calc(50%)] h-full ${pattern.flexCenter} `}
+        className={`left  w-[calc(50%)] h-full flex justify-center align-top scale-75 3xl:scale-100`}
       >
         <div
           className={cn(
@@ -100,7 +115,7 @@ export function DetectionPrivacy() {
               >
                 <ButtonCommonV2
                   onClick={() => {
-                    console.log("start!");
+                    start();
                   }}
                 >
                   <span className="text-[#FFFFFF] text-[16px]">开始检测</span>
@@ -110,10 +125,10 @@ export function DetectionPrivacy() {
           </div>
         </div>
       </div>
-      <div className={`right  w-[calc(50%)] h-full ${pattern.flexCenter}`}>
-        <div className="pt-[80px] px-[20px] pb-[20px]  right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
-          <div className="w-full h-full " />
-        </div>
+      <div
+        className={`right  w-[calc(50%)] h-full flex justify-center align-top scale-75 3xl:scale-100`}
+      >
+        <div className="3xl:pt-[80px] 3xl:px-[20px] 3xl:pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center " />
       </div>
     </div>
   );
