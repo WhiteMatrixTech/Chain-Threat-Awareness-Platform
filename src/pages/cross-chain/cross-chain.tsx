@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 17:54:46
+ * @LastEditTime: 2024-08-29 21:32:52
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 
 import IdentityInferenceDialogTitle from "@/assets/IdentityInferenceDialogTitle.png";
 import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
-import { InputCommonV2 } from "@/components/InputCommonV2";
+import { InputCommonV3 } from "@/components/InputCommonV3";
 import { ResultComponent } from "@/components/ResultComponent";
 import {
   ISelectorItemProps,
@@ -199,27 +199,33 @@ export function CrossChain() {
               />
               <div
                 className={cn(
-                  `pt-16 px-14 pb-10 absolute top-[54px] left-0 w-full h-[calc(100%_-_54px)] `,
+                  ` absolute top-[54px] left-0 w-full h-[calc(100%_-_54px)] ${pattern.flexCenter}`,
                   "bg-[#003F7A4D]",
                   "border-solid border-[1px] border-[#D3EAFF] border-t-0 border-r-0 border-l-0",
-                  `flex flex-col gap-y-6 items-end`
+                  "pt-[66px] px-[106px] pb-[40px]"
                 )}
               >
-                <InputCommonV2
-                  placeholder="输入交易信息"
-                  onInput={(val: any) => {
-                    setValue(val);
-                  }}
-                  className="w-full h-[36px] "
-                />
-
-                <ButtonCommonV2
-                  onClick={() => {
-                    startSearch();
-                  }}
+                <div
+                  className={cn(
+                    `w-full h-[162px] flex flex-col gap-y-6 items-end  justify-between`
+                  )}
                 >
-                  <span className="text-[#FFFFFF] text-[16px]">查询</span>
-                </ButtonCommonV2>
+                  <InputCommonV3
+                    placeholder="输入交易信息"
+                    onInput={(val: any) => {
+                      setValue(val);
+                    }}
+                    className="w-[450px] h-[100px] "
+                  />
+
+                  <ButtonCommonV2
+                    onClick={() => {
+                      startSearch();
+                    }}
+                  >
+                    <span className="text-[#FFFFFF] text-[16px]">查询</span>
+                  </ButtonCommonV2>
+                </div>
               </div>
             </div>
           </div>
