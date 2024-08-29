@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-28 15:48:20
+ * @LastEditTime: 2024-08-29 20:26:59
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -56,7 +56,7 @@ export function DataStore() {
   const [pageInfo, setpageInfo] = useState({
     pageSize: 10,
     currentPage: 1,
-    total: 0
+    total: 3
   });
 
   // const {
