@@ -1,9 +1,9 @@
 /*
- * @Description: 无限列表版
+ * @Description: 集合版本的显示
  * @Author: didadida262
- * @Date: 2024-08-29 13:47:01
+ * @Date: 2024-08-29 17:51:31
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 17:50:28
+ * @LastEditTime: 2024-08-29 17:51:41
  */
 /* eslint-disable prettier/prettier */
 
@@ -19,7 +19,7 @@ interface IProps {
   className?: string;
 }
 
-export function TableCommonV2(props: IProps) {
+export function TableCommonV3(props: IProps) {
   const { data, columns, className } = props;
 
   return (

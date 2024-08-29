@@ -88,12 +88,7 @@ export function IdentityInference() {
   }, []);
 
   return (
-    <div
-      className={cn(
-        " w-full h-full pt-[0px] 3xl:pt-32 fadeIn",
-        `${pattern.flexbet}`
-      )}
-    >
+    <div className={cn(" w-full h-full pt-[0px] fadeIn", `${pattern.flexbet}`)}>
       {pageState === "search"
         ? <div className={cn(`w-full h-full ${pattern.flexCenter} `)}>
             <div

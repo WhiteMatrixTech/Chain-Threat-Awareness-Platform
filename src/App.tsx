@@ -12,6 +12,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AppLayout } from "@/components/AppLayout";
 import NoFoundPage from "@/pages/404";
+import { CrossChain } from "@/pages/cross-chain";
 import { FewidentityInference } from "@/pages/fewidentity-inference";
 import { IdentityInference } from "@/pages/identity-inference";
 import { MaliciousTransaction } from "@/pages/malicious-transaction";
@@ -78,11 +79,8 @@ function App() {
           path="/threat-evidence/malicious-transaction"
           element={<MaliciousTransaction />}
         />
+        <Route path="/threat-evidence/cross-chain" element={<CrossChain />} />
         {/* <Route
-          path="/threat-evidence/cross-chain"
-          element={<TransactionGraph />}
-        />
-        <Route
           path="/threat-evidence/chaincodevulnerability-detection"
           element={<TransactionGraph />}
         />

@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 14:46:06
+ * @LastEditTime: 2024-08-29 15:03:36
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -60,10 +60,7 @@ export function MaliciousTransaction() {
 
   return (
     <div
-      className={cn(
-        " w-full h-full pt-[0px] 3xl:pt-32 fadeIn",
-        `${pattern.flexbet}`
-      )}
+      className={cn(" w-full h-full pt-[0px]  fadeIn", `${pattern.flexbet}`)}
     >
       {pageState === "search"
         ? <div className={cn(`w-full h-full ${pattern.flexCenter} `)}>

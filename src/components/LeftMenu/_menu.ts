@@ -35,11 +35,11 @@ export const MenuList: MenuItem[] = [
       {
         label: '钓鱼地址检测',
         key: '/threat-detection/detection-fish'
-      },
-      {
-        label: '查看报表',
-        key: '/threat-detection/detection-chart'
       }
+      // {
+      //   label: '查看报表',
+      //   key: '/threat-detection/detection-chart'
+      // }
     ]
   },
   {
