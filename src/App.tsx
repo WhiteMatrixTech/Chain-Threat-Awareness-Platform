@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 10:20:22
+ * @LastEditTime: 2024-08-29 14:10:12
  */
 import "./App.less";
 
@@ -12,6 +12,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AppLayout } from "@/components/AppLayout";
 import NoFoundPage from "@/pages/404";
+import { FewidentityInference } from "@/pages/fewidentity-inference";
 import { IdentityInference } from "@/pages/identity-inference";
 
 import { AddressAnalysis } from "./pages/address-analysis";
@@ -68,24 +69,24 @@ function App() {
           path="/threat-evidence/identity-inference"
           element={<IdentityInference />}
         />
+        <Route
+          path="/threat-evidence/fewidentity-inference"
+          element={<FewidentityInference />}
+        />
         {/* <Route
-          path="/threat-evidence/transaction-graph"
+          path="/threat-evidence/malicious-transaction"
           element={<TransactionGraph />}
         />
         <Route
-          path="/threat-evidence/transaction-graph"
+          path="/threat-evidence/cross-chain"
           element={<TransactionGraph />}
         />
         <Route
-          path="/threat-evidence/transaction-graph"
+          path="/threat-evidence/chaincodevulnerability-detection"
           element={<TransactionGraph />}
         />
         <Route
-          path="/threat-evidence/transaction-graph"
-          element={<TransactionGraph />}
-        />
-        <Route
-          path="/threat-evidence/transaction-graph"
+          path="/threat-evidence/bitcoinmixedcoin-detection"
           element={<TransactionGraph />}
         /> */}
 
