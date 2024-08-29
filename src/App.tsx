@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 14:10:12
+ * @LastEditTime: 2024-08-29 14:39:38
  */
 import "./App.less";
 
@@ -14,6 +14,7 @@ import { AppLayout } from "@/components/AppLayout";
 import NoFoundPage from "@/pages/404";
 import { FewidentityInference } from "@/pages/fewidentity-inference";
 import { IdentityInference } from "@/pages/identity-inference";
+import { MaliciousTransaction } from "@/pages/malicious-transaction";
 
 import { AddressAnalysis } from "./pages/address-analysis";
 import { ContractDetection } from "./pages/contract-detection";
@@ -73,11 +74,11 @@ function App() {
           path="/threat-evidence/fewidentity-inference"
           element={<FewidentityInference />}
         />
-        {/* <Route
-          path="/threat-evidence/malicious-transaction"
-          element={<TransactionGraph />}
-        />
         <Route
+          path="/threat-evidence/malicious-transaction"
+          element={<MaliciousTransaction />}
+        />
+        {/* <Route
           path="/threat-evidence/cross-chain"
           element={<TransactionGraph />}
         />
