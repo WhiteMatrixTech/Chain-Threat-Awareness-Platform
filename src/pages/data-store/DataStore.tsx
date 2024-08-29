@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 20:26:59
+ * @LastEditTime: 2024-08-29 20:57:11
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -85,15 +85,19 @@ export function DataStore() {
   }, []);
 
   return (
-    <div className={cn("fadeIn w-full")}>
-      <TableCommon
-        className=""
-        data={data}
-        columns={columns}
-        pageInfo={pageInfo}
-      />
-      <div className={cn(`w-full ${pattern.flexEnd}  mt-[20px]`)}>
+    <div className={cn("fadeIn w-full h-full", `${pattern.flexbetCol}`)}>
+      <div className={cn(`w-full h-[887px]`)}>
+        <TableCommon
+          className="w-full h-full"
+          data={data}
+          columns={columns}
+          pageInfo={pageInfo}
+        />
+      </div>
+
+      <div className={cn(`w-full h-[20px] ${pattern.flexEnd}`)}>
         <PageCommon
+          className=""
           pageInfo={pageInfo}
           handleEvent={(params: any) => {
             setpageInfo({

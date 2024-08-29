@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 20:43:20
+ * @LastEditTime: 2024-08-29 20:50:48
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -23,12 +23,6 @@ interface IProps {
 
 export function PageCommon(props: IProps) {
   const { pageInfo, handleEvent, className } = props;
-  useEffect(
-    () => {
-      console.log("pageInfo变化", pageInfo);
-    },
-    [pageInfo]
-  );
   const handleNextPage = (flag: string) => {
     if (flag === "left") {
       if (pageInfo.currentPage === 1) return;
@@ -49,7 +43,7 @@ export function PageCommon(props: IProps) {
   };
 
   return (
-    <div className={cn(` h-[20px] flex items-center gap-x-[10px]`)}>
+    <div className={cn(` h-[20px] flex items-center gap-x-[10px]`, className)}>
       <div className={cn(`${pattern.flexCenter} info w-[50px] h-full`)}>
         <span className="text-[15px] text-[#ffffff]">
           共{pageInfo.total}条
