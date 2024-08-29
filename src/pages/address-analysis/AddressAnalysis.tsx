@@ -176,20 +176,18 @@ export function AddressAnalysis() {
                     }}
                   />
                 </div>
-                <div
-                  className={`w-[208px] 3xl:w-[408px] h-[36px] flex items-center`}
-                >
-                  <InputCommonV2
-                    initVal={formData.address}
-                    placeholder="地址"
-                    onInput={(val: any) => {
-                      setFormData({
-                        ...formData,
-                        address: val
-                      });
-                    }}
-                  />
-                </div>
+
+                <InputCommonV2
+                  initVal={formData.address}
+                  placeholder="地址"
+                  onInput={(val: any) => {
+                    setFormData({
+                      ...formData,
+                      address: val
+                    });
+                  }}
+                  className="w-[208px] 3xl:w-[408px] h-[36px] "
+                />
                 <div
                   className={cn(`w-[291px] h-[36px]  ${pattern.flexCenter}`)}
                 >

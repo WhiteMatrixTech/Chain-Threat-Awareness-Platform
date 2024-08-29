@@ -57,6 +57,30 @@ export const MenuList: MenuItem[] = [
       {
         label: '交易图谱',
         key: '/threat-evidence/transaction-graph'
+      },
+      {
+        label: '身份推断',
+        key: '/threat-evidence/identity-inference'
+      },
+      {
+        label: '少样本身份推断',
+        key: '/threat-evidence/fewidentity-inference'
+      },
+      {
+        label: '恶意交易检测',
+        key: '/threat-evidence/malicious-transaction'
+      },
+      {
+        label: '跨链查询取证',
+        key: '/threat-evidence/cross-chain'
+      },
+      {
+        label: '链码漏洞检测',
+        key: '/threat-evidence/chaincodevulnerability-detection'
+      },
+      {
+        label: '比特币混币检测',
+        key: '/threat-evidence/bitcoinmixedcoin-detection'
       }
     ]
   },

@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-28 13:37:41
+ * @LastEditTime: 2024-08-29 10:20:22
  */
 import "./App.less";
 
@@ -12,6 +12,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AppLayout } from "@/components/AppLayout";
 import NoFoundPage from "@/pages/404";
+import { IdentityInference } from "@/pages/identity-inference";
 
 import { AddressAnalysis } from "./pages/address-analysis";
 import { ContractDetection } from "./pages/contract-detection";
@@ -63,6 +64,31 @@ function App() {
           path="/threat-evidence/transaction-graph"
           element={<TransactionGraph />}
         />
+        <Route
+          path="/threat-evidence/identity-inference"
+          element={<IdentityInference />}
+        />
+        {/* <Route
+          path="/threat-evidence/transaction-graph"
+          element={<TransactionGraph />}
+        />
+        <Route
+          path="/threat-evidence/transaction-graph"
+          element={<TransactionGraph />}
+        />
+        <Route
+          path="/threat-evidence/transaction-graph"
+          element={<TransactionGraph />}
+        />
+        <Route
+          path="/threat-evidence/transaction-graph"
+          element={<TransactionGraph />}
+        />
+        <Route
+          path="/threat-evidence/transaction-graph"
+          element={<TransactionGraph />}
+        /> */}
+
         <Route path="/data-screens" element={<DataScreens />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

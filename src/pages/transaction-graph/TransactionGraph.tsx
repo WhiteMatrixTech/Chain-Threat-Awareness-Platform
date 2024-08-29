@@ -43,8 +43,6 @@ interface IGraphFormData {
 }
 
 export function TransactionGraph() {
-  const [form] = Form.useForm();
-
   const [formData, setFormData] = useState<IGraphFormData>({
     date: undefined,
     tokenType: "ETH",
@@ -191,20 +189,18 @@ export function TransactionGraph() {
                     }}
                   />
                 </div>
-                <div
-                  className={`w-[208px] 3xl:w-[408px] h-[36px] flex items-center`}
-                >
-                  <InputCommonV2
-                    initVal={formData.transactionHash}
-                    placeholder="地址"
-                    onInput={(val: any) => {
-                      setFormData({
-                        ...formData,
-                        transactionHash: val
-                      });
-                    }}
-                  />
-                </div>
+
+                <InputCommonV2
+                  initVal={formData.transactionHash}
+                  placeholder="地址"
+                  onInput={(val: any) => {
+                    setFormData({
+                      ...formData,
+                      transactionHash: val
+                    });
+                  }}
+                  className="w-[208px] 3xl:w-[408px] h-[36px] "
+                />
                 <div
                   className={cn(`w-[291px] h-[36px]  ${pattern.flexCenter}`)}
                 >
