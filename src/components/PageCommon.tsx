@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 20:50:48
+ * @LastEditTime: 2024-08-29 20:58:58
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -54,8 +54,8 @@ export function PageCommon(props: IProps) {
           className={cn(
             `arrowleft w-[20px] h-full  ${pattern.flexCenter}`,
             pageInfo.currentPage === 1
-              ? "hover:cursor-not-allowed opacity-20"
-              : " hover:cursor-pointer opacity-100"
+              ? "hover:cursor-not-allowed "
+              : " hover:cursor-pointer "
           )}
           onClick={() => {
             handleNextPage("left");
@@ -98,8 +98,8 @@ export function PageCommon(props: IProps) {
             `arrowright w-[20px] h-full  ${pattern.flexCenter} `,
             pageInfo.currentPage ===
             Math.ceil(pageInfo.total / pageInfo.pageSize)
-              ? "hover:cursor-not-allowed opacity-20"
-              : " hover:cursor-pointer opacity-100"
+              ? "hover:cursor-not-allowed "
+              : " hover:cursor-pointer"
           )}
           onClick={() => {
             handleNextPage("right");

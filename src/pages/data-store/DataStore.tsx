@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 20:57:11
+ * @LastEditTime: 2024-08-29 21:00:06
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -86,7 +86,7 @@ export function DataStore() {
 
   return (
     <div className={cn("fadeIn w-full h-full", `${pattern.flexbetCol}`)}>
-      <div className={cn(`w-full h-[887px]`)}>
+      <div className={cn(`w-full h-[calc(100%_-_40px)]`)}>
         <TableCommon
           className="w-full h-full"
           data={data}
