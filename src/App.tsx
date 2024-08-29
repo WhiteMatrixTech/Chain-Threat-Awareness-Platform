@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 17:58:48
+ * @LastEditTime: 2024-08-29 19:28:31
  */
 import "./App.less";
 
@@ -12,6 +12,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AppLayout } from "@/components/AppLayout";
 import NoFoundPage from "@/pages/404";
+import { BitcoinmixedcoinDetection } from "@/pages/bitcoinmixedcoin-detection";
 import { ChaincodevulnerabilityDetection } from "@/pages/chaincodevulnerability-detection";
 import { CrossChain } from "@/pages/cross-chain";
 import { FewidentityInference } from "@/pages/fewidentity-inference";
@@ -85,10 +86,10 @@ function App() {
           path="/threat-evidence/chaincodevulnerability-detection"
           element={<ChaincodevulnerabilityDetection />}
         />
-        {/* <Route
+        <Route
           path="/threat-evidence/bitcoinmixedcoin-detection"
-          element={<TransactionGraph />}
-        /> */}
+          element={<BitcoinmixedcoinDetection />}
+        />
 
         <Route path="/data-screens" element={<DataScreens />} />
         <Route path="/login" element={<Login />} />
