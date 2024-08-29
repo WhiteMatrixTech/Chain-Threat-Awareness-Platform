@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 20:04:52
+ * @LastEditTime: 2024-08-29 20:19:37
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -167,7 +167,7 @@ export function BitcoinmixedcoinDetection() {
                 </span>
               </div>
               <div className={cn(`w-full flex-1 ${pattern.flexbet}`)}>
-                <div className={cn(`w-[840px] h-full `)}>
+                <div className={cn(`w-[calc(50%_-_60px)] h-full `)}>
                   {dealInfo &&
                     dealInfo.items &&
                     dealInfo.items.slice(0, 4).map((item, index) =>
@@ -193,7 +193,7 @@ export function BitcoinmixedcoinDetection() {
                     `border-[#00A0E9] border-[1px] border-solid`
                   )}
                 />
-                <div className={cn(`w-[840px] h-full `)}>
+                <div className={cn(`w-[calc(50%_-_60px)] h-full `)}>
                   {dealInfo &&
                     dealInfo.items &&
                     dealInfo.items.slice(4).map((item, index) =>
