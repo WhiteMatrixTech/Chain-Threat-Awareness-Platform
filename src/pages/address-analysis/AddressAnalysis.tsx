@@ -135,9 +135,14 @@ export function AddressAnalysis() {
   };
 
   return (
-    <div className={styles.AddressAnalysis}>
-      <div className={cn(styles.transactionDataContainer, "mt-6 flex gap-x-2")}>
-        <div className="w-80 max-w-sm rounded shadow-card ">
+    <div className={cn(`${styles.AddressAnalysis} w-full h-full fadeIn`)}>
+      <div
+        className={cn(
+          styles.transactionDataContainer,
+          "flex gap-x-2 w-full h-full"
+        )}
+      >
+        <div className="w-80 rounded shadow-card h-full ">
           <Spin spinning={qryAddressLoading || qryEdgeTxLoading}>
             {isEdge
               ? <TxDetail
