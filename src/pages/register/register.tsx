@@ -233,7 +233,7 @@ export function Register(props: registerProps) {
                 name="password"
                 rules={[{ required: true, message: "请输入密码!" }]}
               >
-                <Input
+                <Input.Password
                   value={password}
                   placeholder="密码"
                   size="large"
@@ -254,7 +254,7 @@ export function Register(props: registerProps) {
                   }
                 ]}
               >
-                <Input
+                <Input.Password
                   value={confirmPassword}
                   placeholder="确认密码"
                   size="large"
