@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-30 10:25:48
+ * @LastEditTime: 2024-08-30 16:05:16
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -43,6 +43,7 @@ export function InputCommonV4(props: IProps) {
         onChange={e => {
           setValue(e.target.value);
         }}
+        style={{ resize: "none" }}
         className="px-3 py-2 w-full h-full  bg-transparent text-[16px] text-[#ffffff] border-0 outline-none"
       />
     </div>
