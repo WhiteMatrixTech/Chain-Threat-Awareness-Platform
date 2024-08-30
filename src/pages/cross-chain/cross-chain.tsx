@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 21:32:52
+ * @LastEditTime: 2024-08-30 14:59:51
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -22,83 +22,9 @@ import {
 import { TableCommonV2 } from "@/components/TableCommonV2";
 import { TableCommonV3 } from "@/components/TableCommonV3";
 import { TagComponent } from "@/components/TagComponent";
+import { columnsCrossChain1, columnsCrossChain2 } from "@/services/columns";
 import pattern from "@/styles/pattern";
 
-const columns1: any = [
-  {
-    title: "交易号",
-    ellipsis: true,
-    dataIndex: "dealID",
-    width: 100
-  },
-  {
-    title: "项目号",
-    dataIndex: "projectId",
-    ellipsis: true,
-    width: 320
-  },
-  {
-    title: "账户名",
-    dataIndex: "username",
-    ellipsis: true,
-    width: 320
-  },
-  {
-    title: "来源",
-    dataIndex: "from",
-    ellipsis: true
-  },
-  {
-    title: "流向",
-    dataIndex: "to",
-    ellipsis: true
-  },
-  {
-    title: "输入金额",
-    dataIndex: "inputMo",
-    ellipsis: true
-  },
-  {
-    title: "交易费",
-    dataIndex: "cost",
-    ellipsis: true
-  },
-  {
-    title: "输出金额",
-    dataIndex: "outmoney",
-    ellipsis: true
-  }
-];
-const columns2: any = [
-  {
-    title: "依赖号",
-    ellipsis: true,
-    dataIndex: "depId",
-    width: 100
-  },
-  {
-    title: "下游交易",
-    dataIndex: "downdeal",
-    ellipsis: true,
-    width: 320
-  },
-  {
-    title: "上游交易",
-    dataIndex: "upDeal",
-    ellipsis: true,
-    width: 320
-  },
-  {
-    title: "项目号",
-    dataIndex: "projectId",
-    ellipsis: true
-  },
-  {
-    title: "账户名",
-    dataIndex: "accountName",
-    ellipsis: true
-  }
-];
 const columns3: any = [
   {
     title: "链名",
@@ -122,29 +48,15 @@ export function CrossChain() {
     // 请求
     const res1 = [
       {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
+        username: "测试数据",
+        dealID: 1,
+        number: 10,
+        projectId: 10,
+        from: "以太坊",
+        to: "以太坊",
+        inputMo: 100,
+        cost: 100,
+        outmoney: 100
       }
     ];
     const res2 = [
@@ -179,10 +91,10 @@ export function CrossChain() {
     ];
     const res3 = [
       {
-        linName: "测试数据"
+        linName: "chain001"
       }
     ];
-    setDateList1(res1);
+    setDateList1([...res1, ...res1, ...res1, ...res1]);
     setDateList2(res2);
     setDateList3(res3);
   }, []);
@@ -235,20 +147,28 @@ export function CrossChain() {
             </div>
 
             <div className={cn(` w-full h-[272px] mt-4`)}>
-              <TableCommonV2 className="" data={dataList1} columns={columns1} />
+              <TableCommonV2
+                className=""
+                data={dataList1}
+                columns={columnsCrossChain1}
+              />
             </div>
             <div className="w-[120px] h-[36px] mt-4">
               <TagComponent title="跨链依赖信息" className="w-[120px] h-[36px]" />
             </div>
 
-            <div className={cn(` w-full h-[160px] 3xl:h-[272px] mt-4`)}>
-              <TableCommonV2 className="" data={dataList2} columns={columns2} />
+            <div className={cn(` w-full h-[272px] mt-4`)}>
+              <TableCommonV2
+                className=""
+                data={dataList2}
+                columns={columnsCrossChain2}
+              />
             </div>
             <div className="w-[120px] h-[36px] mt-4">
               <TagComponent title="交易分布信息" className="w-[120px] h-[36px]" />
             </div>
 
-            <div className={cn(` w-full h-[160px] 3xl:h-[272px] mt-4`)}>
+            <div className={cn(` w-full h-[176px] mt-4`)}>
               <TableCommonV3 className="" data={dataList3} columns={columns3} />
             </div>
           </div>}

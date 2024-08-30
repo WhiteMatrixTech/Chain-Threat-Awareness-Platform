@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 17:50:28
+ * @LastEditTime: 2024-08-30 15:11:56
  */
 /* eslint-disable prettier/prettier */
 
@@ -57,7 +57,7 @@ export function TableCommonV2(props: IProps) {
                 className={cn(
                   `w-full h-[40px] flex`,
                   "hover:bg-[#00D2D51A]",
-                  ` border-solid border-[0px] border-b-[1px] border-[#083FAA]`
+                  ` border-solid border-[0px] border-b-[1px] border-[#0095FF66]`
                 )}
                 key={index}
               >
