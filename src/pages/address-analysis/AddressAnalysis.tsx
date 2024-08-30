@@ -142,11 +142,8 @@ export function AddressAnalysis() {
           "flex gap-x-10 w-full h-full "
         )}
       >
-        <div className="w-80 rounded shadow-card h-full">
-          <Spin
-            spinning={qryAddressLoading || qryEdgeTxLoading}
-            // style={{ width: "100%", height: "100%" }}
-          >
+        <div className="w-80 rounded shadow-card h-full  relative">
+          {/* <Spin spinning={qryAddressLoading || qryEdgeTxLoading}>
             {isEdge
               ? <TxDetail
                   unit={formData.tokenType}
@@ -157,7 +154,20 @@ export function AddressAnalysis() {
                   unit={formData.tokenType}
                   addressData={addressData}
                 />}
-          </Spin>
+          </Spin> */}
+          {isEdge
+            ? <TxDetail
+                unit={formData.tokenType}
+                edge={graphData.edges}
+                txData={edgeTxData}
+              />
+            : <AddressDetail
+                unit={formData.tokenType}
+                addressData={addressData}
+              />}
+          <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center ">
+            <Spin spinning={qryAddressLoading || qryEdgeTxLoading} />
+          </div>
         </div>
         <div className={cn(`flex-1 flex flex-col gap-y-[10px]`)}>
           <div className={`${pattern.flexbet}  w-full h-[36px]`}>

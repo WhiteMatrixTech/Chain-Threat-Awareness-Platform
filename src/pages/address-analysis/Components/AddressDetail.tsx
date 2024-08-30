@@ -82,8 +82,8 @@ export function AddressDetail(props: IAddressDetailPros) {
   }
 
   return (
-    <div className={cn(" flex flex-col  relative justify-between h-[927px]")}>
-      <div className="relative  w-full rounded-[10px] bg-white p-6 h-[661px]">
+    <div className={cn(" flex flex-col  relative justify-between h-full  gap-y-3")}>
+      <div className="relative  w-full rounded-[10px] bg-white p-6 flex-1">
         <div className="text-xl font-semibold">地址详情</div>
         <div className="flex my-6 items-center rounded-lg bg-[#f7f9fc] px-3 py-2">
           <div>
