@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-30 13:40:08
+ * @LastEditTime: 2024-08-30 14:43:07
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -149,7 +149,7 @@ export function IdentityInference() {
                 className="w-[calc(50%_-_15px)] h-full"
               />
             </div>
-            <div className={cn(` w-full h-[160px] 3xl:h-[320px]`)}>
+            <div className={cn(` w-full h-[320px]`)}>
               <TableCommonV2 className="" data={dataList} columns={columns} />
             </div>
           </div>}

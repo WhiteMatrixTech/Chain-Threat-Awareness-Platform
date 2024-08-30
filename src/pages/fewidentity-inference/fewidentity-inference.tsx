@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-30 14:15:01
+ * @LastEditTime: 2024-08-30 14:45:25
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -25,6 +25,7 @@ import {
   SelectorCommonV2
 } from "@/components/SelectorCommonV2";
 import { TableCommonV2 } from "@/components/TableCommonV2";
+import { columns } from "@/services/columns";
 import {
   generateAddressData,
   generateEdgeTxData,
@@ -34,30 +35,6 @@ import {
 import pattern from "@/styles/pattern";
 import { IGraphFormData } from "@/utils/IdentityTypes";
 
-const columns: any = [
-  {
-    title: "序号",
-    ellipsis: true,
-    width: 100
-  },
-  {
-    title: "数据集名称",
-    dataIndex: "name",
-    ellipsis: true,
-    width: 320
-  },
-  {
-    title: "平台",
-    dataIndex: "chainType",
-    ellipsis: true,
-    width: 320
-  },
-  {
-    title: "数量",
-    dataIndex: "number",
-    ellipsis: true
-  }
-];
 export function FewidentityInference() {
   const [pageState, setPageState] = useState("search");
   const [value, setValue] = useState<any>(null);
@@ -227,7 +204,7 @@ export function FewidentityInference() {
                 className="w-full h-full"
               />
             </div>
-            <div className={cn(` w-full h-[160px] 3xl:h-[320px]`)}>
+            <div className={cn(` w-full h-[320px]`)}>
               <TableCommonV2 className="" data={dataList} columns={columns} />
             </div>
           </div>}

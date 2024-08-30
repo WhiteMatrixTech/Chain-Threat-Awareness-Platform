@@ -102,7 +102,12 @@ export function TransactionGraph() {
   };
 
   return (
-    <div className={cn(styles.TransactionGraph, "overflow-y-auto")}>
+    <div
+      className={cn(
+        styles.TransactionGraph,
+        "overflow-y-auto  w-full h-full fadeIn"
+      )}
+    >
       {/* <div className="flex items-center gap-x-3">
         <div className="text-2xl font-black">交易图谱</div>
         <Form
@@ -150,8 +155,8 @@ export function TransactionGraph() {
           </PrimaryButton>
         </Form>
       </div> */}
-      <div className="mt-6 flex min-h-[80vh] gap-x-2">
-        <div className="w-80 max-w-sm rounded bg-white shadow-card">
+      <div className="flex gap-x-10 w-full h-full ">
+        <div className="w-80 rounded bg-white shadow-card">
           <Spin spinning={qryTxLoading || qryAddressLoading}>
             {isTx
               ? <TransactionDetailCard
@@ -164,7 +169,7 @@ export function TransactionGraph() {
                 />}
           </Spin>
         </div>
-        <div className="flex-1 flex flex-col gap-y-[10px] pl-[40px]">
+        <div className="flex-1 flex flex-col gap-y-[10px]">
           <div className={`${pattern.flexbet}  w-full h-[36px]`}>
             <div
               className={cn(
