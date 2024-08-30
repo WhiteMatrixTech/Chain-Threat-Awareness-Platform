@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-28 13:37:41
+ * @LastEditTime: 2024-08-29 19:28:31
  */
 import "./App.less";
 
@@ -12,6 +12,12 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { AppLayout } from "@/components/AppLayout";
 import NoFoundPage from "@/pages/404";
+import { BitcoinmixedcoinDetection } from "@/pages/bitcoinmixedcoin-detection";
+import { ChaincodevulnerabilityDetection } from "@/pages/chaincodevulnerability-detection";
+import { CrossChain } from "@/pages/cross-chain";
+import { FewidentityInference } from "@/pages/fewidentity-inference";
+import { IdentityInference } from "@/pages/identity-inference";
+import { MaliciousTransaction } from "@/pages/malicious-transaction";
 
 import { AddressAnalysis } from "./pages/address-analysis";
 import { ContractDetection } from "./pages/contract-detection";
@@ -63,6 +69,28 @@ function App() {
           path="/threat-evidence/transaction-graph"
           element={<TransactionGraph />}
         />
+        <Route
+          path="/threat-evidence/identity-inference"
+          element={<IdentityInference />}
+        />
+        <Route
+          path="/threat-evidence/fewidentity-inference"
+          element={<FewidentityInference />}
+        />
+        <Route
+          path="/threat-evidence/malicious-transaction"
+          element={<MaliciousTransaction />}
+        />
+        <Route path="/threat-evidence/cross-chain" element={<CrossChain />} />
+        <Route
+          path="/threat-evidence/chaincodevulnerability-detection"
+          element={<ChaincodevulnerabilityDetection />}
+        />
+        <Route
+          path="/threat-evidence/bitcoinmixedcoin-detection"
+          element={<BitcoinmixedcoinDetection />}
+        />
+
         <Route path="/data-screens" element={<DataScreens />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

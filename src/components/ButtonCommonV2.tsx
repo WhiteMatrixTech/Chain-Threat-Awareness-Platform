@@ -3,12 +3,14 @@
  * @Author: didadida262
  * @Date: 2024-08-28 10:55:15
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-28 11:13:11
+ * @LastEditTime: 2024-08-29 10:59:19
  */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
 import React, { MouseEvent, ReactNode, useMemo, useState } from "react";
+
+import pattern from "@/styles/pattern";
 
 export enum EButtonType {
   PRIMARY = "PRIMARY",
@@ -45,16 +47,16 @@ export function ButtonCommonV2(props: IButtonProps) {
       onMouseMove={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       className={cn(
-        "h-[38px] py-[8px] px-[18px] hover:cursor-pointer",
+        "w-[100px] h-[38px] py-[8px] px-[18px] ",
         `bg-[url('./assets/privacyBgButton.png')] bg-cover bg-center `,
-        disable ? "cursor-not-allowed opacity-75" : "opacity-100",
-        className
+        disable
+          ? "cursor-not-allowed opacity-75"
+          : "opacity-100 hover:cursor-pointer",
+        `${pattern.flexCenter}`
       )}
     >
       {children}
-      {loading &&
-        // <AiOutlineLoading3Quarters className="ml-2 w-[24px] animate-spin" />
-        <span>loading。。。</span>}
+      {loading && <span>loading。。。</span>}
     </div>
   );
 }

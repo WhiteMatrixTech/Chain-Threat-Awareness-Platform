@@ -1,27 +1,41 @@
-import { DatePicker, Form, Input, Select, Spin } from 'antd';
-import cn from 'classnames';
-import dayjs from 'dayjs';
-import { useMemo, useState } from 'react';
-import { useQuery } from 'react-query';
+/* eslint-disable prettier/prettier */
+import { DatePicker, Form, Input, Select, Spin } from "antd";
+import cn from "classnames";
+import dayjs from "dayjs";
+import { useMemo, useState } from "react";
+import { useQuery } from "react-query";
 
-import { PrimaryButton } from '@/components/Button';
+import { PrimaryButton } from "@/components/Button";
+import { DateCommon } from "@/components/DateCommon";
+import { InputCommonV2 } from "@/components/InputCommonV2";
+import { SelectorCommonV3 } from "@/components/SelectorCommonV3";
 import {
   randomAddressData,
   randomTxDetailData
-} from '@/services/mockData/transactionGraph';
-import { getBaseInfo, getTransactionBaseInfo } from '@/services/transaction';
-import { randomNum, waitTime } from '@/utils/common';
+} from "@/services/mockData/transactionGraph";
+import { getBaseInfo, getTransactionBaseInfo } from "@/services/transaction";
+import pattern from "@/styles/pattern";
+import { randomNum, waitTime } from "@/utils/common";
 
 import {
   AddressDetailCard,
   TransactionDetailCard
-} from './Components/DetailCard';
-import { TransactionTraceGraph } from './Components/TransactionTraceGraph';
-import styles from './TransactionGraph.module.less';
+} from "./Components/DetailCard";
+import { TransactionTraceGraph } from "./Components/TransactionTraceGraph";
+import styles from "./TransactionGraph.module.less";
 
 const Option = Select.Option;
 const { RangePicker } = DatePicker;
-
+const typeList = [
+  {
+    label: "ETH",
+    value: "ETH"
+  },
+  {
+    label: "BTC",
+    value: "BTC"
+  }
+];
 interface IGraphFormData {
   date: undefined;
   tokenType: string;
@@ -29,29 +43,26 @@ interface IGraphFormData {
 }
 
 export function TransactionGraph() {
-  const [form] = Form.useForm();
-
   const [formData, setFormData] = useState<IGraphFormData>({
     date: undefined,
-    tokenType: 'ETH',
+    tokenType: "ETH",
     transactionHash:
-      '0x3c2eacee8cb9ea750ae4cc51f41c40e73b5099b8ed5df0fd2dd9cb72d58dbb62'
+      "0x3c2eacee8cb9ea750ae4cc51f41c40e73b5099b8ed5df0fd2dd9cb72d58dbb62"
   });
   const [selectedHexData, setSelectedHexData] = useState(
-    '0x3c2eacee8cb9ea750ae4cc51f41c40e73b5099b8ed5df0fd2dd9cb72d58dbb62'
+    "0x3c2eacee8cb9ea750ae4cc51f41c40e73b5099b8ed5df0fd2dd9cb72d58dbb62"
   );
-  const isTx = useMemo(
-    () => selectedHexData.length > 42,
-    [selectedHexData.length]
-  );
+  const isTx = useMemo(() => selectedHexData.length > 42, [
+    selectedHexData.length
+  ]);
 
   const { data: txDetailData, isLoading: qryTxLoading } = useQuery(
-    ['getTxDetailData', selectedHexData],
+    ["getTxDetailData", selectedHexData],
     async () => {
       if (isTx) {
         const data = await getTransactionBaseInfo(selectedHexData);
         data.blockTimestamp = dayjs(Number(data.blockTimestamp) * 1000).format(
-          'YYYY-MM-DD hh:mm:ss'
+          "YYYY-MM-DD hh:mm:ss"
         );
         data.gas = (Number(data.gas) / 1e18).toString();
         data.value = (Number(data.value) / 1e18).toString();
@@ -64,17 +75,15 @@ export function TransactionGraph() {
   );
 
   const { data: addressDetailData, isLoading: qryAddressLoading } = useQuery(
-    ['getAddressDetailData', selectedHexData],
+    ["getAddressDetailData", selectedHexData],
     async () => {
       if (!isTx) {
         const data = await getBaseInfo(selectedHexData);
         data.balance = (Number(data.balance) / 1e18).toString();
-        data.transactionInAmountSum = (
-          Number(data.transactionInAmountSum) / 1e18
-        ).toString();
-        data.transactionOutAmountSum = (
-          Number(data.transactionOutAmountSum) / 1e18
-        ).toString();
+        data.transactionInAmountSum = (Number(data.transactionInAmountSum) /
+          1e18).toString();
+        data.transactionOutAmountSum = (Number(data.transactionOutAmountSum) /
+          1e18).toString();
 
         return data;
         // await waitTime(1000);
@@ -84,16 +93,17 @@ export function TransactionGraph() {
   );
 
   const onClickAnalysis = () => {
-    void form.validateFields().then((allValues: IGraphFormData) => {
-      allValues.tokenType = allValues.tokenType[0];
-      setFormData(allValues);
-      setSelectedHexData(allValues.transactionHash);
-    });
+    // void form.validateFields().then((allValues: IGraphFormData) => {
+    const allValues = { ...formData };
+    allValues.tokenType = allValues.tokenType[0];
+    setFormData(allValues);
+    setSelectedHexData(allValues.transactionHash);
+    // });
   };
 
   return (
-    <div className={cn(styles.TransactionGraph, 'overflow-y-auto')}>
-      <div className="flex items-center gap-x-3">
+    <div className={cn(styles.TransactionGraph, "overflow-y-auto")}>
+      {/* <div className="flex items-center gap-x-3">
         <div className="text-2xl font-black">交易图谱</div>
         <Form
           form={form}
@@ -104,10 +114,10 @@ export function TransactionGraph() {
         >
           <Form.Item className="max-w-3xl !flex-1">
             <Input.Group compact={true}>
-              <Form.Item name="tokenType" noStyle={true} initialValue={['ETH']}>
+              <Form.Item name="tokenType" noStyle={true} initialValue={["ETH"]}>
                 <Select
                   size="large"
-                  style={{ width: '30%' }}
+                  style={{ width: "30%" }}
                   placeholder="请选择TOKEN类型"
                 >
                   <Option value="BTC">BTC</Option>
@@ -122,7 +132,7 @@ export function TransactionGraph() {
                 <Input
                   size="large"
                   allowClear={true}
-                  style={{ width: '70%' }}
+                  style={{ width: "70%" }}
                   className={styles.input}
                   placeholder="请输入交易hash"
                 />
@@ -139,29 +149,89 @@ export function TransactionGraph() {
             开始分析
           </PrimaryButton>
         </Form>
-      </div>
+      </div> */}
       <div className="mt-6 flex min-h-[80vh] gap-x-2">
         <div className="w-80 max-w-sm rounded bg-white shadow-card">
           <Spin spinning={qryTxLoading || qryAddressLoading}>
-            {isTx ? (
-              <TransactionDetailCard
-                unit={formData.tokenType}
-                transactionData={txDetailData}
-              />
-            ) : (
-              <AddressDetailCard
-                unit={formData.tokenType}
-                addressData={addressDetailData}
-              />
-            )}
+            {isTx
+              ? <TransactionDetailCard
+                  unit={formData.tokenType}
+                  transactionData={txDetailData}
+                />
+              : <AddressDetailCard
+                  unit={formData.tokenType}
+                  addressData={addressDetailData}
+                />}
           </Spin>
         </div>
-        <div className="flex-1 overflow-hidden rounded bg-white shadow-card">
-          <TransactionTraceGraph
-            tokenUnit={formData.tokenType}
-            handleClick={setSelectedHexData}
-            queryHash={formData.transactionHash}
-          />
+        <div className="flex-1 flex flex-col gap-y-[10px] pl-[40px]">
+          <div className={`${pattern.flexbet}  w-full h-[36px]`}>
+            <div
+              className={cn(
+                `max-w-[1000px] h-full flex items-center gap-x-[10px] `
+              )}
+            >
+              <div className="text-[#ffffff] text-[16px] font-[500]">交易图谱</div>
+              <div className="flex flex-1 gap-x-[20px]">
+                <div className="w-[124px] 3xl:w-[164px] h-[36px] flex items-center">
+                  <SelectorCommonV3
+                    placeholder="以太坊区块的区块号或区块哈希"
+                    value={{
+                      label: formData.tokenType,
+                      value: formData.tokenType
+                    }}
+                    options={typeList}
+                    setValue={(item: any) => {
+                      setFormData({
+                        ...formData,
+                        tokenType: item.value
+                      });
+                    }}
+                  />
+                </div>
+
+                <InputCommonV2
+                  initVal={formData.transactionHash}
+                  placeholder="地址"
+                  onInput={(val: any) => {
+                    setFormData({
+                      ...formData,
+                      transactionHash: val
+                    });
+                  }}
+                  className="w-[208px] 3xl:w-[408px] h-[36px] "
+                />
+                <div
+                  className={cn(`w-[291px] h-[36px]  ${pattern.flexCenter}`)}
+                >
+                  <DateCommon
+                    className="w-[291px] h-full"
+                    onSelect={(date: any) => {
+                      setFormData({
+                        ...formData,
+                        date: date
+                      });
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div
+              onClick={onClickAnalysis}
+              className={cn(
+                "w-[113px] h-full hover:cursor-pointer",
+                `bg-[url('./assets/analyses_start.png')] bg-cover bg-center`
+              )}
+            />
+          </div>
+          <div className="flex-1 overflow-hidden rounded bg-white shadow-card">
+            <TransactionTraceGraph
+              tokenUnit={formData.tokenType}
+              handleClick={setSelectedHexData}
+              queryHash={formData.transactionHash}
+            />
+          </div>
         </div>
       </div>
     </div>

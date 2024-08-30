@@ -1,3 +1,10 @@
+/*
+ * @Description:
+ * @Author: didadida262
+ * @Date: 2024-08-27 15:12:36
+ * @LastEditors: didadida262
+ * @LastEditTime: 2024-08-29 20:25:16
+ */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
@@ -56,7 +63,7 @@ export function DropDownCommon(props: IDropProps) {
       </div>
       {show &&
         <ul
-          className={`${pattern.flexCenter} w-[120px] h-[34px] bg-[#2A6CB6] absolute top-[38px] left-0 `}
+          className={`${pattern.flexCenter} w-full h-[34px] bg-[#2A6CB6] absolute top-[38px] left-0 `}
           onClick={() => {
             handleEvent();
           }}

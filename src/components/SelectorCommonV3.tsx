@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-28 17:51:25
+ * @LastEditTime: 2024-08-29 00:34:45
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from 'classnames';
@@ -42,7 +42,7 @@ export function SelectorCommonV3(props: ISelectorProps) {
   return (
     <div
       className={cn(
-        'text-textFourthSize relative h-full w-full select-none ',
+        'text-textFourthSize relative h-full w-[calc(100%_-_12px)] select-none',
         `border-[1px] border-l-0 border-r-0 border-solid border-[#00A0E9]`,
 
         className

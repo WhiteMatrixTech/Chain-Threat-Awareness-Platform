@@ -1,35 +1,35 @@
+/* eslint-disable simple-import-sort/imports */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
-import { GraphinData } from "@antv/graphin";
-import { DatePicker, Form, Input, Select, Spin } from "antd";
-import cn from "classnames";
-import { useMemo, useState } from "react";
-import { useQuery } from "react-query";
-
-import { PrimaryButton } from "@/components/Button";
-import { InputCommonV2 } from "@/components/InputCommonV2";
-import { SelectorCommonV3 } from "@/components/SelectorCommonV3";
 import {
   generateAddressData,
   generateEdgeTxData,
   initGraphData,
   initQueryAddress
 } from "@/services/mockData/addressAnalysis";
-import pattern from "@/styles/pattern";
-import { waitTime } from "@/utils/common";
-import { getBlockByDate } from "@/utils/getBlockByDate";
-
-import styles from "./AddressAnalysis.module.less";
-import { AddressDetail } from "./Components/AddressDetail";
 import {
   AddressTxGraph,
   TGraphinClickTarget
 } from "./Components/graph/AddressTxGraph";
-import { TxDetail } from "./Components/TxDetail";
+import { DatePicker, Form, Input, Select, Spin } from "antd";
+import cn from "classnames";
+import { useMemo, useState } from "react";
+import { useQuery } from "react-query";
 
-const Option = Select.Option;
-const { RangePicker } = DatePicker;
+import { GraphinData } from "@antv/graphin";
+import { PrimaryButton } from "@/components/Button";
+import { DateCommon } from "@/components/DateCommon";
+import { InputCommonV2 } from "@/components/InputCommonV2";
+import { SelectorCommonV3 } from "@/components/SelectorCommonV3";
+import { waitTime } from "@/utils/common";
+import { getBlockByDate } from "@/utils/getBlockByDate";
+import pattern from "@/styles/pattern";
+
+import { AddressDetail } from "./Components/AddressDetail";
+import { TxDetail } from "./Components/TxDetail";
+import styles from "./AddressAnalysis.module.less";
 
 export interface IGraphFormData {
   date: any;
@@ -135,10 +135,18 @@ export function AddressAnalysis() {
   };
 
   return (
-    <div className={styles.AddressAnalysis}>
-      <div className={cn(styles.transactionDataContainer, "mt-6 flex gap-x-2")}>
-        <div className="w-80 max-w-sm rounded bg-white shadow-card">
-          <Spin spinning={qryAddressLoading || qryEdgeTxLoading}>
+    <div className={cn(`${styles.AddressAnalysis} w-full h-full fadeIn `)}>
+      <div
+        className={cn(
+          styles.transactionDataContainer,
+          "flex gap-x-10 w-full h-full "
+        )}
+      >
+        <div className="w-80 rounded shadow-card h-full">
+          <Spin
+            spinning={qryAddressLoading || qryEdgeTxLoading}
+            // style={{ width: "100%", height: "100%" }}
+          >
             {isEdge
               ? <TxDetail
                   unit={formData.tokenType}
@@ -151,7 +159,7 @@ export function AddressAnalysis() {
                 />}
           </Spin>
         </div>
-        <div className={cn(`flex-1 flex flex-col gap-y-[10px] pl-[40px]`)}>
+        <div className={cn(`flex-1 flex flex-col gap-y-[10px]`)}>
           <div className={`${pattern.flexbet}  w-full h-[36px]`}>
             <div
               className={cn(
@@ -176,32 +184,28 @@ export function AddressAnalysis() {
                     }}
                   />
                 </div>
-                <div
-                  className={`w-[208px] 3xl:w-[408px] h-[36px] flex items-center`}
-                >
-                  <InputCommonV2
-                    initVal={formData.address}
-                    placeholder="地址"
-                    onInput={(val: any) => {
-                      setFormData({
-                        ...formData,
-                        address: val
-                      });
-                    }}
-                  />
-                </div>
+
+                <InputCommonV2
+                  initVal={formData.address}
+                  placeholder="地址"
+                  onInput={(val: any) => {
+                    setFormData({
+                      ...formData,
+                      address: val
+                    });
+                  }}
+                  className="w-[208px] 3xl:w-[408px] h-[36px] "
+                />
                 <div
                   className={cn(`w-[291px] h-[36px]  ${pattern.flexCenter}`)}
                 >
-                  <RangePicker
-                    size="middle"
-                    className={styles.dataPicker}
-                    onChange={dataInfo => {
+                  <DateCommon
+                    className="w-[291px] h-full"
+                    onSelect={(date: any) => {
                       setFormData({
                         ...formData,
-                        date: dataInfo
+                        date: date
                       });
-                      console.log("data>>", dataInfo);
                     }}
                   />
                 </div>

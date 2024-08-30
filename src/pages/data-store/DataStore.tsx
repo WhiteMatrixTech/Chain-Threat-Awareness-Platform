@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-28 15:48:20
+ * @LastEditTime: 2024-08-29 21:00:06
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -56,7 +56,7 @@ export function DataStore() {
   const [pageInfo, setpageInfo] = useState({
     pageSize: 10,
     currentPage: 1,
-    total: 0
+    total: 3
   });
 
   // const {
@@ -85,15 +85,19 @@ export function DataStore() {
   }, []);
 
   return (
-    <div className={cn("fadeIn w-full")}>
-      <TableCommon
-        className=""
-        data={data}
-        columns={columns}
-        pageInfo={pageInfo}
-      />
-      <div className={cn(`w-full ${pattern.flexEnd}  mt-[20px]`)}>
+    <div className={cn("fadeIn w-full h-full", `${pattern.flexbetCol}`)}>
+      <div className={cn(`w-full h-[calc(100%_-_40px)]`)}>
+        <TableCommon
+          className="w-full h-full"
+          data={data}
+          columns={columns}
+          pageInfo={pageInfo}
+        />
+      </div>
+
+      <div className={cn(`w-full h-[20px] ${pattern.flexEnd}`)}>
         <PageCommon
+          className=""
           pageInfo={pageInfo}
           handleEvent={(params: any) => {
             setpageInfo({

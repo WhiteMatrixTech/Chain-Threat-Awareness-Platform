@@ -30,8 +30,11 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: rgba(178, 186, 203, 0.5);
+  background-color: rgba(178, 186, 203, 0.1);
   border-radius: 3px;
+}
+*::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 .markBorderG {

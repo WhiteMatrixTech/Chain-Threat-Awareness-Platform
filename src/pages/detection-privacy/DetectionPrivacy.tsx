@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-28 11:33:26
+ * @LastEditTime: 2024-08-29 15:03:18
  */
 import cn from "classnames";
 import { useState } from "react";
@@ -57,12 +57,7 @@ export function DetectionPrivacy() {
   };
 
   return (
-    <div
-      className={cn(
-        " w-full h-full  pt-[0px] 3xl:pt-32",
-        `${pattern.flexbet} `
-      )}
-    >
+    <div className={cn(" w-full h-full  pt-[0px]", `${pattern.flexbet} `)}>
       <div
         className={`left  w-[calc(50%)] h-full flex justify-center align-top scale-75 3xl:scale-100`}
       >
