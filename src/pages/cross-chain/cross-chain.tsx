@@ -30,7 +30,7 @@ export function CrossChain() {
 
   const startSearch = () => {
     // 开始查询
-    navigate("/threat-evidence/cross-chain-result");
+    navigate("/threat-evidence/cross-chain/result");
   };
 
   return (

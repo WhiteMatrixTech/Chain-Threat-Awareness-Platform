@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-02 15:17:35
+ * @LastEditTime: 2024-09-02 15:23:23
  */
 import "./App.less";
 
@@ -13,7 +13,9 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { AppLayout } from "@/components/AppLayout";
 import NoFoundPage from "@/pages/404";
 import { BitcoinmixedcoinDetection } from "@/pages/bitcoinmixedcoin-detection";
+import { BitcoinmixedcoinDetectionResult } from "@/pages/bitcoinmixedcoin-detection/bitcoinmixedcoin-detectionResult";
 import { ChaincodevulnerabilityDetection } from "@/pages/chaincodevulnerability-detection";
+import { ChaincodevulnerabilityDetectionResult } from "@/pages/chaincodevulnerability-detection/chaincodevulnerability-detectionResult";
 import { CrossChain } from "@/pages/cross-chain";
 import { CrossChainResult } from "@/pages/cross-chain/cross-chainResult";
 import { FewidentityInference } from "@/pages/fewidentity-inference";
@@ -100,7 +102,7 @@ function App() {
         />
         <Route path="/threat-evidence/cross-chain" element={<CrossChain />} />
         <Route
-          path="/threat-evidence/cross-chain-result"
+          path="/threat-evidence/cross-chain/result"
           element={<CrossChainResult />}
         />
         <Route
@@ -108,8 +110,17 @@ function App() {
           element={<ChaincodevulnerabilityDetection />}
         />
         <Route
+          path="/threat-evidence/chaincodevulnerability-detection/result"
+          element={<ChaincodevulnerabilityDetectionResult />}
+        />
+
+        <Route
           path="/threat-evidence/bitcoinmixedcoin-detection"
           element={<BitcoinmixedcoinDetection />}
+        />
+        <Route
+          path="/threat-evidence/bitcoinmixedcoin-detection/result"
+          element={<BitcoinmixedcoinDetectionResult />}
         />
 
         <Route path="/data-screens" element={<DataScreens />} />
