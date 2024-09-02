@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-02 14:34:10
+ * @LastEditTime: 2024-09-02 16:09:57
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -20,6 +20,7 @@ import {
 } from "@/components/GraphV2/AddressTxGraph";
 import { InputCommonV2 } from "@/components/InputCommonV2";
 import { ResultComponent } from "@/components/ResultComponent";
+import { SpinCommon } from "@/components/SpinCommon";
 import { TableCommonV2 } from "@/components/TableCommonV2";
 import { columns } from "@/services/columns";
 import {
@@ -37,6 +38,7 @@ export function IdentityInferenceResult() {
   const [dataList, setDateList] = useState<any>([]);
   const [selectedHexData, setSelectedHexData] = useState(initQueryAddress);
   const [graphData, setGraphData] = useState<GraphinData>(initGraphData);
+  const [loading, setloading] = useState(false);
 
   const [formData, setFormData] = useState<IGraphFormData>({
     date: ["0", "latest"],
@@ -85,9 +87,13 @@ export function IdentityInferenceResult() {
     setDateList(res);
   }, []);
 
-  return (
-    <div className={cn(" w-full h-full pt-[0px] fadeIn", `${pattern.flexbet}`)}>
-      <div className={cn(`w-full h-full  gap-y-6 flex flex-col`)}>
+  return loading
+    ? <SpinCommon className=" w-full h-full" />
+    : <div
+        className={cn(
+          " w-full h-full pt-[0px] fadeIn gap-y-6 flex flex-col  relative"
+        )}
+      >
         <div className={cn(`flex-1`)}>
           <AddressTxGraph
             focusedId={selectedHexData}
@@ -111,7 +117,5 @@ export function IdentityInferenceResult() {
         <div className={cn(` w-full h-[320px]`)}>
           <TableCommonV2 className="" data={dataList} columns={columns} />
         </div>
-      </div>
-    </div>
-  );
+      </div>;
 }
