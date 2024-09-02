@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-02 14:04:10
+ * @LastEditTime: 2024-09-02 14:44:31
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -41,7 +41,7 @@ export function DetectionAttack() {
   return (
     <div className={cn(" w-full h-full  pt-[0px]", `${pattern.flexbet} `)}>
       <div
-        className={`left  w-[calc(50%)] h-full flex justify-center align-top scale-75 3xl:scale-100 `}
+        className={`left  w-[calc(50%)] h-full flex justify-center align-top `}
       >
         <div
           className={cn(
