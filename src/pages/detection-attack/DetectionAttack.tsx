@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 15:03:08
+ * @LastEditTime: 2024-09-02 14:04:10
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -29,6 +29,7 @@ export function DetectionAttack() {
   const [selectedType, setSelectedType] = useState<ISelectorItemProps | null>(
     null
   );
+  const [resultContent, setResultContent] = useState("暂无数据...");
 
   const start = () => {
     const params = {
@@ -84,9 +85,15 @@ export function DetectionAttack() {
         </div>
       </div>
       <div
-        className={`right  w-[calc(50%)] h-full flex justify-center align-top scale-75 3xl:scale-100`}
+        className={`right  w-[calc(50%)] h-full flex justify-center align-top `}
       >
-        <div className="3xl:pt-[80px] 3xl:px-[20px] 3xl:pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center " />
+        <div className="pt-[80px] px-[20px] pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
+          <div className="w-full h-full ">
+            <span className="text-[#FFFFFF] text-[16px]">
+              {resultContent}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

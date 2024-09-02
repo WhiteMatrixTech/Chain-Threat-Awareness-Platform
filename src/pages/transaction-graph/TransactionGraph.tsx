@@ -178,7 +178,7 @@ export function TransactionGraph() {
             >
               <div className="text-[#ffffff] text-[16px] font-[500]">交易图谱</div>
               <div className="flex flex-1 gap-x-[20px]">
-                <div className="w-[124px] 3xl:w-[164px] h-[36px] flex items-center">
+                <div className="w-[164px] h-[36px] flex items-center">
                   <SelectorCommonV3
                     placeholder="以太坊区块的区块号或区块哈希"
                     value={{
@@ -204,7 +204,7 @@ export function TransactionGraph() {
                       transactionHash: val
                     });
                   }}
-                  className="w-[208px] 3xl:w-[408px] h-[36px] "
+                  className="w-[408px] h-[36px] "
                 />
                 <div
                   className={cn(`w-[291px] h-[36px]  ${pattern.flexCenter}`)}
