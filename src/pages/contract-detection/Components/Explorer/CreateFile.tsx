@@ -38,7 +38,6 @@ export function CreateFile(props: ICreateFileProps) {
 
   const { mutate, status } = useMutation(async (data: ICreateFileData) => {
     await waitTime(1000);
-
     if (modalData) {
       dispatch({
         type: ContractAction.RENAME_ITEM,

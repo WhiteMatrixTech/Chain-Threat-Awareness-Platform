@@ -1,6 +1,7 @@
-import { cloneDeep } from 'lodash';
+/* eslint-disable prettier/prettier */
+import { cloneDeep } from "lodash";
 
-import { IExplorerItem, IFile } from '@/pages/contract-detection/ContractStore';
+import { IExplorerItem, IFile } from "@/pages/contract-detection/ContractStore";
 
 const BasicContract = `pragma solidity ^0.4.26;
 interface Token {
@@ -32,22 +33,83 @@ contract TokenSale {
 }
 `;
 
+const BasicContractProxy = `
+pragma solidity ^0.4.24;
+
+contract Proxy {
+  address owner;
+  constructor() public {
+    owner = msg.sender;  
+  }
+
+  function forward(address callee, bytes _data) public {
+    require(callee.delegatecall(_data));
+  }
+
+}
+`;
+
+const BasicContractAssert_constructor = `pragma solidity ^0.4.19;
+
+contract AssertConstructor {
+    function AssertConstructor() public {
+        assert(false);
+    }
+}
+`;
+
+const BasicContractAssert_minimal = `/*
+* @source: https://github.com/ConsenSys/evm-analyzer-benchmark-suite
+* @author: Suhabe Bugrara
+*/
+
+pragma solidity ^0.4.19;
+
+contract AssertMinimal {
+   function run() public {
+       assert(false);
+   }
+}
+`;
+const BasicContractAssert_multitx_1 = `
+/*
+ * @source: https://github.com/ConsenSys/evm-analyzer-benchmark-suite
+ * @author: Suhabe Bugrara
+ */
+
+pragma solidity ^0.4.19;
+
+contract AssertMultiTx1 {
+    uint256 private param;
+
+    function AssertMultiTx1(uint256 _param) public {
+        require(_param > 0);
+        param = _param;
+    }
+
+    function run() {
+        assert(param > 0);
+    }
+
+}
+`;
+
 enum DetectionResultType {
-  ERROR = 'High',
-  WARNING = 'Medium',
-  INFO = 'Low'
+  ERROR = "High",
+  WARNING = "Medium",
+  INFO = "Low"
 }
 
 const ResultIconColor = {
-  [DetectionResultType.ERROR]: '#FF8787',
-  [DetectionResultType.WARNING]: '#FFDD65',
-  [DetectionResultType.INFO]: '#5DA4F7'
+  [DetectionResultType.ERROR]: "#FF8787",
+  [DetectionResultType.WARNING]: "#FFDD65",
+  [DetectionResultType.INFO]: "#5DA4F7"
 };
 
 const ResultColor = {
-  Low: '#5DA4F7',
-  Medium: '#FFDD65',
-  High: '#FF8787'
+  Low: "#5DA4F7",
+  Medium: "#FFDD65",
+  High: "#FF8787"
 };
 
 const ContractDetectionResults = [
@@ -61,7 +123,7 @@ const ContractDetectionResults = [
   },
   {
     type: DetectionResultType.ERROR,
-    message: '未检查的send方法',
+    message: "未检查的send方法",
     position: {
       line: 82,
       columns: 82
@@ -69,7 +131,7 @@ const ContractDetectionResults = [
   },
   {
     type: DetectionResultType.WARNING,
-    message: '缺少零地址校验',
+    message: "缺少零地址校验",
     position: {
       line: 74,
       columns: 74
@@ -77,7 +139,7 @@ const ContractDetectionResults = [
   },
   {
     type: DetectionResultType.INFO,
-    message: 'Solidity命名规范',
+    message: "Solidity命名规范",
     position: {
       line: 9,
       columns: 9
@@ -91,9 +153,9 @@ const getShouldRemoveIds = (
 ) => {
   let ids = [targetId];
   const childrenIds = explorerList
-    .filter((item) => item.parentId === targetId)
-    .map((item) => item.id);
-  childrenIds.forEach((id) => {
+    .filter(item => item.parentId === targetId)
+    .map(item => item.id);
+  childrenIds.forEach(id => {
     const nextChildrenIds = getShouldRemoveIds(id, explorerList);
     ids = ids.concat(nextChildrenIds);
   });
@@ -113,27 +175,31 @@ const removeExplorerItems = (
   const shouldRemoveIds = getShouldRemoveIds(targetId, explorerList);
 
   const newExplorerList = preList.filter(
-    (item) => !shouldRemoveIds.includes(item.id)
+    item => !shouldRemoveIds.includes(item.id)
   );
 
   const newOpenFiles = preFiles.filter(
-    (file) => shouldRemoveIds.indexOf(file.id) < 0
+    file => shouldRemoveIds.indexOf(file.id) < 0
   );
 
   return { newExplorerList, newOpenFiles };
 };
 
 const arrToTreeData = (arr: IExplorerItem[]) => {
-  arr.forEach((item) => {
-    const children = arr.filter((v) => item.id === v.parentId);
+  arr.forEach(item => {
+    const children = arr.filter(v => item.id === v.parentId);
     item.children = children.length > 0 ? (item.children = children) : [];
   });
-  return arr.filter((item) => item.projectType);
+  return arr.filter(item => item.projectType);
 };
 
 export {
   arrToTreeData,
   BasicContract,
+  BasicContractAssert_constructor,
+  BasicContractAssert_minimal,
+  BasicContractAssert_multitx_1,
+  BasicContractProxy,
   ContractDetectionResults,
   DetectionResultType,
   removeExplorerItems,

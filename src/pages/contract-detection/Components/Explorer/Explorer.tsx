@@ -53,11 +53,9 @@ const getDomTree = (treeData: IExplorerItem[]): ContractNode[] => {
 
 export function Explorer() {
   const { contractState, dispatch } = useContractContext();
-
   const contractTreeData = useMemo(() => {
     const explorerList = cloneDeep(contractState.explorerList);
     const treeData = arrToTreeData(explorerList);
-
     return getDomTree(treeData);
   }, [contractState.explorerList]);
 

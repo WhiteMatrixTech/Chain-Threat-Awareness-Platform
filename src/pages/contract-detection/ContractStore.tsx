@@ -1,34 +1,39 @@
-import { cloneDeep } from 'lodash';
-import { createContext, Dispatch, useContext, useReducer } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+/* eslint-disable prettier/prettier */
+import { cloneDeep } from "lodash";
+import { createContext, Dispatch, useContext, useReducer } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 import {
   BasicContract,
+  BasicContractAssert_constructor,
+  BasicContractAssert_minimal,
+  BasicContractAssert_multitx_1,
+  BasicContractProxy,
   removeExplorerItems
-} from '@/services/mockData/contractDetection';
-import { deduplicate } from '@/utils/common';
+} from "@/services/mockData/contractDetection";
+import { deduplicate } from "@/utils/common";
 
 const initProjectId = uuidv4();
 const initFileId = uuidv4();
 
 export enum ExplorerItemType {
-  PROJECT = 'project',
-  FOLDER = 'folder',
-  FILE = 'file'
+  PROJECT = "project",
+  FOLDER = "folder",
+  FILE = "file"
 }
 
 export enum ProjectType {
-  ETH = 'ETH'
+  ETH = "ETH"
 }
 
 export enum ContractAction {
-  ADD_ITEM = 'ADD_ITEM',
-  RENAME_ITEM = 'RENAME_ITEM',
-  DELETE_ITEM = 'DELETE_ITEM',
-  OPEN_FILE = 'OPEN_FILE',
-  CLOSE_FILE = 'CLOSE_FILE',
-  SET_FOCUS_FILE = 'SET_FOCUS_FILE',
-  SAVE_FILE_CONTENT = 'SAVE_FILE_CONTENT'
+  ADD_ITEM = "ADD_ITEM",
+  RENAME_ITEM = "RENAME_ITEM",
+  DELETE_ITEM = "DELETE_ITEM",
+  OPEN_FILE = "OPEN_FILE",
+  CLOSE_FILE = "CLOSE_FILE",
+  SET_FOCUS_FILE = "SET_FOCUS_FILE",
+  SAVE_FILE_CONTENT = "SAVE_FILE_CONTENT"
 }
 
 export interface IExplorerItem extends Record<string, unknown> {
@@ -115,7 +120,7 @@ const initialContractState: ContractState = {
     {
       id: initProjectId,
       parentId: null,
-      name: 'ETH_default',
+      name: "ETH_default",
       type: ExplorerItemType.PROJECT,
       projectType: ProjectType.ETH
     },
@@ -123,15 +128,43 @@ const initialContractState: ContractState = {
       id: initFileId,
       parentId: initProjectId,
       type: ExplorerItemType.FILE,
-      name: 'Storage.sol',
+      name: "Storage.sol",
       content: BasicContract
+    },
+    {
+      id: uuidv4(),
+      parentId: initProjectId,
+      type: ExplorerItemType.FILE,
+      name: "assert_constructor.sol",
+      content: BasicContractAssert_constructor
+    },
+    {
+      id: uuidv4(),
+      parentId: initProjectId,
+      type: ExplorerItemType.FILE,
+      name: "proxy.sol",
+      content: BasicContractProxy
+    },
+    {
+      id: uuidv4(),
+      parentId: initProjectId,
+      type: ExplorerItemType.FILE,
+      name: "assert_minimal.sol",
+      content: BasicContractAssert_minimal
+    },
+    {
+      id: uuidv4(),
+      parentId: initProjectId,
+      type: ExplorerItemType.FILE,
+      name: "assert_multitx_1.sol",
+      content: BasicContractAssert_multitx_1
     }
   ],
   openFiles: [
     {
       id: initFileId,
       type: ExplorerItemType.FILE,
-      name: 'Storage.sol',
+      name: "Storage.sol",
       content: BasicContract
     }
   ],
@@ -148,7 +181,7 @@ const reducer = (
       break;
     }
     case ContractAction.RENAME_ITEM: {
-      state.explorerList = state.explorerList.map((item) => {
+      state.explorerList = state.explorerList.map(item => {
         if (item.id === action.data.id) {
           item.name = action.data.name;
         }
@@ -168,7 +201,7 @@ const reducer = (
       break;
     }
     case ContractAction.SAVE_FILE_CONTENT: {
-      state.explorerList = state.explorerList.map((item) => {
+      state.explorerList = state.explorerList.map(item => {
         if (item.id === action.data.id) {
           item.content = action.data.content;
         }
@@ -178,7 +211,7 @@ const reducer = (
       break;
     }
     case ContractAction.OPEN_FILE: {
-      if (!state.openFiles.find((file) => file.id === action.data.id)) {
+      if (!state.openFiles.find(file => file.id === action.data.id)) {
         state.openFiles.push(action.data);
       }
       state.focusFileId = action.data.id;
@@ -186,11 +219,11 @@ const reducer = (
     }
     case ContractAction.CLOSE_FILE: {
       state.openFiles = state.openFiles.filter(
-        (file) => file.id !== action.data.id
+        file => file.id !== action.data.id
       );
       if (state.focusFileId === action.data.id) {
         const len = state.openFiles.length;
-        state.focusFileId = len > 0 ? state.openFiles[len - 1].id : '';
+        state.focusFileId = len > 0 ? state.openFiles[len - 1].id : "";
       }
       break;
     }
