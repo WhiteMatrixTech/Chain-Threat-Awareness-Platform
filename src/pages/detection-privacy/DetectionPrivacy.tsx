@@ -5,13 +5,13 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-02 14:01:55
+ * @LastEditTime: 2024-09-02 17:04:40
  */
 import cn from "classnames";
 import { useState } from "react";
 
 import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
-import { InputCommon } from "@/components/InputCommon";
+import { InputCommonV2 } from "@/components/InputCommonV2";
 import {
   ISelectorItemProps,
   SelectorCommonV2
@@ -99,11 +99,12 @@ export function DetectionPrivacy() {
                 />
               </div>
               <div className={`w-full h-[36px] flex items-center`}>
-                <InputCommon
+                <InputCommonV2
                   placeholder="1000到2000数值"
                   onInput={(val: any) => {
                     setInputRange(val);
                   }}
+                  className="w-[450px] h-[36px] "
                 />
               </div>
               <div

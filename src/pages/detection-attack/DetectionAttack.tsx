@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /*
  * @Description:
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-02 14:44:31
+ * @LastEditTime: 2024-09-02 17:12:57
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -12,7 +13,7 @@ import cn from "classnames";
 import { useState } from "react";
 
 import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
-import { InputCommon } from "@/components/InputCommon";
+import { InputCommonV2 } from "@/components/InputCommonV2";
 import {
   ISelectorItemProps,
   SelectorCommonV2
@@ -26,14 +27,12 @@ export function DetectionAttack() {
       value: "hash"
     }
   ];
-  const [selectedType, setSelectedType] = useState<ISelectorItemProps | null>(
-    null
-  );
+  const [inputVal, setInputVal] = useState("");
   const [resultContent, setResultContent] = useState("暂无数据...");
 
   const start = () => {
     const params = {
-      selectedType
+      inputVal
     };
     console.log("params>>>>", params);
   };
@@ -60,13 +59,12 @@ export function DetectionAttack() {
           >
             <div className="w-full h-full  flex flex-col gap-y-[16px]">
               <div className={`w-full h-[36px] flex items-center`}>
-                <SelectorCommonV2
+                <InputCommonV2
                   placeholder="以太坊区块的区块号或区块哈希"
-                  value={selectedType}
-                  options={typeList}
-                  setValue={(item: ISelectorItemProps) => {
-                    setSelectedType(item);
+                  onInput={(val: any) => {
+                    setInputVal(val);
                   }}
+                  className="w-[450px] h-[36px] "
                 />
               </div>
               <div
