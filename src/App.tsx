@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 19:28:31
+ * @LastEditTime: 2024-09-02 15:23:23
  */
 import "./App.less";
 
@@ -13,11 +13,17 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { AppLayout } from "@/components/AppLayout";
 import NoFoundPage from "@/pages/404";
 import { BitcoinmixedcoinDetection } from "@/pages/bitcoinmixedcoin-detection";
+import { BitcoinmixedcoinDetectionResult } from "@/pages/bitcoinmixedcoin-detection/bitcoinmixedcoin-detectionResult";
 import { ChaincodevulnerabilityDetection } from "@/pages/chaincodevulnerability-detection";
+import { ChaincodevulnerabilityDetectionResult } from "@/pages/chaincodevulnerability-detection/chaincodevulnerability-detectionResult";
 import { CrossChain } from "@/pages/cross-chain";
+import { CrossChainResult } from "@/pages/cross-chain/cross-chainResult";
 import { FewidentityInference } from "@/pages/fewidentity-inference";
+import { FewidentityInferenceResult } from "@/pages/fewidentity-inference/fewidentity-inferenceResult";
 import { IdentityInference } from "@/pages/identity-inference";
+import { IdentityInferenceResult } from "@/pages/identity-inference/IdentityInferenceResult";
 import { MaliciousTransaction } from "@/pages/malicious-transaction";
+import { MaliciousTransactionResult } from "@/pages/malicious-transaction/malicious-transactionResult";
 
 import { AddressAnalysis } from "./pages/address-analysis";
 import { ContractDetection } from "./pages/contract-detection";
@@ -74,21 +80,47 @@ function App() {
           element={<IdentityInference />}
         />
         <Route
+          path="/threat-evidence/identity-inference/result"
+          element={<IdentityInferenceResult />}
+        />
+
+        <Route
           path="/threat-evidence/fewidentity-inference"
           element={<FewidentityInference />}
+        />
+        <Route
+          path="/threat-evidence/fewidentity-inference/result"
+          element={<FewidentityInferenceResult />}
         />
         <Route
           path="/threat-evidence/malicious-transaction"
           element={<MaliciousTransaction />}
         />
+        <Route
+          path="/threat-evidence/malicious-transaction/result"
+          element={<MaliciousTransactionResult />}
+        />
         <Route path="/threat-evidence/cross-chain" element={<CrossChain />} />
+        <Route
+          path="/threat-evidence/cross-chain/result"
+          element={<CrossChainResult />}
+        />
         <Route
           path="/threat-evidence/chaincodevulnerability-detection"
           element={<ChaincodevulnerabilityDetection />}
         />
         <Route
+          path="/threat-evidence/chaincodevulnerability-detection/result"
+          element={<ChaincodevulnerabilityDetectionResult />}
+        />
+
+        <Route
           path="/threat-evidence/bitcoinmixedcoin-detection"
           element={<BitcoinmixedcoinDetection />}
+        />
+        <Route
+          path="/threat-evidence/bitcoinmixedcoin-detection/result"
+          element={<BitcoinmixedcoinDetectionResult />}
         />
 
         <Route path="/data-screens" element={<DataScreens />} />

@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-28 10:32:10
+ * @LastEditTime: 2024-09-02 14:04:50
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from 'classnames';
@@ -57,7 +57,7 @@ export function SelectorCommonV2(props: ISelectorProps) {
         {value ? (
           <span className="text-[16px] text-[#ffffff]">{value.label}</span>
         ) : (
-          <span className="text-[16px] text-[#ffffff]">{placeholder}</span>
+          <span className="text-[16px] text-[#FFFFFF99]">{placeholder}</span>
         )}
 
         <svg

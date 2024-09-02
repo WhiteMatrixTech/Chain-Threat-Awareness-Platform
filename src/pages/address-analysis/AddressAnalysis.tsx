@@ -99,6 +99,7 @@ export function AddressAnalysis() {
   const onClickAnalysis = async () => {
     // void form.validateFields().then(async (allValues: formDateType) => {
     const allValues = { ...formData };
+    console.log("allValues>>>", allValues);
     if (allValues.date) {
       try {
         const fromBlock = await getBlockByDate(allValues.date[0]);
@@ -109,6 +110,7 @@ export function AddressAnalysis() {
           tokenType: allValues.tokenType,
           address: allValues.address
         });
+        console.log("formData>>>", formData);
         setSelectedHexData(allValues.address);
         return;
       } catch (e) {
@@ -122,7 +124,6 @@ export function AddressAnalysis() {
       address: allValues.address
     });
     setSelectedHexData(allValues.address);
-    // });
   };
 
   const handleClickGraphin = (
@@ -204,7 +205,7 @@ export function AddressAnalysis() {
                       address: val
                     });
                   }}
-                  className="w-[208px] 3xl:w-[408px] h-[36px] "
+                  className="w-[408px] h-[36px] "
                 />
                 <div
                   className={cn(`w-[291px] h-[36px]  ${pattern.flexCenter}`)}

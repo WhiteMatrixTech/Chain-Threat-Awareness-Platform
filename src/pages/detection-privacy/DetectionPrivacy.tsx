@@ -5,13 +5,13 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 15:03:18
+ * @LastEditTime: 2024-09-02 17:21:01
  */
 import cn from "classnames";
 import { useState } from "react";
 
 import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
-import { InputCommon } from "@/components/InputCommon";
+import { InputCommonV2 } from "@/components/InputCommonV2";
 import {
   ISelectorItemProps,
   SelectorCommonV2
@@ -21,12 +21,24 @@ import pattern from "@/styles/pattern";
 export function DetectionPrivacy() {
   const typeList = [
     {
-      label: "比特币",
-      value: "bitcoin"
+      label: "比特币（BTC）",
+      value: "BTC"
     },
     {
-      label: "火币",
-      value: "hot"
+      label: "比特币现金（BCH）",
+      value: "BCH"
+    },
+    {
+      label: "以太坊（ETH）",
+      value: "ETH"
+    },
+    {
+      label: "莱特币（LTC）",
+      value: "LTC"
+    },
+    {
+      label: "币安智能链（BSC）",
+      value: "BSC"
     }
   ];
   const rangeList = [
@@ -46,6 +58,7 @@ export function DetectionPrivacy() {
     null
   );
   const [inputRange, setInputRange] = useState<any>("");
+  const [resultContent, setResultContent] = useState("暂无数据...");
 
   const start = () => {
     const params = {
@@ -98,11 +111,12 @@ export function DetectionPrivacy() {
                 />
               </div>
               <div className={`w-full h-[36px] flex items-center`}>
-                <InputCommon
+                <InputCommonV2
                   placeholder="1000到2000数值"
                   onInput={(val: any) => {
                     setInputRange(val);
                   }}
+                  className="w-[450px] h-[36px] "
                 />
               </div>
               <div
@@ -121,9 +135,15 @@ export function DetectionPrivacy() {
         </div>
       </div>
       <div
-        className={`right  w-[calc(50%)] h-full flex justify-center align-top scale-75 3xl:scale-100`}
+        className={` right  w-[calc(50%)] h-full flex justify-center align-top `}
       >
-        <div className="3xl:pt-[80px] 3xl:px-[20px] 3xl:pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center " />
+        <div className=" pt-[80px] px-[20px] pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
+          <div className="w-full h-full ">
+            <span className="text-[#FFFFFF] text-[16px]">
+              {resultContent}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );

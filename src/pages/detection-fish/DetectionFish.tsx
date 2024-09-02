@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
 /*
@@ -5,13 +6,13 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 15:03:13
+ * @LastEditTime: 2024-09-02 17:17:06
  */
 import cn from "classnames";
 import { useState } from "react";
 
 import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
-import { InputCommon } from "@/components/InputCommon";
+import { InputCommonV2 } from "@/components/InputCommonV2";
 import {
   ISelectorItemProps,
   SelectorCommonV2
@@ -26,13 +27,13 @@ export function DetectionFish() {
     }
   ];
 
-  const [selectedType, setSelectedType] = useState<ISelectorItemProps | null>(
-    null
-  );
+  const [inputVal, setInputVal] = useState("");
+
+  const [resultContent, setResultContent] = useState("暂无数据...");
 
   const start = () => {
     const params = {
-      selectedType
+      inputVal
     };
     console.log("params>>>>", params);
   };
@@ -59,13 +60,20 @@ export function DetectionFish() {
           >
             <div className="w-full h-full  flex flex-col gap-y-[16px]">
               <div className={`w-full h-[36px] flex items-center`}>
-                <SelectorCommonV2
+                {/* <SelectorCommonV2
                   placeholder="以太坊外部账号的地址"
                   value={selectedType}
                   options={typeList}
                   setValue={(item: ISelectorItemProps) => {
                     setSelectedType(item);
                   }}
+                /> */}
+                <InputCommonV2
+                  placeholder="以太坊外部账号的地址"
+                  onInput={(val: any) => {
+                    setInputVal(val);
+                  }}
+                  className="w-[450px] h-[36px] "
                 />
               </div>
               <div
@@ -86,7 +94,13 @@ export function DetectionFish() {
       <div
         className={`right  w-[calc(50%)] h-full flex justify-center align-top scale-75 3xl:scale-100`}
       >
-        <div className="3xl:pt-[80px] 3xl:px-[20px] 3xl:pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center " />
+        <div className="3xl:pt-[80px] 3xl:px-[20px] 3xl:pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
+          <div className="w-full h-full ">
+            <span className="text-[#FFFFFF] text-[16px]">
+              {resultContent}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
