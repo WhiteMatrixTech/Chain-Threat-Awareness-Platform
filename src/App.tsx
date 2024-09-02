@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-02 14:50:01
+ * @LastEditTime: 2024-09-02 15:17:35
  */
 import "./App.less";
 
@@ -15,6 +15,7 @@ import NoFoundPage from "@/pages/404";
 import { BitcoinmixedcoinDetection } from "@/pages/bitcoinmixedcoin-detection";
 import { ChaincodevulnerabilityDetection } from "@/pages/chaincodevulnerability-detection";
 import { CrossChain } from "@/pages/cross-chain";
+import { CrossChainResult } from "@/pages/cross-chain/cross-chainResult";
 import { FewidentityInference } from "@/pages/fewidentity-inference";
 import { FewidentityInferenceResult } from "@/pages/fewidentity-inference/fewidentity-inferenceResult";
 import { IdentityInference } from "@/pages/identity-inference";
@@ -98,6 +99,10 @@ function App() {
           element={<MaliciousTransactionResult />}
         />
         <Route path="/threat-evidence/cross-chain" element={<CrossChain />} />
+        <Route
+          path="/threat-evidence/cross-chain-result"
+          element={<CrossChainResult />}
+        />
         <Route
           path="/threat-evidence/chaincodevulnerability-detection"
           element={<ChaincodevulnerabilityDetection />}
