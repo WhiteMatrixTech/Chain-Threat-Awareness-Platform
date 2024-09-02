@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-02 17:04:40
+ * @LastEditTime: 2024-09-02 17:21:01
  */
 import cn from "classnames";
 import { useState } from "react";
@@ -21,12 +21,24 @@ import pattern from "@/styles/pattern";
 export function DetectionPrivacy() {
   const typeList = [
     {
-      label: "比特币",
-      value: "bitcoin"
+      label: "比特币（BTC）",
+      value: "BTC"
     },
     {
-      label: "火币",
-      value: "hot"
+      label: "比特币现金（BCH）",
+      value: "BCH"
+    },
+    {
+      label: "以太坊（ETH）",
+      value: "ETH"
+    },
+    {
+      label: "莱特币（LTC）",
+      value: "LTC"
+    },
+    {
+      label: "币安智能链（BSC）",
+      value: "BSC"
     }
   ];
   const rangeList = [
