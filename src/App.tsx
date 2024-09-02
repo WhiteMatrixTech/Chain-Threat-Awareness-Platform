@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 19:28:31
+ * @LastEditTime: 2024-09-02 14:28:47
  */
 import "./App.less";
 
@@ -17,6 +17,7 @@ import { ChaincodevulnerabilityDetection } from "@/pages/chaincodevulnerability-
 import { CrossChain } from "@/pages/cross-chain";
 import { FewidentityInference } from "@/pages/fewidentity-inference";
 import { IdentityInference } from "@/pages/identity-inference";
+import { IdentityInferenceResult } from "@/pages/identity-inference/IdentityInferenceResult";
 import { MaliciousTransaction } from "@/pages/malicious-transaction";
 
 import { AddressAnalysis } from "./pages/address-analysis";
@@ -73,6 +74,11 @@ function App() {
           path="/threat-evidence/identity-inference"
           element={<IdentityInference />}
         />
+        <Route
+          path="/threat-evidence/identity-inference/result"
+          element={<IdentityInferenceResult />}
+        />
+
         <Route
           path="/threat-evidence/fewidentity-inference"
           element={<FewidentityInference />}
