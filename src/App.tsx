@@ -20,6 +20,7 @@ import { FewidentityInferenceResult } from "@/pages/fewidentity-inference/fewide
 import { IdentityInference } from "@/pages/identity-inference";
 import { IdentityInferenceResult } from "@/pages/identity-inference/IdentityInferenceResult";
 import { MaliciousTransaction } from "@/pages/malicious-transaction";
+import { MaliciousTransactionResult } from "@/pages/malicious-transaction/malicious-transactionResult";
 
 import { AddressAnalysis } from "./pages/address-analysis";
 import { ContractDetection } from "./pages/contract-detection";
@@ -91,6 +92,10 @@ function App() {
         <Route
           path="/threat-evidence/malicious-transaction"
           element={<MaliciousTransaction />}
+        />
+        <Route
+          path="/threat-evidence/malicious-transaction/result"
+          element={<MaliciousTransactionResult />}
         />
         <Route path="/threat-evidence/cross-chain" element={<CrossChain />} />
         <Route
