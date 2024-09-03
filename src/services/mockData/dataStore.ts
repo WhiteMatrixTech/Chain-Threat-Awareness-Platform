@@ -1,29 +1,38 @@
+/* eslint-disable prettier/prettier */
+/*
+ * @Description:
+ * @Author: didadida262
+ * @Date: 2024-08-26 10:16:45
+ * @LastEditors: didadida262
+ * @LastEditTime: 2024-09-03 16:52:35
+ */
 export const dataStoreList = [
   {
-    id: '31654',
-    name: '比特币交易数据',
-    databaseType: 'OSS',
-    description: '比特币交易数据',
-    chainType: 'Bitcoin',
-    version: 'Bitcoin',
-    createTime: '2022-04-02 15:36:18'
+    name: "以太坊交易数据",
+    chainType: "Ethereum",
+    total: 1010,
+    desc:
+      "该数据集收集并存储了以太坊区块链上的交易数据，包括但不限于交易哈希、发送方地址、接收方地址、交易金额、时间戳等，通过对这些交易数据的存储和分析，平台可以识别潜在的安全威胁，如异常交易、潜在攻击模式和网络欺诈行为等，为用户提供更全面的区块链安全保障。"
   },
   {
-    id: '78658',
-    name: '以太坊交易数据',
-    databaseType: 'OSS',
-    description: '以太坊交易数据 soildity0.8~0.9',
-    chainType: 'Ethereum',
-    version: 'Ethereum2.0',
-    createTime: '2022-04-02 15:51:21'
+    name: "以太坊合约数据",
+    chainType: "Ethereum",
+    total: 7893,
+    desc:
+      "该数据集收集并存储了以太坊区块链上的智能合约数据，包括但不限于合约地址、合约代码、部署者地址、合约创建时间等，通过对这些智能合约数据的存储和分析，平台可以有效识别和监控潜在的安全威胁，如恶意合约、漏洞利用等，为区块链安全提供重要的数据支撑。"
   },
   {
-    id: '16597',
-    name: '以太坊交易数据',
-    databaseType: 'OSS',
-    description: '以太坊交易数据 soildity0.8~0.9',
-    chainType: 'Ethereum',
-    version: 'Ethereum2.0',
-    createTime: '2022-04-02 15:55:34'
+    name: "比特币交易数据",
+    chainType: "Bitcoin",
+    total: 1660,
+    desc:
+      "该数据集收集并存储了比特币区块链上的交易数据，包括但不限于交易哈希、发送方地址、接收方地址、交易金额、交易手续费、时间戳等，通过对这些交易数据的深入分析，平台能够识别潜在的安全威胁，如异常交易、洗钱活动和网络攻击等，为比特币生态系统的安全性提供重要的支持。"
+  },
+  {
+    name: "币安交易数据",
+    chainType: "Binance Smart Chain ",
+    total: 14000,
+    desc:
+      "该数据集收集并存储了币安智能链上的交易数据，包括但不限于交易哈希、发送方地址、接收方地址、交易金额、交易手续费、时间戳等关键信息，通过对这些交易数据的存储和分析，平台可以识别和监测潜在的安全威胁，如恶意交易、异常资金流动等，为币安链生态系统的安全性提供强有力的数据支持。"
   }
 ];
