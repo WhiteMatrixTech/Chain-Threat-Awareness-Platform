@@ -9,11 +9,17 @@ import {
   BasicContractAssert_minimal,
   BasicContractAssert_multitx_1,
   BasicContractProxy,
+  BscContract_proxy_fixed,
+  BscContract_proxy_pattern_false_positive,
+  BscContract_simple_suicide,
+  BscContract_suicide_multitx_feasible,
+  BscContract_suicide_multitx_infeasible,
   removeExplorerItems
 } from "@/services/mockData/contractDetection";
 import { deduplicate } from "@/utils/common";
 
 const initProjectId = uuidv4();
+const initBSCProjectId = uuidv4();
 const initFileId = uuidv4();
 
 export enum ExplorerItemType {
@@ -23,7 +29,8 @@ export enum ExplorerItemType {
 }
 
 export enum ProjectType {
-  ETH = "ETH"
+  ETH = "ETH",
+  BSC = "BSC"
 }
 
 export enum ContractAction {
@@ -158,6 +165,52 @@ const initialContractState: ContractState = {
       type: ExplorerItemType.FILE,
       name: "assert_multitx_1.sol",
       content: BasicContractAssert_multitx_1
+    },
+    // bsc
+    {
+      id: initBSCProjectId,
+      parentId: null,
+      name: "BSC_default",
+      type: ExplorerItemType.PROJECT,
+      projectType: ProjectType.BSC
+    },
+
+    {
+      id: uuidv4(),
+      parentId: initBSCProjectId,
+      type: ExplorerItemType.FILE,
+      name: "proxy_fixed.sol",
+      content: BscContract_proxy_fixed
+    },
+    {
+      id: uuidv4(),
+      parentId: initBSCProjectId,
+      type: ExplorerItemType.FILE,
+      name: "proxy_pattern_false_positive.sol",
+      content: BscContract_proxy_pattern_false_positive
+    },
+    {
+      id: uuidv4(),
+      parentId: initBSCProjectId,
+      type: ExplorerItemType.FILE,
+      name: "simple_suicide.sol",
+      content: BscContract_simple_suicide
+    },
+    // BscContract_suicide_multitx_feasible,
+    // BscContract_suicide_multitx_infeasible,
+    {
+      id: uuidv4(),
+      parentId: initBSCProjectId,
+      type: ExplorerItemType.FILE,
+      name: "suicide_multitx_feasible.sol",
+      content: BscContract_suicide_multitx_feasible
+    },
+    {
+      id: uuidv4(),
+      parentId: initBSCProjectId,
+      type: ExplorerItemType.FILE,
+      name: "suicide_multitx_infeasible.sol",
+      content: BscContract_suicide_multitx_infeasible
     }
   ],
   openFiles: [
