@@ -92,6 +92,101 @@ contract AssertMultiTx1 {
 }
 `;
 
+const BscContract_simple_suicide = `pragma solidity ^0.4.22;
+contract SimpleSuicide {
+
+  function sudicideAnyone() {
+    selfdestruct(msg.sender);
+  }
+
+}`;
+const BscContract_suicide_multitx_feasible = `pragma solidity ^0.4.23;
+
+contract SuicideMultiTxFeasible {
+    uint256 private initialized = 0;
+    uint256 public count = 1;
+
+    function init() public {
+        initialized = 1;
+    }
+
+    function run(uint256 input) {
+        if (initialized == 0) {
+            return;
+        }
+
+        selfdestruct(msg.sender);
+    }
+}
+`;
+const BscContract_suicide_multitx_infeasible = `pragma solidity ^0.4.23;
+
+contract SuicideMultiTxFeasible {
+    uint256 private initialized = 0;
+    uint256 public count = 1;
+
+    function init() public {
+        initialized = 1;
+    }
+
+    function run(uint256 input) {
+        if (initialized != 2) {
+            return;
+        }
+
+        selfdestruct(msg.sender);
+    }
+}
+`;
+const BscContract_proxy_fixed = `pragma solidity ^0.4.24;
+
+contract Proxy {
+
+  address callee;
+  address owner;
+
+  modifier onlyOwner {
+    require(msg.sender == owner);
+    _;
+  }
+
+  constructor() public {
+  	callee = address(0x0);
+    owner = msg.sender;
+  }
+
+  function setCallee(address newCallee) public onlyOwner {
+  	callee = newCallee;
+  }
+
+  function forward(bytes _data) public {
+    require(callee.delegatecall(_data));
+  }
+
+}
+`;
+const BscContract_proxy_pattern_false_positive = `pragma solidity ^0.4.24;
+
+contract proxy{
+  address owner;
+
+  function proxyCall(address _to, bytes _data) external {
+    require( !_to.delegatecall(_data));
+  }
+  function withdraw() external{
+    require(msg.sender == owner);
+    msg.sender.transfer(address(this).balance);
+  }
+} 
+
+/*
+You can't use proxyCall to change the owner address as either: 
+
+1) the delegatecall reverts and thus does not change owner
+2) the delegatecall does not revert and therefore will cause the proxyCall to revert and preventing owner from changing
+
+This false positive may seem like a really edge case, however since you can revert data back to proxy this patern is useful for proxy architectures
+*/`;
 enum DetectionResultType {
   ERROR = "High",
   WARNING = "Medium",
@@ -198,6 +293,11 @@ export {
   BasicContractAssert_minimal,
   BasicContractAssert_multitx_1,
   BasicContractProxy,
+  BscContract_proxy_fixed,
+  BscContract_proxy_pattern_false_positive,
+  BscContract_simple_suicide,
+  BscContract_suicide_multitx_feasible,
+  BscContract_suicide_multitx_infeasible,
   ContractDetectionResults,
   DetectionResultType,
   removeExplorerItems,
