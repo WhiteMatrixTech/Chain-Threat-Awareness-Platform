@@ -3,6 +3,7 @@ import { cloneDeep } from "lodash";
 
 import { IExplorerItem, IFile } from "@/pages/contract-detection/ContractStore";
 
+// eth5个示例
 const BasicContract = `pragma solidity ^0.4.26;
 interface Token {
   function transferFrom(address sender, address recipient, uint256 amount) external returns (bool);
@@ -32,7 +33,6 @@ contract TokenSale {
   }
 }
 `;
-
 const BasicContractProxy = `
 pragma solidity ^0.4.24;
 
@@ -48,7 +48,6 @@ contract Proxy {
 
 }
 `;
-
 const BasicContractAssert_constructor = `pragma solidity ^0.4.19;
 
 contract AssertConstructor {
@@ -57,7 +56,6 @@ contract AssertConstructor {
     }
 }
 `;
-
 const BasicContractAssert_minimal = `/*
 * @source: https://github.com/ConsenSys/evm-analyzer-benchmark-suite
 * @author: Suhabe Bugrara
