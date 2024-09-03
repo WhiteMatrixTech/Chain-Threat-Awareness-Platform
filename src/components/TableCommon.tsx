@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable prettier/prettier */
 /*
  * @Description: selector-赛博朋克风
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-03 14:23:59
+ * @LastEditTime: 2024-09-03 17:32:07
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -18,9 +19,10 @@ interface IProps {
   className?: string;
   pageInfo: any;
 }
-
+const maxcharNum = 40;
 export function TableCommon(props: IProps) {
   const { data, columns, pageInfo, className } = props;
+
   useEffect(
     () => {
       console.log("pageInfo变化");
@@ -68,16 +70,38 @@ export function TableCommon(props: IProps) {
               {columns &&
                 columns.map((col: any, colkey: number) =>
                   <div
-                    className={cn("px-[16px]  flex items-center ")}
+                    className={cn("px-[16px] flex items-center relative group")}
                     style={col.width ? { width: col.width } : { flexGrow: 1 }}
                     key={colkey}
                   >
                     <span className={cn("text-[15px] text-[#ffffff]")}>
                       {col.dataIndex
-                        ? item[col.dataIndex]
+                        ? <span>
+                            {item[col.dataIndex].length
+                              ? <span>
+                                  {item[col.dataIndex].length > maxcharNum
+                                    ? <span className="">
+                                        {item[col.dataIndex].slice(
+                                          0,
+                                          maxcharNum
+                                        ) + "..."}
+                                      </span>
+                                    : item[col.dataIndex]}
+                                </span>
+                              : <span>
+                                  {item[col.dataIndex]}
+                                </span>}
+                          </span>
                         : (pageInfo.currentPage - 1) * pageInfo.pageSize +
                           (index + 1)}
                     </span>
+                    {item[col.dataIndex] &&
+                      item[col.dataIndex].length > maxcharNum &&
+                      <div className="px-3 py-3 rounded-sm hidden group-hover:block  absolute top-[38px] left-0 w-[500px] bg-[#2A6CB6] z-10">
+                        <span className={cn("text-[12px] text-[#ffffff]")}>
+                          {item[col.dataIndex]}
+                        </span>
+                      </div>}
                   </div>
                 )}
             </div>

@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-03 15:23:58
+ * @LastEditTime: 2024-09-03 16:45:34
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -20,35 +20,11 @@ import { useLocation } from "react-router-dom";
 import { AppBreadcrumb } from "@/components/Breadcrumb";
 import { PageCommon } from "@/components/PageCommon";
 import { TableCommon } from "@/components/TableCommon";
+import { dataStoreColumns } from "@/services/columns";
 import { dataStoreRequestType, getDataStoreList } from "@/services/detection";
 import { dataStoreList } from "@/services/mockData/dataStore";
 import pattern from "@/styles/pattern";
 import { waitTime } from "@/utils/common";
-
-const columns: ColumnsType<any> = [
-  {
-    title: "序号",
-    ellipsis: true,
-    width: 100
-  },
-  {
-    title: "数据集名称",
-    dataIndex: "name",
-    ellipsis: true,
-    width: 320
-  },
-  {
-    title: "平台",
-    dataIndex: "chainType",
-    ellipsis: true,
-    width: 320
-  },
-  {
-    title: "数量",
-    dataIndex: "number",
-    ellipsis: true
-  }
-];
 
 export function DataStore() {
   const location = useLocation();
@@ -56,7 +32,7 @@ export function DataStore() {
   const [pageInfo, setpageInfo] = useState({
     pageSize: 10,
     currentPage: 1,
-    total: 3
+    total: 4
   });
 
   // const {
@@ -90,7 +66,7 @@ export function DataStore() {
         <TableCommon
           className="w-full h-full"
           data={data}
-          columns={columns}
+          columns={dataStoreColumns}
           pageInfo={pageInfo}
         />
       </div>
