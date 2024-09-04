@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 16:13:18
+ * @LastEditTime: 2024-09-04 17:41:52
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -15,10 +15,6 @@ import { useNavigate } from "react-router";
 
 import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
 import { InputCommonV2 } from "@/components/InputCommonV2";
-import {
-  detectIdentityRequestType,
-  detectIdentityService
-} from "@/services/detection";
 import pattern from "@/styles/pattern";
 
 export function IdentityInference() {
@@ -27,31 +23,12 @@ export function IdentityInference() {
 
   const startSearch = () => {
     // 开始查询
-    // navigate("/threat-evidence/identity-inference/result");
-  };
-  const start = async () => {
     if (!inputVal) {
       notification.warning({ message: `请输入地址！` });
       return;
     }
-    const params: detectIdentityRequestType = {
-      address: inputVal,
-      chain: "eth"
-    };
-    notification.info({ message: `开始检测...` });
-
-    const respose = await detectIdentityService(params);
-    notification.success({ message: `检测完成` });
-    console.log("respose>>>", respose);
-
-    // setResultContent(respose);
+    navigate(`/threat-evidence/identity-inference/result/${inputVal}`);
   };
-  useEffect(
-    () => {
-      void start();
-    },
-    [inputVal]
-  );
 
   return (
     <div className={cn(" w-full h-full pt-[0px] fadeIn", `${pattern.flexbet}`)}>

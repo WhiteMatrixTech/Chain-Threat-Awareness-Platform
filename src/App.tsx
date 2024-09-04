@@ -80,7 +80,7 @@ function App() {
           element={<IdentityInference />}
         />
         <Route
-          path="/threat-evidence/identity-inference/result"
+          path="/threat-evidence/identity-inference/result/:address"
           element={<IdentityInferenceResult />}
         />
 

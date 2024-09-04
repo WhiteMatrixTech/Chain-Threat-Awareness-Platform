@@ -35,7 +35,6 @@ const layout = {
 
 export function AddressTxGraph(props: IAddressTxGraphProps) {
   const { focusedId, formData, handleClick, changeData } = props;
-  console.log("formData>>>", formData);
   const graphRef = useRef<Graphin | null>(null);
   const [graphData, setGraphData] = useState<GraphinData>(initGraphData);
 
