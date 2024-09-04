@@ -5,17 +5,12 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
-import * as GIO from "giojs";
-import { useEffect, useState } from "react";
-import CountUp from "react-countup";
 
 import circlePng from "@/assets/dataScreenCircle.png";
 import datascreenlog1 from "@/assets/datascreenlog1.png";
 import datascreenlog2 from "@/assets/datascreenlog2.png";
 import datascreenlog3 from "@/assets/datascreenlog3.png";
 import pattern from "@/styles/pattern";
-
-import data from "../../utils/json/sampleData.json";
 
 interface dataScreensProps {
   className?: string;
