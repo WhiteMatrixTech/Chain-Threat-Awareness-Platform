@@ -18,7 +18,7 @@ interface IProps {
 export function SpinCommon(props: IProps) {
   const { className } = props;
   return (
-    <div className={cn(`w-full h-full   relative`, className)}>
+    <div className={cn(`w-full h-full relative`, className)}>
       <div className="absolute top-0 left-0 bg-white opacity-10 w-full h-full" />
       <div className={cn(`${pattern.flexCenter} scale-150 w-full h-full`)}>
         <span className="text-[#ffffff] text-[16px]">处理中...</span>

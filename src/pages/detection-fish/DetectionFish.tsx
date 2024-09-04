@@ -6,8 +6,9 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 14:52:26
+ * @LastEditTime: 2024-09-04 16:01:13
  */
+import { notification } from "antd";
 import cn from "classnames";
 import { useState } from "react";
 import { useAsyncFn } from "react-use";
@@ -30,12 +31,20 @@ export function DetectionFish() {
     return data;
   });
   const start = async () => {
+    if (!inputVal) {
+      notification.warning({ message: `请输入地址！` });
+      return;
+    }
     const params: detectFishRequestType = {
       address: inputVal,
       chain: "eth"
     };
+    notification.info({ message: `开始检测...` });
+
     const respose = await detectFish(params);
-    console.log("respose>>>>", respose);
+    notification.success({ message: `检测完成` });
+
+    setResultContent(respose);
   };
 
   return (
@@ -73,6 +82,7 @@ export function DetectionFish() {
               >
                 <ButtonCommonV2
                   loading={registerLoading}
+                  disable={registerLoading}
                   onClick={() => {
                     void start();
                   }}
