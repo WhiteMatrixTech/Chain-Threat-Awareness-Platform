@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 10:55:15
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 16:00:42
+ * @LastEditTime: 2024-09-04 17:14:32
  */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable prettier/prettier */
@@ -57,11 +57,6 @@ export function ButtonCommonV2(props: IButtonProps) {
       )}
     >
       {children}
-      {/* {loading &&
-        <AiOutlineLoading3Quarters
-          className="ml-2 animate-spin"
-          style={{ color: "white", fontSize: "24px" }}
-        />} */}
     </div>
   );
 }

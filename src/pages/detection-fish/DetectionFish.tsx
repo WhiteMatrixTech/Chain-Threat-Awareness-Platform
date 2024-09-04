@@ -6,14 +6,15 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 16:02:57
+ * @LastEditTime: 2024-09-04 17:31:31
  */
 import { notification } from "antd";
 import cn from "classnames";
 import { useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useAsyncFn } from "react-use";
 
-import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
+import { ButtonCommonV2 } from "@/components/ButtonCommonV2";
 import { InputCommonV2 } from "@/components/InputCommonV2";
 import { detectFishRequestType, detectFishService } from "@/services/detection";
 import pattern from "@/styles/pattern";
@@ -35,16 +36,14 @@ export function DetectionFish() {
       notification.warning({ message: `请输入地址！` });
       return;
     }
-    const params: detectFishRequestType = {
-      address: inputVal,
-      chain: "eth"
-    };
-    notification.info({ message: `开始检测...` });
-
-    const respose = await detectFish(params);
-    notification.success({ message: `检测完成` });
-
-    setResultContent(respose);
+    try {
+      const params: detectFishRequestType = {
+        address: inputVal,
+        chain: "eth"
+      };
+      const respose = await detectFish(params);
+      setResultContent(respose);
+    } catch (error) {}
   };
 
   return (
@@ -81,6 +80,7 @@ export function DetectionFish() {
                 className={`w-full h-[36px] flex items-center justify-end select-none`}
               >
                 <ButtonCommonV2
+                  className=""
                   loading={registerLoading}
                   disable={registerLoading}
                   onClick={() => {
@@ -95,13 +95,25 @@ export function DetectionFish() {
         </div>
       </div>
       <div
-        className={`right  w-[calc(50%)] h-full flex justify-center align-top`}
+        className={` right w-[calc(50%)] h-full flex justify-center align-top`}
       >
         <div className="pt-[80px] px-[20px] pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
-          <div className="w-full h-full ">
+          <div className="w-full h-full relative">
             <span className="text-[#FFFFFF] text-[16px]">
               {resultContent}
             </span>
+            {registerLoading &&
+              <div
+                className={cn(
+                  "w-full h-full absolute top-0 left-0",
+                  `${pattern.flexCenter}`
+                )}
+              >
+                <AiOutlineLoading3Quarters
+                  className="ml-2 animate-spin"
+                  style={{ color: "white", fontSize: "24px" }}
+                />
+              </div>}
           </div>
         </div>
       </div>
