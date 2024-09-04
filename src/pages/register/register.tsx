@@ -95,6 +95,17 @@ export function Register(props: registerProps) {
     },
     [form, register]
   );
+  const handleRegisterV2 = useCallback(
+    () => {
+      form
+        .validateFields()
+        .then((data: registerFormData) => {
+          setIsRegisterSuccess(true);
+        })
+        .catch(error => console.log("error", error));
+    },
+    [form, register]
+  );
 
   const validPassword = (
     value: string,
@@ -279,7 +290,8 @@ export function Register(props: registerProps) {
               loading={registerLoading}
               type="primary"
               className={`!h-[48px] !w-full !rounded-[6px] !bg-[#166CDD] !text-[18px] ${pattern.flexCenter} bg-gradient-to-r from-[#020F1A] via-[#1F54BC] to-[#0A3BA1] bg-clip-text text-transparent !mb-[16px]`}
-              onClick={handleRegister}
+              // onClick={handleRegister}
+              onClick={handleRegisterV2}
             >
               注册
             </Button>

@@ -6,42 +6,42 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-02 17:17:06
+ * @LastEditTime: 2024-09-04 14:52:26
  */
 import cn from "classnames";
 import { useState } from "react";
+import { useAsyncFn } from "react-use";
 
 import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
 import { InputCommonV2 } from "@/components/InputCommonV2";
-import {
-  ISelectorItemProps,
-  SelectorCommonV2
-} from "@/components/SelectorCommonV2";
+import { detectFishRequestType, detectFishService } from "@/services/detection";
 import pattern from "@/styles/pattern";
 
 export function DetectionFish() {
-  const typeList = [
-    {
-      label: "账号地址",
-      value: "address"
-    }
-  ];
-
   const [inputVal, setInputVal] = useState("");
 
-  const [resultContent, setResultContent] = useState("暂无数据...");
+  const [resultContent, setResultContent] = useState("");
 
-  const start = () => {
-    const params = {
-      inputVal
+  const [
+    { loading: registerLoading },
+    detectFish
+  ] = useAsyncFn(async (params: detectFishRequestType) => {
+    const data = await detectFishService(params);
+    return data;
+  });
+  const start = async () => {
+    const params: detectFishRequestType = {
+      address: inputVal,
+      chain: "eth"
     };
-    console.log("params>>>>", params);
+    const respose = await detectFish(params);
+    console.log("respose>>>>", respose);
   };
 
   return (
     <div className={cn(" w-full h-full  pt-[0px]", `${pattern.flexbet} `)}>
       <div
-        className={`left  w-[calc(50%)] h-full flex justify-center align-top scale-75 3xl:scale-100`}
+        className={`left  w-[calc(50%)] h-full flex justify-center align-top`}
       >
         <div
           className={cn(
@@ -60,14 +60,6 @@ export function DetectionFish() {
           >
             <div className="w-full h-full  flex flex-col gap-y-[16px]">
               <div className={`w-full h-[36px] flex items-center`}>
-                {/* <SelectorCommonV2
-                  placeholder="以太坊外部账号的地址"
-                  value={selectedType}
-                  options={typeList}
-                  setValue={(item: ISelectorItemProps) => {
-                    setSelectedType(item);
-                  }}
-                /> */}
                 <InputCommonV2
                   placeholder="以太坊外部账号的地址"
                   onInput={(val: any) => {
@@ -80,8 +72,9 @@ export function DetectionFish() {
                 className={`w-full h-[36px] flex items-center justify-end select-none`}
               >
                 <ButtonCommonV2
+                  loading={registerLoading}
                   onClick={() => {
-                    start();
+                    void start();
                   }}
                 >
                   <span className="text-[#FFFFFF] text-[16px]">开始检测</span>
@@ -92,9 +85,9 @@ export function DetectionFish() {
         </div>
       </div>
       <div
-        className={`right  w-[calc(50%)] h-full flex justify-center align-top scale-75 3xl:scale-100`}
+        className={`right  w-[calc(50%)] h-full flex justify-center align-top`}
       >
-        <div className="3xl:pt-[80px] 3xl:px-[20px] 3xl:pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
+        <div className="pt-[80px] px-[20px] pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
           <div className="w-full h-full ">
             <span className="text-[#FFFFFF] text-[16px]">
               {resultContent}

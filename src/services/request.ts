@@ -58,7 +58,7 @@ axiosInstance.interceptors.response.use(
   },
   async (error: AxiosError<ResponseBody<null>>) => {
     if (error.response?.status === 403) {
-      await checkToken();
+      // await checkToken();
 
       const Authorization = genAuthorization();
 
@@ -250,5 +250,4 @@ export async function deleteData<D, T>(
     throw e;
   }
 }
-
 export default axiosInstance;
