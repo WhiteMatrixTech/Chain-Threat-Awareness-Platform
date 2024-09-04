@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 18:20:34
+ * @LastEditTime: 2024-09-04 18:30:32
  */
 import "./App.less";
 
@@ -97,7 +97,7 @@ function App() {
           element={<MaliciousTransaction />}
         />
         <Route
-          path="/threat-evidence/malicious-transaction/result"
+          path="/threat-evidence/malicious-transaction/result/:tx"
           element={<MaliciousTransactionResult />}
         />
         <Route path="/threat-evidence/cross-chain" element={<CrossChain />} />
