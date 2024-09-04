@@ -3,11 +3,12 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-02 15:18:14
+ * @LastEditTime: 2024-09-04 18:11:48
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
 
+import { notification } from "antd";
 import cn from "classnames";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -25,12 +26,17 @@ const columns3: any = [
 ];
 
 export function CrossChain() {
-  const [value, setValue] = useState<any>(null);
+  const [inputVal, setInputVal] = useState<any>("");
+
   const navigate = useNavigate();
 
   const startSearch = () => {
+    if (!inputVal) {
+      notification.warning({ message: `请输入信息！！！` });
+      return;
+    }
     // 开始查询
-    navigate("/threat-evidence/cross-chain/result");
+    navigate(`/threat-evidence/cross-chain/result/${inputVal}`);
   };
 
   return (
@@ -58,7 +64,7 @@ export function CrossChain() {
               <InputCommonV3
                 placeholder="输入交易信息"
                 onInput={(val: any) => {
-                  setValue(val);
+                  setInputVal(val);
                 }}
                 className="w-[450px] h-[100px] "
               />

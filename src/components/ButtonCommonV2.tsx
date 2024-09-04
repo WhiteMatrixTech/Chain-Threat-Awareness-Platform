@@ -3,12 +3,13 @@
  * @Author: didadida262
  * @Date: 2024-08-28 10:55:15
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 10:59:19
+ * @LastEditTime: 2024-09-04 17:14:32
  */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
 import React, { MouseEvent, ReactNode, useMemo, useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 import pattern from "@/styles/pattern";
 
@@ -56,7 +57,6 @@ export function ButtonCommonV2(props: IButtonProps) {
       )}
     >
       {children}
-      {loading && <span>loading。。。</span>}
     </div>
   );
 }

@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-03 16:53:05
+ * @LastEditTime: 2024-09-04 18:43:34
  */
 // 数据仓库列表
 export const dataStoreColumns: any = [
@@ -87,22 +87,26 @@ export const columnsCrossChain1: any = [
   {
     title: "来源",
     dataIndex: "from",
-    ellipsis: true
+    ellipsis: true,
+    width: 320
   },
   {
     title: "流向",
     dataIndex: "to",
-    ellipsis: true
+    ellipsis: true,
+    width: 320
   },
   {
     title: "输入金额",
     dataIndex: "inputMo",
-    ellipsis: true
+    ellipsis: true,
+    width: 320
   },
   {
     title: "交易费",
     dataIndex: "cost",
-    ellipsis: true
+    ellipsis: true,
+    width: 320
   },
   {
     title: "输出金额",

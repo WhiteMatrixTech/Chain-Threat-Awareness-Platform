@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-03 15:39:12
+ * @LastEditTime: 2024-09-04 18:30:32
  */
 import "./App.less";
 
@@ -80,7 +80,7 @@ function App() {
           element={<IdentityInference />}
         />
         <Route
-          path="/threat-evidence/identity-inference/result"
+          path="/threat-evidence/identity-inference/result/:address"
           element={<IdentityInferenceResult />}
         />
 
@@ -97,12 +97,12 @@ function App() {
           element={<MaliciousTransaction />}
         />
         <Route
-          path="/threat-evidence/malicious-transaction/result"
+          path="/threat-evidence/malicious-transaction/result/:tx"
           element={<MaliciousTransactionResult />}
         />
         <Route path="/threat-evidence/cross-chain" element={<CrossChain />} />
         <Route
-          path="/threat-evidence/cross-chain/result"
+          path="/threat-evidence/cross-chain/result/:tx"
           element={<CrossChainResult />}
         />
         <Route
@@ -119,7 +119,7 @@ function App() {
           element={<BitcoinmixedcoinDetection />}
         />
         <Route
-          path="/threat-evidence/bitcoinmixedcoin-detection/result"
+          path="/threat-evidence/bitcoinmixedcoin-detection/result/:tx"
           element={<BitcoinmixedcoinDetectionResult />}
         />
 

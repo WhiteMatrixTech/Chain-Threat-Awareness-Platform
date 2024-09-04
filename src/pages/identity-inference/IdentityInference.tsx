@@ -3,13 +3,14 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-02 14:33:08
+ * @LastEditTime: 2024-09-04 17:41:52
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
 
+import { notification } from "antd";
 import cn from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
@@ -18,11 +19,15 @@ import pattern from "@/styles/pattern";
 
 export function IdentityInference() {
   const navigate = useNavigate();
-  const [value, setValue] = useState<any>(null);
+  const [inputVal, setInputVal] = useState<any>("");
 
   const startSearch = () => {
     // 开始查询
-    navigate("/threat-evidence/identity-inference/result");
+    if (!inputVal) {
+      notification.warning({ message: `请输入地址！` });
+      return;
+    }
+    navigate(`/threat-evidence/identity-inference/result/${inputVal}`);
   };
 
   return (
@@ -47,7 +52,7 @@ export function IdentityInference() {
               <InputCommonV2
                 placeholder="输入待测地址"
                 onInput={(val: any) => {
-                  setValue(val);
+                  setInputVal(val);
                 }}
                 className="w-[450px] h-[36px] "
               />

@@ -110,7 +110,6 @@ export function AddressAnalysis() {
           tokenType: allValues.tokenType,
           address: allValues.address
         });
-        console.log("formData>>>", formData);
         setSelectedHexData(allValues.address);
         return;
       } catch (e) {

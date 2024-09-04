@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-03 16:45:34
+ * @LastEditTime: 2024-09-04 15:25:58
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -44,18 +44,18 @@ export function DataStore() {
   //   await waitTime(1000);
   //   return dataStoreList || [];
   // });
-  useEffect(
-    () => {
-      const params: dataStoreRequestType = {
-        currentPage: 1,
-        pageSize: 20
-      };
-      void getDataStoreList(params).then(data => {
-        console.log("data>>>", data);
-      });
-    },
-    [location.pathname]
-  );
+  // useEffect(
+  //   () => {
+  //     const params: dataStoreRequestType = {
+  //       currentPage: 1,
+  //       pageSize: 20
+  //     };
+  //     void getDataStoreList(params).then(data => {
+  //       console.log("data>>>", data);
+  //     });
+  //   },
+  //   [location.pathname]
+  // );
   useEffect(() => {
     setData(dataStoreList);
   }, []);

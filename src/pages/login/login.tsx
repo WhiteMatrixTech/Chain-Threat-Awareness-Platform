@@ -39,12 +39,29 @@ export function Login(props: loginProps) {
     return data;
   });
 
+  const loginV2 = () => {
+    // const mockData = {
+    //   accessToken:
+    //     "eyJraWQiOiJhcm46YXdzOmttczphcC1ub3J0aGVhc3QtMTozMTYyNzQwNjE2OTc6YWxpYXNcL2FwcC1zZXJ2aWNlLWF1dGgtdjIiLCJhbGciOiJSU0FTU0FfUEtDUzFfVjFfNV9TSEFfMjU2In0.eyJhdWQiOiIxMTExMTFAcXEuY29tIiwibmJmIjoxNzI1NDMzMTA0LCJhcHBJZCI6IkNoYWluVGhyZWF0UGxhdGZvcm0iLCJpc3MiOiJDaGFpblRocmVhdFBsYXRmb3JtIiwiZXhwIjoxNzI1NDM0MzA0LCJzdHJhdGVneSI6IlVzZXJJZFBhc3N3b3JkIiwiaWF0IjoxNzI1NDMzMTA0LCJ1c2VySWQiOiIxMTExMTFAcXEuY29tIiwiYXV0aG9yaXRpZXMiOltdfQ.rdoEAovA3RG3_8ASZfxVoyjuMqAauKGEeGIeKAHOHAYsu8VVpTFl6_zdC-tRkK2r6_vA5ZWc_UjOUkF1wrRb4ywmIybI7m_AR9l7sTQFy2SDTY0cJKsNtromWYkpwBHY53es6q65_YLTNFe0U3cQ75VUn-GLLRx9vAKjzq2Rbv3sYYsK4USF0WmXHT72wKm0rFPTl6NrKsOAzuVIqNwawhPGZHRrmwDC0dHxYQeB1ZO9KE5ktFiggFqCik5kTVRR_9er8JoSAYt7pQC50PTpt24zOYPhOGCokPtdmgpb-UBg2UljTpjcJCns6lvs2F5vUb4ytxMvzmYpwMR85B4K9w",
+    //   expiresIn: 1200,
+    //   refreshToken:
+    //     "eyJraWQiOiJhcm46YXdzOmttczphcC1ub3J0aGVhc3QtMTozMTYyNzQwNjE2OTc6YWxpYXNcL2FwcC1zZXJ2aWNlLWF1dGgtdjIiLCJhbGciOiJSU0FTU0FfUEtDUzFfVjFfNV9TSEFfMjU2In0.eyJhdWQiOiIxMTExMTFAcXEuY29tIiwibmJmIjoxNzI1NDMzMTA0LCJhcHBJZCI6IkNoYWluVGhyZWF0UGxhdGZvcm0iLCJpc3MiOiJDaGFpblRocmVhdFBsYXRmb3JtIiwiZXhwIjoxNzI1NTE5NTA0LCJzdHJhdGVneSI6IlVzZXJJZFBhc3N3b3JkIiwiaWF0IjoxNzI1NDMzMTA0LCJ1c2VySWQiOiIxMTExMTFAcXEuY29tIiwiYXV0aG9yaXRpZXMiOltdfQ.rkFKZ605gaAcn_h4K8Yg6YFPGmo1J03XX9tBsmdqCd6riTJW8JMNvS8FFZYUKsTMLQC12OYMjb-Ct4pvJhaScV7_W_rb9Kr8WWfEQS5TeJuJsvnIlC6LVoD0D8Ux9L_tf1TWUhg6ZT-MoLPRMGNLUSQVy6ayA5LlO2WLCcjHKAPGUiTpRic4U_kdkCBvmJbrXraNNw_HvofIj9bqapO9ya_9nWMp5riJILAdzGndbSvABUrNQ_lmtTuMiCaGXFAbTE1mXQrhPrWrI9EBQg0DwiVINynpvvz2r_PX0tq3TWSz7W-MCNS5Cr6EwptcnyA4uSSzrs9bULMONMHbuI0l7w",
+    //   tokenType: "Bearer"
+    // };
+    setTimeout(() => {
+      notification.success({ message: "登陆成功！" });
+      const redirectUri = getParams("redirectUri") || "/data-store";
+      navigate(redirectUri);
+    }, 500);
+  };
+
   const handleLogin = useCallback(
     () => {
       form
         .validateFields()
-        .then(async (data: loginRequestType) => {
-          await login(data);
+        .then((data: loginRequestType) => {
+          // await login(data);
+          loginV2();
         })
         .catch(e => console.log("e", e));
     },
