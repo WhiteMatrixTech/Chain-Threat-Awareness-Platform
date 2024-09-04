@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 18:10:02
+ * @LastEditTime: 2024-09-04 18:20:34
  */
 import "./App.less";
 
@@ -119,7 +119,7 @@ function App() {
           element={<BitcoinmixedcoinDetection />}
         />
         <Route
-          path="/threat-evidence/bitcoinmixedcoin-detection/result"
+          path="/threat-evidence/bitcoinmixedcoin-detection/result/:tx"
           element={<BitcoinmixedcoinDetectionResult />}
         />
 
