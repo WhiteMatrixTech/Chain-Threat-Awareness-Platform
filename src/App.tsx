@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-03 18:00:04
+ * @LastEditTime: 2024-09-04 18:10:02
  */
 import "./App.less";
 
@@ -102,7 +102,7 @@ function App() {
         />
         <Route path="/threat-evidence/cross-chain" element={<CrossChain />} />
         <Route
-          path="/threat-evidence/cross-chain/result"
+          path="/threat-evidence/cross-chain/result/:tx"
           element={<CrossChainResult />}
         />
         <Route
