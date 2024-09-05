@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 18:27:28
+ * @LastEditTime: 2024-09-05 10:39:17
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -14,15 +14,7 @@ import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 
-import IdentityInferenceDialogTitle from "@/assets/IdentityInferenceDialogTitle.png";
-import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
-import { InputCommonV2 } from "@/components/InputCommonV2";
 import { ResultComponent } from "@/components/ResultComponent";
-import {
-  ISelectorItemProps,
-  SelectorCommonV2
-} from "@/components/SelectorCommonV2";
-import { TableCommonV2 } from "@/components/TableCommonV2";
 import { TagComponent } from "@/components/TagComponent";
 import {
   detectBitcoinmixedcoinRequestType,
@@ -32,14 +24,12 @@ import pattern from "@/styles/pattern";
 
 export function BitcoinmixedcoinDetectionResult() {
   const { tx } = useParams();
-  const [loading, setloading] = useState(true);
-  const [detectResult, setdetectResult] = useState("");
-
-  const [dataList, setDateList] = useState<any>([]);
-  const [dealInfo, setDealInfo] = useState({
-    hashId: "buefh9u3hr9h3r08g408h45g8524hg942h505h92vuhg139r",
-    message: "该交易于 14 Mar 2020 07:08:57 AM GMT+8 在比特币网络上首次广播",
-    items: [
+  const [result, setResult] = useState({
+    detectionResult: "",
+    infoData: "",
+    conclusionData: "",
+    transaction_id: "",
+    dataList: [
       {
         title: "输入金额：",
         value: "6.739832749237 BTC"
@@ -74,6 +64,8 @@ export function BitcoinmixedcoinDetectionResult() {
       }
     ]
   });
+  const [loading, setloading] = useState(true);
+
   const start = async () => {
     setloading(true);
     try {
@@ -82,40 +74,16 @@ export function BitcoinmixedcoinDetectionResult() {
         chain: "btc"
       };
       const respose = await detectBitcoinmixedcoinService(params);
-      setdetectResult(respose.result ? respose.result : "");
+      setResult({
+        ...result,
+        detectionResult: respose.result,
+        transaction_id: respose.transaction_id
+      });
       console.log("respose>>>", respose);
       setloading(false);
     } catch (error) {
       setloading(false);
     }
-    const res = [
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      }
-    ];
-    setDateList(res);
   };
   useEffect(() => {
     // 请求
@@ -140,7 +108,7 @@ export function BitcoinmixedcoinDetectionResult() {
         <div className={cn(`w-full h-full`)}>
           <ResultComponent
             title="检测结果"
-            content={`该交易是${detectResult}`}
+            content={`该交易是${result.detectionResult}`}
             className="w-full h-[50px]"
           />
           <div className="w-[120px] h-[36px] mt-7">
@@ -159,14 +127,14 @@ export function BitcoinmixedcoinDetectionResult() {
             >
               <span className="text-[#ffffff] text-[15px]">Hash ID :</span>
               <span className="text-[#ffffff] text-[20px]">
-                {dealInfo.hashId}
+                {result.transaction_id}
               </span>
             </div>
             <div className={cn(`w-full flex-1 ${pattern.flexbet}`)}>
               <div className={cn(`w-[calc(50%_-_60px)] h-full `)}>
-                {dealInfo &&
-                  dealInfo.items &&
-                  dealInfo.items.slice(0, 4).map((item, index) =>
+                {result &&
+                  result.dataList &&
+                  result.dataList.slice(0, 4).map((item, index) =>
                     <div
                       key={index}
                       className={cn(
@@ -190,9 +158,9 @@ export function BitcoinmixedcoinDetectionResult() {
                 )}
               />
               <div className={cn(`w-[calc(50%_-_60px)] h-full `)}>
-                {dealInfo &&
-                  dealInfo.items &&
-                  dealInfo.items.slice(4).map((item, index) =>
+                {result &&
+                  result.dataList &&
+                  result.dataList.slice(4).map((item, index) =>
                     <div
                       key={index}
                       className={cn(
@@ -227,11 +195,11 @@ export function BitcoinmixedcoinDetectionResult() {
             >
               <span className="text-[15px]">Hash ID :</span>
               <span className="text-[20px]">
-                {dealInfo.hashId}
+                {result.transaction_id}
               </span>
             </div>
             <div className="content text-[15px]">
-              {dealInfo.message}
+              {result.conclusionData}
             </div>
           </div>
         </div>
