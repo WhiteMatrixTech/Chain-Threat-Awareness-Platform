@@ -5,10 +5,13 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-02 17:21:01
+ * @LastEditTime: 2024-09-05 11:15:47
  */
+import { notification } from "antd";
 import cn from "classnames";
 import { useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useAsyncFn } from "react-use";
 
 import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
 import { InputCommonV2 } from "@/components/InputCommonV2";
@@ -16,6 +19,10 @@ import {
   ISelectorItemProps,
   SelectorCommonV2
 } from "@/components/SelectorCommonV2";
+import {
+  detectPrivacyRequestType,
+  detectPrivacyService
+} from "@/services/detection";
 import pattern from "@/styles/pattern";
 
 export function DetectionPrivacy() {
@@ -41,16 +48,7 @@ export function DetectionPrivacy() {
       value: "BSC"
     }
   ];
-  const rangeList = [
-    {
-      label: "0-100",
-      value: "0-100"
-    },
-    {
-      label: "100-200",
-      value: "100-200"
-    }
-  ];
+  const rangeList: any = [];
   const [selectedType, setSelectedType] = useState<ISelectorItemProps | null>(
     null
   );
@@ -58,15 +56,30 @@ export function DetectionPrivacy() {
     null
   );
   const [inputRange, setInputRange] = useState<any>("");
-  const [resultContent, setResultContent] = useState("暂无数据...");
+  const [resultContent, setResultContent] = useState("");
 
-  const start = () => {
+  const [
+    { loading },
+    detectPrivacy
+  ] = useAsyncFn(async (params: detectPrivacyRequestType) => {
+    const data = await detectPrivacyService(params);
+    return data;
+  });
+  const start = async () => {
+    if (!inputRange) {
+      notification.warning({ message: `请输入必要信息!!!` });
+      return;
+    }
     const params = {
-      selectedType,
-      selectedRange,
-      inputRange
+      address: "0x2510ae5decc547ae63364eb844e47fb663e1178c",
+      chain: "btc"
+      // chain_choice: selectedType,
+      // date_range: selectedRange,
+      // block_range: inputRange
     };
-    console.log("params>>>>", params);
+    const response = await detectPrivacy(params);
+    setResultContent("测试数据!!!");
+    console.log("response>>>>", response);
   };
 
   return (
@@ -123,8 +136,9 @@ export function DetectionPrivacy() {
                 className={`w-full h-[36px] flex items-center justify-end select-none`}
               >
                 <ButtonCommonV2
+                  // disable={fishLoading}
                   onClick={() => {
-                    start();
+                    void start();
                   }}
                 >
                   <span className="text-[#FFFFFF] text-[16px]">开始检测</span>
@@ -138,10 +152,22 @@ export function DetectionPrivacy() {
         className={` right  w-[calc(50%)] h-full flex justify-center align-top `}
       >
         <div className=" pt-[80px] px-[20px] pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
-          <div className="w-full h-full ">
+          <div className="w-full h-full relative">
             <span className="text-[#FFFFFF] text-[16px]">
               {resultContent}
             </span>
+            {loading &&
+              <div
+                className={cn(
+                  "w-full h-full absolute top-0 left-0",
+                  `${pattern.flexCenter}`
+                )}
+              >
+                <AiOutlineLoading3Quarters
+                  className="ml-2 animate-spin"
+                  style={{ color: "white", fontSize: "24px" }}
+                />
+              </div>}
           </div>
         </div>
       </div>

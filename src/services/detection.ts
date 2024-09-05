@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 16:32:36
+ * @LastEditTime: 2024-09-05 11:04:16
  */
 import { getData, postData } from "./request";
 
@@ -15,6 +15,10 @@ export interface loginRequestType {
 export interface dataStoreRequestType {
   currentPage: number;
   pageSize: number;
+}
+export interface detectPrivacyRequestType {
+  address: string;
+  chain: string;
 }
 export interface detectFishRequestType {
   address: string;
@@ -35,6 +39,13 @@ export interface detectBitcoinmixedcoinRequestType {
 export interface detectMaliciousRequestType {
   tx: string;
   chain: string;
+}
+// 钓鱼模块
+export async function detectPrivacyService(params: detectPrivacyRequestType) {
+  return await getData<detectPrivacyRequestType, any>(
+    `/chainthreat/v1/detection/phishing`,
+    params
+  );
 }
 
 // 钓鱼模块

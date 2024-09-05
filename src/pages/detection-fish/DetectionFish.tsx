@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 10:17:54
+ * @LastEditTime: 2024-09-05 10:55:51
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -25,7 +25,7 @@ export function DetectionFish() {
   const [resultContent, setResultContent] = useState("");
 
   const [
-    { loading: registerLoading },
+    { loading },
     detectFish
   ] = useAsyncFn(async (params: detectFishRequestType) => {
     const data = await detectFishService(params);
@@ -83,8 +83,8 @@ export function DetectionFish() {
               >
                 <ButtonCommonV2
                   className=""
-                  loading={registerLoading}
-                  disable={registerLoading}
+                  loading={loading}
+                  disable={loading}
                   onClick={() => {
                     void start();
                   }}
@@ -104,7 +104,7 @@ export function DetectionFish() {
             <span className="text-[#FFFFFF] text-[16px]">
               {resultContent}
             </span>
-            {registerLoading &&
+            {loading &&
               <div
                 className={cn(
                   "w-full h-full absolute top-0 left-0",
