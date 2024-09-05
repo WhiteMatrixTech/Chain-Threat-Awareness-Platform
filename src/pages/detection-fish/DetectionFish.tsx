@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 17:31:31
+ * @LastEditTime: 2024-09-05 10:17:54
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -42,7 +42,9 @@ export function DetectionFish() {
         chain: "eth"
       };
       const respose = await detectFish(params);
-      setResultContent(respose);
+      console.log("respose>>>", respose);
+      const content = `检测结果：${respose.status}`;
+      setResultContent(content);
     } catch (error) {}
   };
 
