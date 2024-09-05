@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-09-06 00:03:37
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 00:32:07
+ * @LastEditTime: 2024-09-06 00:36:59
  */
 export const modelListIdentityMock = [
   {
@@ -29,5 +29,14 @@ export const modelListFewIdentityMock = [
     time: "2024-08-26 00:53",
     x1: "74.71%",
     x2: "在少样本环境下检测地址身份"
+  }
+];
+export const modelListChainCodeMock = [
+  {
+    name: "CCPre",
+    version: "v1.0",
+    time: "2024-07-26 10:28",
+    x1: "93.52%",
+    x2: "常见的五种链码漏洞检测"
   }
 ];

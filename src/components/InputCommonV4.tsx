@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-30 16:05:16
+ * @LastEditTime: 2024-09-06 01:09:08
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -33,9 +33,10 @@ export function InputCommonV4(props: IProps) {
   return (
     <div
       className={cn(
-        `${pattern.flexCenter}`,
+        `${pattern.flexCenter} relative`,
         className,
-        `bg-[url('./assets/textareabg2.png')] bg-cover bg-center relative`
+        `border-[1px] border-solid border-[#3BA4FF] rounded-md`
+        // `bg-[url('./assets/textareabg2.png')] bg-cover bg-center `
       )}
     >
       <textarea
