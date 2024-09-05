@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 23:57:27
+ * @LastEditTime: 2024-09-06 00:11:04
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -20,6 +20,7 @@ import { TableCommonV2 } from "@/components/TableCommonV2";
 import { TableCommonV4 } from "@/components/TableCommonV4";
 import { TagComponent } from "@/components/TagComponent";
 import { detectionSampleColumns, modelColumns } from "@/services/columns";
+import { modelListIdentityMock } from "@/services/mockData/commonList";
 import pattern from "@/styles/pattern";
 
 export function IdentityInference() {
@@ -27,22 +28,7 @@ export function IdentityInference() {
   const [inputVal, setInputVal] = useState<any>("");
 
   const [detectionSampleList, setdetectionSampleList] = useState([]);
-  const [modelList, setModelList] = useState([
-    {
-      name: "BMFF",
-      version: "v1.0",
-      time: "2024-07-24 21:02",
-      x1: "96.07%",
-      x2: "检测钓鱼诈骗地址"
-    },
-    {
-      name: "I2GT",
-      version: "v1.0",
-      time: "2024-08-25 18:38",
-      x1: "87.81%",
-      x2: "检测十种常见的以太坊身份"
-    }
-  ]);
+  const [modelList, setModelList] = useState(modelListIdentityMock);
 
   const startSearch = () => {
     // 开始查询
@@ -75,7 +61,7 @@ export function IdentityInference() {
               ` absolute top-[54px] left-0 w-full h-[calc(100%_-_54px)] ${pattern.flexCenter}`
             )}
           >
-            <div className={cn(` flex flex-col gap-y-6 items-end`)}>
+            <div className={cn(`flex flex-col gap-y-6 items-end`)}>
               <InputCommonV2
                 placeholder="输入待测地址"
                 onInput={(val: any) => {

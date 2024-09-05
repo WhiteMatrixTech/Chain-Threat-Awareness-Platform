@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 10:47:29
+ * @LastEditTime: 2024-09-06 00:17:06
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -34,7 +34,7 @@ export function InputCommonV2(props: IProps) {
     <div className={cn(`${pattern.flexCenter}`, className)}>
       <div
         className={cn(
-          "text-textFourthSize relative h-full w-[calc(100%_-_12px)] select-none pl-4 pr-[10px] ",
+          "text-textFourthSize relative h-[36px] w-[calc(100%_-_12px)] select-none pl-4 pr-[10px] ",
           `border-[1px] border-solid border-[#00A0E9] border-l-0 border-r-0`
           // `bg-[url('./assets/privacyBgSelector.png')] bg-cover bg-center`,
         )}
