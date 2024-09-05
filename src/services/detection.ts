@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 11:04:16
+ * @LastEditTime: 2024-09-05 15:03:22
  */
 import { getData, postData } from "./request";
 
@@ -28,6 +28,10 @@ export interface detectIdentityRequestType {
   address: string;
   chain: string;
 }
+export interface detectChainCodeRequestType {
+  name: string;
+  chain: string;
+}
 export interface detectCrossChainRequestType {
   tx: string;
   chain: string;
@@ -40,7 +44,17 @@ export interface detectMaliciousRequestType {
   tx: string;
   chain: string;
 }
-// 钓鱼模块
+
+// 链码
+export async function detectChainCodeService(
+  params: detectChainCodeRequestType
+) {
+  return await getData<detectChainCodeRequestType, any>(
+    `/chainthreat/v1/detection/chaincode`,
+    params
+  );
+}
+// 攻击模块
 export async function detectPrivacyService(params: detectPrivacyRequestType) {
   return await getData<detectPrivacyRequestType, any>(
     `/chainthreat/v1/detection/phishing`,

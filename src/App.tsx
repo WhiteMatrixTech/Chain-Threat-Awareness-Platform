@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 18:30:32
+ * @LastEditTime: 2024-09-05 14:53:53
  */
 import "./App.less";
 
@@ -110,7 +110,7 @@ function App() {
           element={<ChaincodevulnerabilityDetection />}
         />
         <Route
-          path="/threat-evidence/chaincodevulnerability-detection/result"
+          path="/threat-evidence/chaincodevulnerability-detection/result/:name"
           element={<ChaincodevulnerabilityDetectionResult />}
         />
 
