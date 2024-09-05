@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 18:11:02
+ * @LastEditTime: 2024-09-05 10:27:29
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -41,9 +41,37 @@ import { IGraphFormData } from "@/utils/IdentityTypes";
 
 export function IdentityInferenceResult() {
   const { address } = useParams();
-  const [pageState, setPageState] = useState("search");
-  const [value, setValue] = useState<any>(null);
-  const [dataList, setDateList] = useState<any>([]);
+  const [result, setResult] = useState({
+    detectionResult: "",
+    identity: "",
+    dataList: [
+      {
+        name: "测试数据",
+        chainType: "测试数据",
+        number: 10
+      },
+      {
+        name: "测试数据",
+        chainType: "测试数据",
+        number: 10
+      },
+      {
+        name: "测试数据",
+        chainType: "测试数据",
+        number: 10
+      },
+      {
+        name: "测试数据",
+        chainType: "测试数据",
+        number: 10
+      },
+      {
+        name: "测试数据",
+        chainType: "测试数据",
+        number: 10
+      }
+    ]
+  });
   const [selectedHexData, setSelectedHexData] = useState(
     address || initQueryAddress
   );
@@ -73,39 +101,15 @@ export function IdentityInferenceResult() {
       };
       const respose = await detectIdentityService(params);
       console.log("respose>>>", respose);
+      setResult({
+        ...result,
+        identity: respose.identity
+      });
 
       setloading(false);
     } catch (error) {
       setloading(false);
     }
-    const res = [
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      }
-    ];
-    setDateList(res);
   };
 
   useEffect(() => {
@@ -141,17 +145,21 @@ export function IdentityInferenceResult() {
         <div className={cn(` w-full h-[50px] ${pattern.flexbet} `)}>
           <ResultComponent
             title="检测结果"
-            content="这是钓鱼诈骗地址"
+            content={result.detectionResult}
             className="w-[calc(50%_-_15px)] h-full"
           />
           <ResultComponent
             title="可能的身份"
-            content="xxx"
+            content={result.identity}
             className="w-[calc(50%_-_15px)] h-full"
           />
         </div>
         <div className={cn(` w-full h-[320px]`)}>
-          <TableCommonV2 className="" data={dataList} columns={columns} />
+          <TableCommonV2
+            className=""
+            data={result.dataList}
+            columns={columns}
+          />
         </div>
       </div>;
 }
