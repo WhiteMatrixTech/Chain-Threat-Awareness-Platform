@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /*
  * @Description:
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 10:27:29
+ * @LastEditTime: 2024-09-05 18:01:00
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -27,8 +28,12 @@ import { SpinCommon } from "@/components/SpinCommon";
 import { TableCommonV2 } from "@/components/TableCommonV2";
 import { columns } from "@/services/columns";
 import {
+  detectFishRequestType,
+  detectFishService,
   detectIdentityRequestType,
-  detectIdentityService
+  detectIdentityService,
+  getTransactionsRequestType,
+  getTransactionsService
 } from "@/services/detection";
 import {
   generateAddressData,
@@ -42,6 +47,7 @@ import { IGraphFormData } from "@/utils/IdentityTypes";
 export function IdentityInferenceResult() {
   const { address } = useParams();
   const [result, setResult] = useState({
+    time: "",
     detectionResult: "",
     identity: "",
     dataList: [
@@ -103,7 +109,8 @@ export function IdentityInferenceResult() {
       console.log("respose>>>", respose);
       setResult({
         ...result,
-        identity: respose.identity
+        identity: respose.identity,
+        time: respose.cost / 1000 + "s"
       });
 
       setloading(false);
@@ -111,9 +118,27 @@ export function IdentityInferenceResult() {
       setloading(false);
     }
   };
+  const getTransactions = async () => {
+    const params: getTransactionsRequestType = {
+      address: address || "",
+      limit: 100
+    };
+    const respose = await getTransactionsService(params);
+    console.log("查询交易数据>>>!!!", respose);
+  };
+  const getFishResult = async () => {
+    const params: detectFishRequestType = {
+      address: address || "",
+      chain: "eth"
+    };
+    const respose = await detectFishService(params);
+    console.log("钓鱼接口>>>响应", respose);
+  };
 
   useEffect(() => {
     // setSelectedHexData(address || initQueryAddress);
+    void getTransactions();
+    void getFishResult();
     void start();
   }, []);
 
@@ -144,14 +169,19 @@ export function IdentityInferenceResult() {
         </div>
         <div className={cn(` w-full h-[50px] ${pattern.flexbet} `)}>
           <ResultComponent
+            title="检测时间"
+            content={result.time}
+            className="w-[173px] h-full"
+          />
+          <ResultComponent
             title="检测结果"
             content={result.detectionResult}
-            className="w-[calc(50%_-_15px)] h-full"
+            className="w-[calc(50%_-_100px)] h-full"
           />
           <ResultComponent
             title="可能的身份"
             content={result.identity}
-            className="w-[calc(50%_-_15px)] h-full"
+            className="w-[calc(50%_-_100px)] h-full"
           />
         </div>
         <div className={cn(` w-full h-[320px]`)}>

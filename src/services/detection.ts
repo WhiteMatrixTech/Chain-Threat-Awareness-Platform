@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 15:37:15
+ * @LastEditTime: 2024-09-05 17:57:55
  */
 import { getData, postData } from "./request";
 
@@ -86,8 +86,21 @@ export async function detectFishService(params: detectFishRequestType) {
 }
 // 身份推断
 export async function detectIdentityService(params: detectIdentityRequestType) {
-  return await getData<detectFishRequestType, any>(
+  return await getData<detectIdentityRequestType, any>(
     `/chainthreat/v1/detection/i2gt`,
+    params
+  );
+}
+export interface getTransactionsRequestType {
+  address: string;
+  limit: number;
+}
+// 查询交易数据接口
+export async function getTransactionsService(
+  params: getTransactionsRequestType
+) {
+  return await getData<getTransactionsRequestType, any>(
+    `/chainthreat/v1/data-house/eth/transactions/second`,
     params
   );
 }
