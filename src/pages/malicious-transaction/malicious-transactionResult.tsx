@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 18:36:44
+ * @LastEditTime: 2024-09-05 10:44:25
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -36,16 +36,18 @@ import { IGraphFormData } from "@/utils/IdentityTypes";
 export function MaliciousTransactionResult() {
   const { tx } = useParams();
   const [loading, setloading] = useState(true);
-  const [detectResult, setdetectResult] = useState("");
+  const [result, setResult] = useState({
+    result: "",
+    transaction_id: ""
+  });
 
-  const [dataList, setDateList] = useState<any>([]);
   const [selectedHexData, setSelectedHexData] = useState(initQueryAddress);
   const [graphData, setGraphData] = useState<GraphinData>(initGraphData);
 
   const [formData, setFormData] = useState<IGraphFormData>({
     date: ["0", "latest"],
     tokenType: "ETH",
-    address: initQueryAddress
+    address: tx || initQueryAddress
   });
   const handleClickGraphin = (
     hexString: string,
@@ -64,40 +66,16 @@ export function MaliciousTransactionResult() {
       };
       const respose = await detectMaliciousService(params);
       console.log("respose>>>", respose);
-      setdetectResult(respose.result ? respose.result : "");
+      setResult({
+        ...result,
+        result: respose.result,
+        transaction_id: respose.transaction_id
+      });
 
       setloading(false);
     } catch (error) {
       setloading(false);
     }
-    const res = [
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      }
-    ];
-    setDateList(res);
   };
   useEffect(() => {
     // 请求
@@ -131,7 +109,7 @@ export function MaliciousTransactionResult() {
           <div className={cn(` w-full h-[50px] ${pattern.flexbet} `)}>
             <ResultComponent
               title="检测结果"
-              content={`${detectResult}`}
+              content={`${result.result}`}
               className="w-full h-full"
             />
           </div>
