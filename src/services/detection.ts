@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 15:03:22
+ * @LastEditTime: 2024-09-05 15:37:15
  */
 import { getData, postData } from "./request";
 
@@ -43,6 +43,21 @@ export interface detectBitcoinmixedcoinRequestType {
 export interface detectMaliciousRequestType {
   tx: string;
   chain: string;
+}
+export interface detectFewSamplesRequestType {
+  address: string;
+  samples: string;
+  chain: string;
+}
+
+// 少样本
+export async function detectFewSamplesService(
+  params: detectFewSamplesRequestType
+) {
+  return await getData<detectFewSamplesRequestType, any>(
+    `/chainthreat/v1/detection/fsl`,
+    params
+  );
 }
 
 // 链码

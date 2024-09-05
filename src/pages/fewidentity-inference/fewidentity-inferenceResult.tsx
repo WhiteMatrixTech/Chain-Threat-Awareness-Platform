@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-02 14:51:37
+ * @LastEditTime: 2024-09-05 15:48:55
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -11,21 +11,20 @@
 import { GraphinData } from "@antv/graphin";
 import cn from "classnames";
 import { useEffect, useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useParams } from "react-router-dom";
 
-import IdentityInferenceDialogTitle from "@/assets/IdentityInferenceDialogTitle.png";
-import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
 import {
   AddressTxGraph,
   TGraphinClickTarget
 } from "@/components/GraphV2/AddressTxGraph";
-import { InputCommonV2 } from "@/components/InputCommonV2";
 import { ResultComponent } from "@/components/ResultComponent";
-import {
-  ISelectorItemProps,
-  SelectorCommonV2
-} from "@/components/SelectorCommonV2";
 import { TableCommonV2 } from "@/components/TableCommonV2";
 import { columns } from "@/services/columns";
+import {
+  detectFewSamplesRequestType,
+  detectFewSamplesService
+} from "@/services/detection";
 import {
   generateAddressData,
   generateEdgeTxData,
@@ -36,8 +35,13 @@ import pattern from "@/styles/pattern";
 import { IGraphFormData } from "@/utils/IdentityTypes";
 
 export function FewidentityInferenceResult() {
-  const [pageState, setPageState] = useState("search");
-  const [value, setValue] = useState<any>(null);
+  const { address, samples } = useParams();
+  const [loading, setloading] = useState(true);
+  const [result, setResult] = useState({
+    result: "",
+    time: 0
+  });
+
   const [dataList, setDateList] = useState<any>([]);
   const [selectedHexData, setSelectedHexData] = useState(initQueryAddress);
   const [graphData, setGraphData] = useState<GraphinData>(initGraphData);
@@ -45,7 +49,7 @@ export function FewidentityInferenceResult() {
   const [formData, setFormData] = useState<IGraphFormData>({
     date: ["0", "latest"],
     tokenType: "ETH",
-    address: initQueryAddress
+    address: address || initQueryAddress
   });
   const handleClickGraphin = (
     hexString: string,
@@ -55,8 +59,31 @@ export function FewidentityInferenceResult() {
       setSelectedHexData(hexString);
     }
   };
+  const start = async () => {
+    setloading(true);
+    try {
+      const params: detectFewSamplesRequestType = {
+        address: address || "",
+        samples: samples || "",
+        chain: "eth"
+      };
+      const respose = await detectFewSamplesService(params);
+      console.log("respose>>>", respose);
+      setResult({
+        ...result,
+        time: respose.time,
+        result: respose.identity
+      });
+      setloading(false);
+    } catch (error) {
+      setloading(false);
+    }
+    setloading(false);
+  };
 
   useEffect(() => {
+    void start();
+
     // 请求
     const res = [
       {
@@ -88,30 +115,40 @@ export function FewidentityInferenceResult() {
     setDateList(res);
   }, []);
 
-  return (
-    <div
-      className={cn(" w-full h-full pt-[0px]  fadeIn", `${pattern.flexbet}`)}
-    >
-      <div className={cn(`w-full h-full  gap-y-6 flex flex-col`)}>
-        <div className={cn(` flex-1`)}>
-          <AddressTxGraph
-            focusedId={selectedHexData}
-            formData={formData}
-            handleClick={handleClickGraphin}
-            changeData={setGraphData}
-          />
-        </div>
-        <div className={cn(` w-full h-[50px] ${pattern.flexbet} `)}>
-          <ResultComponent
-            title="是否与提供的地址身份相同"
-            content="是"
-            className="w-full h-full"
-          />
-        </div>
-        <div className={cn(` w-full h-[320px]`)}>
-          <TableCommonV2 className="" data={dataList} columns={columns} />
-        </div>
+  return loading
+    ? <div
+        className={cn(
+          "w-full h-full absolute top-0 left-0",
+          `${pattern.flexCenter}`
+        )}
+      >
+        <AiOutlineLoading3Quarters
+          className="ml-2 animate-spin"
+          style={{ color: "white", fontSize: "24px" }}
+        />
       </div>
-    </div>
-  );
+    : <div
+        className={cn(" w-full h-full pt-[0px]  fadeIn", `${pattern.flexbet}`)}
+      >
+        <div className={cn(`w-full h-full  gap-y-6 flex flex-col`)}>
+          <div className={cn(` flex-1`)}>
+            <AddressTxGraph
+              focusedId={selectedHexData}
+              formData={formData}
+              handleClick={handleClickGraphin}
+              changeData={setGraphData}
+            />
+          </div>
+          <div className={cn(` w-full h-[50px] ${pattern.flexbet} `)}>
+            <ResultComponent
+              title="是否与提供的地址身份相同"
+              content={result.result}
+              className="w-full h-full"
+            />
+          </div>
+          <div className={cn(` w-full h-[320px]`)}>
+            <TableCommonV2 className="" data={dataList} columns={columns} />
+          </div>
+        </div>
+      </div>;
 }

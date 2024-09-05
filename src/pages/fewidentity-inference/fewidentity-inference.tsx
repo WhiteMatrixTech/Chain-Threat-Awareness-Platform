@@ -1,14 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /*
  * @Description:
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-02 14:50:34
+ * @LastEditTime: 2024-09-05 15:42:36
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
 
 import { GraphinData } from "@antv/graphin";
+import { notification } from "antd";
 import cn from "classnames";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
@@ -20,13 +22,6 @@ import {
   TGraphinClickTarget
 } from "@/components/GraphV2/AddressTxGraph";
 import { InputCommonV2 } from "@/components/InputCommonV2";
-import { ResultComponent } from "@/components/ResultComponent";
-import {
-  ISelectorItemProps,
-  SelectorCommonV2
-} from "@/components/SelectorCommonV2";
-import { TableCommonV2 } from "@/components/TableCommonV2";
-import { columns } from "@/services/columns";
 import {
   initGraphData,
   initQueryAddress
@@ -37,12 +32,34 @@ import { IGraphFormData } from "@/utils/IdentityTypes";
 export function FewidentityInference() {
   const navigate = useNavigate();
 
-  const [value, setValue] = useState<any>(null);
-  const [selectedHexData, setSelectedHexData] = useState(initQueryAddress);
+  const [address, setAddress] = useState<any>(null);
+  const [sampleData, setSampleData] = useState<any>({
+    sample1: "",
+    sample2: "",
+    sample3: "",
+    sample4: "",
+    sample5: ""
+  });
 
   const startSearch = () => {
     // 开始查询
-    navigate("/threat-evidence/fewidentity-inference/result");
+    if (!address) {
+      notification.warning({ message: `请输入信息！！！` });
+      return;
+    }
+    const samArr = Object.values(sampleData);
+    const t = samArr.filter((item: any) => item.length === 0);
+    console.log("addre>>", address);
+    console.log("t>>", t);
+    if (t.length) {
+      notification.warning({ message: `请输入信息！！！` });
+    } else {
+      navigate(
+        `/threat-evidence/fewidentity-inference/result/${address}/${samArr.join(
+          ","
+        )}`
+      );
+    }
   };
 
   return (
@@ -71,35 +88,50 @@ export function FewidentityInference() {
               <InputCommonV2
                 placeholder="样本地址"
                 onInput={(val: any) => {
-                  setValue(val);
+                  setSampleData({
+                    ...sampleData,
+                    sample1: val
+                  });
                 }}
                 className="w-full h-[36px] "
               />
               <InputCommonV2
                 placeholder="样本地址"
                 onInput={(val: any) => {
-                  setValue(val);
+                  setSampleData({
+                    ...sampleData,
+                    sample2: val
+                  });
                 }}
                 className="w-full h-[36px] "
               />
               <InputCommonV2
                 placeholder="样本地址"
                 onInput={(val: any) => {
-                  setValue(val);
+                  setSampleData({
+                    ...sampleData,
+                    sample3: val
+                  });
                 }}
                 className="w-full h-[36px] "
               />
               <InputCommonV2
                 placeholder="样本地址"
                 onInput={(val: any) => {
-                  setValue(val);
+                  setSampleData({
+                    ...sampleData,
+                    sample4: val
+                  });
                 }}
                 className="w-full h-[36px] "
               />
               <InputCommonV2
                 placeholder="样本地址"
                 onInput={(val: any) => {
-                  setValue(val);
+                  setSampleData({
+                    ...sampleData,
+                    sample5: val
+                  });
                 }}
                 className="w-full h-[36px] "
               />
@@ -120,7 +152,7 @@ export function FewidentityInference() {
               <InputCommonV2
                 placeholder="输入待测地址"
                 onInput={(val: any) => {
-                  setValue(val);
+                  setAddress(val);
                 }}
                 className="w-full h-[36px] "
               />

@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 14:53:53
+ * @LastEditTime: 2024-09-05 15:24:54
  */
 import "./App.less";
 
@@ -89,7 +89,7 @@ function App() {
           element={<FewidentityInference />}
         />
         <Route
-          path="/threat-evidence/fewidentity-inference/result"
+          path="/threat-evidence/fewidentity-inference/result/:address/:samples"
           element={<FewidentityInferenceResult />}
         />
         <Route
