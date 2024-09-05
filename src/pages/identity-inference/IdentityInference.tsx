@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 17:41:52
+ * @LastEditTime: 2024-09-05 23:57:27
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -13,13 +13,36 @@ import cn from "classnames";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
+import { ButtonCommonCyber } from "@/components/ButtonCommonCyber";
 import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
 import { InputCommonV2 } from "@/components/InputCommonV2";
+import { TableCommonV2 } from "@/components/TableCommonV2";
+import { TableCommonV4 } from "@/components/TableCommonV4";
+import { TagComponent } from "@/components/TagComponent";
+import { detectionSampleColumns, modelColumns } from "@/services/columns";
 import pattern from "@/styles/pattern";
 
 export function IdentityInference() {
   const navigate = useNavigate();
   const [inputVal, setInputVal] = useState<any>("");
+
+  const [detectionSampleList, setdetectionSampleList] = useState([]);
+  const [modelList, setModelList] = useState([
+    {
+      name: "BMFF",
+      version: "v1.0",
+      time: "2024-07-24 21:02",
+      x1: "96.07%",
+      x2: "检测钓鱼诈骗地址"
+    },
+    {
+      name: "I2GT",
+      version: "v1.0",
+      time: "2024-08-25 18:38",
+      x1: "87.81%",
+      x2: "检测十种常见的以太坊身份"
+    }
+  ]);
 
   const startSearch = () => {
     // 开始查询
@@ -32,7 +55,11 @@ export function IdentityInference() {
 
   return (
     <div className={cn(" w-full h-full pt-[0px] fadeIn", `${pattern.flexbet}`)}>
-      <div className={cn(`w-full h-full ${pattern.flexCenter} `)}>
+      <div
+        className={cn(
+          ` w-full h-full flex flex-col gap-y-20 justify-between pt-40 items-center`
+        )}
+      >
         <div
           className={cn(
             `w-[662px] h-[258px] bg-[url('./assets/attackBg1.png')] bg-cover bg-center relative`
@@ -57,13 +84,41 @@ export function IdentityInference() {
                 className="w-[450px] h-[36px] "
               />
 
-              <ButtonCommonV2
+              <ButtonCommonCyber
                 onClick={() => {
                   startSearch();
                 }}
+                className="w-[450px] h-[36px] "
               >
                 <span className="text-[#FFFFFF] text-[16px]">查询</span>
-              </ButtonCommonV2>
+              </ButtonCommonCyber>
+            </div>
+          </div>
+        </div>
+        <div className={cn(`w-full h-[370px] flex justify-between`)}>
+          <div className="w-[calc(50%_-_10px)] h-full flex flex-col">
+            <div className="w-[120px] h-[36px]">
+              <TagComponent title="模型信息" className="w-[120px] h-[36px]" />
+            </div>
+
+            <div className={cn(` w-full flex-1 mt-4`)}>
+              <TableCommonV4
+                className="w-full h-full"
+                data={modelList}
+                columns={modelColumns}
+              />
+            </div>
+          </div>
+          <div className="w-[calc(50%_-_10px)] h-full flex flex-col">
+            <div className="w-[120px] h-[36px]">
+              <TagComponent title="检测样例" className="w-[120px] h-[36px]" />
+            </div>
+            <div className={cn(` w-full mt-4 flex-1`)}>
+              <TableCommonV4
+                className="w-full h-full"
+                data={detectionSampleList}
+                columns={detectionSampleColumns}
+              />
             </div>
           </div>
         </div>

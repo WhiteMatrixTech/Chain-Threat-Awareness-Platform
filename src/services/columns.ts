@@ -4,8 +4,58 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 18:43:34
+ * @LastEditTime: 2024-09-05 23:21:50
  */
+// 模型信息
+export const modelColumns: any = [
+  {
+    title: "模型名称",
+    dataIndex: "name",
+    width: 120
+  },
+  {
+    title: "模型版本",
+    dataIndex: "version",
+    width: 120
+  },
+  {
+    title: "模型训练生成时间",
+    dataIndex: "time",
+    width: 200
+  },
+  {
+    title: "模型检测综合性能f1",
+    dataIndex: "x1",
+    width: 220
+  },
+  {
+    title: "模型性能",
+    dataIndex: "x2"
+  }
+];
+// 检测样例
+export const detectionSampleColumns: any = [
+  {
+    title: "检测地址",
+    dataIndex: "name"
+  },
+  {
+    title: "检测时间",
+    dataIndex: "name",
+    width: 150
+  },
+  {
+    title: "检测结果",
+    dataIndex: "name",
+    width: 150
+  },
+  {
+    title: "实际标签",
+    dataIndex: "name",
+    width: 150
+  }
+];
+
 // 数据仓库列表
 export const dataStoreColumns: any = [
   {
