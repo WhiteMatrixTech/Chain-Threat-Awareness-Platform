@@ -1,16 +1,28 @@
+/*
+ * @Description:
+ * @Author: didadida262
+ * @Date: 2024-08-30 11:15:05
+ * @LastEditors: didadida262
+ * @LastEditTime: 2024-09-05 16:43:35
+ */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import type { MenuProps } from 'antd';
 import { cloneDeep } from 'lodash';
 
+import NabLogo1 from '@/assets/navLogo1.png';
+import NabLogo2 from '@/assets/navLogo2.png';
+import NabLogo3 from '@/assets/navLogo3.png';
+import NabLogo4 from '@/assets/navLogo4.png';
 import { flatTreeData, ITree } from '@/utils/common';
 
 // eslint-disable-next-line @typescript-eslint/no-type-alias
 type MenuItem = Required<MenuProps>['items'][number];
 
-export const MenuList: MenuItem[] = [
+export const MenuList: any[] = [
   {
     label: '数据仓库',
-    key: '/data-store'
+    key: '/data-store',
+    src: NabLogo1
   },
   {
     label: 'split',
@@ -19,6 +31,8 @@ export const MenuList: MenuItem[] = [
   {
     label: '威胁感知',
     key: '/threat-detection',
+    src: NabLogo2,
+
     children: [
       {
         label: '智能合约漏洞检测',
@@ -49,6 +63,8 @@ export const MenuList: MenuItem[] = [
   {
     label: '威胁取证',
     key: '/threat-evidence',
+    src: NabLogo3,
+
     children: [
       {
         label: '地址分析',
@@ -90,7 +106,8 @@ export const MenuList: MenuItem[] = [
   },
   {
     label: '数据大屏',
-    key: '/data-screens'
+    key: '/data-screens',
+    src: NabLogo4
   }
 ];
 

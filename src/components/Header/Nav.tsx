@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 18:22:50
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-27 16:02:14
+ * @LastEditTime: 2024-09-05 16:53:35
  */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
@@ -63,8 +63,9 @@ export function Nav() {
             >
               <div
                 className={cn(
-                  `${pattern.flexCenter} min-w-[130px] h-full  text-[24px] font-[500] text-[#EFF4FF] `,
+                  ` ${pattern.flexCenter} min-w-[130px] h-full  text-[24px] font-[500] text-[#EFF4FF] `,
                   activeNav === item.key ? "" : "bg-[#6A707C33] "
+
                   // background: var(--series-3100, #EFF4FF);
                   // box-shadow: 0px 0px 8px 0px #3BA4FF;
                 )}
@@ -76,7 +77,14 @@ export function Nav() {
 
                   }
                 }}
-              >
+                >
+                  {/* 待ui更新图 */}
+                  {/* {item.src && (
+                    <div className={` mr-2 w-[30px] h-full ${pattern.flexCenter}`}>
+                      <img src={item.src}  alt="" className="" />
+                   </div>                
+                )} */}
+    
                 <span>
                   {item.label}
                 </span>
