@@ -5,11 +5,12 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 15:21:25
+ * @LastEditTime: 2024-09-06 16:06:57
  */
 /* eslint-disable prettier/prettier */
 
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+import { notification } from "antd";
 import cn from "classnames";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -23,7 +24,7 @@ interface IProps {
 
 export function TableCommonV4(props: IProps) {
   const { data, columns, className } = props;
-  const maxNum = 14;
+  const maxNum = 10;
   return (
     <div
       className={cn(
@@ -78,9 +79,20 @@ export function TableCommonV4(props: IProps) {
                       key={colkey}
                     >
                       <span
+                        onClick={() => {
+                          console.log("点击>>>", item[col.dataIndex]);
+
+                          const textArea = document.createElement("textarea");
+                          textArea.value = item[col.dataIndex];
+                          document.body.appendChild(textArea);
+                          textArea.select();
+                          document.execCommand("copy");
+                          document.body.removeChild(textArea);
+                          notification.info({ message: "复制成功!!!" });
+                        }}
                         className={cn(
                           // " text-[15px] text-[#ffffff]  whitespace-nowrap overflow-hidden overflow-ellipsis"
-                          " text-[15px] text-[#ffffff]  "
+                          " text-[15px] text-[#ffffff]"
                         )}
                       >
                         {/* {col.dataIndex ? item[col.dataIndex] : index + 1} */}

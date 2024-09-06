@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable simple-import-sort/imports */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -6,11 +7,15 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 00:29:45
+ * @LastEditTime: 2024-09-06 15:54:43
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
 
+import {
+  detectActionLogRequestType,
+  detectActionLogService
+} from "@/services/detection";
 import { notification } from "antd";
 import cn from "classnames";
 import { useEffect, useState } from "react";
@@ -22,14 +27,14 @@ import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
 import { InputCommonV2 } from "@/components/InputCommonV2";
 import { TableCommonV4 } from "@/components/TableCommonV4";
 import { TagComponent } from "@/components/TagComponent";
-import { detectionSampleColumns, modelColumns } from "@/services/columns";
+import { detectionFewSampleColumns, modelColumns } from "@/services/columns";
 import { modelListFewIdentityMock } from "@/services/mockData/commonList";
 import pattern from "@/styles/pattern";
 
 export function FewidentityInference() {
   const navigate = useNavigate();
   const [modelList, setModelList] = useState(modelListFewIdentityMock);
-  const [detectionSampleList, setdetectionSampleList] = useState([]);
+  const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
 
   const [address, setAddress] = useState<any>(null);
   const [sampleData, setSampleData] = useState<any>({
@@ -39,6 +44,28 @@ export function FewidentityInference() {
     sample4: "",
     sample5: ""
   });
+  const getActionLogList = async () => {
+    const params: detectActionLogRequestType = {
+      action: "fsl",
+      count: 10
+    };
+    const respose = await detectActionLogService(params);
+    const result: any[] = respose.data.map((item: any) => {
+      const input = item.input.split(",");
+      return {
+        name: input[input.length - 1],
+        time: item.createAt,
+        result: "-",
+        tag: "-",
+        sample: input.slice(0, 5).join(",")
+      };
+    });
+    setdetectionSampleList(result);
+    console.log("监测数据>>>>", respose);
+  };
+  useEffect(() => {
+    void getActionLogList();
+  }, []);
 
   const startSearch = () => {
     // 开始查询
@@ -182,12 +209,12 @@ export function FewidentityInference() {
           </div>
         </div>
         <div className={cn(`w-full h-[370px] flex justify-between`)}>
-          <div className="w-[calc(50%_-_10px)] h-full flex flex-col">
+          <div className="w-[calc(50%_-_10px)] h-full flex flex-col justify-between">
             <div className="w-[120px] h-[36px]">
               <TagComponent title="模型信息" className="w-[120px] h-[36px]" />
             </div>
 
-            <div className={cn(` w-full flex-1 mt-4`)}>
+            <div className={cn(` w-full h-[calc(100%_-_52px)]`)}>
               <TableCommonV4
                 className="w-full h-full"
                 data={modelList}
@@ -195,15 +222,15 @@ export function FewidentityInference() {
               />
             </div>
           </div>
-          <div className="w-[calc(50%_-_10px)] h-full flex flex-col">
+          <div className="w-[calc(50%_-_10px)] h-full flex flex-col justify-between">
             <div className="w-[120px] h-[36px]">
               <TagComponent title="检测样例" className="w-[120px] h-[36px]" />
             </div>
-            <div className={cn(` w-full mt-4 flex-1`)}>
+            <div className={cn(` w-full h-[calc(100%_-_52px)]`)}>
               <TableCommonV4
                 className="w-full h-full"
                 data={detectionSampleList}
-                columns={detectionSampleColumns}
+                columns={detectionFewSampleColumns}
               />
             </div>
           </div>

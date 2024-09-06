@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 15:33:42
+ * @LastEditTime: 2024-09-06 15:51:25
  */
 // 模型信息
 export const modelColumns: any = [
@@ -43,6 +43,33 @@ export const detectionSampleColumns: any = [
   {
     title: "检测时间",
     dataIndex: "time"
+  },
+  {
+    title: "检测结果",
+    dataIndex: "result",
+    width: 150
+  },
+  {
+    title: "实际标签",
+    dataIndex: "tag",
+    width: 200
+  }
+];
+// 少样本检测样例
+export const detectionFewSampleColumns: any = [
+  {
+    title: "样本地址",
+    dataIndex: "sample"
+  },
+  {
+    title: "检测地址",
+    dataIndex: "name",
+    width: 150
+  },
+  {
+    title: "检测时间",
+    dataIndex: "time",
+    width: 150
   },
   {
     title: "检测结果",

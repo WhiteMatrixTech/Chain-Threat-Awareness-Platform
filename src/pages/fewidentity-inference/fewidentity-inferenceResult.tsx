@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 09:14:34
+ * @LastEditTime: 2024-09-06 15:58:36
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -20,10 +20,14 @@ import {
 } from "@/components/GraphV2/AddressTxGraph";
 import { ResultComponent } from "@/components/ResultComponent";
 import { TableCommonV2 } from "@/components/TableCommonV2";
-import { columns } from "@/services/columns";
+import { columns, columnsIdentity } from "@/services/columns";
 import {
   detectFewSamplesRequestType,
-  detectFewSamplesService
+  detectFewSamplesService,
+  detectFishRequestType,
+  detectFishService,
+  getTransactionsRequestType,
+  getTransactionsService
 } from "@/services/detection";
 import {
   generateAddressData,
@@ -39,10 +43,10 @@ export function FewidentityInferenceResult() {
   const [loading, setloading] = useState(true);
   const [result, setResult] = useState({
     result: "",
-    time: ""
+    time: "",
+    dataList: []
   });
 
-  const [dataList, setDateList] = useState<any>([]);
   const [selectedHexData, setSelectedHexData] = useState(initQueryAddress);
   const [graphData, setGraphData] = useState<GraphinData>(initGraphData);
 
@@ -69,10 +73,28 @@ export function FewidentityInferenceResult() {
       };
       const respose = await detectFewSamplesService(params);
       console.log("respose>>>", respose);
+
+      const paramsTransaction: getTransactionsRequestType = {
+        address: address || "",
+        limit: 100
+      };
+      const resposeTransaction = await getTransactionsService(
+        paramsTransaction
+      );
+      console.log("查询交易数据>>>!!!", resposeTransaction);
+
+      const paramsFish: detectFishRequestType = {
+        address: address || "",
+        chain: "eth"
+      };
+      const resposeFish = await detectFishService(paramsFish);
+      console.log("钓鱼判断数据>>>!!!", resposeFish);
+
       setResult({
         ...result,
         time: (respose.cost / 1000).toFixed(1) + "s",
-        result: respose.identity
+        result: resposeFish.status || "无",
+        dataList: resposeTransaction.data
       });
       setloading(false);
     } catch (error) {
@@ -83,36 +105,6 @@ export function FewidentityInferenceResult() {
 
   useEffect(() => {
     void start();
-
-    // 请求
-    const res = [
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      }
-    ];
-    setDateList(res);
   }, []);
 
   return loading
@@ -152,7 +144,11 @@ export function FewidentityInferenceResult() {
             />
           </div>
           <div className={cn(` w-full h-[320px]`)}>
-            <TableCommonV2 className="" data={dataList} columns={columns} />
+            <TableCommonV2
+              className=""
+              data={result.dataList}
+              columns={columnsIdentity}
+            />
           </div>
         </div>
       </div>;
