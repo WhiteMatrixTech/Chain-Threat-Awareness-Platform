@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 09:08:21
+ * @LastEditTime: 2024-09-06 16:30:18
  */
 // 模型信息
 export const modelColumns: any = [
@@ -30,7 +30,8 @@ export const modelColumns: any = [
   },
   {
     title: "模型性能",
-    dataIndex: "x2"
+    dataIndex: "x2",
+    width: 220
   }
 ];
 // 检测样例
@@ -41,18 +42,44 @@ export const detectionSampleColumns: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "name",
-    width: 150
+    dataIndex: "time"
   },
   {
     title: "检测结果",
-    dataIndex: "name",
+    dataIndex: "result",
     width: 150
   },
   {
     title: "实际标签",
+    dataIndex: "tag",
+    width: 200
+  }
+];
+// 少样本检测样例
+export const detectionFewSampleColumns: any = [
+  {
+    title: "样本地址",
+    dataIndex: "sample"
+  },
+  {
+    title: "检测地址",
     dataIndex: "name",
     width: 150
+  },
+  {
+    title: "检测时间",
+    dataIndex: "time",
+    width: 150
+  },
+  {
+    title: "检测结果",
+    dataIndex: "result",
+    width: 150
+  },
+  {
+    title: "实际标签",
+    dataIndex: "tag",
+    width: 200
   }
 ];
 
@@ -113,19 +140,20 @@ export const columns: any = [
     ellipsis: true
   }
 ];
-// 身份推断页、少样本身份推断页表格 变动
+// 身份推断页、少样本身份推断页表格V2变动
 
 export const columnsIdentity: any = [
   {
     title: "src",
     ellipsis: true,
-    dataIndex: "src"
+    dataIndex: "src",
+    width: 200
   },
   {
     title: "dst",
     ellipsis: true,
     dataIndex: "dst",
-    width: 100
+    width: 200
   },
   {
     title: "isError",
@@ -143,19 +171,19 @@ export const columnsIdentity: any = [
     title: "timeStamp",
     dataIndex: "timeStamp",
     ellipsis: true,
-    width: 100
+    width: 150
   },
   {
     title: "blockNumber",
     dataIndex: "blockNumber",
     ellipsis: true,
-    width: 100
+    width: 150
   },
   {
     title: "value",
     dataIndex: "value",
     ellipsis: true,
-    width: 100
+    width: 200
   },
   {
     title: "gasUsed",
@@ -176,9 +204,10 @@ export const columnsCrossChain1: any = [
   {
     title: "交易号",
     ellipsis: true,
-    dataIndex: "dealID",
+    dataIndex: "Tx_id",
     width: 100
   },
+
   {
     title: "项目号",
     dataIndex: "projectId",
@@ -187,38 +216,40 @@ export const columnsCrossChain1: any = [
   },
   {
     title: "账户名",
-    dataIndex: "username",
+    dataIndex: "Account_number",
     ellipsis: true,
     width: 320
   },
   {
     title: "来源",
-    dataIndex: "from",
+    dataIndex: "From",
     ellipsis: true,
     width: 320
   },
   {
     title: "流向",
-    dataIndex: "to",
+    dataIndex: "To",
     ellipsis: true,
     width: 320
   },
   {
     title: "输入金额",
-    dataIndex: "inputMo",
+    dataIndex: "Input_coin",
     ellipsis: true,
     width: 320
   },
+
   {
     title: "交易费",
-    dataIndex: "cost",
+    dataIndex: "Fee",
     ellipsis: true,
     width: 320
   },
   {
     title: "输出金额",
-    dataIndex: "outmoney",
-    ellipsis: true
+    dataIndex: "Output_coin",
+    ellipsis: true,
+    width: 120
   }
 ];
 
@@ -226,18 +257,18 @@ export const columnsCrossChain2: any = [
   {
     title: "依赖号",
     ellipsis: true,
-    dataIndex: "depId",
+    dataIndex: "Rcro_id",
     width: 100
   },
   {
     title: "下游交易",
-    dataIndex: "downdeal",
+    dataIndex: "To",
     ellipsis: true,
     width: 320
   },
   {
     title: "上游交易",
-    dataIndex: "upDeal",
+    dataIndex: "From",
     ellipsis: true,
     width: 320
   },

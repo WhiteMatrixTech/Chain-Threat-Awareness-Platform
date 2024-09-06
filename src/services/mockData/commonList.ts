@@ -4,8 +4,9 @@
  * @Author: didadida262
  * @Date: 2024-09-06 00:03:37
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 01:12:16
+ * @LastEditTime: 2024-09-06 11:01:09
  */
+// 身份
 export const modelListIdentityMock = [
   {
     name: "BMFF",
@@ -22,6 +23,7 @@ export const modelListIdentityMock = [
     x2: "检测十种常见的以太坊身份"
   }
 ];
+// 少样本
 export const modelListFewIdentityMock = [
   {
     name: "FLS",
@@ -31,6 +33,7 @@ export const modelListFewIdentityMock = [
     x2: "在少样本环境下检测地址身份"
   }
 ];
+// 链码
 export const modelListChainCodeMock = [
   {
     name: "CCPre",
@@ -40,7 +43,7 @@ export const modelListChainCodeMock = [
     x2: "常见的五种链码漏洞检测"
   }
 ];
-
+// 混检
 export const modelListBitCoinMock = [
   {
     name: "TSTC",
@@ -50,3 +53,16 @@ export const modelListBitCoinMock = [
     x2: "检测混币交易"
   }
 ];
+
+// 恶意检测（交易合法）
+export const modelListMaliciousMock = [
+  {
+    name: "T2RNET",
+    version: "v1.0",
+    time: "2024-08-31 23:28",
+    x1: "92.00%",
+    x2: "检测非法交易"
+  }
+];
+// 跨链
+export const modelListCrossChainMock = [];

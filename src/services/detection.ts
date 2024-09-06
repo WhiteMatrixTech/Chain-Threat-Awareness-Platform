@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 17:57:55
+ * @LastEditTime: 2024-09-06 11:13:59
  */
 import { getData, postData } from "./request";
 
@@ -49,7 +49,19 @@ export interface detectFewSamplesRequestType {
   samples: string;
   chain: string;
 }
-
+export interface detectActionLogRequestType {
+  action: string;
+  count: number;
+}
+// 检测样例
+export async function detectActionLogService(
+  params: detectActionLogRequestType
+) {
+  return await getData<detectActionLogRequestType, any>(
+    `/chainthreat/v1/action-log/${params.action}`,
+    params
+  );
+}
 // 少样本
 export async function detectFewSamplesService(
   params: detectFewSamplesRequestType

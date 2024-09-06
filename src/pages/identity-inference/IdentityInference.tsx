@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /*
  * @Description:
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 00:11:04
+ * @LastEditTime: 2024-09-06 16:40:02
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -20,6 +21,10 @@ import { TableCommonV2 } from "@/components/TableCommonV2";
 import { TableCommonV4 } from "@/components/TableCommonV4";
 import { TagComponent } from "@/components/TagComponent";
 import { detectionSampleColumns, modelColumns } from "@/services/columns";
+import {
+  detectActionLogRequestType,
+  detectActionLogService
+} from "@/services/detection";
 import { modelListIdentityMock } from "@/services/mockData/commonList";
 import pattern from "@/styles/pattern";
 
@@ -27,7 +32,7 @@ export function IdentityInference() {
   const navigate = useNavigate();
   const [inputVal, setInputVal] = useState<any>("");
 
-  const [detectionSampleList, setdetectionSampleList] = useState([]);
+  const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
   const [modelList, setModelList] = useState(modelListIdentityMock);
 
   const startSearch = () => {
@@ -38,7 +43,27 @@ export function IdentityInference() {
     }
     navigate(`/threat-evidence/identity-inference/result/${inputVal}`);
   };
+  const getActionLogList = async () => {
+    const params: detectActionLogRequestType = {
+      action: "i2gt",
+      count: 10
+    };
+    const respose = await detectActionLogService(params);
+    const result: any[] = respose.data.map((item: any) => {
+      return {
+        name: item.input,
+        time: item.createAt,
+        result: "-",
+        tag: "-"
+      };
+    });
+    setdetectionSampleList(result);
+    console.log("监测数据>>>>", respose);
+  };
 
+  useEffect(() => {
+    void getActionLogList();
+  }, []);
   return (
     <div className={cn(" w-full h-full pt-[0px] fadeIn", `${pattern.flexbet}`)}>
       <div
@@ -82,12 +107,12 @@ export function IdentityInference() {
           </div>
         </div>
         <div className={cn(`w-full h-[370px] flex justify-between`)}>
-          <div className="w-[calc(50%_-_10px)] h-full flex flex-col">
+          <div className="w-[calc(50%_-_10px)] h-full flex flex-col  justify-between">
             <div className="w-[120px] h-[36px]">
               <TagComponent title="模型信息" className="w-[120px] h-[36px]" />
             </div>
 
-            <div className={cn(` w-full flex-1 mt-4`)}>
+            <div className={cn(` w-full h-[calc(100%_-_52px)] `)}>
               <TableCommonV4
                 className="w-full h-full"
                 data={modelList}
@@ -95,11 +120,11 @@ export function IdentityInference() {
               />
             </div>
           </div>
-          <div className="w-[calc(50%_-_10px)] h-full flex flex-col">
+          <div className="w-[calc(50%_-_10px)] h-full flex flex-col  justify-between">
             <div className="w-[120px] h-[36px]">
               <TagComponent title="检测样例" className="w-[120px] h-[36px]" />
             </div>
-            <div className={cn(` w-full mt-4 flex-1`)}>
+            <div className={cn(` w-full h-[calc(100%_-_52px)] `)}>
               <TableCommonV4
                 className="w-full h-full"
                 data={detectionSampleList}

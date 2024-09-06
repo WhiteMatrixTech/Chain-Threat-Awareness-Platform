@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 14:54:27
+ * @LastEditTime: 2024-09-06 16:31:04
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -42,10 +42,13 @@ const columns3: any = [
 
 export function CrossChainResult() {
   const { tx } = useParams();
+  const [result, setResult] = useState({
+    tx_query_result: [],
+    cross_chain_dependency: [],
+    chains_need_query: [],
+    time: ""
+  });
 
-  const [dataList1, setDateList1] = useState<any>([]);
-  const [dataList2, setDateList2] = useState<any>([]);
-  const [dataList3, setDateList3] = useState<any>([]);
   const [loading, setloading] = useState(true);
   const start = async () => {
     setloading(true);
@@ -56,62 +59,15 @@ export function CrossChainResult() {
       };
       const respose = await detectCrossChainService(params);
       console.log("respose>>>", respose);
+      setResult({
+        ...result,
+        time: (respose.cost / 1000).toFixed(1) + "s",
+        ...respose
+      });
       setloading(false);
     } catch (error) {
       setloading(false);
     }
-
-    const res1 = [
-      {
-        username: "测试数据",
-        dealID: 1,
-        number: 10,
-        projectId: 10,
-        from: "以太坊",
-        to: "以太坊",
-        inputMo: 100,
-        cost: 100,
-        outmoney: 100
-      }
-    ];
-    const res2 = [
-      {
-        accountName: "测试数据",
-        projectId: 10,
-        upDeal: "测试数据",
-        downdeal: "测试数据",
-        depId: 10
-      },
-      {
-        accountName: "测试数据",
-        projectId: 10,
-        upDeal: "测试数据",
-        downdeal: "测试数据",
-        depId: 10
-      },
-      {
-        accountName: "测试数据",
-        projectId: 10,
-        upDeal: "测试数据",
-        downdeal: "测试数据",
-        depId: 10
-      },
-      {
-        accountName: "测试数据",
-        projectId: 10,
-        upDeal: "测试数据",
-        downdeal: "测试数据",
-        depId: 10
-      }
-    ];
-    const res3 = [
-      {
-        linName: "chain001"
-      }
-    ];
-    setDateList1([...res1, ...res1, ...res1, ...res1]);
-    setDateList2(res2);
-    setDateList3(res3);
   };
   useEffect(() => {
     // 请求
@@ -134,14 +90,19 @@ export function CrossChainResult() {
         className={cn(" w-full h-full pt-[0px] fadeIn", `${pattern.flexbet}`)}
       >
         <div className={cn(`w-full h-full flex flex-col `)}>
-          <div className="w-[120px] h-[36px]">
+          <ResultComponent
+            title="检测时间"
+            content={result.time}
+            className="w-full h-[50px]"
+          />
+          <div className="w-[120px] h-[36px] mt-4">
             <TagComponent title="跨链交易输出" className="w-[120px] h-[36px]" />
           </div>
 
           <div className={cn(` w-full h-[272px] mt-4`)}>
             <TableCommonV2
               className=""
-              data={dataList1}
+              data={result.tx_query_result}
               columns={columnsCrossChain1}
             />
           </div>
@@ -152,7 +113,7 @@ export function CrossChainResult() {
           <div className={cn(` w-full h-[272px] mt-4`)}>
             <TableCommonV2
               className=""
-              data={dataList2}
+              data={result.cross_chain_dependency}
               columns={columnsCrossChain2}
             />
           </div>
@@ -161,7 +122,12 @@ export function CrossChainResult() {
           </div>
 
           <div className={cn(` w-full h-[176px] mt-4`)}>
-            <TableCommonV3 className="" data={dataList3} columns={columns3} />
+            <TableCommonV3
+              className=""
+              // data={result.chains_need_query}
+              data={["chain1"]}
+              columns={columns3}
+            />
           </div>
         </div>
       </div>;

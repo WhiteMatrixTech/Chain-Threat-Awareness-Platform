@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 10:44:25
+ * @LastEditTime: 2024-09-06 16:42:26
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -38,7 +38,8 @@ export function MaliciousTransactionResult() {
   const [loading, setloading] = useState(true);
   const [result, setResult] = useState({
     result: "",
-    transaction_id: ""
+    transaction_id: "",
+    time: ""
   });
 
   const [selectedHexData, setSelectedHexData] = useState(initQueryAddress);
@@ -69,7 +70,8 @@ export function MaliciousTransactionResult() {
       setResult({
         ...result,
         result: respose.result,
-        transaction_id: respose.transaction_id
+        transaction_id: respose.transaction_id,
+        time: (respose.cost / 1000).toFixed(1) + "s"
       });
 
       setloading(false);
@@ -108,9 +110,14 @@ export function MaliciousTransactionResult() {
           </div>
           <div className={cn(` w-full h-[50px] ${pattern.flexbet} `)}>
             <ResultComponent
+              title="检测时间"
+              content={result.time}
+              className="w-[173px] h-full"
+            />
+            <ResultComponent
               title="检测结果"
               content={`${result.result}`}
-              className="w-full h-full"
+              className="w-[calc(100%_-_190px)] h-full"
             />
           </div>
         </div>
