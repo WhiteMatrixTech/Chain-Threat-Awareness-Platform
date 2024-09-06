@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 18:30:32
+ * @LastEditTime: 2024-09-05 15:24:54
  */
 import "./App.less";
 
@@ -89,7 +89,7 @@ function App() {
           element={<FewidentityInference />}
         />
         <Route
-          path="/threat-evidence/fewidentity-inference/result"
+          path="/threat-evidence/fewidentity-inference/result/:address/:samples"
           element={<FewidentityInferenceResult />}
         />
         <Route
@@ -110,7 +110,7 @@ function App() {
           element={<ChaincodevulnerabilityDetection />}
         />
         <Route
-          path="/threat-evidence/chaincodevulnerability-detection/result"
+          path="/threat-evidence/chaincodevulnerability-detection/result/:name"
           element={<ChaincodevulnerabilityDetectionResult />}
         />
 

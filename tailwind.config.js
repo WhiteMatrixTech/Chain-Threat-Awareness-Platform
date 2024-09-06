@@ -1,3 +1,10 @@
+/*
+ * @Description:
+ * @Author: didadida262
+ * @Date: 2024-08-30 11:15:06
+ * @LastEditors: didadida262
+ * @LastEditTime: 2024-09-05 23:48:49
+ */
 /* eslint-disable prettier/prettier */
 // eslint-disable-next-line prettier/prettier
 
@@ -10,7 +17,8 @@ module.exports = {
     },
     backgroundColor: theme => ({
       ...theme("colors"),
-      common: "#166CDD"
+      common: "#166CDD",
+      themePrimary: "#2A6CB6"
     }),
     boxShadow: {
       card: "0px 4px 12px rgba(163, 174, 191, 0.2)"

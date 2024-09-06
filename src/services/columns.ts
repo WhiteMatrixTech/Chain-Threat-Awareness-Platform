@@ -4,8 +4,58 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 18:43:34
+ * @LastEditTime: 2024-09-06 09:08:21
  */
+// 模型信息
+export const modelColumns: any = [
+  {
+    title: "模型名称",
+    dataIndex: "name",
+    width: 120
+  },
+  {
+    title: "模型版本",
+    dataIndex: "version",
+    width: 120
+  },
+  {
+    title: "模型训练生成时间",
+    dataIndex: "time",
+    width: 200
+  },
+  {
+    title: "模型检测综合性能f1",
+    dataIndex: "x1",
+    width: 220
+  },
+  {
+    title: "模型性能",
+    dataIndex: "x2"
+  }
+];
+// 检测样例
+export const detectionSampleColumns: any = [
+  {
+    title: "检测地址",
+    dataIndex: "name"
+  },
+  {
+    title: "检测时间",
+    dataIndex: "name",
+    width: 150
+  },
+  {
+    title: "检测结果",
+    dataIndex: "name",
+    width: 150
+  },
+  {
+    title: "实际标签",
+    dataIndex: "name",
+    width: 150
+  }
+];
+
 // 数据仓库列表
 export const dataStoreColumns: any = [
   {
@@ -61,6 +111,63 @@ export const columns: any = [
     title: "数量",
     dataIndex: "number",
     ellipsis: true
+  }
+];
+// 身份推断页、少样本身份推断页表格 变动
+
+export const columnsIdentity: any = [
+  {
+    title: "src",
+    ellipsis: true,
+    dataIndex: "src"
+  },
+  {
+    title: "dst",
+    ellipsis: true,
+    dataIndex: "dst",
+    width: 100
+  },
+  {
+    title: "isError",
+    dataIndex: "isError",
+    ellipsis: true,
+    width: 100
+  },
+  {
+    title: "gas",
+    dataIndex: "gas",
+    ellipsis: true,
+    width: 100
+  },
+  {
+    title: "timeStamp",
+    dataIndex: "timeStamp",
+    ellipsis: true,
+    width: 100
+  },
+  {
+    title: "blockNumber",
+    dataIndex: "blockNumber",
+    ellipsis: true,
+    width: 100
+  },
+  {
+    title: "value",
+    dataIndex: "value",
+    ellipsis: true,
+    width: 100
+  },
+  {
+    title: "gasUsed",
+    dataIndex: "gasUsed",
+    ellipsis: true,
+    width: 100
+  },
+  {
+    title: "gasPrice",
+    dataIndex: "gasPrice",
+    ellipsis: true,
+    width: 100
   }
 ];
 

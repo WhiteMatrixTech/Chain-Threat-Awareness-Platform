@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 17:31:31
+ * @LastEditTime: 2024-09-05 10:55:51
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -25,7 +25,7 @@ export function DetectionFish() {
   const [resultContent, setResultContent] = useState("");
 
   const [
-    { loading: registerLoading },
+    { loading },
     detectFish
   ] = useAsyncFn(async (params: detectFishRequestType) => {
     const data = await detectFishService(params);
@@ -42,7 +42,9 @@ export function DetectionFish() {
         chain: "eth"
       };
       const respose = await detectFish(params);
-      setResultContent(respose);
+      console.log("respose>>>", respose);
+      const content = `检测结果：${respose.status}`;
+      setResultContent(content);
     } catch (error) {}
   };
 
@@ -81,8 +83,8 @@ export function DetectionFish() {
               >
                 <ButtonCommonV2
                   className=""
-                  loading={registerLoading}
-                  disable={registerLoading}
+                  loading={loading}
+                  disable={loading}
                   onClick={() => {
                     void start();
                   }}
@@ -102,7 +104,7 @@ export function DetectionFish() {
             <span className="text-[#FFFFFF] text-[16px]">
               {resultContent}
             </span>
-            {registerLoading &&
+            {loading &&
               <div
                 className={cn(
                   "w-full h-full absolute top-0 left-0",

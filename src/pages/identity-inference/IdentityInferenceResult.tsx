@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /*
  * @Description:
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 18:11:02
+ * @LastEditTime: 2024-09-06 09:08:54
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -25,10 +26,14 @@ import { InputCommonV2 } from "@/components/InputCommonV2";
 import { ResultComponent } from "@/components/ResultComponent";
 import { SpinCommon } from "@/components/SpinCommon";
 import { TableCommonV2 } from "@/components/TableCommonV2";
-import { columns } from "@/services/columns";
+import { columns, columnsIdentity } from "@/services/columns";
 import {
+  detectFishRequestType,
+  detectFishService,
   detectIdentityRequestType,
-  detectIdentityService
+  detectIdentityService,
+  getTransactionsRequestType,
+  getTransactionsService
 } from "@/services/detection";
 import {
   generateAddressData,
@@ -41,9 +46,38 @@ import { IGraphFormData } from "@/utils/IdentityTypes";
 
 export function IdentityInferenceResult() {
   const { address } = useParams();
-  const [pageState, setPageState] = useState("search");
-  const [value, setValue] = useState<any>(null);
-  const [dataList, setDateList] = useState<any>([]);
+  const [result, setResult] = useState({
+    time: "",
+    detectionResult: "",
+    identity: "",
+    dataList: [
+      {
+        name: "测试数据",
+        chainType: "测试数据",
+        number: 10
+      },
+      {
+        name: "测试数据",
+        chainType: "测试数据",
+        number: 10
+      },
+      {
+        name: "测试数据",
+        chainType: "测试数据",
+        number: 10
+      },
+      {
+        name: "测试数据",
+        chainType: "测试数据",
+        number: 10
+      },
+      {
+        name: "测试数据",
+        chainType: "测试数据",
+        number: 10
+      }
+    ]
+  });
   const [selectedHexData, setSelectedHexData] = useState(
     address || initQueryAddress
   );
@@ -74,38 +108,34 @@ export function IdentityInferenceResult() {
       const respose = await detectIdentityService(params);
       console.log("respose>>>", respose);
 
+      const paramsTransaction: getTransactionsRequestType = {
+        address: address || "",
+        limit: 100
+      };
+      const resposeTransaction = await getTransactionsService(
+        paramsTransaction
+      );
+      console.log("查询交易数据>>>!!!", resposeTransaction);
+
+      const paramsFish: detectFishRequestType = {
+        address: address || "",
+        chain: "eth"
+      };
+      const resposeFish = await detectFishService(paramsFish);
+      console.log("钓鱼判断数据>>>!!!", resposeFish);
+
+      setResult({
+        ...result,
+        identity: respose.identity,
+        time: (respose.cost / 1000).toFixed(1) + "s",
+        detectionResult: resposeFish.status || "无"
+        // dataList: resposeTransaction.data
+      });
+
       setloading(false);
     } catch (error) {
       setloading(false);
     }
-    const res = [
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      }
-    ];
-    setDateList(res);
   };
 
   useEffect(() => {
@@ -140,18 +170,27 @@ export function IdentityInferenceResult() {
         </div>
         <div className={cn(` w-full h-[50px] ${pattern.flexbet} `)}>
           <ResultComponent
+            title="检测时间"
+            content={result.time}
+            className="w-[173px] h-full"
+          />
+          <ResultComponent
             title="检测结果"
-            content="这是钓鱼诈骗地址"
-            className="w-[calc(50%_-_15px)] h-full"
+            content={result.detectionResult}
+            className="w-[calc(50%_-_100px)] h-full"
           />
           <ResultComponent
             title="可能的身份"
-            content="xxx"
-            className="w-[calc(50%_-_15px)] h-full"
+            content={result.identity}
+            className="w-[calc(50%_-_100px)] h-full"
           />
         </div>
         <div className={cn(` w-full h-[320px]`)}>
-          <TableCommonV2 className="" data={dataList} columns={columns} />
+          <TableCommonV2
+            className=""
+            data={result.dataList}
+            columns={columns}
+          />
         </div>
       </div>;
 }
