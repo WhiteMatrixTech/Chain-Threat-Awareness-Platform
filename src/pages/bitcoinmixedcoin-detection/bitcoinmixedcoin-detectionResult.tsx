@@ -1,10 +1,12 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /*
  * @Description:
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 10:39:17
+ * @LastEditTime: 2024-09-06 17:31:16
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -25,42 +27,59 @@ import pattern from "@/styles/pattern";
 export function BitcoinmixedcoinDetectionResult() {
   const { tx } = useParams();
   const [result, setResult] = useState({
-    detectionResult: "",
+    result: "",
+    hash_id: "",
+    time: "",
     infoData: "",
     conclusionData: "",
-    transaction_id: "",
     dataList: [
       {
         title: "输入金额：",
-        value: "6.739832749237 BTC"
+        key: "input_value",
+        value: "",
+        rem: " BTC"
       },
       {
-        title: "输入金额：",
-        value: "6.739832749237 BTC"
+        title: "输出金额：",
+        key: "output_value",
+        value: "",
+        rem: " BTC"
       },
       {
         title: "输入数量：",
-        value: 33
+        key: "inputs_count",
+        value: "",
+        rem: ""
       },
       {
         title: "输出数量：",
-        value: 58
+        key: "outputs_count",
+        value: "",
+        rem: ""
       },
       {
         title: "手续费：",
-        value: "0.00329847923 BTC"
+        key: "fee",
+        value: "",
+        rem: " BTC"
       },
       {
         title: "交易大小：",
-        value: "6,387 Bytes"
+        key: "size",
+        value: "6,387",
+        rem: " Bytes"
       },
       {
         title: "交易费率：",
-        value: "86.837 sat/vByte"
+        key: "fee_per_vb",
+        value: "",
+        rem: " sat/vByte"
       },
       {
         title: "交易时间：",
-        value: "14 Mar 2020 07:08:57"
+        key: "broadcasted_at",
+        value: "14 Mar 2020 07:08:57",
+        rem: ""
       }
     ]
   });
@@ -74,12 +93,23 @@ export function BitcoinmixedcoinDetectionResult() {
         chain: "btc"
       };
       const respose = await detectBitcoinmixedcoinService(params);
+
+      console.log("respose>>>", respose);
+      const re = result.dataList.map((item: any) => {
+        const newValue = respose[item.key];
+        return {
+          ...item,
+          value: newValue
+        };
+      });
       setResult({
         ...result,
-        detectionResult: respose.result,
-        transaction_id: respose.transaction_id
+        ...respose,
+        time: (respose.cost / 1000).toFixed(1) + "s",
+        dataList: [...re],
+        conclusionData: respose.summary
       });
-      console.log("respose>>>", respose);
+
       setloading(false);
     } catch (error) {
       setloading(false);
@@ -105,12 +135,20 @@ export function BitcoinmixedcoinDetectionResult() {
     : <div
         className={cn(" w-full h-full pt-[0px] fadeIn", `${pattern.flexbet}`)}
       >
-        <div className={cn(`w-full h-full`)}>
-          <ResultComponent
-            title="检测结果"
-            content={`该交易是${result.detectionResult}`}
-            className="w-full h-[50px]"
-          />
+        <div className={cn(`w-full h-full `)}>
+          <div className="w-full h-[50px] flex justify-between items-center">
+            <ResultComponent
+              title="检测时间"
+              content={result.time}
+              className="w-[174px] h-[50px]"
+            />
+            <ResultComponent
+              title="检测结果"
+              content={`该交易是${result.result}`}
+              className="w-[calc(100%_-_190px)] h-[50px]"
+            />
+          </div>
+
           <div className="w-[120px] h-[36px] mt-7">
             <TagComponent title="交易分布信息" className="w-[120px] h-[36px]" />
           </div>
@@ -127,7 +165,7 @@ export function BitcoinmixedcoinDetectionResult() {
             >
               <span className="text-[#ffffff] text-[15px]">Hash ID :</span>
               <span className="text-[#ffffff] text-[20px]">
-                {result.transaction_id}
+                {result.hash_id}
               </span>
             </div>
             <div className={cn(`w-full flex-1 ${pattern.flexbet}`)}>
@@ -146,7 +184,7 @@ export function BitcoinmixedcoinDetectionResult() {
                         {item.title}
                       </span>
                       <span className="text-[#ffffff] text-[20px]">
-                        {item.value}
+                        {item.value + item.rem}
                       </span>
                     </div>
                   )}
@@ -172,7 +210,7 @@ export function BitcoinmixedcoinDetectionResult() {
                         {item.title}
                       </span>
                       <span className="text-[#ffffff] text-[20px]">
-                        {item.value}
+                        {item.value + item.rem}
                       </span>
                     </div>
                   )}
@@ -184,7 +222,7 @@ export function BitcoinmixedcoinDetectionResult() {
           </div>
           <div
             className={cn(
-              `w-full h-[224px] px-5 py-5 mt-4`,
+              `w-full h-[224px] px-5 py-5 mt-4 overflow-scroll`,
               "bg-[#02004D4D]",
               `border-[2px] border-solid border-[#0D53B7]`,
               "flex flex-col gap-y-5 text-[#ffffff]"
@@ -195,7 +233,7 @@ export function BitcoinmixedcoinDetectionResult() {
             >
               <span className="text-[15px]">Hash ID :</span>
               <span className="text-[20px]">
-                {result.transaction_id}
+                {result.hash_id}
               </span>
             </div>
             <div className="content text-[15px]">
