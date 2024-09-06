@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 09:08:21
+ * @LastEditTime: 2024-09-06 15:33:42
  */
 // 模型信息
 export const modelColumns: any = [
@@ -30,7 +30,8 @@ export const modelColumns: any = [
   },
   {
     title: "模型性能",
-    dataIndex: "x2"
+    dataIndex: "x2",
+    width: 220
   }
 ];
 // 检测样例
@@ -41,18 +42,17 @@ export const detectionSampleColumns: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "name",
-    width: 150
+    dataIndex: "time"
   },
   {
     title: "检测结果",
-    dataIndex: "name",
+    dataIndex: "result",
     width: 150
   },
   {
     title: "实际标签",
-    dataIndex: "name",
-    width: 150
+    dataIndex: "tag",
+    width: 200
   }
 ];
 
@@ -113,19 +113,20 @@ export const columns: any = [
     ellipsis: true
   }
 ];
-// 身份推断页、少样本身份推断页表格 变动
+// 身份推断页、少样本身份推断页表格V2变动
 
 export const columnsIdentity: any = [
   {
     title: "src",
     ellipsis: true,
-    dataIndex: "src"
+    dataIndex: "src",
+    width: 200
   },
   {
     title: "dst",
     ellipsis: true,
     dataIndex: "dst",
-    width: 100
+    width: 200
   },
   {
     title: "isError",
@@ -143,19 +144,19 @@ export const columnsIdentity: any = [
     title: "timeStamp",
     dataIndex: "timeStamp",
     ellipsis: true,
-    width: 100
+    width: 150
   },
   {
     title: "blockNumber",
     dataIndex: "blockNumber",
     ellipsis: true,
-    width: 100
+    width: 150
   },
   {
     title: "value",
     dataIndex: "value",
     ellipsis: true,
-    width: 100
+    width: 200
   },
   {
     title: "gasUsed",

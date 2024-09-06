@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 09:08:54
+ * @LastEditTime: 2024-09-06 15:27:30
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -50,33 +50,7 @@ export function IdentityInferenceResult() {
     time: "",
     detectionResult: "",
     identity: "",
-    dataList: [
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      },
-      {
-        name: "测试数据",
-        chainType: "测试数据",
-        number: 10
-      }
-    ]
+    dataList: []
   });
   const [selectedHexData, setSelectedHexData] = useState(
     address || initQueryAddress
@@ -128,8 +102,8 @@ export function IdentityInferenceResult() {
         ...result,
         identity: respose.identity,
         time: (respose.cost / 1000).toFixed(1) + "s",
-        detectionResult: resposeFish.status || "无"
-        // dataList: resposeTransaction.data
+        detectionResult: resposeFish.status || "无",
+        dataList: resposeTransaction.data
       });
 
       setloading(false);
@@ -189,7 +163,7 @@ export function IdentityInferenceResult() {
           <TableCommonV2
             className=""
             data={result.dataList}
-            columns={columns}
+            columns={columnsIdentity}
           />
         </div>
       </div>;

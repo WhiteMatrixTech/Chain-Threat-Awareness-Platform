@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /*
  * @Description: 无限列表版
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-30 15:11:56
+ * @LastEditTime: 2024-09-06 15:31:23
  */
 /* eslint-disable prettier/prettier */
 
@@ -21,6 +22,7 @@ interface IProps {
 
 export function TableCommonV2(props: IProps) {
   const { data, columns, className } = props;
+  const maxNum = 10;
 
   return (
     <div
@@ -69,7 +71,13 @@ export function TableCommonV2(props: IProps) {
                       key={colkey}
                     >
                       <span className={cn("text-[15px] text-[#ffffff]")}>
-                        {col.dataIndex ? item[col.dataIndex] : index + 1}
+                        {/* {col.dataIndex ? item[col.dataIndex] : index + 1} */}
+                        {col.dataIndex
+                          ? item[col.dataIndex] &&
+                            item[col.dataIndex].length > maxNum
+                            ? item[col.dataIndex].slice(0, maxNum) + "..."
+                            : item[col.dataIndex]
+                          : index + 1}
                       </span>
                     </div>
                   )}
