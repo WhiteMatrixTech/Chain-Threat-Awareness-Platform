@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 18:01:00
+ * @LastEditTime: 2024-09-06 09:08:54
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -26,7 +26,7 @@ import { InputCommonV2 } from "@/components/InputCommonV2";
 import { ResultComponent } from "@/components/ResultComponent";
 import { SpinCommon } from "@/components/SpinCommon";
 import { TableCommonV2 } from "@/components/TableCommonV2";
-import { columns } from "@/services/columns";
+import { columns, columnsIdentity } from "@/services/columns";
 import {
   detectFishRequestType,
   detectFishService,
@@ -107,10 +107,29 @@ export function IdentityInferenceResult() {
       };
       const respose = await detectIdentityService(params);
       console.log("respose>>>", respose);
+
+      const paramsTransaction: getTransactionsRequestType = {
+        address: address || "",
+        limit: 100
+      };
+      const resposeTransaction = await getTransactionsService(
+        paramsTransaction
+      );
+      console.log("查询交易数据>>>!!!", resposeTransaction);
+
+      const paramsFish: detectFishRequestType = {
+        address: address || "",
+        chain: "eth"
+      };
+      const resposeFish = await detectFishService(paramsFish);
+      console.log("钓鱼判断数据>>>!!!", resposeFish);
+
       setResult({
         ...result,
         identity: respose.identity,
-        time: respose.cost / 1000 + "s"
+        time: (respose.cost / 1000).toFixed(1) + "s",
+        detectionResult: resposeFish.status || "无"
+        // dataList: resposeTransaction.data
       });
 
       setloading(false);
@@ -118,27 +137,9 @@ export function IdentityInferenceResult() {
       setloading(false);
     }
   };
-  const getTransactions = async () => {
-    const params: getTransactionsRequestType = {
-      address: address || "",
-      limit: 100
-    };
-    const respose = await getTransactionsService(params);
-    console.log("查询交易数据>>>!!!", respose);
-  };
-  const getFishResult = async () => {
-    const params: detectFishRequestType = {
-      address: address || "",
-      chain: "eth"
-    };
-    const respose = await detectFishService(params);
-    console.log("钓鱼接口>>>响应", respose);
-  };
 
   useEffect(() => {
     // setSelectedHexData(address || initQueryAddress);
-    void getTransactions();
-    void getFishResult();
     void start();
   }, []);
 

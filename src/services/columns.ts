@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 23:21:50
+ * @LastEditTime: 2024-09-06 09:08:21
  */
 // 模型信息
 export const modelColumns: any = [
@@ -111,6 +111,63 @@ export const columns: any = [
     title: "数量",
     dataIndex: "number",
     ellipsis: true
+  }
+];
+// 身份推断页、少样本身份推断页表格 变动
+
+export const columnsIdentity: any = [
+  {
+    title: "src",
+    ellipsis: true,
+    dataIndex: "src"
+  },
+  {
+    title: "dst",
+    ellipsis: true,
+    dataIndex: "dst",
+    width: 100
+  },
+  {
+    title: "isError",
+    dataIndex: "isError",
+    ellipsis: true,
+    width: 100
+  },
+  {
+    title: "gas",
+    dataIndex: "gas",
+    ellipsis: true,
+    width: 100
+  },
+  {
+    title: "timeStamp",
+    dataIndex: "timeStamp",
+    ellipsis: true,
+    width: 100
+  },
+  {
+    title: "blockNumber",
+    dataIndex: "blockNumber",
+    ellipsis: true,
+    width: 100
+  },
+  {
+    title: "value",
+    dataIndex: "value",
+    ellipsis: true,
+    width: 100
+  },
+  {
+    title: "gasUsed",
+    dataIndex: "gasUsed",
+    ellipsis: true,
+    width: 100
+  },
+  {
+    title: "gasPrice",
+    dataIndex: "gasPrice",
+    ellipsis: true,
+    width: 100
   }
 ];
 

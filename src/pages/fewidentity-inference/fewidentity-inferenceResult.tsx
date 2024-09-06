@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 15:48:55
+ * @LastEditTime: 2024-09-06 09:14:34
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -39,7 +39,7 @@ export function FewidentityInferenceResult() {
   const [loading, setloading] = useState(true);
   const [result, setResult] = useState({
     result: "",
-    time: 0
+    time: ""
   });
 
   const [dataList, setDateList] = useState<any>([]);
@@ -71,7 +71,7 @@ export function FewidentityInferenceResult() {
       console.log("respose>>>", respose);
       setResult({
         ...result,
-        time: respose.time,
+        time: (respose.cost / 1000).toFixed(1) + "s",
         result: respose.identity
       });
       setloading(false);
@@ -141,9 +141,14 @@ export function FewidentityInferenceResult() {
           </div>
           <div className={cn(` w-full h-[50px] ${pattern.flexbet} `)}>
             <ResultComponent
+              title="检测时间"
+              content={result.time}
+              className="w-[173px] h-full"
+            />
+            <ResultComponent
               title="是否与提供的地址身份相同"
               content={result.result}
-              className="w-full h-full"
+              className="w-[calc(100%_-_190px)] h-full"
             />
           </div>
           <div className={cn(` w-full h-[320px]`)}>
