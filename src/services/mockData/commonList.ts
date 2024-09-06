@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-09-06 00:03:37
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 00:36:59
+ * @LastEditTime: 2024-09-06 01:12:16
  */
 export const modelListIdentityMock = [
   {
@@ -38,5 +38,15 @@ export const modelListChainCodeMock = [
     time: "2024-07-26 10:28",
     x1: "93.52%",
     x2: "常见的五种链码漏洞检测"
+  }
+];
+
+export const modelListBitCoinMock = [
+  {
+    name: "TSTC",
+    version: "v1.0",
+    time: "2024-07-30 12:05",
+    x1: "92.00%",
+    x2: "检测混币交易"
   }
 ];

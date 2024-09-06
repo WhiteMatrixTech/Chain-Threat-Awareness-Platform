@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-30 11:15:05
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 16:43:35
+ * @LastEditTime: 2024-09-06 08:45:07
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import type { MenuProps } from 'antd';
@@ -66,10 +66,10 @@ export const MenuList: any[] = [
     src: NabLogo3,
 
     children: [
-      {
-        label: '地址分析',
-        key: '/threat-evidence/address-analysis'
-      },
+      // {
+      //   label: '地址分析',
+      //   key: '/threat-evidence/address-analysis'
+      // },
       {
         label: '交易图谱',
         key: '/threat-evidence/transaction-graph'
