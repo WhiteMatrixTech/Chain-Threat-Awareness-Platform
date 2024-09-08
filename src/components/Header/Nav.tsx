@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 18:22:50
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 16:53:35
+ * @LastEditTime: 2024-09-08 21:37:04
  */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
@@ -85,7 +85,7 @@ export function Nav() {
                    </div>                
                 )} */}
     
-                <span>
+                <span className="select-none">
                   {item.label}
                 </span>
                 {item.children &&
@@ -102,7 +102,7 @@ export function Nav() {
                 {item.children && item.children.length && arrowRotate === item.key && (
                   <ul className="absolute top-[68px] left-[-15px]  w-[171px] bg-[#2A6CB6] z-[100] duration-300">
                     {item.children.map((liItem: any, liIndex: number) => (
-                      <li key={liIndex} className={`${pattern.flexCenter} w-full h-[34px] hover:cursor-pointer`}
+                      <li key={liIndex} className={`${pattern.flexCenter} select-none w-full h-[34px] hover:cursor-pointer`}
                         onClick={() => {
                           setArrowRotate("");
                           navigate(liItem.key)
