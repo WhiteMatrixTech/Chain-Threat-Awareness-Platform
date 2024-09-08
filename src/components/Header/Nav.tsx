@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 18:22:50
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-08 21:37:04
+ * @LastEditTime: 2024-09-08 21:51:17
  */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
@@ -55,7 +55,7 @@ export function Nav() {
             <div
               key={index}
               className={cn(
-                `w-[146px] h-[64px]  py-[13px] px-[19px] ${pattern.flexCenter} hover:cursor-pointer relative`,
+                `min-w-[146px] h-[64px]  py-[13px] px-[19px] ${pattern.flexCenter} hover:cursor-pointer relative`,
                 activeNav === item.key
                   ? "bg-[#3BA4FF33] border-[2px] border-solid border-[#3BA4FF]"
                   : ""
@@ -64,7 +64,6 @@ export function Nav() {
               <div
                 className={cn(
                   ` ${pattern.flexCenter} min-w-[130px] h-full  text-[24px] font-[500] text-[#EFF4FF] `,
-                  activeNav === item.key ? "" : "bg-[#6A707C33] "
 
                   // background: var(--series-3100, #EFF4FF);
                   // box-shadow: 0px 0px 8px 0px #3BA4FF;
@@ -79,11 +78,11 @@ export function Nav() {
                 }}
                 >
                   {/* 待ui更新图 */}
-                  {/* {item.src && (
-                    <div className={` mr-2 w-[30px] h-full ${pattern.flexCenter}`}>
+                  {item.src && (
+                    <div className={` mr-2 w-[30px] h-[30px] ${pattern.flexCenter}`}>
                       <img src={item.src}  alt="" className="" />
                    </div>                
-                )} */}
+                )}
     
                 <span className="select-none">
                   {item.label}
@@ -100,7 +99,7 @@ export function Nav() {
                   </div>}
               </div>
                 {item.children && item.children.length && arrowRotate === item.key && (
-                  <ul className="absolute top-[68px] left-[-15px]  w-[171px] bg-[#2A6CB6] z-[100] duration-300">
+                  <ul className="absolute top-[68px] left-[0px]  w-full bg-[#2A6CB6] z-[100] duration-300">
                     {item.children.map((liItem: any, liIndex: number) => (
                       <li key={liIndex} className={`${pattern.flexCenter} select-none w-full h-[34px] hover:cursor-pointer`}
                         onClick={() => {
