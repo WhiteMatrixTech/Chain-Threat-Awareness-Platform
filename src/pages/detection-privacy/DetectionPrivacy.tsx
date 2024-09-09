@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -6,11 +7,11 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 15:01:56
+ * @LastEditTime: 2024-09-09 16:17:43
  */
 import { notification } from "antd";
 import cn from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useAsyncFn } from "react-use";
 
@@ -24,6 +25,8 @@ import {
 import { TableCommonV4 } from "@/components/TableCommonV4";
 import { detectionSamplePrivacyColumns } from "@/services/columns";
 import {
+  detectActionLogRequestType,
+  detectActionLogService,
   detectSelfishminingRequestType,
   detectSelfishminingService
 } from "@/services/detection";
@@ -87,7 +90,27 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     setResultContent("测试数据!!!");
     console.log("params>>>>", params);
   };
+  const getActionLogList = async () => {
+    const params: detectActionLogRequestType = {
+      action: "selfish_mining",
+      count: 10
+    };
+    const respose = await detectActionLogService(params);
+    const result: any[] = respose.data.map((item: any) => {
+      return {
+        name: item.input,
+        time: item.createAt,
+        result: JSON.parse(item.output).identity,
+      };
+    });
+    setdetectionSampleList(result);
+    console.log("检测数据>>>>", respose);
+    console.log("检测数据>>>result>", result);
+  };
 
+  useEffect(() => {
+    void getActionLogList();
+  }, []);
   return (
     <div className={cn("w-full h-full pt-[0px]", `${pattern.flexbet} pb-[110px]`)}>
       <div
