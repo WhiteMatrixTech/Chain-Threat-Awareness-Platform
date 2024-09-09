@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 16:54:25
+ * @LastEditTime: 2024-09-09 17:07:19
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -24,8 +24,6 @@ import {
   detectActionLogService,
   detectAttackRequestType,
   detectAttackService,
-  detectSelfishminingRequestType,
-  detectSelfishminingService
 } from "@/services/detection";
 import pattern from "@/styles/pattern";
 
@@ -137,8 +135,8 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
                     }}
                     className="w-[450px] h-[36px] "
                   >
-                  <span className="text-[#FFFFFF] text-[16px]">开始检测</span>
-                </ButtonCommonCyber>
+                    <span className="text-[#FFFFFF] text-[16px]">开始检测</span>
+                  </ButtonCommonCyber>
               </div>  
               {result.time.length !== 0 && (
                 <div className="w-full h-[22px] flex justify-center items-center">
