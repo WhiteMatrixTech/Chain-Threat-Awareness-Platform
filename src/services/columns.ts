@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 14:25:29
+ * @LastEditTime: 2024-09-09 16:40:16
  */
 // 模型信息
 export const modelColumns: any = [
@@ -36,6 +36,22 @@ export const modelColumns: any = [
 ];
 // 自私挖矿检测样例
 export const detectionSamplePrivacyColumns: any = [
+  {
+    title: "检测地址",
+    dataIndex: "name"
+  },
+  {
+    title: "检测时间",
+    dataIndex: "time"
+  },
+  {
+    title: "检测结果",
+    dataIndex: "result",
+    width: 150
+  }
+];
+// 抢跑攻击检测样例
+export const detectionSampleAttackColumns: any = [
   {
     title: "检测地址",
     dataIndex: "name"

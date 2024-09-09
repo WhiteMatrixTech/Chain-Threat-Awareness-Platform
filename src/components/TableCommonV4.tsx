@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 14:48:02
+ * @LastEditTime: 2024-09-09 16:38:09
  */
 /* eslint-disable prettier/prettier */
 
@@ -55,6 +55,7 @@ export function TableCommonV4(props: IProps) {
           )}
       </div>
       {data &&
+        data.length !== 0 &&
         <div className="content w-full h-[calc(100%_-_40px)]">
           {data &&
             data.map((item: any, index: number) =>
@@ -108,6 +109,8 @@ export function TableCommonV4(props: IProps) {
               </div>
             )}
         </div>}
+      {!data.length &&
+        <div className={cn(` w-full h-[calc(100%_-_40px)] `)}>暂无数据....</div>}
     </div>
   );
 }
