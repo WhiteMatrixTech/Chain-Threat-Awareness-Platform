@@ -3,16 +3,16 @@
  * @Author: didadida262
  * @Date: 2024-08-30 11:15:05
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 08:45:07
+ * @LastEditTime: 2024-09-08 21:45:54
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import type { MenuProps } from 'antd';
 import { cloneDeep } from 'lodash';
 
-import NabLogo1 from '@/assets/navLogo1.png';
-import NabLogo2 from '@/assets/navLogo2.png';
-import NabLogo3 from '@/assets/navLogo3.png';
-import NabLogo4 from '@/assets/navLogo4.png';
+import NabLogo1 from '@/assets/navlogo30_1.png';
+import NabLogo2 from '@/assets/navlogo30_2.png';
+import NabLogo3 from '@/assets/navlogo30_3.png';
+import NabLogo4 from '@/assets/navlogo30_4.png';
 import { flatTreeData, ITree } from '@/utils/common';
 
 // eslint-disable-next-line @typescript-eslint/no-type-alias
