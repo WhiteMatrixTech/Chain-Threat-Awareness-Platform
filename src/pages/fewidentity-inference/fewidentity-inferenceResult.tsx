@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 15:58:36
+ * @LastEditTime: 2024-09-10 00:38:13
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -19,7 +19,7 @@ import {
   TGraphinClickTarget
 } from "@/components/GraphV2/AddressTxGraph";
 import { ResultComponent } from "@/components/ResultComponent";
-import { TableCommonV2 } from "@/components/TableCommonV2";
+import { TableCommonV4 } from "@/components/TableCommonV4";
 import { columns, columnsIdentity } from "@/services/columns";
 import {
   detectFewSamplesRequestType,
@@ -144,8 +144,8 @@ export function FewidentityInferenceResult() {
             />
           </div>
           <div className={cn(` w-full h-[320px]`)}>
-            <TableCommonV2
-              className=""
+            <TableCommonV4
+              className="w-full h-full"
               data={result.dataList}
               columns={columnsIdentity}
             />

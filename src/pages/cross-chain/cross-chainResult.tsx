@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 17:17:51
+ * @LastEditTime: 2024-09-10 00:44:19
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -22,8 +22,7 @@ import {
   ISelectorItemProps,
   SelectorCommonV2
 } from "@/components/SelectorCommonV2";
-import { TableCommonV2 } from "@/components/TableCommonV2";
-import { TableCommonV3 } from "@/components/TableCommonV3";
+import { TableCommonV4 } from "@/components/TableCommonV4";
 import { TagComponent } from "@/components/TagComponent";
 import { columnsCrossChain1, columnsCrossChain2 } from "@/services/columns";
 import {
@@ -100,8 +99,8 @@ export function CrossChainResult() {
           </div>
 
           <div className={cn(` w-full h-[272px] mt-4`)}>
-            <TableCommonV2
-              className=""
+            <TableCommonV4
+              className="w-full h-full"
               data={result.tx_query_result}
               columns={columnsCrossChain1}
             />
@@ -111,8 +110,8 @@ export function CrossChainResult() {
           </div>
 
           <div className={cn(` w-full h-[272px] mt-4`)}>
-            <TableCommonV2
-              className=""
+            <TableCommonV4
+              className="w-full h-full"
               data={result.cross_chain_dependency}
               columns={columnsCrossChain2}
             />

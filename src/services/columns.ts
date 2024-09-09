@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 22:18:00
+ * @LastEditTime: 2024-09-10 00:49:59
  */
 // 模型信息
 export const modelColumns: any = [
@@ -30,8 +30,7 @@ export const modelColumns: any = [
   },
   {
     title: "模型性能",
-    dataIndex: "x2",
-    width: 110
+    dataIndex: "x2"
   }
 ];
 // 自私挖矿检测样例
@@ -76,29 +75,29 @@ export const detectionSampleAttackColumns: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "time"
+    dataIndex: "time",
+    width: 200
   },
   {
     title: "检测结果",
-    dataIndex: "result",
-    width: 200
+    dataIndex: "result"
   }
 ];
 // 身份推断检测样例
 export const detectionSampleColumns: any = [
   {
     title: "检测地址",
-    dataIndex: "name",
-    width: 250
+    dataIndex: "name"
   },
   {
     title: "检测时间",
     dataIndex: "time",
-    width: 250
+    width: 200
   },
   {
     title: "检测结果",
-    dataIndex: "result"
+    dataIndex: "result",
+    width: 150
   }
 ];
 // 少样本检测样例
@@ -120,16 +119,32 @@ export const detectionFewSampleColumns: any = [
   },
   {
     title: "检测结果",
-    dataIndex: "result",
-    width: 150
+    dataIndex: "result"
   }
 ];
 // 恶意交易检测样例
 export const detectionMaliciousSampleColumns: any = [
   {
     title: "检测地址",
+    dataIndex: "name"
+  },
+  {
+    title: "检测时间",
+    dataIndex: "time",
+    width: 200
+  },
+  {
+    title: "检测结果",
+    dataIndex: "result",
+    width: 150
+  }
+];
+// 跨链检测样例
+export const detectionSampleCrossChainColumns: any = [
+  {
+    title: "检测地址",
     dataIndex: "name",
-    width: 250
+    width: 100
   },
   {
     title: "检测时间",
@@ -139,6 +154,40 @@ export const detectionMaliciousSampleColumns: any = [
   {
     title: "检测结果",
     dataIndex: "result"
+  }
+];
+// 链码检测样例
+export const detectionSampleChainCodeColumns: any = [
+  {
+    title: "检测地址",
+    dataIndex: "name"
+  },
+  {
+    title: "检测时间",
+    dataIndex: "time",
+    width: 200
+  },
+  {
+    title: "检测结果",
+    dataIndex: "result",
+    width: 200
+  }
+];
+// 混币检测样例
+export const detectionSampleBitCoinColumns: any = [
+  {
+    title: "检测地址",
+    dataIndex: "name"
+  },
+  {
+    title: "检测时间",
+    dataIndex: "time",
+    width: 200
+  },
+  {
+    title: "检测结果",
+    dataIndex: "result",
+    width: 150
   }
 ];
 // 数据仓库列表
@@ -152,19 +201,19 @@ export const dataStoreColumns: any = [
     title: "数据集名称",
     dataIndex: "name",
     ellipsis: true,
-    width: 320
+    width: 200
   },
   {
     title: "区块链",
     dataIndex: "chainType",
     ellipsis: true,
-    width: 320
+    width: 150
   },
   {
     title: "数量",
     dataIndex: "total",
     ellipsis: true,
-    width: 320
+    width: 100
   },
   {
     title: "描述",
@@ -204,14 +253,13 @@ export const columnsIdentity: any = [
   {
     title: "src",
     ellipsis: true,
-    dataIndex: "src",
-    width: 200
+    dataIndex: "src"
   },
   {
     title: "dst",
     ellipsis: true,
     dataIndex: "dst",
-    width: 200
+    width: 300
   },
   {
     title: "isError",
@@ -253,7 +301,7 @@ export const columnsIdentity: any = [
     title: "gasPrice",
     dataIndex: "gasPrice",
     ellipsis: true,
-    width: 100
+    width: 150
   }
 ];
 
@@ -263,39 +311,38 @@ export const columnsCrossChain1: any = [
     title: "交易号",
     ellipsis: true,
     dataIndex: "Tx_id",
-    width: 100
+    width: 150
   },
 
   {
     title: "账户名",
     dataIndex: "Account_number",
     ellipsis: true,
-    width: 320
+    width: 150
   },
   {
     title: "来源",
     dataIndex: "From",
-    ellipsis: true,
-    width: 320
+    ellipsis: true
   },
   {
     title: "流向",
     dataIndex: "To",
     ellipsis: true,
-    width: 320
+    width: 350
   },
   {
     title: "输入金额",
     dataIndex: "Input_coin",
     ellipsis: true,
-    width: 320
+    width: 200
   },
 
   {
     title: "交易费",
     dataIndex: "Fee",
     ellipsis: true,
-    width: 320
+    width: 200
   },
   {
     title: "输出金额",
@@ -349,13 +396,13 @@ export const columnsChainCode: any = [
     title: "漏洞总数",
     dataIndex: "num",
     ellipsis: true,
-    width: 320
+    width: 120
   },
   {
     title: "漏洞类型",
     dataIndex: "type",
     ellipsis: true,
-    width: 320
+    width: 120
   },
   {
     title: "漏洞产生的原因",

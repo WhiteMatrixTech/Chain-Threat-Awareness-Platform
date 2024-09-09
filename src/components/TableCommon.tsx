@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable prettier/prettier */
 /*
@@ -5,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-03 17:58:24
+ * @LastEditTime: 2024-09-10 00:15:52
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -22,7 +23,14 @@ interface IProps {
 const maxcharNum = 40;
 export function TableCommon(props: IProps) {
   const { data, columns, pageInfo, className } = props;
-
+  const getCurrentColWidth = (col: any) => {
+    const used = columns
+      .filter(item => item.dataIndex !== col.dataIndex)
+      .reduce((total, current) => {
+        return total + current.width;
+      }, 0);
+    return `calc(100% - ${used}px)`;
+  };
   useEffect(
     () => {
       console.log("pageInfo变化");
@@ -48,7 +56,11 @@ export function TableCommon(props: IProps) {
           columns.map((col: any, colkey: number) =>
             <div
               className={cn("px-[16px] ")}
-              style={col.width ? { width: col.width } : { flexGrow: 1 }}
+              style={
+                col.width
+                  ? { width: col.width }
+                  : { width: getCurrentColWidth(col) }
+              }
               key={colkey}
             >
               <span className={cn("text-[15px] text-[#ffffff]")}>
@@ -68,41 +80,40 @@ export function TableCommon(props: IProps) {
               key={index}
             >
               {columns &&
-                columns.map((col: any, colkey: number) =>
-                  <div
-                    className={cn("px-[16px] flex items-center relative group")}
-                    style={col.width ? { width: col.width } : { flexGrow: 1 }}
-                    key={colkey}
-                  >
-                    <span className={cn("text-[15px] text-[#ffffff]")}>
-                      {col.dataIndex
-                        ? <span>
-                            {item[col.dataIndex].length
-                              ? <span>
-                                  {item[col.dataIndex].length > maxcharNum
-                                    ? <span className="">
-                                        {item[col.dataIndex].slice(
-                                          0,
-                                          maxcharNum
-                                        ) + "..."}
-                                      </span>
-                                    : item[col.dataIndex]}
-                                </span>
-                              : <span>
-                                  {item[col.dataIndex]}
-                                </span>}
+                columns.map(
+                  (col: any, colkey: number) =>
+                    col.width
+                      ? <div
+                          style={{ width: col.width }}
+                          className={cn(
+                            `px-[16px] flex items-center relative group text-[15px] text-[#ffffff] `
+                          )}
+                          key={colkey}
+                        >
+                          <span className="w-full h-full truncate leading-[40px]">
+                            {col.dataIndex ? item[col.dataIndex] : index + 1}
                           </span>
-                        : (pageInfo.currentPage - 1) * pageInfo.pageSize +
-                          (index + 1)}
-                    </span>
-                    {item[col.dataIndex] &&
-                      item[col.dataIndex].length > maxcharNum &&
-                      <div className="px-3 py-3 rounded-sm hidden group-hover:block  absolute top-[38px] left-0 w-[500px] bg-[#2A6CB6] z-10">
-                        <span className={cn("text-[12px] text-[#ffffff]")}>
-                          {item[col.dataIndex]}
-                        </span>
-                      </div>}
-                  </div>
+                        </div>
+                      : <div
+                          style={{ width: getCurrentColWidth(col) }}
+                          className={cn(
+                            ` px-[16px] flex items-center relative group text-[15px] text-[#ffffff] `
+                          )}
+                          key={colkey}
+                        >
+                          <span className="w-full h-full truncate leading-[40px]">
+                            {col.dataIndex ? item[col.dataIndex] : index + 1}
+                          </span>
+                          {item[col.dataIndex] &&
+                            item[col.dataIndex].length > maxcharNum &&
+                            <div className="px-3 py-3 rounded-sm hidden group-hover:block  absolute top-[38px] left-0 w-[500px] bg-[#2A6CB6] z-10">
+                              <span
+                                className={cn("text-[12px] text-[#ffffff]")}
+                              >
+                                {item[col.dataIndex]}
+                              </span>
+                            </div>}
+                        </div>
                 )}
             </div>
           )}
