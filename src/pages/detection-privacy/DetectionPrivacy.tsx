@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
 /*
@@ -5,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 11:15:47
+ * @LastEditTime: 2024-09-09 11:25:38
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -14,14 +15,15 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useAsyncFn } from "react-use";
 
 import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
+import { DateCommon } from "@/components/DateCommon";
 import { InputCommonV2 } from "@/components/InputCommonV2";
 import {
   ISelectorItemProps,
   SelectorCommonV2
 } from "@/components/SelectorCommonV2";
 import {
-  detectPrivacyRequestType,
-  detectPrivacyService
+  detectSelfishminingRequestType,
+  detectSelfishminingService
 } from "@/services/detection";
 import pattern from "@/styles/pattern";
 
@@ -29,57 +31,57 @@ export function DetectionPrivacy() {
   const typeList = [
     {
       label: "比特币（BTC）",
-      value: "BTC"
+      value: 1
     },
     {
       label: "比特币现金（BCH）",
-      value: "BCH"
+      value: 2
     },
     {
       label: "以太坊（ETH）",
-      value: "ETH"
+      value: 3
     },
     {
       label: "莱特币（LTC）",
-      value: "LTC"
+      value: 4
     },
     {
       label: "币安智能链（BSC）",
-      value: "BSC"
+      value: 5
     }
   ];
   const rangeList: any = [];
   const [selectedType, setSelectedType] = useState<ISelectorItemProps | null>(
     null
   );
-  const [selectedRange, setSelectedRange] = useState<ISelectorItemProps | null>(
-    null
-  );
+  const [selectedRange, setSelectedRange] = useState<any>('');
   const [inputRange, setInputRange] = useState<any>("");
   const [resultContent, setResultContent] = useState("");
+
 
   const [
     { loading },
     detectPrivacy
-  ] = useAsyncFn(async (params: detectPrivacyRequestType) => {
-    const data = await detectPrivacyService(params);
+  ] = useAsyncFn(async (params: detectSelfishminingRequestType) => {
+    const data = await detectSelfishminingService(params);
     return data;
   });
-  const start = async () => {
+  const start =  () => {
     if (!inputRange) {
       notification.warning({ message: `请输入必要信息!!!` });
       return;
     }
     const params = {
-      address: "0x2510ae5decc547ae63364eb844e47fb663e1178c",
-      chain: "btc"
-      // chain_choice: selectedType,
-      // date_range: selectedRange,
-      // block_range: inputRange
+      chain: selectedType?.value,
+      startBlock: inputRange.split('-')[0],
+      endBlock: inputRange.split('-')[1],
+      date_range: selectedRange,
+
     };
-    const response = await detectPrivacy(params);
+    // const response = await detectPrivacy(params);
+    // console.log("response>>>", response);
     setResultContent("测试数据!!!");
-    console.log("response>>>>", response);
+    console.log("params>>>>", params);
   };
 
   return (
@@ -113,19 +115,19 @@ export function DetectionPrivacy() {
                   }}
                 />
               </div>
-              <div className={`w-full h-[36px] flex items-center`}>
-                <SelectorCommonV2
-                  placeholder="区块号范围"
-                  value={selectedRange}
-                  options={rangeList}
-                  setValue={(item: ISelectorItemProps) => {
-                    setSelectedRange(item);
-                  }}
-                />
-              </div>
+                              <div
+                  className={cn(`w-full h-[36px]  ${pattern.flexCenter}`)}
+                >
+                  <DateCommon
+                    className="w-full h-full"
+                    onSelect={(date: any) => {
+                      setSelectedRange(date)
+                    }}
+                  />
+                </div>
               <div className={`w-full h-[36px] flex items-center`}>
                 <InputCommonV2
-                  placeholder="1000到2000数值"
+                  placeholder="1000-2000"
                   onInput={(val: any) => {
                     setInputRange(val);
                   }}

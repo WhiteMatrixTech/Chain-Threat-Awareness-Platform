@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 18:23:07
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-29 00:59:22
+ * @LastEditTime: 2024-09-09 11:24:25
  */
 /* eslint-disable prettier/prettier */
 
@@ -31,7 +31,7 @@ export function DateCommon(props: IProps) {
   return (
     <div
       className={cn(
-        "text-textFourthSize relative h-full w-calc(100%_-_12px) select-none pl-4 pr-[10px] ",
+        " text-textFourthSize relative h-full w-[calc(100%_-_12px)] select-none pl-4 pr-[10px] ",
         `border-[1px] border-solid border-[#00A0E9] border-l-0 border-r-0`,
         // `bg-[url('./assets/privacyBgSelector.png')] bg-cover bg-center`,
         className

@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 10:31:38
+ * @LastEditTime: 2024-09-09 11:05:57
  */
 import { getData, postData } from "./request";
 
@@ -77,7 +77,11 @@ export async function detectPhishingService(params: detectPhishingRequestType) {
 
 // 自私挖矿
 export interface detectSelfishminingRequestType {
-  blockNumber: number;
+  chain: string;
+  endBlock: string;
+  endDate: any;
+  startBlock: string;
+  startDate: any;
 }
 export async function detectSelfishminingService(
   params: detectSelfishminingRequestType
@@ -113,13 +117,6 @@ export async function detectChainCodeService(
 ) {
   return await getData<detectChainCodeRequestType, any>(
     `/chainthreat/v1/detection/chaincode`,
-    params
-  );
-}
-// 攻击模块
-export async function detectPrivacyService(params: detectPrivacyRequestType) {
-  return await getData<detectPrivacyRequestType, any>(
-    `/chainthreat/v1/detection/phishing`,
     params
   );
 }
