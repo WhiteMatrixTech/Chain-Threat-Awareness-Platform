@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 11:05:57
+ * @LastEditTime: 2024-09-09 16:12:51
  */
 import { getData, postData } from "./request";
 
@@ -97,8 +97,7 @@ export async function detectActionLogService(
   params: detectActionLogRequestType
 ) {
   return await getData<detectActionLogRequestType, any>(
-    `/chainthreat/v1/action-log/${params.action}`,
-    params
+    `/chainthreat/v1/action-log/${params.action}`
   );
 }
 // 少样本
