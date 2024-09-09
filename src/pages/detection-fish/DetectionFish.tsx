@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 10:55:51
+ * @LastEditTime: 2024-09-09 10:49:14
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -16,7 +16,10 @@ import { useAsyncFn } from "react-use";
 
 import { ButtonCommonV2 } from "@/components/ButtonCommonV2";
 import { InputCommonV2 } from "@/components/InputCommonV2";
-import { detectFishRequestType, detectFishService } from "@/services/detection";
+import {
+  detectPhishingRequestType,
+  detectPhishingService
+} from "@/services/detection";
 import pattern from "@/styles/pattern";
 
 export function DetectionFish() {
@@ -27,8 +30,8 @@ export function DetectionFish() {
   const [
     { loading },
     detectFish
-  ] = useAsyncFn(async (params: detectFishRequestType) => {
-    const data = await detectFishService(params);
+  ] = useAsyncFn(async (params: detectPhishingRequestType) => {
+    const data = await detectPhishingService(params);
     return data;
   });
   const start = async () => {
@@ -37,13 +40,12 @@ export function DetectionFish() {
       return;
     }
     try {
-      const params: detectFishRequestType = {
-        address: inputVal,
-        chain: "eth"
+      const params: detectPhishingRequestType = {
+        address: inputVal
       };
       const respose = await detectFish(params);
       console.log("respose>>>", respose);
-      const content = `检测结果：${respose.status}`;
+      const content = JSON.stringify(respose);
       setResultContent(content);
     } catch (error) {}
   };
@@ -100,7 +102,7 @@ export function DetectionFish() {
         className={` right w-[calc(50%)] h-full flex justify-center align-top`}
       >
         <div className="pt-[80px] px-[20px] pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
-          <div className="w-full h-full relative">
+          <div className="w-full h-full relative overflow-scroll">
             <span className="text-[#FFFFFF] text-[16px]">
               {resultContent}
             </span>

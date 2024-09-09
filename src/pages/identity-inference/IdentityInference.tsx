@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /*
  * @Description:
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 16:40:02
+ * @LastEditTime: 2024-09-09 14:16:39
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -53,12 +54,13 @@ export function IdentityInference() {
       return {
         name: item.input,
         time: item.createAt,
-        result: "-",
+        result: JSON.parse(item.output).identity,
         tag: "-"
       };
     });
     setdetectionSampleList(result);
-    console.log("监测数据>>>>", respose);
+    console.log("检测数据>>>>", respose);
+    console.log("检测数据>>>result>", result);
   };
 
   useEffect(() => {

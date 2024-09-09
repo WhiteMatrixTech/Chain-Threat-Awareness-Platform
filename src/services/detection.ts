@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 11:13:59
+ * @LastEditTime: 2024-09-09 11:05:57
  */
 import { getData, postData } from "./request";
 
@@ -53,6 +53,45 @@ export interface detectActionLogRequestType {
   action: string;
   count: number;
 }
+// 抢跑攻击
+export interface detectAttackRequestType {
+  blockNumber: any;
+}
+export async function detectAttackService(params: detectAttackRequestType) {
+  return await getData<detectAttackRequestType, any>(
+    `/chainthreat/v1/evidence/front-running`,
+    params
+  );
+}
+
+// 钓鱼
+export interface detectPhishingRequestType {
+  address: string;
+}
+export async function detectPhishingService(params: detectPhishingRequestType) {
+  return await getData<detectPhishingRequestType, any>(
+    `/chainthreat/v1/evidence/phishing`,
+    params
+  );
+}
+
+// 自私挖矿
+export interface detectSelfishminingRequestType {
+  chain: string;
+  endBlock: string;
+  endDate: any;
+  startBlock: string;
+  startDate: any;
+}
+export async function detectSelfishminingService(
+  params: detectSelfishminingRequestType
+) {
+  return await getData<detectSelfishminingRequestType, any>(
+    `/chainthreat/v1/evidence/selfish-mining`,
+    params
+  );
+}
+
 // 检测样例
 export async function detectActionLogService(
   params: detectActionLogRequestType
@@ -81,15 +120,8 @@ export async function detectChainCodeService(
     params
   );
 }
-// 攻击模块
-export async function detectPrivacyService(params: detectPrivacyRequestType) {
-  return await getData<detectPrivacyRequestType, any>(
-    `/chainthreat/v1/detection/phishing`,
-    params
-  );
-}
 
-// 钓鱼模块
+// 南信大-钓鱼结果
 export async function detectFishService(params: detectFishRequestType) {
   return await getData<detectFishRequestType, any>(
     `/chainthreat/v1/detection/phishing`,

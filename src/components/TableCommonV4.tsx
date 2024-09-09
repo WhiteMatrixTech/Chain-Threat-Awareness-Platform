@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 16:06:57
+ * @LastEditTime: 2024-09-09 14:48:02
  */
 /* eslint-disable prettier/prettier */
 
@@ -24,7 +24,7 @@ interface IProps {
 
 export function TableCommonV4(props: IProps) {
   const { data, columns, className } = props;
-  const maxNum = 10;
+  const maxNum = 6;
   return (
     <div
       className={cn(

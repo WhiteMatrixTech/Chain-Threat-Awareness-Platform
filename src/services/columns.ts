@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 16:30:18
+ * @LastEditTime: 2024-09-09 14:25:29
  */
 // 模型信息
 export const modelColumns: any = [
@@ -34,7 +34,23 @@ export const modelColumns: any = [
     width: 220
   }
 ];
-// 检测样例
+// 自私挖矿检测样例
+export const detectionSamplePrivacyColumns: any = [
+  {
+    title: "检测地址",
+    dataIndex: "name"
+  },
+  {
+    title: "检测时间",
+    dataIndex: "time"
+  },
+  {
+    title: "检测结果",
+    dataIndex: "result",
+    width: 150
+  }
+];
+// 身份推断检测样例
 export const detectionSampleColumns: any = [
   {
     title: "检测地址",
@@ -48,11 +64,6 @@ export const detectionSampleColumns: any = [
     title: "检测结果",
     dataIndex: "result",
     width: 150
-  },
-  {
-    title: "实际标签",
-    dataIndex: "tag",
-    width: 200
   }
 ];
 // 少样本检测样例
@@ -75,14 +86,24 @@ export const detectionFewSampleColumns: any = [
     title: "检测结果",
     dataIndex: "result",
     width: 150
-  },
-  {
-    title: "实际标签",
-    dataIndex: "tag",
-    width: 200
   }
 ];
-
+// 恶意交易检测样例
+export const detectionMaliciousSampleColumns: any = [
+  {
+    title: "检测地址",
+    dataIndex: "name"
+  },
+  {
+    title: "检测时间",
+    dataIndex: "time"
+  },
+  {
+    title: "检测结果",
+    dataIndex: "result",
+    width: 150
+  }
+];
 // 数据仓库列表
 export const dataStoreColumns: any = [
   {

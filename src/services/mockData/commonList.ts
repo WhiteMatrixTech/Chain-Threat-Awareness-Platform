@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-09-06 00:03:37
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 11:01:09
+ * @LastEditTime: 2024-09-09 13:47:16
  */
 // 身份
 export const modelListIdentityMock = [
@@ -23,6 +23,7 @@ export const modelListIdentityMock = [
     x2: "检测十种常见的以太坊身份"
   }
 ];
+
 // 少样本
 export const modelListFewIdentityMock = [
   {
