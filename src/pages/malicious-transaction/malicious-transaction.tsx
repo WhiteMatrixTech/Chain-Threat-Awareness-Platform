@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 13:54:00
+ * @LastEditTime: 2024-09-09 14:48:48
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -55,8 +55,7 @@ export function MaliciousTransaction() {
       return {
         name: item.input,
         time: item.createAt,
-        result: JSON.parse(item.output).identity,
-        tag: "-"
+        result: JSON.parse(item.output).identity || "无"
       };
     });
     setdetectionSampleList(result);

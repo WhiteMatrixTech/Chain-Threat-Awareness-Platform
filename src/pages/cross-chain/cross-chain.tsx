@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 14:02:15
+ * @LastEditTime: 2024-09-09 14:51:08
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -59,8 +59,7 @@ export function CrossChain() {
       return {
         name: item.input,
         time: item.createAt,
-        result: JSON.parse(item.output).identity,
-        tag: "-"
+        result: item.result || "无"
       };
     });
     setdetectionSampleList(result);

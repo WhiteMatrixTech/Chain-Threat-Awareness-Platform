@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 15:54:43
+ * @LastEditTime: 2024-09-09 14:47:21
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -55,8 +55,7 @@ export function FewidentityInference() {
       return {
         name: input[input.length - 1],
         time: item.createAt,
-        result: "-",
-        tag: "-",
+        result: JSON.parse(item.output).identity,
         sample: input.slice(0, 5).join(",")
       };
     });

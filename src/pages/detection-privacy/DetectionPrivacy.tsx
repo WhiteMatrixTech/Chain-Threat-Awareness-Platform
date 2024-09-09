@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 11:25:38
+ * @LastEditTime: 2024-09-09 14:33:53
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -21,6 +21,8 @@ import {
   ISelectorItemProps,
   SelectorCommonV2
 } from "@/components/SelectorCommonV2";
+import { TableCommonV4 } from "@/components/TableCommonV4";
+import { detectionSamplePrivacyColumns } from "@/services/columns";
 import {
   detectSelfishminingRequestType,
   detectSelfishminingService
@@ -28,6 +30,8 @@ import {
 import pattern from "@/styles/pattern";
 
 export function DetectionPrivacy() {
+const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
+
   const typeList = [
     {
       label: "比特币（BTC）",
@@ -85,13 +89,13 @@ export function DetectionPrivacy() {
   };
 
   return (
-    <div className={cn(" w-full h-full  pt-[0px]", `${pattern.flexbet} `)}>
+    <div className={cn("w-full h-full pt-[0px]", `${pattern.flexbet} pb-[110px]`)}>
       <div
-        className={`left  w-[calc(50%)] h-full flex justify-center align-top scale-75 3xl:scale-100`}
+        className={` left  w-[calc(50%)] h-full flex flex-col items-center justify-between gap-y-7`}
       >
         <div
           className={cn(
-            `w-[662px] h-[362px] bg-[url('./assets/privacyBg1.png')] bg-cover bg-center relative`
+            ` w-[662px] h-[362px] bg-[url('./assets/privacyBg1.png')] bg-cover bg-center relative`
           )}
         >
           <div
@@ -115,7 +119,7 @@ export function DetectionPrivacy() {
                   }}
                 />
               </div>
-                              <div
+              <div
                   className={cn(`w-full h-[36px]  ${pattern.flexCenter}`)}
                 >
                   <DateCommon
@@ -149,9 +153,16 @@ export function DetectionPrivacy() {
             </div>
           </div>
         </div>
+        <div className={cn(` w-[662px] flex-1`)}>
+          <TableCommonV4
+            className="w-full h-full"
+            data={detectionSampleList}
+            columns={detectionSamplePrivacyColumns}
+          />
+        </div>
       </div>
       <div
-        className={` right  w-[calc(50%)] h-full flex justify-center align-top `}
+        className={` right  w-[calc(50%)] h-full flex justify-center items-center `}
       >
         <div className=" pt-[80px] px-[20px] pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
           <div className="w-full h-full relative">
