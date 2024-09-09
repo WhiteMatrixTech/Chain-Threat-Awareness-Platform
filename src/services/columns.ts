@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 17:06:50
+ * @LastEditTime: 2024-09-09 17:16:39
  */
 // 模型信息
 export const modelColumns: any = [
@@ -262,12 +262,6 @@ export const columnsCrossChain1: any = [
   },
 
   {
-    title: "项目号",
-    dataIndex: "projectId",
-    ellipsis: true,
-    width: 320
-  },
-  {
     title: "账户名",
     dataIndex: "Account_number",
     ellipsis: true,
@@ -325,15 +319,10 @@ export const columnsCrossChain2: any = [
     ellipsis: true,
     width: 320
   },
-  {
-    title: "项目号",
-    dataIndex: "projectId",
-    ellipsis: true,
-    width: 320
-  },
+
   {
     title: "账户名",
-    dataIndex: "accountName",
+    dataIndex: "Account_number",
     ellipsis: true
   }
 ];

@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 17:31:16
+ * @LastEditTime: 2024-09-09 17:15:36
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -228,14 +228,6 @@ export function BitcoinmixedcoinDetectionResult() {
               "flex flex-col gap-y-5 text-[#ffffff]"
             )}
           >
-            <div
-              className={`h-[20px] w-full flex items-center justify-start gap-x-6 `}
-            >
-              <span className="text-[15px]">Hash ID :</span>
-              <span className="text-[20px]">
-                {result.hash_id}
-              </span>
-            </div>
             <div className="content text-[15px]">
               {result.conclusionData}
             </div>

@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 16:31:04
+ * @LastEditTime: 2024-09-09 17:17:51
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -117,18 +117,17 @@ export function CrossChainResult() {
               columns={columnsCrossChain2}
             />
           </div>
-          <div className="w-[120px] h-[36px] mt-4">
+          {/* <div className="w-[120px] h-[36px] mt-4">
             <TagComponent title="交易分布信息" className="w-[120px] h-[36px]" />
           </div>
 
           <div className={cn(` w-full h-[176px] mt-4`)}>
             <TableCommonV3
               className=""
-              // data={result.chains_need_query}
               data={["chain1"]}
               columns={columns3}
             />
-          </div>
+          </div> */}
         </div>
       </div>;
 }
