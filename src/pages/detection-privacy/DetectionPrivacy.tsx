@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 14:33:53
+ * @LastEditTime: 2024-09-09 15:01:56
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -153,9 +153,17 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
             </div>
           </div>
         </div>
-        <div className={cn(` w-[662px] flex-1`)}>
+        <div className={cn(` w-[662px] flex-1 flex flex-col gap-y-2`)}>
+          <div className={cn(`w-full h-[40px] flex items-center justify-start`,
+            `border-solid border-[#00A0E9] border-l-[6px]`,
+            'bg-[#02004D4D] pl-5'
+
+          )}>
+            <span className="text-[20px] text-[#ffffff]">历史检测数据 - 基于二阶二项分布的通用自私挖矿检测模型</span>
+          </div>
+          
           <TableCommonV4
-            className="w-full h-full"
+            className="w-full flex-1"
             data={detectionSampleList}
             columns={detectionSamplePrivacyColumns}
           />
