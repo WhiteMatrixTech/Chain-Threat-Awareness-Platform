@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 17:09:54
+ * @LastEditTime: 2024-09-09 17:14:16
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -59,8 +59,8 @@ export function DetectionFish() {
       console.log("respose>>>", respose);
       const content = JSON.stringify(respose);
       setResult({
-        ...result,
-        content: content
+        content: content,
+        time: (respose.cost / 1000).toFixed(1) + "s"
       });
     } catch (error) {}
   };
