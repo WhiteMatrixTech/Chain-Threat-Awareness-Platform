@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 16:38:09
+ * @LastEditTime: 2024-09-09 22:10:44
  */
 /* eslint-disable prettier/prettier */
 
@@ -34,21 +34,18 @@ export function TableCommonV4(props: IProps) {
         `overflow-scroll`
       )}
     >
+      {/* 表头 */}
       <div className={cn(`w-full h-[40px] flex px-4 bg-[#0095FF66]`)}>
         {columns &&
           columns.map((col: any, colkey: number) =>
             <div
-              className={cn(" px-3 flex items-center justify-start ")}
+              className={cn(
+                "flex-shrink-0 px-3 flex items-center justify-start "
+              )}
               style={col.width ? { width: `${col.width}px` } : { flexGrow: 1 }}
-              // style={{ width: `${col.width}px` }}
               key={colkey}
             >
-              <span
-                className={cn(
-                  // " text-[15px] text-[#ffffff]  whitespace-nowrap overflow-hidden overflow-ellipsis"
-                  " text-[15px] text-[#ffffff]  "
-                )}
-              >
+              <span className={cn("text-[15px] text-[#ffffff] ")}>
                 {col.title}
               </span>
             </div>
@@ -56,7 +53,7 @@ export function TableCommonV4(props: IProps) {
       </div>
       {data &&
         data.length !== 0 &&
-        <div className="content w-full h-[calc(100%_-_40px)]">
+        <div className="content w-full h-[calc(100%_-_40px)] ">
           {data &&
             data.map((item: any, index: number) =>
               <div
@@ -67,50 +64,32 @@ export function TableCommonV4(props: IProps) {
                 )}
                 key={index}
               >
-                {columns &&
-                  columns.map((col: any, colkey: number) =>
-                    <div
-                      className={cn(" px-3 flex items-center justify-start ")}
-                      style={
-                        col.width
-                          ? { width: `${col.width}px` }
-                          : { flexGrow: 1 }
-                      }
-                      // style={{ width: `${col.width}px` }}
-                      key={colkey}
-                    >
-                      <span
-                        onClick={() => {
-                          console.log("点击>>>", item[col.dataIndex]);
-
-                          const textArea = document.createElement("textarea");
-                          textArea.value = item[col.dataIndex];
-                          document.body.appendChild(textArea);
-                          textArea.select();
-                          document.execCommand("copy");
-                          document.body.removeChild(textArea);
-                          notification.info({ message: "复制成功!!!" });
-                        }}
-                        className={cn(
-                          // " text-[15px] text-[#ffffff]  whitespace-nowrap overflow-hidden overflow-ellipsis"
-                          " text-[15px] text-[#ffffff]"
-                        )}
-                      >
-                        {/* {col.dataIndex ? item[col.dataIndex] : index + 1} */}
-                        {col.dataIndex
-                          ? item[col.dataIndex] &&
-                            item[col.dataIndex].length > maxNum
-                            ? item[col.dataIndex].slice(0, maxNum) + "..."
-                            : item[col.dataIndex]
-                          : index + 1}
-                      </span>
-                    </div>
-                  )}
+                {columns.map((col: any, colkey: number) =>
+                  <div
+                    style={
+                      col.width ? { width: `${col.width}px` } : { flexGrow: 1 }
+                    }
+                    className={`flex-shrink-0 px-3 flex items-center justify-start  text-[15px] text-[#ffffff] `}
+                    key={index + "_" + colkey}
+                    onClick={() => {
+                      console.log("点击>>>", item[col.dataIndex]);
+                      const textArea = document.createElement("textarea");
+                      textArea.value = item[col.dataIndex];
+                      document.body.appendChild(textArea);
+                      textArea.select();
+                      document.execCommand("copy");
+                      document.body.removeChild(textArea);
+                      notification.info({ message: "复制成功!!!" });
+                    }}
+                  >
+                    <span className="w-full h-full truncate leading-[40px]">
+                      {col.dataIndex ? item[col.dataIndex] : index + 1}
+                    </span>
+                  </div>
+                )}
               </div>
             )}
         </div>}
-      {!data.length &&
-        <div className={cn(` w-full h-[calc(100%_-_40px)] `)}>暂无数据....</div>}
     </div>
   );
 }

@@ -4,34 +4,34 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 17:16:39
+ * @LastEditTime: 2024-09-09 22:18:00
  */
 // 模型信息
 export const modelColumns: any = [
   {
     title: "模型名称",
     dataIndex: "name",
-    width: 120
+    width: 100
   },
   {
     title: "模型版本",
     dataIndex: "version",
-    width: 120
+    width: 100
   },
   {
     title: "模型训练生成时间",
     dataIndex: "time",
-    width: 200
+    width: 180
   },
   {
     title: "模型检测综合性能f1",
     dataIndex: "x1",
-    width: 220
+    width: 200
   },
   {
     title: "模型性能",
     dataIndex: "x2",
-    width: 220
+    width: 110
   }
 ];
 // 自私挖矿检测样例
@@ -54,23 +54,25 @@ export const detectionSamplePrivacyColumns: any = [
 export const detectionSampleFishColumns: any = [
   {
     title: "检测地址",
-    dataIndex: "name"
+    dataIndex: "name",
+    width: 200
   },
   {
     title: "检测时间",
-    dataIndex: "time"
+    dataIndex: "time",
+    width: 200
   },
   {
     title: "检测结果",
-    dataIndex: "result",
-    width: 150
+    dataIndex: "result"
   }
 ];
 // 抢跑攻击检测样例
 export const detectionSampleAttackColumns: any = [
   {
-    title: "检测地址",
-    dataIndex: "name"
+    title: "检测内容",
+    dataIndex: "name",
+    width: 150
   },
   {
     title: "检测时间",
@@ -79,35 +81,37 @@ export const detectionSampleAttackColumns: any = [
   {
     title: "检测结果",
     dataIndex: "result",
-    width: 150
+    width: 200
   }
 ];
 // 身份推断检测样例
 export const detectionSampleColumns: any = [
   {
     title: "检测地址",
-    dataIndex: "name"
+    dataIndex: "name",
+    width: 250
   },
   {
     title: "检测时间",
-    dataIndex: "time"
+    dataIndex: "time",
+    width: 250
   },
   {
     title: "检测结果",
-    dataIndex: "result",
-    width: 150
+    dataIndex: "result"
   }
 ];
 // 少样本检测样例
 export const detectionFewSampleColumns: any = [
   {
     title: "样本地址",
-    dataIndex: "sample"
+    dataIndex: "sample",
+    width: 200
   },
   {
     title: "检测地址",
     dataIndex: "name",
-    width: 150
+    width: 200
   },
   {
     title: "检测时间",
@@ -124,16 +128,17 @@ export const detectionFewSampleColumns: any = [
 export const detectionMaliciousSampleColumns: any = [
   {
     title: "检测地址",
-    dataIndex: "name"
+    dataIndex: "name",
+    width: 250
   },
   {
     title: "检测时间",
-    dataIndex: "time"
+    dataIndex: "time",
+    width: 200
   },
   {
     title: "检测结果",
-    dataIndex: "result",
-    width: 150
+    dataIndex: "result"
   }
 ];
 // 数据仓库列表
