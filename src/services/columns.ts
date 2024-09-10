@@ -4,29 +4,29 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 10:50:11
+ * @LastEditTime: 2024-09-10 14:34:40
  */
 // 模型信息
 export const modelColumns: any = [
   {
     title: "模型名称",
     dataIndex: "name",
-    width: 100
+    width: 90
   },
   {
     title: "模型版本",
     dataIndex: "version",
-    width: 100
+    width: 90
   },
   {
     title: "模型训练生成时间",
     dataIndex: "time",
-    width: 180
+    width: 160
   },
   {
     title: "模型检测综合性能f1",
     dataIndex: "x1",
-    width: 200
+    width: 160
   },
   {
     title: "模型性能",

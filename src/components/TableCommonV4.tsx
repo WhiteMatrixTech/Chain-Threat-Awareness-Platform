@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 10:21:16
+ * @LastEditTime: 2024-09-10 14:30:48
  */
 /* eslint-disable prettier/prettier */
 
@@ -30,6 +30,8 @@ export function TableCommonV4(props: IProps) {
       .reduce((total, current) => {
         return total + current.width;
       }, 0);
+    // const flexNum = columns.filter(item => item.dataIndex !== col.dataIndex)
+    //   .length;
     return `calc(100% - ${used}px)`;
   };
   return (
@@ -56,7 +58,7 @@ export function TableCommonV4(props: IProps) {
               }
               key={colkey}
             >
-              <span className={cn("text-[15px] text-[#ffffff] ")}>
+              <span className={cn("text-[15px] text-[#ffffff]")}>
                 {col.title}
               </span>
             </div>
