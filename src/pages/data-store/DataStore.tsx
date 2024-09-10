@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 15:25:58
+ * @LastEditTime: 2024-09-10 17:40:58
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -21,7 +21,11 @@ import { AppBreadcrumb } from "@/components/Breadcrumb";
 import { PageCommon } from "@/components/PageCommon";
 import { TableCommon } from "@/components/TableCommon";
 import { dataStoreColumns } from "@/services/columns";
-import { dataStoreRequestType, getDataStoreList } from "@/services/detection";
+import {
+  dataStoreListService,
+  dataStoreRequestType,
+  getDataStoreList
+} from "@/services/detection";
 import { dataStoreList } from "@/services/mockData/dataStore";
 import pattern from "@/styles/pattern";
 import { waitTime } from "@/utils/common";
@@ -56,8 +60,18 @@ export function DataStore() {
   //   },
   //   [location.pathname]
   // );
+  const getData = async () => {
+    const respose = await dataStoreListService();
+    console.log("response>>>", respose);
+    const listData = dataStoreList;
+    setData(listData);
+    // setpageInfo({
+    //   ...pageInfo,
+    //   total: respose.data.length
+    // });
+  };
   useEffect(() => {
-    setData(dataStoreList);
+    void getData();
   }, []);
 
   return (
