@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 14:34:40
+ * @LastEditTime: 2024-09-10 14:55:48
  */
 // 模型信息
 export const modelColumns: any = [
@@ -105,22 +105,22 @@ export const detectionSampleColumns: any = [
 export const detectionFewSampleColumns: any = [
   {
     title: "样本地址",
-    dataIndex: "sample",
-    width: 200
+    dataIndex: "sample"
   },
   {
     title: "检测地址",
     dataIndex: "name",
-    width: 200
+    width: 160
   },
   {
     title: "检测时间",
     dataIndex: "time",
-    width: 150
+    width: 160
   },
   {
     title: "检测结果",
-    dataIndex: "result"
+    dataIndex: "result",
+    width: 180
   }
 ];
 // 恶意交易检测样例

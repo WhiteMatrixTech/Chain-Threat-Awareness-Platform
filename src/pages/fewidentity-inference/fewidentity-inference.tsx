@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 00:37:50
+ * @LastEditTime: 2024-09-10 14:50:26
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -88,13 +88,13 @@ export function FewidentityInference() {
   };
 
   return (
-    <div className={cn(" w-full h-full pt-[0px] fadeIn", `${pattern.flexbet}`)}>
-      <div
-        className={cn(
-          `w-full h-full flex flex-col gap-y-20 justify-between  items-center `
-        )}
-      >
-        <div className={cn(` w-[1068px] h-[484px] relative `)}>
+    <div className={cn(" w-full h-full fadeIn flex flex-col ")}>
+      <div className={cn(`w-full h-[calc(60%)] ${pattern.flexCenter}`)}>
+        <div
+          className={cn(
+            `scale-75 3xl:scale-100 w-[1068px] h-[484px] relative `
+          )}
+        >
           <div
             className={cn(
               `absolute top-0 left-0 w-full h-[54px] bg-[url('./assets/FewidentityDialogTitle.png')] bg-cover bg-center`
@@ -118,6 +118,7 @@ export function FewidentityInference() {
                 提供5个样本用于推断待测地址是否是该身份
               </span>
               <InputCommonV2
+                initVal={sampleData.sample1}
                 placeholder="样本地址"
                 onInput={(val: any) => {
                   setSampleData({
@@ -128,6 +129,7 @@ export function FewidentityInference() {
                 className="w-full h-[36px]"
               />
               <InputCommonV2
+                initVal={sampleData.sample2}
                 placeholder="样本地址"
                 onInput={(val: any) => {
                   setSampleData({
@@ -138,6 +140,7 @@ export function FewidentityInference() {
                 className="w-full h-[36px] "
               />
               <InputCommonV2
+                initVal={sampleData.sample3}
                 placeholder="样本地址"
                 onInput={(val: any) => {
                   setSampleData({
@@ -148,6 +151,7 @@ export function FewidentityInference() {
                 className="w-full h-[36px] "
               />
               <InputCommonV2
+                initVal={sampleData.sample4}
                 placeholder="样本地址"
                 onInput={(val: any) => {
                   setSampleData({
@@ -158,6 +162,7 @@ export function FewidentityInference() {
                 className="w-full h-[36px] "
               />
               <InputCommonV2
+                initVal={sampleData.sample5}
                 placeholder="样本地址"
                 onInput={(val: any) => {
                   setSampleData({
@@ -207,31 +212,32 @@ export function FewidentityInference() {
             </div>
           </div>
         </div>
-        <div className={cn(`w-full h-[370px] flex justify-between`)}>
-          <div className="w-[calc(50%_-_10px)] h-full flex flex-col justify-between">
-            <div className="w-[120px] h-[36px]">
-              <TagComponent title="模型信息" className="w-[120px] h-[36px]" />
-            </div>
+      </div>
 
-            <div className={cn(` w-full h-[calc(100%_-_52px)]`)}>
-              <TableCommonV4
-                className="w-full h-full"
-                data={modelList}
-                columns={modelColumns}
-              />
-            </div>
+      <div className={cn(`w-full h-[calc(40%)] flex justify-between`)}>
+        <div className="w-[calc(50%_-_10px)] h-full flex flex-col justify-between">
+          <div className="w-[120px] h-[36px]">
+            <TagComponent title="模型信息" className="w-[120px] h-[36px]" />
           </div>
-          <div className="w-[calc(50%_-_10px)] h-full flex flex-col justify-between">
-            <div className="w-[120px] h-[36px]">
-              <TagComponent title="检测样例" className="w-[120px] h-[36px]" />
-            </div>
-            <div className={cn(` w-full h-[calc(100%_-_52px)]`)}>
-              <TableCommonV4
-                className="w-full h-full"
-                data={detectionSampleList}
-                columns={detectionFewSampleColumns}
-              />
-            </div>
+
+          <div className={cn(` w-full h-[calc(100%_-_52px)]`)}>
+            <TableCommonV4
+              className="w-full h-full"
+              data={modelList}
+              columns={modelColumns}
+            />
+          </div>
+        </div>
+        <div className="w-[calc(50%_-_10px)] h-full flex flex-col justify-between">
+          <div className="w-[120px] h-[36px]">
+            <TagComponent title="检测样例" className="w-[120px] h-[36px]" />
+          </div>
+          <div className={cn(` w-full h-[calc(100%_-_52px)]`)}>
+            <TableCommonV4
+              className="w-full h-full"
+              data={detectionSampleList}
+              columns={detectionFewSampleColumns}
+            />
           </div>
         </div>
       </div>

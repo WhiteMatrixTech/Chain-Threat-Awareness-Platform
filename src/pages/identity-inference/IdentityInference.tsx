@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 14:26:33
+ * @LastEditTime: 2024-09-10 14:39:06
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -67,7 +67,7 @@ export function IdentityInference() {
     void getActionLogList();
   }, []);
   return (
-    <div className={cn(" w-full h-full fadeIn", `flex flex-col `)}>
+    <div className={cn(" w-full h-full fadeIn flex flex-col ")}>
       <div className={cn(`w-full h-[calc(60%)] ${pattern.flexCenter}`)}>
         <div
           className={cn(

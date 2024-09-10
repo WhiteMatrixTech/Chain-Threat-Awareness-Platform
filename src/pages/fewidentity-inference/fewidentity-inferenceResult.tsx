@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 00:38:13
+ * @LastEditTime: 2024-09-10 15:16:30
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -120,36 +120,37 @@ export function FewidentityInferenceResult() {
         />
       </div>
     : <div
-        className={cn(" w-full h-full pt-[0px]  fadeIn", `${pattern.flexbet}`)}
+        className={cn(
+          " w-full h-full fadeIn",
+          `${pattern.flexbet}  flex flex-col justify-between`
+        )}
       >
-        <div className={cn(`w-full h-full  gap-y-6 flex flex-col`)}>
-          <div className={cn(` flex-1`)}>
-            <AddressTxGraph
-              focusedId={selectedHexData}
-              formData={formData}
-              handleClick={handleClickGraphin}
-              changeData={setGraphData}
-            />
-          </div>
-          <div className={cn(` w-full h-[50px] ${pattern.flexbet} `)}>
-            <ResultComponent
-              title="检测时间"
-              content={result.time}
-              className="w-[173px] h-full"
-            />
-            <ResultComponent
-              title="是否与提供的地址身份相同"
-              content={result.result}
-              className="w-[calc(100%_-_190px)] h-full"
-            />
-          </div>
-          <div className={cn(` w-full h-[320px]`)}>
-            <TableCommonV4
-              className="w-full h-full"
-              data={result.dataList}
-              columns={columnsIdentity}
-            />
-          </div>
+        <div className={cn(`w-full h-[calc(69%_-_50px)] `)}>
+          <AddressTxGraph
+            focusedId={selectedHexData}
+            formData={formData}
+            handleClick={handleClickGraphin}
+            changeData={setGraphData}
+          />
+        </div>
+        <div className={cn(` w-full h-[50px] ${pattern.flexbet} `)}>
+          <ResultComponent
+            title="检测时间"
+            content={result.time}
+            className="w-[173px] h-full"
+          />
+          <ResultComponent
+            title="是否与提供的地址身份相同"
+            content={result.result}
+            className="w-[calc(100%_-_190px)] h-full"
+          />
+        </div>
+        <div className={cn(` w-full h-[calc(30%)] `)}>
+          <TableCommonV4
+            className="w-full h-full"
+            data={result.dataList}
+            columns={columnsIdentity}
+          />
         </div>
       </div>;
 }
