@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 18:22:50
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-08 21:51:17
+ * @LastEditTime: 2024-09-10 14:11:36
  */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
@@ -45,7 +45,7 @@ export function Nav() {
 
 
   return (
-    <div className={`flex  ml-[74px] h-full px-[9px]`}
+    <div className={`flex  ml-[24px] 3xl:ml-[74px] h-full px-[9px]`}
     ref={ref}
     >
       {MenuList &&

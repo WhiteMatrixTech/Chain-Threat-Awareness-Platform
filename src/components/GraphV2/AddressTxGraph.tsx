@@ -87,7 +87,6 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
           data={graphData}
           ref={graphRef}
           layout={layout}
-          // fitView={true}
           theme={{ background: "none" }}
         >
           <ZoomCanvas />

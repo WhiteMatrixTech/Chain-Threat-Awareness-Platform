@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 22:11:05
+ * @LastEditTime: 2024-09-10 14:07:51
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -89,13 +89,15 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     void getActionLogList();
   }, []);
   return (
-    <div className={cn(" w-full h-full  pt-[0px]", `${pattern.flexbet} pb-[110px]`)}>
+    <div className={cn(`w-full h-full 3xl:pb-36  flex items-center`)}>
+      <div className={cn(`${pattern.flexbet} w-full max-h-[783px] h-full `)}>
+
       <div
-        className={`left  w-[calc(50%)] h-full flex flex-col items-center justify-between gap-y-7 `}
+        className={`scale-95 3xl:scale-100 left  w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full flex flex-col items-end justify-between`}
       >
         <div
           className={cn(
-            `w-[662px] h-[258px] bg-[url('./assets/attackBg1.png')] bg-cover bg-center relative `
+            ` w-[662px] h-[258px] bg-[url('./assets/attackBg1.png')] bg-cover bg-center relative `
           )}
         >
           <div
@@ -147,7 +149,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
             </div>
           </div>
         </div>
-        <div className={cn(` w-[662px] flex-1 flex flex-col gap-y-2`)}>
+        <div className={cn(` w-[662px] h-[calc(100%_-_278px)] flex flex-col gap-y-2`)}>
           <div className={cn(`w-full h-[40px] flex items-center justify-start`,
             `border-solid border-[#00A0E9] border-l-[6px]`,
             'bg-[#02004D4D] pl-5'
@@ -164,9 +166,9 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
         </div>
       </div>
       <div
-        className={`right  w-[calc(50%)] h-full flex justify-center align-top `}
+        className={` right w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full flex justify-start items-center`}
       >
-        <div className="pt-[80px] px-[20px] pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
+        <div className="pt-[60px] px-[20px] pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px] bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
           <div className="w-full h-full relative overflow-scroll">
             <span className="text-[#FFFFFF] text-[16px]">
               {result.content}
@@ -186,6 +188,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 17:24:42
+ * @LastEditTime: 2024-09-10 14:09:03
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -85,44 +85,40 @@ export function DetectionFish() {
     void getActionLogList();
   }, []);
   return (
-    <div
-      className={cn(
-        " w-full h-full  pt-[0px]",
-        `${pattern.flexbet}  pb-[110px]`
-      )}
-    >
-      <div
-        className={`left  w-[calc(50%)] h-full flex flex-col items-center justify-between gap-y-7`}
-      >
+    <div className={cn(`w-full h-full 3xl:pb-36  flex items-center`)}>
+      <div className={cn(`${pattern.flexbet} w-full max-h-[783px] h-full `)}>
         <div
-          className={cn(
-            `w-[662px] h-[258px] bg-[url('./assets/attackBg1.png')] bg-cover bg-center relative`
-          )}
+          className={`scale-95 3xl:scale-100 left  w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full flex flex-col items-end justify-between`}
         >
           <div
             className={cn(
-              `absolute top-0 left-0 w-full h-[54px] bg-[url('./assets/fishBg1Title.png')] bg-cover bg-center`
-            )}
-          />
-          <div
-            className={cn(
-              `absolute top-[54px] left-0 w-full h-[calc(100%_-_54px)]  pt-[66px] px-[106px] pb-[40px]`
+              `w-[662px] h-[258px] bg-[url('./assets/attackBg1.png')] bg-cover bg-center relative`
             )}
           >
-            <div className="w-full h-full  flex flex-col gap-y-[16px]">
-              <div className={`w-full h-[36px] flex items-center`}>
-                <InputCommonV2
-                  placeholder="以太坊外部账号的地址"
-                  onInput={(val: any) => {
-                    setInputVal(val);
-                  }}
-                  className="w-[450px] h-[36px] "
-                />
-              </div>
-              <div
-                className={`w-full h-[36px] flex items-center justify-end select-none`}
-              >
-                {/* <ButtonCommonV2
+            <div
+              className={cn(
+                `absolute top-0 left-0 w-full h-[54px] bg-[url('./assets/fishBg1Title.png')] bg-cover bg-center`
+              )}
+            />
+            <div
+              className={cn(
+                `absolute top-[54px] left-0 w-full h-[calc(100%_-_54px)]  pt-[66px] px-[106px] pb-[40px]`
+              )}
+            >
+              <div className="w-full h-full  flex flex-col gap-y-[16px]">
+                <div className={`w-full h-[36px] flex items-center`}>
+                  <InputCommonV2
+                    placeholder="以太坊外部账号的地址"
+                    onInput={(val: any) => {
+                      setInputVal(val);
+                    }}
+                    className="w-[450px] h-[36px] "
+                  />
+                </div>
+                <div
+                  className={`w-full h-[36px] flex items-center justify-end select-none`}
+                >
+                  {/* <ButtonCommonV2
                   className=""
                   loading={loading}
                   disable={loading}
@@ -132,62 +128,67 @@ export function DetectionFish() {
                 >
                   <span className="text-[#FFFFFF] text-[16px]">开始检测</span>
                 </ButtonCommonV2> */}
-                <ButtonCommonCyber
-                  onClick={() => {
-                    void start();
-                  }}
-                  className="w-[450px] h-[36px] "
-                >
-                  <span className="text-[#FFFFFF] text-[16px]">开始检测</span>
-                </ButtonCommonCyber>
+                  <ButtonCommonCyber
+                    onClick={() => {
+                      void start();
+                    }}
+                    className="w-[450px] h-[36px] "
+                  >
+                    <span className="text-[#FFFFFF] text-[16px]">开始检测</span>
+                  </ButtonCommonCyber>
+                </div>
+                {result.time.length !== 0 &&
+                  <div className="w-full h-[22px] flex justify-center items-center">
+                    <span className="text-[#ffffff] text-[13px]">
+                      检索时间：{result.time}
+                    </span>
+                  </div>}
               </div>
-              {result.time.length !== 0 &&
-                <div className="w-full h-[22px] flex justify-center items-center">
-                  <span className="text-[#ffffff] text-[13px]">
-                    检索时间：{result.time}
-                  </span>
-                </div>}
             </div>
           </div>
-        </div>
-        <div className={cn(` w-[662px] flex-1 flex flex-col gap-y-2`)}>
           <div
             className={cn(
-              `w-full h-[40px] flex items-center justify-start`,
-              `border-solid border-[#00A0E9] border-l-[6px]`,
-              "bg-[#02004D4D] pl-5"
+              ` w-[662px]  h-[calc(100%_-_278px)] flex flex-col gap-y-2`
             )}
           >
-            <span className="text-[20px] text-[#ffffff]">历史检测数据</span>
-          </div>
+            <div
+              className={cn(
+                `w-full h-[40px] flex items-center justify-start`,
+                `border-solid border-[#00A0E9] border-l-[6px]`,
+                "bg-[#02004D4D] pl-5"
+              )}
+            >
+              <span className="text-[20px] text-[#ffffff]">历史检测数据</span>
+            </div>
 
-          <TableCommonV4
-            className="w-full flex-1"
-            data={detectionSampleList}
-            columns={detectionSampleFishColumns}
-          />
+            <TableCommonV4
+              className="w-full flex-1"
+              data={detectionSampleList}
+              columns={detectionSampleFishColumns}
+            />
+          </div>
         </div>
-      </div>
-      <div
-        className={` right w-[calc(50%)] h-full flex justify-center align-top`}
-      >
-        <div className="pt-[80px] px-[20px] pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
-          <div className="w-full h-full relative overflow-scroll">
-            <span className="text-[#FFFFFF] text-[16px]">
-              {result.content}
-            </span>
-            {loading &&
-              <div
-                className={cn(
-                  "w-full h-full absolute top-0 left-0",
-                  `${pattern.flexCenter}`
-                )}
-              >
-                <AiOutlineLoading3Quarters
-                  className="ml-2 animate-spin"
-                  style={{ color: "white", fontSize: "24px" }}
-                />
-              </div>}
+        <div
+          className={` right w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full flex justify-start items-center`}
+        >
+          <div className="pt-[60px] px-[20px] pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
+            <div className="w-full h-full relative overflow-scroll">
+              <span className="text-[#FFFFFF] text-[16px]">
+                {result.content}
+              </span>
+              {loading &&
+                <div
+                  className={cn(
+                    "w-full h-full absolute top-0 left-0",
+                    `${pattern.flexCenter}`
+                  )}
+                >
+                  <AiOutlineLoading3Quarters
+                    className="ml-2 animate-spin"
+                    style={{ color: "white", fontSize: "24px" }}
+                  />
+                </div>}
+            </div>
           </div>
         </div>
       </div>
