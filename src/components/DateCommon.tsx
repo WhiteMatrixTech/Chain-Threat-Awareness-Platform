@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 18:23:07
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 11:24:25
+ * @LastEditTime: 2024-09-10 10:37:50
  */
 /* eslint-disable prettier/prettier */
 
@@ -32,12 +32,13 @@ export function DateCommon(props: IProps) {
     <div
       className={cn(
         " text-textFourthSize relative h-full w-[calc(100%_-_12px)] select-none pl-4 pr-[10px] ",
-        `border-[1px] border-solid border-[#00A0E9] border-l-0 border-r-0`,
-        // `bg-[url('./assets/privacyBgSelector.png')] bg-cover bg-center`,
+        // `border-[1px] border-solid border-[#00A0E9] border-l-0 border-r-0`,
+        `bg-[url('./assets/privacyBgSelector.png')] bg-cover bg-center`,
+
         className
       )}
     >
-      <div
+      {/* <div
         className={cn(
           "w-[10px] h-[36px]",
           "absolute left-[-4px] top-[-1px]",
@@ -50,7 +51,7 @@ export function DateCommon(props: IProps) {
           "absolute right-[-8px] top-[-1px]",
           `bg-[url('./assets/inputRight.png')] bg-cover bg-center`
         )}
-      />
+      /> */}
       <div className={cn(` w-full h-full  ${pattern.flexbet}`)}>
         <img className="mr-[8px]" src={DatePickerLogo} width={20} height={20} />
         <div

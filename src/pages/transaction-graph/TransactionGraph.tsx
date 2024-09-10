@@ -171,11 +171,7 @@ export function TransactionGraph() {
         </div>
         <div className="flex-1 flex flex-col gap-y-[10px]">
           <div className={`${pattern.flexbet}  w-full h-[36px]`}>
-            <div
-              className={cn(
-                `max-w-[1000px] h-full flex items-center gap-x-[10px] `
-              )}
-            >
+            <div className={cn(`h-full flex items-center gap-x-[10px] `)}>
               <div className="text-[#ffffff] text-[16px] font-[500]">交易图谱</div>
               <div className="flex flex-1 gap-x-[20px]">
                 <div className="w-[164px] h-[36px] flex items-center">
@@ -207,10 +203,10 @@ export function TransactionGraph() {
                   className="w-[408px] h-[36px] "
                 />
                 <div
-                  className={cn(`w-[291px] h-[36px]  ${pattern.flexCenter}`)}
+                  className={cn(`w-[450px] h-[36px]  ${pattern.flexCenter}`)}
                 >
                   <DateCommon
-                    className="w-[291px] h-full"
+                    className="w-[450px] h-full"
                     onSelect={(date: any) => {
                       setFormData({
                         ...formData,

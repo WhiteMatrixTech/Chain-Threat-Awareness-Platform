@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 14:47:21
+ * @LastEditTime: 2024-09-10 00:37:50
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -38,11 +38,11 @@ export function FewidentityInference() {
 
   const [address, setAddress] = useState<any>(null);
   const [sampleData, setSampleData] = useState<any>({
-    sample1: "",
-    sample2: "",
-    sample3: "",
-    sample4: "",
-    sample5: ""
+    sample1: "0x51d4f799f40a7ca9f4289e64dbed0502a494e8a0",
+    sample2: "0x6ef5b57cc302d53b873c7b471faa1b9bb2c437aa",
+    sample3: "0x95b0566ff14437f18fa310a621efd9b496b21c29",
+    sample4: "0xeec065d75ae38db0df08344eebed4aefcec918b4",
+    sample5: "0xfb1b9882ac70484e054c8d02c6097ea2777cc2d8"
   });
   const getActionLogList = async () => {
     const params: detectActionLogRequestType = {

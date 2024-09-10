@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 22:10:44
+ * @LastEditTime: 2024-09-10 10:21:16
  */
 /* eslint-disable prettier/prettier */
 
@@ -24,7 +24,14 @@ interface IProps {
 
 export function TableCommonV4(props: IProps) {
   const { data, columns, className } = props;
-  const maxNum = 6;
+  const getCurrentColWidth = (col: any) => {
+    const used = columns
+      .filter(item => item.dataIndex !== col.dataIndex)
+      .reduce((total, current) => {
+        return total + current.width;
+      }, 0);
+    return `calc(100% - ${used}px)`;
+  };
   return (
     <div
       className={cn(
@@ -42,7 +49,11 @@ export function TableCommonV4(props: IProps) {
               className={cn(
                 "flex-shrink-0 px-3 flex items-center justify-start "
               )}
-              style={col.width ? { width: `${col.width}px` } : { flexGrow: 1 }}
+              style={
+                col.width
+                  ? { width: `${col.width}px` }
+                  : { width: getCurrentColWidth(col) }
+              }
               key={colkey}
             >
               <span className={cn("text-[15px] text-[#ffffff] ")}>
@@ -67,7 +78,9 @@ export function TableCommonV4(props: IProps) {
                 {columns.map((col: any, colkey: number) =>
                   <div
                     style={
-                      col.width ? { width: `${col.width}px` } : { flexGrow: 1 }
+                      col.width
+                        ? { width: `${col.width}px` }
+                        : { width: getCurrentColWidth(col) }
                     }
                     className={`flex-shrink-0 px-3 flex items-center justify-start  text-[15px] text-[#ffffff] `}
                     key={index + "_" + colkey}

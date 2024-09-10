@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 16:12:51
+ * @LastEditTime: 2024-09-10 10:32:46
  */
 import { getData, postData } from "./request";
 
@@ -77,7 +77,7 @@ export async function detectPhishingService(params: detectPhishingRequestType) {
 
 // 自私挖矿
 export interface detectSelfishminingRequestType {
-  chain: string;
+  chain: any;
   endBlock: string;
   endDate: any;
   startBlock: string;

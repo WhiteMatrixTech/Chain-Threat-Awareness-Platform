@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 14:51:08
+ * @LastEditTime: 2024-09-10 00:25:01
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -19,7 +19,10 @@ import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
 import { InputCommonV3 } from "@/components/InputCommonV3";
 import { TableCommonV4 } from "@/components/TableCommonV4";
 import { TagComponent } from "@/components/TagComponent";
-import { detectionSampleColumns, modelColumns } from "@/services/columns";
+import {
+  detectionSampleCrossChainColumns,
+  modelColumns
+} from "@/services/columns";
 import {
   detectActionLogRequestType,
   detectActionLogService
@@ -136,7 +139,7 @@ export function CrossChain() {
               <TableCommonV4
                 className="w-full h-full"
                 data={detectionSampleList}
-                columns={detectionSampleColumns}
+                columns={detectionSampleCrossChainColumns}
               />
             </div>
           </div>

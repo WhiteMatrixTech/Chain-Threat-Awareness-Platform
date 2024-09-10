@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 16:17:43
+ * @LastEditTime: 2024-09-10 11:28:55
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useAsyncFn } from "react-use";
 
-import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
+import { ButtonCommonCyber } from "@/components/ButtonCommonCyber";
 import { DateCommon } from "@/components/DateCommon";
 import { InputCommonV2 } from "@/components/InputCommonV2";
 import {
@@ -57,7 +57,6 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
       value: 5
     }
   ];
-  const rangeList: any = [];
   const [selectedType, setSelectedType] = useState<ISelectorItemProps | null>(
     null
   );
@@ -73,7 +72,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     const data = await detectSelfishminingService(params);
     return data;
   });
-  const start =  () => {
+  const start =   async () => {
     if (!inputRange) {
       notification.warning({ message: `请输入必要信息!!!` });
       return;
@@ -82,11 +81,12 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
       chain: selectedType?.value,
       startBlock: inputRange.split('-')[0],
       endBlock: inputRange.split('-')[1],
-      date_range: selectedRange,
+      startDate: selectedRange[0],
+      endDate: selectedRange[1],
 
     };
-    // const response = await detectPrivacy(params);
-    // console.log("response>>>", response);
+    const response = await detectPrivacy(params);
+    console.log("response>>>", response);
     setResultContent("测试数据!!!");
     console.log("params>>>>", params);
   };
@@ -98,9 +98,9 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     const respose = await detectActionLogService(params);
     const result: any[] = respose.data.map((item: any) => {
       return {
-        name: item.input,
+        name: JSON.parse(item.input).block_range,
         time: item.createAt,
-        result: JSON.parse(item.output).identity,
+        result: JSON.parse(item.output).result,
       };
     });
     setdetectionSampleList(result);
@@ -112,9 +112,10 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     void getActionLogList();
   }, []);
   return (
-    <div className={cn("w-full h-full pt-[0px]", `${pattern.flexbet} pb-[110px]`)}>
+    <div className={cn(" w-full h-full 3xl:pb-36  flex items-center")}>
+      <div className={cn(`${pattern.flexbet} w-full max-h-[783px] h-full `)}>
       <div
-        className={` left  w-[calc(50%)] h-full flex flex-col items-center justify-between gap-y-7`}
+        className={` scale-95 3xl:scale-100 left  w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full  flex flex-col items-end justify-between gap-y-7`}
       >
         <div
           className={cn(
@@ -164,14 +165,15 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
               <div
                 className={`w-full h-[36px] flex items-center justify-end select-none`}
               >
-                <ButtonCommonV2
+                  <ButtonCommonCyber
+                    className="w-full"
                   // disable={fishLoading}
                   onClick={() => {
                     void start();
                   }}
                 >
                   <span className="text-[#FFFFFF] text-[16px]">开始检测</span>
-                </ButtonCommonV2>
+                </ButtonCommonCyber>
               </div>
             </div>
           </div>
@@ -193,9 +195,9 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
         </div>
       </div>
       <div
-        className={` right  w-[calc(50%)] h-full flex justify-center items-center `}
+        className={` right w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full flex justify-start items-center `}
       >
-        <div className=" pt-[80px] px-[20px] pb-[20px] right w-[778px] h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
+        <div className=" pt-[80px] px-[20px] pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
           <div className="w-full h-full relative">
             <span className="text-[#FFFFFF] text-[16px]">
               {resultContent}
@@ -215,6 +217,8 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
           </div>
         </div>
       </div>
+      </div>
+
     </div>
   );
 }
