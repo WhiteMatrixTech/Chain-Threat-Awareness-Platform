@@ -173,8 +173,8 @@ export function TransactionGraph() {
           <div className={`${pattern.flexbet}  w-full h-[36px]`}>
             <div className={cn(`h-full flex items-center gap-x-[10px] `)}>
               <div className="text-[#ffffff] text-[16px] font-[500]">交易图谱</div>
-              <div className="flex flex-1 gap-x-[20px]">
-                <div className="w-[164px] h-[36px] flex items-center">
+              <div className="flex flex-1 gap-x-[10px] 3xl:gap-x-[20px]">
+                <div className="w-[140px] 3xl:w-[164px] h-[36px] flex items-center">
                   <SelectorCommonV3
                     placeholder="以太坊区块的区块号或区块哈希"
                     value={{
@@ -200,7 +200,7 @@ export function TransactionGraph() {
                       transactionHash: val
                     });
                   }}
-                  className="w-[408px] h-[36px] "
+                  className="w-[180px] 3xl:w-[408px] h-[36px] "
                 />
                 <div
                   className={cn(`w-[450px] h-[36px]  ${pattern.flexCenter}`)}
