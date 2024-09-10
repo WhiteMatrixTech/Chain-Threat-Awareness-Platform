@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 17:15:36
+ * @LastEditTime: 2024-09-10 15:53:46
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -222,7 +222,7 @@ export function BitcoinmixedcoinDetectionResult() {
           </div>
           <div
             className={cn(
-              `w-full h-[224px] px-5 py-5 mt-4 overflow-scroll`,
+              `w-full h-[calc(100%_-_500px)] px-5 py-5 mt-4 overflow-scroll`,
               "bg-[#02004D4D]",
               `border-[2px] border-solid border-[#0D53B7]`,
               "flex flex-col gap-y-5 text-[#ffffff]"
