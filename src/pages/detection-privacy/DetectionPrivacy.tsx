@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 11:28:55
+ * @LastEditTime: 2024-09-10 13:50:38
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -112,10 +112,10 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     void getActionLogList();
   }, []);
   return (
-    <div className={cn(" w-full h-full 3xl:pb-36  flex items-center")}>
+    <div className={cn(`w-full h-full 3xl:pb-36  flex items-center`)}>
       <div className={cn(`${pattern.flexbet} w-full max-h-[783px] h-full `)}>
       <div
-        className={` scale-95 3xl:scale-100 left  w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full  flex flex-col items-end justify-between gap-y-7`}
+        className={`scale-95 3xl:scale-100 left  w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full  flex flex-col items-end justify-between gap-y-7`}
       >
         <div
           className={cn(
@@ -197,7 +197,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
       <div
         className={` right w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full flex justify-start items-center `}
       >
-        <div className=" pt-[80px] px-[20px] pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
+        <div className=" pt-[60px] px-[20px] pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center  overflow-scroll">
           <div className="w-full h-full relative">
             <span className="text-[#FFFFFF] text-[16px]">
               {resultContent}
