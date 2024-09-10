@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 13:50:38
+ * @LastEditTime: 2024-09-10 14:04:31
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -87,7 +87,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     };
     const response = await detectPrivacy(params);
     console.log("response>>>", response);
-    setResultContent("测试数据!!!");
+    // setResultContent("");
     console.log("params>>>>", params);
   };
   const getActionLogList = async () => {

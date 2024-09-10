@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 14:01:50
+ * @LastEditTime: 2024-09-10 14:07:51
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -149,7 +149,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
             </div>
           </div>
         </div>
-        <div className={cn(` w-[662px] h-[calc(100%_-_268px)] flex flex-col gap-y-2`)}>
+        <div className={cn(` w-[662px] h-[calc(100%_-_278px)] flex flex-col gap-y-2`)}>
           <div className={cn(`w-full h-[40px] flex items-center justify-start`,
             `border-solid border-[#00A0E9] border-l-[6px]`,
             'bg-[#02004D4D] pl-5'
