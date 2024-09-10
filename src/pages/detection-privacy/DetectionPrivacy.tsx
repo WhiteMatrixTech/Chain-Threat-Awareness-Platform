@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 16:24:43
+ * @LastEditTime: 2024-09-10 17:15:36
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -77,14 +77,22 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
       notification.warning({ message: `请输入必要信息!!!` });
       return;
     }
+    const startBlock = Number(inputRange.split('-')[0])
+    const endBlock = Number(inputRange.split('-')[1])
+    
+    if (endBlock - startBlock > 500) {
+      notification.warning({ message: `范围不能超过 500 个区块!!!` });
+      return;
+    }
     const params = {
       chain: selectedType?.value,
       startBlock: inputRange.split('-')[0],
       endBlock: inputRange.split('-')[1],
-      startDate: selectedRange[0],
-      endDate: selectedRange[1],
+      // startDate: selectedRange[0],
+      // endDate: selectedRange[1],
 
     };
+    
     const response = await detectPrivacy(params);
     console.log("response>>>", response);
     // setResultContent("");
@@ -144,7 +152,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
                     className="w-[450px] h-full"
                 />
               </div>
-              <div
+              {/* <div
                   className={cn(`w-full h-[36px]  ${pattern.flexCenter}`)}
                 >
                   <DateCommon
@@ -153,7 +161,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
                       setSelectedRange(date)
                     }}
                   />
-                </div>
+                </div> */}
               <div className={`w-full h-[36px] flex items-center`}>
                 <InputCommonV2
                   placeholder="1000-2000"
