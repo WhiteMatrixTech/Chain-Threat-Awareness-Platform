@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 14:04:31
+ * @LastEditTime: 2024-09-10 16:24:43
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -119,7 +119,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
       >
         <div
           className={cn(
-            ` w-[662px] h-[362px] bg-[url('./assets/privacyBg1.png')] bg-cover bg-center relative`
+            ` w-[662px] h-[384px] bg-[url('./assets/privacyBg1.png')] bg-cover bg-center relative`
           )}
         >
           <div
@@ -141,13 +141,14 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
                   setValue={(item: ISelectorItemProps) => {
                     setSelectedType(item);
                   }}
+                    className="w-[450px] h-full"
                 />
               </div>
               <div
                   className={cn(`w-full h-[36px]  ${pattern.flexCenter}`)}
                 >
                   <DateCommon
-                    className="w-full h-full"
+                    className="w-[450px] h-full"
                     onSelect={(date: any) => {
                       setSelectedRange(date)
                     }}
@@ -178,20 +179,23 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
             </div>
           </div>
         </div>
-        <div className={cn(` w-[662px] flex-1 flex flex-col gap-y-2`)}>
+        <div className={cn(` w-[662px] h-[calc(100%_-_390px)] flex flex-col`)}>
           <div className={cn(`w-full h-[40px] flex items-center justify-start`,
             `border-solid border-[#00A0E9] border-l-[6px]`,
             'bg-[#02004D4D] pl-5'
 
           )}>
             <span className="text-[20px] text-[#ffffff]">历史检测数据 - 基于二阶二项分布的通用自私挖矿检测模型</span>
-          </div>
+            </div>
+            <div className="w-full h-[calc(100%_-_50px)] mt-[10px]">
+              <TableCommonV4
+              className="w-full h-full"
+              data={detectionSampleList}
+              columns={detectionSamplePrivacyColumns}
+            />
+            </div>
           
-          <TableCommonV4
-            className="w-full flex-1"
-            data={detectionSampleList}
-            columns={detectionSamplePrivacyColumns}
-          />
+
         </div>
       </div>
       <div
