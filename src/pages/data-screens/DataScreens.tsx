@@ -127,7 +127,7 @@ export function DataScreens(props: dataScreensProps) {
         surface: 0x1890ff,
         selected: "#FF6868",
         related: "#FF686899",
-        halo: "#FF686899"
+        halo: "#00A0E9"
       }
     });
 
