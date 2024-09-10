@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 00:44:19
+ * @LastEditTime: 2024-09-10 15:44:39
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -85,9 +85,7 @@ export function CrossChainResult() {
           style={{ color: "white", fontSize: "24px" }}
         />
       </div>
-    : <div
-        className={cn(" w-full h-full pt-[0px] fadeIn", `${pattern.flexbet}`)}
-      >
+    : <div className={cn(" w-full h-full fadeIn", `${pattern.flexbet}`)}>
         <div className={cn(`w-full h-full flex flex-col `)}>
           <ResultComponent
             title="检测时间"

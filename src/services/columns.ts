@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 14:55:48
+ * @LastEditTime: 2024-09-10 15:43:44
  */
 // 模型信息
 export const modelColumns: any = [
@@ -143,17 +143,17 @@ export const detectionMaliciousSampleColumns: any = [
 // 跨链检测样例
 export const detectionSampleCrossChainColumns: any = [
   {
-    title: "检测地址",
+    title: "查询信息",
     dataIndex: "name",
     width: 100
   },
   {
-    title: "检测时间",
+    title: "查询时间",
     dataIndex: "time",
     width: 200
   },
   {
-    title: "检测结果",
+    title: "查询结果",
     dataIndex: "result"
   }
 ];

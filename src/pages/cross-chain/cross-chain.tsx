@@ -74,12 +74,8 @@ export function CrossChain() {
     void getActionLogList();
   }, []);
   return (
-    <div className={cn(" w-full h-full pt-[0px] fadeIn", `${pattern.flexbet}`)}>
-      <div
-        className={cn(
-          `w-full h-full flex flex-col gap-y-20 justify-between pt-40 items-center`
-        )}
-      >
+    <div className={cn(" w-full h-full fadeIn flex flex-col ")}>
+      <div className={cn(`w-full h-[calc(60%)] ${pattern.flexCenter}`)}>
         <div className={cn(` w-[662px] h-[322px] relative`)}>
           <div
             className={cn(
@@ -117,31 +113,32 @@ export function CrossChain() {
             </div>
           </div>
         </div>
-        <div className={cn(`w-full h-[370px] flex justify-between`)}>
-          <div className="w-[calc(50%_-_10px)] h-full flex flex-col  justify-between">
-            <div className="w-[120px] h-[36px]">
-              <TagComponent title="模型信息" className="w-[120px] h-[36px]" />
-            </div>
+      </div>
 
-            <div className={cn(` w-full h-[calc(100%_-_52px)] `)}>
-              <TableCommonV4
-                className="w-full h-full"
-                data={modelList}
-                columns={modelColumns}
-              />
-            </div>
+      <div className={cn(`w-full h-[calc(40%)] flex justify-between`)}>
+        <div className="w-[calc(50%_-_10px)] h-full flex flex-col  justify-between">
+          <div className="w-[120px] h-[36px]">
+            <TagComponent title="模型信息" className="w-[120px] h-[36px]" />
           </div>
-          <div className="w-[calc(50%_-_10px)] h-full flex flex-col  justify-between">
-            <div className="w-[120px] h-[36px]">
-              <TagComponent title="检测样例" className="w-[120px] h-[36px]" />
-            </div>
-            <div className={cn(` w-full h-[calc(100%_-_52px)] `)}>
-              <TableCommonV4
-                className="w-full h-full"
-                data={detectionSampleList}
-                columns={detectionSampleCrossChainColumns}
-              />
-            </div>
+
+          <div className={cn(` w-full h-[calc(100%_-_52px)] `)}>
+            <TableCommonV4
+              className="w-full h-full"
+              data={modelList}
+              columns={modelColumns}
+            />
+          </div>
+        </div>
+        <div className="w-[calc(50%_-_10px)] h-full flex flex-col  justify-between">
+          <div className="w-[120px] h-[36px]">
+            <TagComponent title="检测样例" className="w-[120px] h-[36px]" />
+          </div>
+          <div className={cn(` w-full h-[calc(100%_-_52px)] `)}>
+            <TableCommonV4
+              className="w-full h-full"
+              data={detectionSampleList}
+              columns={detectionSampleCrossChainColumns}
+            />
           </div>
         </div>
       </div>
