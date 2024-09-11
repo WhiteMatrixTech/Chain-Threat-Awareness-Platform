@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 15:34:57
+ * @LastEditTime: 2024-09-11 16:20:01
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -37,7 +37,6 @@ import { waitTime } from "@/utils/common";
 export function DataStore() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDialogEditOpen, setIsDialogEditOpen] = useState(false);
-  const [dialogEditData, setDialogEditData] = useState();
   const location = useLocation();
   const [data, setData] = useState<any[]>([]);
   const [pageInfo, setpageInfo] = useState({
@@ -115,7 +114,6 @@ export function DataStore() {
           operationColumn={TableOperationDom({})}
           footer={TableFooterDom({})}
           handleEvent={(data: any) => {
-            setDialogEditData(data);
             setIsDialogEditOpen(true);
           }}
         />
@@ -139,7 +137,6 @@ export function DataStore() {
         }}
       />
       <DialogEdit
-        data={dialogEditData}
         open={isDialogEditOpen}
         handleEvent={() => {
           setIsDialogEditOpen(false);
