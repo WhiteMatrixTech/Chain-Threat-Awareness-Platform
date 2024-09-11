@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 14:44:55
+ * @LastEditTime: 2024-09-11 15:34:57
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -36,7 +36,8 @@ import { waitTime } from "@/utils/common";
 
 export function DataStore() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isDialogEditOpen, setIsDialogEditOpen] = useState(true);
+  const [isDialogEditOpen, setIsDialogEditOpen] = useState(false);
+  const [dialogEditData, setDialogEditData] = useState();
   const location = useLocation();
   const [data, setData] = useState<any[]>([]);
   const [pageInfo, setpageInfo] = useState({
@@ -45,31 +46,10 @@ export function DataStore() {
     total: 4
   });
 
-  // const {
-  //   data,
-  //   refetch,
-  //   isRefetching,
-  //   isLoading
-  // } = useQuery("getDataStore", async () => {
-  //   await waitTime(1000);
-  //   return dataStoreList || [];
-  // });
-  // useEffect(
-  //   () => {
-  //     const params: dataStoreRequestType = {
-  //       currentPage: 1,
-  //       pageSize: 20
-  //     };
-  //     void getDataStoreList(params).then(data => {
-  //       console.log("data>>>", data);
-  //     });
-  //   },
-  //   [location.pathname]
-  // );
   const getData = async () => {
     const respose = await dataStoreListService();
     console.log("response>>>", respose);
-    const listData = dataStoreList;
+    const listData = [...dataStoreList];
     setData(listData);
     // setpageInfo({
     //   ...pageInfo,
@@ -77,29 +57,31 @@ export function DataStore() {
     // });
   };
   useEffect(() => {
-    void getData();
+    setData([...dataStoreList]);
+
+    // void getData();
   }, []);
-  // const TableOperationDom: React.FC = () => {
-  //   return (
-  //     <div className={cn(`w-full h-full`, ` flex justify-end items-center`)}>
-  //       <div
-  //         className="cursor-pointer group relative"
-  //         onClick={() => {
-  //           console.log("编辑>>>");
-  //         }}
-  //       >
-  //         <img src={plus_icon} alt="" width={28} height={28} />
-  //         <img
-  //           className="absolute top-0 left-0 hidden group-hover:block"
-  //           src={plus_light_icon}
-  //           alt=""
-  //           width={28}
-  //           height={28}
-  //         />
-  //       </div>
-  //     </div>
-  //   );
-  // };
+  const TableOperationDom: React.FC = () => {
+    return (
+      <div className={cn(`w-full h-full`, ` flex justify-end items-center`)}>
+        <div
+          className="cursor-pointer group relative"
+          onClick={() => {
+            setIsDialogEditOpen(true);
+          }}
+        >
+          <img src={plus_icon} alt="" width={28} height={28} />
+          <img
+            className="absolute top-0 left-0 hidden group-hover:block"
+            src={plus_light_icon}
+            alt=""
+            width={28}
+            height={28}
+          />
+        </div>
+      </div>
+    );
+  };
   const TableFooterDom: React.FC = () => {
     return (
       <div className="footer w-full h-[56px] flex justify-start items-center">
@@ -130,8 +112,12 @@ export function DataStore() {
           data={data}
           columns={dataStoreColumns}
           pageInfo={pageInfo}
-          // operationColumn={TableOperationDom({})}
+          operationColumn={TableOperationDom({})}
           footer={TableFooterDom({})}
+          handleEvent={(data: any) => {
+            setDialogEditData(data);
+            setIsDialogEditOpen(true);
+          }}
         />
       </div>
 
@@ -146,16 +132,17 @@ export function DataStore() {
           }}
         />
       </div>
-      {/* <DialogAdd
+      <DialogAdd
         open={isDialogOpen}
         handleEvent={() => {
           setIsDialogOpen(false);
         }}
-      /> */}
+      />
       <DialogEdit
+        data={dialogEditData}
         open={isDialogEditOpen}
         handleEvent={() => {
-          setIsDialogOpen(false);
+          setIsDialogEditOpen(false);
         }}
       />
     </div>

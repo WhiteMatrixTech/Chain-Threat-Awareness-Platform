@@ -5,30 +5,39 @@
  * @Author: didadida262
  * @Date: 2024-09-11 13:49:26
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 14:51:58
+ * @LastEditTime: 2024-09-11 15:34:35
  */
 import cn from "classnames";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import btn_confirm from "@/assets/btn_confirm.png";
 import dialog_close from "@/assets/dialog_close.png";
 import xls_logo from '@/assets/xls_logo.png'
-import {InputCommonV2} from '@/components/InputCommonV2'
+import {InputLight} from '@/components/InputLight'
 
 interface IProps {
   open: boolean;
+  data: any;
   handleEvent: () => void
 }
 
 export function DialogEdit(props: IProps) {
-  const { open, handleEvent } = props;
+  const { open, data, handleEvent } = props;
+
   if (!open) return <></>;
   const [form, setForm] = useState({
-    name: '',
-    chain: '',
+    name: data.name,
+    chain: data.chainType,
     origin: '',
     downloadName: ''
   })
+  // useEffect(() => {
+  //   setForm({
+  //     ...form,
+  //     name: data.name,
+  //     chain: data.chainType
+  //   })
+  // }, [data])
   return (
     <div className="z-50 absolute top-[calc(50%_-_349px)] left-[calc(50%_-_265px)] h-[698px] w-[530px] rounded-[10px] bg-[#ffffff] px-[40px] py-[20px]">
       <div
@@ -51,7 +60,8 @@ export function DialogEdit(props: IProps) {
               <span className="text-[#666666] text-[15px]">数据集名称：</span>
             </div>
             <div className="w-full h-[36px] flex justify-start items-center">
-              <InputCommonV2
+              <InputLight
+                initVal={form.name}
                 placeholder="请输入数据集名称"
                 onInput={(val: any) => {
                   setForm({
@@ -68,7 +78,8 @@ export function DialogEdit(props: IProps) {
               <span className="text-[#666666] text-[15px]">所在链：</span>
             </div>
             <div className="w-full h-[36px] flex justify-start items-center">
-              <InputCommonV2
+              <InputLight
+                initVal={form.chain}
                 placeholder="请输入所在链"
                 onInput={(val: any) => {
                   setForm({
@@ -76,7 +87,7 @@ export function DialogEdit(props: IProps) {
                     chain: val
                   });
                 }}
-                className="w-[450px] h-[36px] "
+                className="w-[450px] h-[36px]"
               />
             </div>
           </div>
@@ -85,7 +96,7 @@ export function DialogEdit(props: IProps) {
               <span className="text-[#666666] text-[15px]">数据来源：</span>
             </div>
             <div className="w-full h-[36px] flex justify-start items-center">
-              <InputCommonV2
+              <InputLight
                 placeholder="请输入数据来源"
                 onInput={(val: any) => {
                   setForm({
@@ -113,7 +124,7 @@ export function DialogEdit(props: IProps) {
               <span className="text-[#666666] text-[15px]">下载地址（可选填）：</span>
             </div>
             <div className="w-full h-[36px] flex justify-start items-center">
-              <InputCommonV2
+              <InputLight
                 placeholder="请输入下载链接"
                 onInput={(val: any) => {
                   setForm({

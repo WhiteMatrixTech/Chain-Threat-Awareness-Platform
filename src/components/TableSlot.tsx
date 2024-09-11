@@ -6,12 +6,14 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 11:54:51
+ * @LastEditTime: 2024-09-11 15:23:50
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
 import React, { useEffect, useRef, useState } from "react";
 
+import plus_icon from "@/assets/plus.png";
+import plus_light_icon from "@/assets/plus_light.png";
 import pattern from "@/styles/pattern";
 
 interface IProps {
@@ -22,6 +24,7 @@ interface IProps {
   children?: React.ReactNode;
   footer?: React.ReactNode;
   operationColumn?: React.ReactNode;
+  handleEvent: (data: any) => void;
 }
 const maxcharNum = 40;
 export function TableSlot(props: IProps) {
@@ -32,7 +35,8 @@ export function TableSlot(props: IProps) {
     className,
     children,
     footer,
-    operationColumn
+    operationColumn,
+    handleEvent
   } = props;
   const getCurrentColWidth = (col: any) => {
     const used = columns
@@ -40,7 +44,7 @@ export function TableSlot(props: IProps) {
       .reduce((total, current) => {
         return total + current.width;
       }, 0);
-    return `calc(100% - ${used}px)`;
+    return `calc(100% - ${used + 100}px)`;
   };
   useEffect(
     () => {
@@ -86,7 +90,7 @@ export function TableSlot(props: IProps) {
               "border-solid border-0 border-l-[2px] border-[#0E47A5]"
             )}
           >
-            <span className={cn("text-[15px] text-[#ffffff]")}>opetations</span>
+            <span className={cn("text-[15px] text-[#ffffff]")} />
           </div>}
       </div>
       <div className="content w-full h-[calc(100%_-_40px)] ">
@@ -137,7 +141,28 @@ export function TableSlot(props: IProps) {
                 )}
               {operationColumn &&
                 <div className={cn("px-[16px] w-[100px]")}>
-                  {operationColumn}
+                  <div
+                    className={cn(
+                      `w-full h-full`,
+                      ` flex justify-end items-center`
+                    )}
+                  >
+                    <div
+                      className="cursor-pointer group relative"
+                      onClick={() => {
+                        handleEvent(item);
+                      }}
+                    >
+                      <img src={plus_icon} alt="" width={28} height={28} />
+                      <img
+                        className="absolute top-0 left-0 hidden group-hover:block"
+                        src={plus_light_icon}
+                        alt=""
+                        width={28}
+                        height={28}
+                      />
+                    </div>
+                  </div>
                 </div>}
             </div>
           )}
