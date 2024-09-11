@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 10:58:41
+ * @LastEditTime: 2024-09-11 11:54:51
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -20,10 +20,20 @@ interface IProps {
   className?: string;
   pageInfo: any;
   children?: React.ReactNode;
+  footer?: React.ReactNode;
+  operationColumn?: React.ReactNode;
 }
 const maxcharNum = 40;
 export function TableSlot(props: IProps) {
-  const { data, columns, pageInfo, className, children } = props;
+  const {
+    data,
+    columns,
+    pageInfo,
+    className,
+    children,
+    footer,
+    operationColumn
+  } = props;
   const getCurrentColWidth = (col: any) => {
     const used = columns
       .filter(item => item.dataIndex !== col.dataIndex)
@@ -69,6 +79,15 @@ export function TableSlot(props: IProps) {
               </span>
             </div>
           )}
+        {operationColumn &&
+          <div
+            className={cn(
+              "px-[16px] w-[100px]",
+              "border-solid border-0 border-l-[2px] border-[#0E47A5]"
+            )}
+          >
+            <span className={cn("text-[15px] text-[#ffffff]")}>opetations</span>
+          </div>}
       </div>
       <div className="content w-full h-[calc(100%_-_40px)] ">
         {data &&
@@ -116,13 +135,19 @@ export function TableSlot(props: IProps) {
                             </div>}
                         </div>
                 )}
+              {operationColumn &&
+                <div className={cn("px-[16px] w-[100px]")}>
+                  {operationColumn}
+                </div>}
             </div>
           )}
         {!data.length &&
           <div className={cn(` w-full h-[calc(100%_-_40px)] `)}>暂无数据....</div>}
+
         {data.length !== 0 &&
+          footer &&
           <div className={cn(`w-full  footer px-[16px]`)}>
-            {children}
+            {footer}
           </div>}
       </div>
     </div>

@@ -7,18 +7,20 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 11:01:49
+ * @LastEditTime: 2024-09-11 14:13:33
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
 import cn from "classnames";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 
 import plus_icon from "@/assets/plus.png";
+import plus_light_icon from "@/assets/plus_light.png";
 import { AppBreadcrumb } from "@/components/Breadcrumb";
+import { Dialog } from "@/components/Dialog";
 import { PageCommon } from "@/components/PageCommon";
 import { TableSlot } from "@/components/TableSlot";
 import { dataStoreColumns } from "@/services/columns";
@@ -32,6 +34,7 @@ import pattern from "@/styles/pattern";
 import { waitTime } from "@/utils/common";
 
 export function DataStore() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const location = useLocation();
   const [data, setData] = useState<any[]>([]);
   const [pageInfo, setpageInfo] = useState({
@@ -74,6 +77,48 @@ export function DataStore() {
   useEffect(() => {
     void getData();
   }, []);
+  // const TableOperationDom: React.FC = () => {
+  //   return (
+  //     <div className={cn(`w-full h-full`, ` flex justify-end items-center`)}>
+  //       <div
+  //         className="cursor-pointer group relative"
+  //         onClick={() => {
+  //           console.log("编辑>>>");
+  //         }}
+  //       >
+  //         <img src={plus_icon} alt="" width={28} height={28} />
+  //         <img
+  //           className="absolute top-0 left-0 hidden group-hover:block"
+  //           src={plus_light_icon}
+  //           alt=""
+  //           width={28}
+  //           height={28}
+  //         />
+  //       </div>
+  //     </div>
+  //   );
+  // };
+  const TableFooterDom: React.FC = () => {
+    return (
+      <div className="footer w-full h-[56px] flex justify-start items-center">
+        <div
+          className="cursor-pointer group relative"
+          onClick={() => {
+            setIsDialogOpen(true);
+          }}
+        >
+          <img src={plus_icon} alt="" width={28} height={28} />
+          <img
+            className="absolute top-0 left-0 hidden group-hover:block"
+            src={plus_light_icon}
+            alt=""
+            width={28}
+            height={28}
+          />
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className={cn("fadeIn w-full h-full", `${pattern.flexbetCol}`)}>
@@ -83,18 +128,9 @@ export function DataStore() {
           data={data}
           columns={dataStoreColumns}
           pageInfo={pageInfo}
-        >
-          <div className="footer w-full h-[56px] flex justify-start items-center">
-            <div
-              className="cursor-pointer"
-              onClick={() => {
-                console.log("新增>>>");
-              }}
-            >
-              <img src={plus_icon} alt="" width={28} height={28} />
-            </div>
-          </div>
-        </TableSlot>
+          // operationColumn={TableOperationDom({})}
+          footer={TableFooterDom({})}
+        />
       </div>
 
       <div className={cn(`w-full h-[20px] ${pattern.flexEnd}`)}>
@@ -108,6 +144,12 @@ export function DataStore() {
           }}
         />
       </div>
+      <Dialog
+        open={isDialogOpen}
+        handleEvent={() => {
+          setIsDialogOpen(false);
+        }}
+      />
     </div>
   );
 }
