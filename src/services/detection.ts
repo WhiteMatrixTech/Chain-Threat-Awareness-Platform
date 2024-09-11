@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 18:04:17
+ * @LastEditTime: 2024-09-11 18:33:07
  */
 import { getData, postData } from "./request";
 
@@ -31,7 +31,7 @@ export interface detectIdentityRequestType {
   chain: string;
 }
 export interface detectChainCodeRequestType {
-  name: string;
+  code: string;
   chain: string;
 }
 export interface detectCrossChainRequestType {
