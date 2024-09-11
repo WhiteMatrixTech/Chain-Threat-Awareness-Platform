@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
@@ -7,7 +8,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 16:20:01
+ * @LastEditTime: 2024-09-11 18:03:51
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -26,7 +27,10 @@ import { PageCommon } from "@/components/PageCommon";
 import { TableSlot } from "@/components/TableSlot";
 import { dataStoreColumns } from "@/services/columns";
 import {
+  dataStoreCreateRequestType,
+  dataStoreCreateService,
   dataStoreListService,
+  dataStoreModifyService,
   dataStoreRequestType,
   getDataStoreList
 } from "@/services/detection";
@@ -37,28 +41,61 @@ import { waitTime } from "@/utils/common";
 export function DataStore() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDialogEditOpen, setIsDialogEditOpen] = useState(false);
-  const location = useLocation();
+  const [dialogData, setDialogData] = useState();
   const [data, setData] = useState<any[]>([]);
   const [pageInfo, setpageInfo] = useState({
     pageSize: 10,
     currentPage: 1,
     total: 4
   });
-
+  function genFormData(data: any) {
+    const _data = new FormData();
+    Object.keys(data).forEach(k => {
+      _data.append(k, data[k]);
+    });
+    return _data;
+  }
   const getData = async () => {
     const respose = await dataStoreListService();
     console.log("response>>>", respose);
-    const listData = [...dataStoreList];
+    const listData = respose.data.map((item: any) => {
+      return {
+        ...item,
+        downloadUrl: `https://chain-threat-awareness-platform.whitematrix.io/chainthreat/v1/data-house/data-source/data/${item.tableName}`
+      };
+    });
     setData(listData);
-    // setpageInfo({
-    //   ...pageInfo,
-    //   total: respose.data.length
-    // });
+    setpageInfo({
+      ...pageInfo,
+      total: respose.data.length
+    });
   };
-  useEffect(() => {
-    setData([...dataStoreList]);
+  const creatData = async (info: any) => {
+    const params: dataStoreCreateRequestType = {
+      ...info.data
+    };
+    console.log("creatData-params>>>", params);
+    const params2 = genFormData(params);
 
-    // void getData();
+    const respose = await dataStoreCreateService(params2);
+    console.log("respose>>新增", respose);
+    await getData();
+    setIsDialogOpen(false);
+  };
+  const modifyData = async (info: any) => {
+    console.log("编辑》〉》", info);
+    const params = {
+      ...info.data
+    };
+    const params2 = genFormData(params);
+    const respose = await dataStoreModifyService(params2);
+    console.log("respose>>编辑", respose);
+    await getData();
+    setIsDialogEditOpen(false);
+  };
+
+  useEffect(() => {
+    void getData();
   }, []);
   const TableOperationDom: React.FC = () => {
     return (
@@ -114,6 +151,7 @@ export function DataStore() {
           operationColumn={TableOperationDom({})}
           footer={TableFooterDom({})}
           handleEvent={(data: any) => {
+            setDialogData(data);
             setIsDialogEditOpen(true);
           }}
         />
@@ -132,14 +170,24 @@ export function DataStore() {
       </div>
       <DialogAdd
         open={isDialogOpen}
-        handleEvent={() => {
-          setIsDialogOpen(false);
+        handleEvent={(info: any) => {
+          if (info.type === "close") {
+            setIsDialogOpen(false);
+          } else if (info.type === "create") {
+            void creatData(info);
+          }
         }}
       />
       <DialogEdit
+        data={dialogData}
         open={isDialogEditOpen}
-        handleEvent={() => {
-          setIsDialogEditOpen(false);
+        handleEvent={(info: any) => {
+          if (info.type === "close") {
+            setIsDialogEditOpen(false);
+          } else if (info.type === "modify") {
+            console.log("修改info", info);
+            void modifyData(info);
+          }
         }}
       />
     </div>

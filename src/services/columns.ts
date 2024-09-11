@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 15:43:44
+ * @LastEditTime: 2024-09-11 17:33:06
  */
 // 模型信息
 export const modelColumns: any = [
@@ -200,13 +200,19 @@ export const dataStoreColumns: any = [
   },
   {
     title: "数据集名称",
-    dataIndex: "name",
+    dataIndex: "datasetName",
     ellipsis: true,
     width: 200
   },
   {
     title: "区块链",
-    dataIndex: "chainType",
+    dataIndex: "chain",
+    ellipsis: true,
+    width: 150
+  },
+  {
+    title: "数据来源",
+    dataIndex: "source",
     ellipsis: true,
     width: 150
   },
@@ -216,10 +222,16 @@ export const dataStoreColumns: any = [
     ellipsis: true,
     width: 100
   },
+  // {
+  //   title: "描述",
+  //   dataIndex: "desc",
+  //   ellipsis: true
+  // },
   {
-    title: "描述",
-    dataIndex: "desc",
+    title: "下载地址",
+    dataIndex: "downloadUrl",
     ellipsis: true
+    // width: 150
   }
 ];
 

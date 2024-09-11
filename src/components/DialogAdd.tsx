@@ -5,8 +5,9 @@
  * @Author: didadida262
  * @Date: 2024-09-11 13:49:26
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 16:20:47
+ * @LastEditTime: 2024-09-11 16:39:22
  */
+import { notification } from "antd";
 import cn from "classnames";
 import { useEffect, useState } from "react";
 
@@ -17,7 +18,7 @@ import {InputLight} from '@/components/InputLight'
 
 interface IProps {
   open: boolean;
-  handleEvent: () => void
+  handleEvent: (data: any) => void
 }
 
 export function DialogAdd(props: IProps) {
@@ -25,11 +26,29 @@ export function DialogAdd(props: IProps) {
 
   if (!open) return <></>;
   const [form, setForm] = useState({
-    name: '',
+    datasetName: '',
     chain: '',
-    origin: '',
-    downloadName: ''
+    source: '',
+    downloadName: '',
   })
+  const [file, setFile] = useState<File>();
+  const handleConfirm = () => {
+    if (!file || !form.chain || !form.datasetName || !form.source) {
+      notification.warning({ message: `请填写必要信息!!!` });
+      return
+    }
+    const prarams = {
+      ...form,
+      file: file
+    }
+    handleEvent({
+      type: 'create',
+      data: {
+        ...prarams
+      }
+    })
+  }
+
 
   return (
     <div className="z-50 absolute top-[calc(50%_-_349px)] left-[calc(50%_-_265px)] h-[698px] w-[530px] rounded-[10px] bg-[#ffffff] px-[40px] py-[20px]">
@@ -37,7 +56,10 @@ export function DialogAdd(props: IProps) {
         className="absolute right-[16px] top-[16px] cursor-pointer"
         onClick={(e) => {
           console.log("closed!!!");
-          handleEvent()
+          handleEvent({
+            type: 'close',
+            data: null
+          })
         }}
       >
         <img src={dialog_close} alt="" width={30} height={30} />
@@ -54,12 +76,12 @@ export function DialogAdd(props: IProps) {
             </div>
             <div className="w-full h-[36px] flex justify-start items-center">
               <InputLight
-                initVal={form.name}
+                initVal={form.datasetName}
                 placeholder="请输入数据集名称"
                 onInput={(val: any) => {
                   setForm({
                     ...form,
-                    name: val
+                    datasetName: val
                   });
                 }}
                 className="w-[450px] h-[36px] "
@@ -94,7 +116,7 @@ export function DialogAdd(props: IProps) {
                 onInput={(val: any) => {
                   setForm({
                     ...form,
-                    origin: val
+                    source: val
                   });
                 }}
                 className="w-[450px] h-[36px] "
@@ -109,6 +131,16 @@ export function DialogAdd(props: IProps) {
             <div className={cn(`w-full h-[148px]`,
             `bg-[url('./assets/dialog_upload_bg.png')] bg-cover bg-center `,
             )}>
+            <input
+              type="file"
+              accept=".csv"
+              title=""
+              className="w-full h-full cursor-pointer opacity-0"
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                if (!event.target.files) return;
+                setFile(event?.target.files[0]);
+              }}
+            />
             </div>
           </div>
           <div className="w-full h-[68px] flex flex-col justify-between">
@@ -122,7 +154,7 @@ export function DialogAdd(props: IProps) {
                 onInput={(val: any) => {
                   setForm({
                     ...form,
-                    name: val
+                    downloadName: val
                   });
                 }}
                 className="w-[450px] h-[36px] "
@@ -130,7 +162,10 @@ export function DialogAdd(props: IProps) {
             </div>
           </div>
         </div>
-        <div className="container-footer w-full h-[48px] cursor-pointer mt-[30px]">
+        <div className="container-footer w-full h-[48px] cursor-pointer mt-[30px]" onClick={() => {
+          handleConfirm()
+
+        }}>
           <img src={btn_confirm} alt="" width={450} height={48} />
         </div>
       </div>

@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
 /*
  * @Description: datastore模块涉及的请求
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 17:30:44
+ * @LastEditTime: 2024-09-11 18:04:17
  */
 import { getData, postData } from "./request";
 
@@ -54,17 +56,26 @@ export interface detectActionLogRequestType {
   count: number;
 }
 export interface dataStoreCreateRequestType {
-  tableName: string;
-  description: string;
-  columns: any;
+  chain: string;
+  source: string;
+  datasetName: string;
+  downloadName?: any;
+  file: File;
 }
 // 数据仓库接口
 // 创建
-export async function dataStoreCreateService(
-  params: dataStoreCreateRequestType
-) {
-  return await postData<dataStoreCreateRequestType, any>(
+export async function dataStoreCreateService(params: FormData) {
+  console.log("接口拿到的数据>>>", params);
+  return await postData<FormData, any>(
     `/chainthreat/v1/data-house/data-source`,
+    params
+  );
+}
+// 编辑
+export async function dataStoreModifyService(params: any) {
+  console.log("接口拿到的数据>>>", params);
+  return await postData<any, any>(
+    `/chainthreat/v1/data-house/data/${params.getAll("tableName")}`,
     params
   );
 }

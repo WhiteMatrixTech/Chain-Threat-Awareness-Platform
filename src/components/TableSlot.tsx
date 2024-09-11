@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 15:23:50
+ * @LastEditTime: 2024-09-11 17:39:55
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -128,7 +128,7 @@ export function TableSlot(props: IProps) {
                           <span className="w-full h-full truncate leading-[40px]">
                             {col.dataIndex ? item[col.dataIndex] : index + 1}
                           </span>
-                          {item[col.dataIndex] &&
+                          {/* {item[col.dataIndex] &&
                             item[col.dataIndex].length > maxcharNum &&
                             <div className="px-3 py-3 rounded-sm hidden group-hover:block  absolute top-[38px] left-0 w-[500px] bg-[#2A6CB6] z-10">
                               <span
@@ -136,7 +136,7 @@ export function TableSlot(props: IProps) {
                               >
                                 {item[col.dataIndex]}
                               </span>
-                            </div>}
+                            </div>} */}
                         </div>
                 )}
               {operationColumn &&
