@@ -17,7 +17,7 @@ interface IProps {
   handleEvent: () => void
 }
 
-export function Dialog(props: IProps) {
+export function DialogAdd(props: IProps) {
   const { open, handleEvent } = props;
   if (!open) return <></>;
   return (

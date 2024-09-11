@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 14:13:33
+ * @LastEditTime: 2024-09-11 14:44:55
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -20,7 +20,8 @@ import { useLocation } from "react-router-dom";
 import plus_icon from "@/assets/plus.png";
 import plus_light_icon from "@/assets/plus_light.png";
 import { AppBreadcrumb } from "@/components/Breadcrumb";
-import { Dialog } from "@/components/Dialog";
+import { DialogAdd } from "@/components/DialogAdd";
+import { DialogEdit } from "@/components/DialogEdit";
 import { PageCommon } from "@/components/PageCommon";
 import { TableSlot } from "@/components/TableSlot";
 import { dataStoreColumns } from "@/services/columns";
@@ -35,6 +36,7 @@ import { waitTime } from "@/utils/common";
 
 export function DataStore() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isDialogEditOpen, setIsDialogEditOpen] = useState(true);
   const location = useLocation();
   const [data, setData] = useState<any[]>([]);
   const [pageInfo, setpageInfo] = useState({
@@ -144,8 +146,14 @@ export function DataStore() {
           }}
         />
       </div>
-      <Dialog
+      {/* <DialogAdd
         open={isDialogOpen}
+        handleEvent={() => {
+          setIsDialogOpen(false);
+        }}
+      /> */}
+      <DialogEdit
+        open={isDialogEditOpen}
         handleEvent={() => {
           setIsDialogOpen(false);
         }}
