@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 17:40:58
+ * @LastEditTime: 2024-09-11 11:01:49
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -17,9 +17,10 @@ import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 
+import plus_icon from "@/assets/plus.png";
 import { AppBreadcrumb } from "@/components/Breadcrumb";
 import { PageCommon } from "@/components/PageCommon";
-import { TableCommon } from "@/components/TableCommon";
+import { TableSlot } from "@/components/TableSlot";
 import { dataStoreColumns } from "@/services/columns";
 import {
   dataStoreListService,
@@ -77,12 +78,23 @@ export function DataStore() {
   return (
     <div className={cn("fadeIn w-full h-full", `${pattern.flexbetCol}`)}>
       <div className={cn(`w-full h-[calc(100%_-_40px)]`)}>
-        <TableCommon
+        <TableSlot
           className="w-full h-full"
           data={data}
           columns={dataStoreColumns}
           pageInfo={pageInfo}
-        />
+        >
+          <div className="footer w-full h-[56px] flex justify-start items-center">
+            <div
+              className="cursor-pointer"
+              onClick={() => {
+                console.log("新增>>>");
+              }}
+            >
+              <img src={plus_icon} alt="" width={28} height={28} />
+            </div>
+          </div>
+        </TableSlot>
       </div>
 
       <div className={cn(`w-full h-[20px] ${pattern.flexEnd}`)}>

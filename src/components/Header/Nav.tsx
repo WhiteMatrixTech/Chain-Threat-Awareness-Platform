@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 18:22:50
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 14:11:36
+ * @LastEditTime: 2024-09-11 11:09:30
  */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
@@ -50,8 +50,7 @@ export function Nav() {
     >
       {MenuList &&
         MenuList.map((item: any, index) =>
-        <>
-          {item.key? (
+        item.key?   (
             <div
               key={index}
               className={cn(
@@ -115,11 +114,12 @@ export function Nav() {
           )  :(
             <div
               className={`w-[32px] h-full  ${pattern.flexCenter}`}
+              key={index}
+
             >
               <img className="" src={SplitPg} width={1} height={24} />
             </div>
-          )}
-        </>
+          )
 
         )}
     </div>
