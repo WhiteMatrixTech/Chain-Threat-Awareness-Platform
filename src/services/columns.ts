@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 17:33:06
+ * @LastEditTime: 2024-09-12 10:46:30
  */
 // 模型信息
 export const modelColumns: any = [
@@ -29,7 +29,7 @@ export const modelColumns: any = [
     width: 160
   },
   {
-    title: "模型性能",
+    title: "模型描述",
     dataIndex: "x2"
   }
 ];
@@ -96,6 +96,11 @@ export const detectionSampleColumns: any = [
     width: 200
   },
   {
+    title: "检测时长",
+    dataIndex: "cost",
+    width: 90
+  },
+  {
     title: "检测结果",
     dataIndex: "result",
     width: 150
@@ -159,19 +164,23 @@ export const detectionSampleCrossChainColumns: any = [
 ];
 // 链码检测样例
 export const detectionSampleChainCodeColumns: any = [
-  {
-    title: "检测地址",
-    dataIndex: "name"
-  },
+  // {
+  //   title: "检测地址",
+  //   dataIndex: "name"
+  // },
   {
     title: "检测时间",
     dataIndex: "time",
     width: 200
   },
   {
-    title: "检测结果",
-    dataIndex: "result",
+    title: "检测时长",
+    dataIndex: "cost",
     width: 200
+  },
+  {
+    title: "检测结果",
+    dataIndex: "result"
   }
 ];
 // 混币检测样例
