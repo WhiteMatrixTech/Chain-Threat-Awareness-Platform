@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 15:10:54
+ * @LastEditTime: 2024-09-12 15:30:50
  */
 // 模型信息
 export const modelColumns: any = [
@@ -149,32 +149,31 @@ export const detectionMaliciousSampleColumns: any = [
 export const detectionSampleCrossChainColumns: any = [
   {
     title: "交易hash",
-    dataIndex: "name",
-    width: 300
+    dataIndex: "name"
   },
   {
     title: "交易时间",
-    dataIndex: "name",
-    width: 200
-  },
-  {
-    title: "查询时间",
     dataIndex: "time",
     width: 200
   },
   {
+    title: "查询时间",
+    dataIndex: "query_time",
+    width: 200
+  },
+  {
     title: "输入金额",
-    dataIndex: "result",
+    dataIndex: "inputMoney",
     width: 200
   },
   {
     title: "交易费用",
-    dataIndex: "result",
+    dataIndex: "fee",
     width: 200
   },
   {
     title: "输出金额",
-    dataIndex: "result",
+    dataIndex: "outputMoney",
     width: 200
   }
 ];

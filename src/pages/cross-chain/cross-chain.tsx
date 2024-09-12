@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 14:20:07
+ * @LastEditTime: 2024-09-12 15:30:21
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -59,10 +59,15 @@ export function CrossChain() {
     };
     const respose = await detectActionLogService(params);
     const result: any[] = respose.data.map((item: any) => {
+      const tx_query_result = JSON.parse(item.output).tx_query_result;
       return {
         name: item.input,
         time: item.createAt,
-        result: item.result || "无"
+        result: item.result || "无",
+        query_time: tx_query_result[0].Time,
+        inputMoney: tx_query_result[0].Input_coin,
+        outputMoney: tx_query_result[0].Output_coin,
+        fee: tx_query_result[0].Fee
       };
     });
     setdetectionSampleList(result);
