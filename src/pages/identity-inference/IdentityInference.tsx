@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 14:39:06
+ * @LastEditTime: 2024-09-12 10:40:22
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -54,6 +54,7 @@ export function IdentityInference() {
       return {
         name: item.input,
         time: item.createAt,
+        cost: item.cost || "-",
         result: JSON.parse(item.output).identity,
         tag: "-"
       };

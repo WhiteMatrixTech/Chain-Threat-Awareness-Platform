@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 18:33:07
+ * @LastEditTime: 2024-09-12 10:29:28
  */
 import { getData, postData } from "./request";
 
@@ -145,7 +145,7 @@ export async function detectFewSamplesService(
 export async function detectChainCodeService(
   params: detectChainCodeRequestType
 ) {
-  return await getData<detectChainCodeRequestType, any>(
+  return await postData<detectChainCodeRequestType, any>(
     `/chainthreat/v1/detection/chaincode`,
     params
   );

@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 00:25:01
+ * @LastEditTime: 2024-09-12 15:30:21
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -59,10 +59,15 @@ export function CrossChain() {
     };
     const respose = await detectActionLogService(params);
     const result: any[] = respose.data.map((item: any) => {
+      const tx_query_result = JSON.parse(item.output).tx_query_result;
       return {
         name: item.input,
         time: item.createAt,
-        result: item.result || "无"
+        result: item.result || "无",
+        query_time: tx_query_result[0].Time,
+        inputMoney: tx_query_result[0].Input_coin,
+        outputMoney: tx_query_result[0].Output_coin,
+        fee: tx_query_result[0].Fee
       };
     });
     setdetectionSampleList(result);
@@ -116,7 +121,7 @@ export function CrossChain() {
       </div>
 
       <div className={cn(`w-full h-[calc(40%)] flex justify-between`)}>
-        <div className="w-[calc(50%_-_10px)] h-full flex flex-col  justify-between">
+        {/* <div className="w-[calc(50%_-_10px)] h-full flex flex-col  justify-between">
           <div className="w-[120px] h-[36px]">
             <TagComponent title="模型信息" className="w-[120px] h-[36px]" />
           </div>
@@ -128,8 +133,8 @@ export function CrossChain() {
               columns={modelColumns}
             />
           </div>
-        </div>
-        <div className="w-[calc(50%_-_10px)] h-full flex flex-col  justify-between">
+        </div> */}
+        <div className="w-full h-full flex flex-col  justify-between">
           <div className="w-[120px] h-[36px]">
             <TagComponent title="检测样例" className="w-[120px] h-[36px]" />
           </div>

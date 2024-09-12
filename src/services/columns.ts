@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 17:33:06
+ * @LastEditTime: 2024-09-12 15:42:01
  */
 // 模型信息
 export const modelColumns: any = [
@@ -29,7 +29,7 @@ export const modelColumns: any = [
     width: 160
   },
   {
-    title: "模型性能",
+    title: "模型描述",
     dataIndex: "x2"
   }
 ];
@@ -96,6 +96,11 @@ export const detectionSampleColumns: any = [
     width: 200
   },
   {
+    title: "检测时长",
+    dataIndex: "cost",
+    width: 90
+  },
+  {
     title: "检测结果",
     dataIndex: "result",
     width: 150
@@ -143,35 +148,54 @@ export const detectionMaliciousSampleColumns: any = [
 // 跨链检测样例
 export const detectionSampleCrossChainColumns: any = [
   {
-    title: "查询信息",
-    dataIndex: "name",
-    width: 100
+    title: "交易hash",
+    dataIndex: "name"
   },
   {
-    title: "查询时间",
+    title: "交易时间",
     dataIndex: "time",
     width: 200
   },
   {
-    title: "查询结果",
-    dataIndex: "result"
+    title: "查询时间",
+    dataIndex: "query_time",
+    width: 200
+  },
+  {
+    title: "输入金额",
+    dataIndex: "inputMoney",
+    width: 200
+  },
+  {
+    title: "交易费用",
+    dataIndex: "fee",
+    width: 200
+  },
+  {
+    title: "输出金额",
+    dataIndex: "outputMoney",
+    width: 200
   }
 ];
 // 链码检测样例
 export const detectionSampleChainCodeColumns: any = [
-  {
-    title: "检测地址",
-    dataIndex: "name"
-  },
+  // {
+  //   title: "检测地址",
+  //   dataIndex: "name"
+  // },
   {
     title: "检测时间",
     dataIndex: "time",
     width: 200
   },
   {
-    title: "检测结果",
-    dataIndex: "result",
+    title: "检测时长",
+    dataIndex: "cost",
     width: 200
+  },
+  {
+    title: "检测结果",
+    dataIndex: "result"
   }
 ];
 // 混币检测样例
@@ -321,45 +345,57 @@ export const columnsIdentity: any = [
 // 跨链页表格1、2
 export const columnsCrossChain1: any = [
   {
-    title: "交易号",
+    title: "交易hash",
     ellipsis: true,
-    dataIndex: "Tx_id",
-    width: 150
+    dataIndex: "Tx_id"
   },
 
-  {
-    title: "账户名",
-    dataIndex: "Account_number",
-    ellipsis: true,
-    width: 150
-  },
+  // {
+  //   title: "账户名",
+  //   dataIndex: "Account_number",
+  //   ellipsis: true,
+  //   width: 150
+  // },
   {
     title: "来源",
     dataIndex: "From",
-    ellipsis: true
+    ellipsis: true,
+    width: 200
   },
   {
     title: "流向",
     dataIndex: "To",
     ellipsis: true,
-    width: 350
+    width: 200
   },
   {
     title: "输入金额",
     dataIndex: "Input_coin",
     ellipsis: true,
-    width: 200
+    width: 120
   },
 
   {
-    title: "交易费",
+    title: "交易费用",
     dataIndex: "Fee",
     ellipsis: true,
-    width: 200
+    width: 120
   },
   {
     title: "输出金额",
     dataIndex: "Output_coin",
+    ellipsis: true,
+    width: 120
+  },
+  {
+    title: "交易时间",
+    dataIndex: "Time",
+    ellipsis: true,
+    width: 120
+  },
+  {
+    title: "交易所在链",
+    dataIndex: "Chain",
     ellipsis: true,
     width: 120
   }
@@ -367,7 +403,7 @@ export const columnsCrossChain1: any = [
 
 export const columnsCrossChain2: any = [
   {
-    title: "依赖号",
+    title: "依赖项",
     ellipsis: true,
     dataIndex: "Rcro_id",
     width: 100
@@ -376,50 +412,62 @@ export const columnsCrossChain2: any = [
     title: "下游交易",
     dataIndex: "To",
     ellipsis: true,
-    width: 320
+    width: 400
   },
   {
     title: "上游交易",
     dataIndex: "From",
     ellipsis: true,
-    width: 320
+    width: 400
   },
-
   {
-    title: "账户名",
-    dataIndex: "Account_number",
-    ellipsis: true
+    title: "下游交易所在链",
+    dataIndex: "To_chain",
+    ellipsis: true,
+    width: 180
+  },
+  {
+    title: "上游交易所在链",
+    dataIndex: "From_chain",
+    ellipsis: true,
+    width: 180
   }
+
+  // {
+  //   title: "账户名",
+  //   dataIndex: "Account_number",
+  //   ellipsis: true
+  // }
 ];
 // 链码漏洞页面
 export const columnsChainCode: any = [
   {
     title: "检测文件",
     ellipsis: true,
-    dataIndex: "file",
-    width: 100
+    dataIndex: "file"
   },
   {
     title: "检测时间",
     dataIndex: "time",
     ellipsis: true,
-    width: 320
+    width: 220
   },
   {
     title: "漏洞总数",
     dataIndex: "num",
     ellipsis: true,
-    width: 120
+    width: 90
   },
   {
     title: "漏洞类型",
     dataIndex: "type",
     ellipsis: true,
-    width: 120
+    width: 200
   },
   {
     title: "漏洞产生的原因",
-    dataIndex: "resaon",
-    ellipsis: true
+    dataIndex: "reason",
+    ellipsis: true,
+    width: 200
   }
 ];

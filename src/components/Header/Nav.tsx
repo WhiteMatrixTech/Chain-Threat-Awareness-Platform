@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 18:22:50
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 11:09:30
+ * @LastEditTime: 2024-09-12 14:55:53
  */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
@@ -98,9 +98,9 @@ export function Nav() {
                   </div>}
               </div>
                 {item.children && item.children.length && arrowRotate === item.key && (
-                  <ul className="absolute top-[68px] left-[0px]  w-full bg-[#2A6CB6] z-[100] duration-300">
+                  <ul className="py-[8px] w-[289px] absolute top-[68px] left-[0px] bg-[#07266A] z-[100] duration-300">
                     {item.children.map((liItem: any, liIndex: number) => (
-                      <li key={liIndex} className={`${pattern.flexCenter} select-none w-full h-[34px] hover:cursor-pointer`}
+                      <li key={liIndex} className={`px-[16px] flex justify-start items-center select-none w-full h-[34px] hover:cursor-pointer hover:bg-[#0083CF]`}
                         onClick={() => {
                           setArrowRotate("");
                           navigate(liItem.key)

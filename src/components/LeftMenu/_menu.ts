@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-30 11:15:05
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-08 21:45:54
+ * @LastEditTime: 2024-09-12 15:49:34
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import type { MenuProps } from 'antd';
@@ -75,27 +75,27 @@ export const MenuList: any[] = [
         key: '/threat-evidence/transaction-graph'
       },
       {
-        label: '身份推断',
+        label: '网络取证-交易网络身份推断',
         key: '/threat-evidence/identity-inference'
       },
       {
-        label: '少样本身份推断',
+        label: '网络取证-交易网络少样本身份推断',
         key: '/threat-evidence/fewidentity-inference'
       },
       {
-        label: '恶意交易检测',
+        label: '链内取证-比特币非法交易检测',
         key: '/threat-evidence/malicious-transaction'
       },
       {
-        label: '跨链查询取证',
+        label: '跨链取证-跨链查询取证',
         key: '/threat-evidence/cross-chain'
       },
       {
-        label: '链码漏洞检测',
+        label: '计算机取证-链码漏洞检测',
         key: '/threat-evidence/chaincodevulnerability-detection'
       },
       {
-        label: '比特币混币检测',
+        label: '重现取证-比特币混币交易检测',
         key: '/threat-evidence/bitcoinmixedcoin-detection'
       }
     ]
