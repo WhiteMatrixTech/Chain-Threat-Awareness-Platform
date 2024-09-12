@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 17:44:52
+ * @LastEditTime: 2024-09-12 18:07:35
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -166,8 +166,8 @@ export function TableSlot(props: IProps) {
                 </div>}
             </div>
           )}
-        {!data.length &&
-          <div className={cn(` w-full h-[calc(100%_-_40px)] `)}>暂无数据....</div>}
+        {/* {!data.length &&
+          <div className={cn(` w-full h-[calc(100%_-_40px)] `)}>暂无数据....</div>} */}
 
         {data.length !== 0 &&
           footer &&
