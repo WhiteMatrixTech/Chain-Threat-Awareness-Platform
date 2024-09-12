@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 17:39:55
+ * @LastEditTime: 2024-09-12 17:44:52
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -93,7 +93,7 @@ export function TableSlot(props: IProps) {
             <span className={cn("text-[15px] text-[#ffffff]")} />
           </div>}
       </div>
-      <div className="content w-full h-[calc(100%_-_40px)] ">
+      <div className="content w-full h-[calc(100%_-_40px)] overflow-scroll">
         {data &&
           data.map((item: any, index: number) =>
             <div
