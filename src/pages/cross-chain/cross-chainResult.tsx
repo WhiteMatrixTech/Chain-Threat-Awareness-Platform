@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 15:33:11
+ * @LastEditTime: 2024-09-12 17:14:00
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -17,6 +17,7 @@ import { useParams } from "react-router-dom";
 import IdentityInferenceDialogTitle from "@/assets/IdentityInferenceDialogTitle.png";
 import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
 import { InputCommonV3 } from "@/components/InputCommonV3";
+import { Progress } from "@/components/progres";
 import { ResultComponent } from "@/components/ResultComponent";
 import {
   ISelectorItemProps,
@@ -80,10 +81,11 @@ export function CrossChainResult() {
           `${pattern.flexCenter}`
         )}
       >
-        <AiOutlineLoading3Quarters
+        {/* <AiOutlineLoading3Quarters
           className="ml-2 animate-spin"
           style={{ color: "white", fontSize: "24px" }}
-        />
+        /> */}
+        <Progress />
       </div>
     : <div className={cn(" w-full h-full fadeIn", `${pattern.flexbet}`)}>
         <div className={cn(`w-full h-full flex flex-col `)}>

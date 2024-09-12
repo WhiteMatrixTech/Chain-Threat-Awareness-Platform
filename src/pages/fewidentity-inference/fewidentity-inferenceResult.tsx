@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 15:16:30
+ * @LastEditTime: 2024-09-12 17:10:53
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -18,6 +18,7 @@ import {
   AddressTxGraph,
   TGraphinClickTarget
 } from "@/components/GraphV2/AddressTxGraph";
+import { Progress } from "@/components/progres";
 import { ResultComponent } from "@/components/ResultComponent";
 import { TableCommonV4 } from "@/components/TableCommonV4";
 import { columns, columnsIdentity } from "@/services/columns";
@@ -114,10 +115,12 @@ export function FewidentityInferenceResult() {
           `${pattern.flexCenter}`
         )}
       >
-        <AiOutlineLoading3Quarters
+        <Progress />
+
+        {/* <AiOutlineLoading3Quarters
           className="ml-2 animate-spin"
           style={{ color: "white", fontSize: "24px" }}
-        />
+        /> */}
       </div>
     : <div
         className={cn(

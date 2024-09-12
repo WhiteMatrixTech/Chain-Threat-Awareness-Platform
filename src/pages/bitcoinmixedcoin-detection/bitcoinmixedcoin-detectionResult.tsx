@@ -6,16 +6,16 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 15:53:46
+ * @LastEditTime: 2024-09-12 17:21:09
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
-
 import cn from "classnames";
 import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 
+import { Progress } from "@/components/progres";
 import { ResultComponent } from "@/components/ResultComponent";
 import { TagComponent } from "@/components/TagComponent";
 import {
@@ -127,10 +127,11 @@ export function BitcoinmixedcoinDetectionResult() {
           `${pattern.flexCenter}`
         )}
       >
-        <AiOutlineLoading3Quarters
+        {/* <AiOutlineLoading3Quarters
           className="ml-2 animate-spin"
           style={{ color: "white", fontSize: "24px" }}
-        />
+        /> */}
+        <Progress />
       </div>
     : <div
         className={cn(" w-full h-full pt-[0px] fadeIn", `${pattern.flexbet}`)}
@@ -144,7 +145,7 @@ export function BitcoinmixedcoinDetectionResult() {
             />
             <ResultComponent
               title="检测结果"
-              content={`该交易是${result.result}`}
+              content={`${result.result}`}
               className="w-[calc(100%_-_190px)] h-[50px]"
             />
           </div>

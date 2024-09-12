@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 00:31:32
+ * @LastEditTime: 2024-09-12 17:06:53
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -23,6 +23,7 @@ import {
   TGraphinClickTarget
 } from "@/components/GraphV2/AddressTxGraph";
 import { InputCommonV2 } from "@/components/InputCommonV2";
+import { Progress } from "@/components/progres";
 import { ResultComponent } from "@/components/ResultComponent";
 import { SpinCommon } from "@/components/SpinCommon";
 import { TableCommonV4 } from "@/components/TableCommonV4";
@@ -124,10 +125,11 @@ export function IdentityInferenceResult() {
           `${pattern.flexCenter}`
         )}
       >
-        <AiOutlineLoading3Quarters
+        <Progress />
+        {/* <AiOutlineLoading3Quarters
           className="ml-2 animate-spin"
           style={{ color: "white", fontSize: "24px" }}
-        />
+        /> */}
       </div>
     : <div
         className={cn(
