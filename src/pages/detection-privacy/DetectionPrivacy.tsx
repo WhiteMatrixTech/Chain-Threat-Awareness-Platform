@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 15:58:20
+ * @LastEditTime: 2024-09-12 18:00:01
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -60,9 +60,12 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
   const [selectedType, setSelectedType] = useState<ISelectorItemProps | null>(
     null
   );
-  const [selectedRange, setSelectedRange] = useState<any>('');
   const [inputRange, setInputRange] = useState<any>("");
-  const [resultContent, setResultContent] = useState("");
+  const [result, setResult] = useState({
+    content: '',
+    time: ''
+  });
+  
 
 
   const [
@@ -95,7 +98,10 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     
     const response = await detectPrivacy(params);
     console.log("response>>>", response);
-    setResultContent(response.result);
+    setResult({
+      content: response.result,
+      time: (response.cost / 1000).toFixed(1) + "s"
+    });
     console.log("params>>>>", params);
   };
   const getActionLogList = async () => {
@@ -183,7 +189,13 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
                 >
                   <span className="text-[#FFFFFF] text-[16px]">开始检测</span>
                 </ButtonCommonCyber>
-              </div>
+                </div>
+                {result.time.length !== 0 &&
+                  <div className="w-full h-[22px] flex justify-center items-center">
+                    <span className="text-[#ffffff] text-[13px]">
+                      检索时间：{result.time}
+                    </span>
+                  </div>}
             </div>
           </div>
         </div>
@@ -192,7 +204,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
             `border-solid border-[#00A0E9] border-l-[6px]`,
             'bg-[#02004D4D] pl-5'
 
-          )}>
+            )}>
             <span className="text-[20px] text-[#ffffff]">历史检测数据 - 基于二阶二项分布的通用自私挖矿检测模型</span>
             </div>
             <div className="w-full h-[calc(100%_-_50px)] mt-[10px]">
@@ -212,7 +224,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
         <div className=" pt-[60px] px-[20px] pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center  overflow-scroll">
           <div className="w-full h-full relative">
             <span className="text-[#FFFFFF] text-[16px]">
-              {resultContent}
+              {result.content}
             </span>
             {loading &&
               <div
