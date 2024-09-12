@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-09-11 13:49:26
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 16:39:22
+ * @LastEditTime: 2024-09-12 10:22:33
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -129,8 +129,15 @@ export function DialogAdd(props: IProps) {
               <span className="text-[#666666] text-[15px]">上传数据（请根据模板填写数据）</span>
             </div>
             <div className={cn(`w-full h-[148px]`,
-            `bg-[url('./assets/dialog_upload_bg.png')] bg-cover bg-center `,
+            `bg-[url('./assets/dialog_upload_bg.png')] bg-cover bg-center relative`,
             )}>
+              {file && (
+                <div className="bg-white w-[200px] h-[80px] flex justify-center items-center absolute top-[calc(50%_-_40px)] left-[calc(50%_-_100px)]">
+                <img src={xls_logo} alt="" width={30} height={30} />
+                <span className="text-[#666666] text-[15px] ml-[9px] truncate">{file.name}</span>
+              </div>
+              )}
+
             <input
               type="file"
               accept=".csv"
