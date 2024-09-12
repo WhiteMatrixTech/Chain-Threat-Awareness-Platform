@@ -10,12 +10,12 @@
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
-
 import cn from "classnames";
 import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useParams } from "react-router-dom";
 
+import { Progress } from "@/components/progres";
 import { ResultComponent } from "@/components/ResultComponent";
 import { TagComponent } from "@/components/TagComponent";
 import {
@@ -127,10 +127,11 @@ export function BitcoinmixedcoinDetectionResult() {
           `${pattern.flexCenter}`
         )}
       >
-        <AiOutlineLoading3Quarters
+        {/* <AiOutlineLoading3Quarters
           className="ml-2 animate-spin"
           style={{ color: "white", fontSize: "24px" }}
-        />
+        /> */}
+        <Progress />
       </div>
     : <div
         className={cn(" w-full h-full pt-[0px] fadeIn", `${pattern.flexbet}`)}
