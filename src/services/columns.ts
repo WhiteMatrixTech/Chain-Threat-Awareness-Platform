@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 10:46:30
+ * @LastEditTime: 2024-09-12 14:28:10
  */
 // 模型信息
 export const modelColumns: any = [
@@ -148,9 +148,14 @@ export const detectionMaliciousSampleColumns: any = [
 // 跨链检测样例
 export const detectionSampleCrossChainColumns: any = [
   {
-    title: "查询信息",
+    title: "交易hash",
     dataIndex: "name",
-    width: 100
+    width: 300
+  },
+  {
+    title: "交易时间",
+    dataIndex: "name",
+    width: 200
   },
   {
     title: "查询时间",
@@ -158,8 +163,19 @@ export const detectionSampleCrossChainColumns: any = [
     width: 200
   },
   {
-    title: "查询结果",
-    dataIndex: "result"
+    title: "输入金额",
+    dataIndex: "result",
+    width: 200
+  },
+  {
+    title: "交易费用",
+    dataIndex: "result",
+    width: 200
+  },
+  {
+    title: "输出金额",
+    dataIndex: "result",
+    width: 200
   }
 ];
 // 链码检测样例
