@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 15:53:46
+ * @LastEditTime: 2024-09-12 17:21:09
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -145,7 +145,7 @@ export function BitcoinmixedcoinDetectionResult() {
             />
             <ResultComponent
               title="检测结果"
-              content={`该交易是${result.result}`}
+              content={`${result.result}`}
               className="w-[calc(100%_-_190px)] h-[50px]"
             />
           </div>
