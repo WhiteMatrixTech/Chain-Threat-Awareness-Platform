@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-30 11:15:05
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 14:33:15
+ * @LastEditTime: 2024-09-12 15:49:34
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import type { MenuProps } from 'antd';
@@ -83,7 +83,7 @@ export const MenuList: any[] = [
         key: '/threat-evidence/fewidentity-inference'
       },
       {
-        label: '链内取证-非法交易检测',
+        label: '链内取证-比特币非法交易检测',
         key: '/threat-evidence/malicious-transaction'
       },
       {

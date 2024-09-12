@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 14:09:03
+ * @LastEditTime: 2024-09-12 16:03:42
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -158,7 +158,9 @@ export function DetectionFish() {
                 "bg-[#02004D4D] pl-5"
               )}
             >
-              <span className="text-[20px] text-[#ffffff]">历史检测数据</span>
+              <span className="text-[20px] text-[#ffffff]">
+                历史检测数据-基于图神经网络的钓鱼攻击检测模型
+              </span>
             </div>
 
             <TableCommonV4

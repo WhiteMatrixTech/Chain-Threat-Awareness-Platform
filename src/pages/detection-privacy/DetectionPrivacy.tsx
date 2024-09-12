@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 17:15:36
+ * @LastEditTime: 2024-09-12 15:58:20
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -95,7 +95,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     
     const response = await detectPrivacy(params);
     console.log("response>>>", response);
-    // setResultContent("");
+    setResultContent(response.result);
     console.log("params>>>>", params);
   };
   const getActionLogList = async () => {
@@ -164,7 +164,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
                 </div> */}
               <div className={`w-full h-[36px] flex items-center`}>
                 <InputCommonV2
-                  placeholder="1000-2000"
+                  placeholder="0-500"
                   onInput={(val: any) => {
                     setInputRange(val);
                   }}
