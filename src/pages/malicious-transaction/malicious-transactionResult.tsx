@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 17:49:57
+ * @LastEditTime: 2024-09-13 01:17:39
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -154,10 +154,12 @@ export function MaliciousTransactionResult() {
             )}
           >
             <div
-              className={`h-[20px] w-full flex items-center justify-start gap-x-6`}
+              className={`h-[20px] w-full flex items-center justify-between`}
             >
-              <span className="text-[#ffffff] text-[15px]">Hash ID :</span>
-              <span className="text-[#ffffff] text-[20px]">
+              <span className="text-[#ffffff] text-[15px] w-[80px] ">
+                Hash ID :
+              </span>
+              <span className="text-[#ffffff] text-[20px] w-[calc(100%_-_90px)] truncate">
                 {result.hash_id}
               </span>
             </div>

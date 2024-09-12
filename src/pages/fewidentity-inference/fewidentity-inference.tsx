@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 15:42:38
+ * @LastEditTime: 2024-09-13 01:14:25
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -88,7 +88,7 @@ export function FewidentityInference() {
   };
 
   return (
-    <div className={cn(" w-full h-full fadeIn flex flex-col ")}>
+    <div className={cn(" w-full h-full fadeIn flex flex-col justify-between")}>
       <div className={cn(`w-full h-[calc(60%)] ${pattern.flexCenter}`)}>
         <div
           className={cn(
@@ -214,7 +214,7 @@ export function FewidentityInference() {
         </div>
       </div>
 
-      <div className={cn(`w-full h-[calc(40%)] flex justify-between`)}>
+      <div className={cn(`w-full h-[calc(40%_-_10px)] flex justify-between`)}>
         <div className="w-[calc(50%_-_10px)] h-full flex flex-col justify-between">
           <div className="w-[120px] h-[36px]">
             <TagComponent title="模型信息" className="w-[120px] h-[36px]" />
