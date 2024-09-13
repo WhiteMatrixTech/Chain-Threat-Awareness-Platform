@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 15:24:54
+ * @LastEditTime: 2024-09-13 13:45:43
  */
 import "./App.less";
 
@@ -27,7 +27,7 @@ import { MaliciousTransactionResult } from "@/pages/malicious-transaction/malici
 
 import { AddressAnalysis } from "./pages/address-analysis";
 import { ContractDetection } from "./pages/contract-detection";
-import { DataScreens } from "./pages/data-screens";
+import { DataScreens } from "./pages/data-screensV2";
 import { DataStore } from "./pages/data-store";
 import { DetectionAttack } from "./pages/detection-attack";
 import { DetectionChart } from "./pages/detection-chart";
