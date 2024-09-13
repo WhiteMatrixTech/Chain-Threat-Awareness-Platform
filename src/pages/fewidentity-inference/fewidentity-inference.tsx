@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 01:14:25
+ * @LastEditTime: 2024-09-13 10:20:26
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -36,13 +36,18 @@ export function FewidentityInference() {
   const [modelList, setModelList] = useState(modelListFewIdentityMock);
   const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
 
-  const [address, setAddress] = useState<any>(null);
+  const [address, setAddress] = useState<any>("");
   const [sampleData, setSampleData] = useState<any>({
-    sample1: "0x51d4f799f40a7ca9f4289e64dbed0502a494e8a0",
-    sample2: "0x6ef5b57cc302d53b873c7b471faa1b9bb2c437aa",
-    sample3: "0x95b0566ff14437f18fa310a621efd9b496b21c29",
-    sample4: "0xeec065d75ae38db0df08344eebed4aefcec918b4",
-    sample5: "0xfb1b9882ac70484e054c8d02c6097ea2777cc2d8"
+    sample1: "",
+    sample2: "",
+    sample3: "",
+    sample4: "",
+    sample5: ""
+    // sample1: "0x51d4f799f40a7ca9f4289e64dbed0502a494e8a0",
+    // sample2: "0x6ef5b57cc302d53b873c7b471faa1b9bb2c437aa",
+    // sample3: "0x95b0566ff14437f18fa310a621efd9b496b21c29",
+    // sample4: "0xeec065d75ae38db0df08344eebed4aefcec918b4",
+    // sample5: "0xfb1b9882ac70484e054c8d02c6097ea2777cc2d8"
   });
   const getActionLogList = async () => {
     const params: detectActionLogRequestType = {
@@ -50,6 +55,7 @@ export function FewidentityInference() {
       count: 10
     };
     const respose = await detectActionLogService(params);
+
     const result: any[] = respose.data.map((item: any) => {
       const input = item.input.split(",");
       return {
@@ -59,8 +65,19 @@ export function FewidentityInference() {
         sample: input.slice(0, 5).join(",")
       };
     });
+    console.log("历史数据>>>result", result);
+    console.log("result[0].name", result[0].name);
+    const initSampleList = result[0].sample.split(",");
+    setAddress(result[0].name);
+    setSampleData({
+      sample1: initSampleList[0],
+      sample2: initSampleList[1],
+      sample3: initSampleList[2],
+      sample4: initSampleList[3],
+      sample5: initSampleList[4]
+    });
+
     setdetectionSampleList(result);
-    console.log("监测数据>>>>", respose);
   };
   useEffect(() => {
     void getActionLogList();
@@ -187,6 +204,7 @@ export function FewidentityInference() {
                 <span className="text-[#ffffff] text-[18px]">待测地址</span>
               </div>
               <InputCommonV2
+                initVal={address}
                 placeholder="输入待测地址"
                 onInput={(val: any) => {
                   setAddress(val);

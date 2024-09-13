@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 14:37:04
+ * @LastEditTime: 2024-09-13 10:18:04
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -30,13 +30,19 @@ export function InputCommonV2(props: IProps) {
     200,
     [value]
   );
+  useEffect(
+    () => {
+      console.log("变化>>", initVal);
+      setValue(initVal || "");
+    },
+    [initVal]
+  );
   return (
     <div className={cn(`${pattern.flexCenter}`, className)}>
       <div
         className={cn(
           " text-textFourthSize relative h-[36px] w-[calc(100%_-_12px)] select-none pl-4 pr-[10px] ",
           `border-[1px] border-solid border-[#00A0E9] border-l-0 border-r-0`
-          // `bg-[url('./assets/privacyBgSelector.png')] bg-cover bg-center`,
         )}
       >
         <div
