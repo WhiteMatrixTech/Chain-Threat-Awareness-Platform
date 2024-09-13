@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 11:03:39
+ * @LastEditTime: 2024-09-13 11:11:08
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { notification } from "antd";
@@ -47,12 +47,6 @@ export function TableSlot(props: IProps) {
       }, 0);
     return `calc(100% - ${used + 100}px)`;
   };
-  useEffect(
-    () => {
-      console.log("pageInfo变化");
-    },
-    [pageInfo]
-  );
 
   return (
     <div
