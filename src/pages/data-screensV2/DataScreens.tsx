@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-09-03 17:58:07
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 16:19:35
+ * @LastEditTime: 2024-09-13 18:39:28
  */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -24,6 +24,8 @@ import dataScreen_icon3 from "@/assets/dataScreen_icon3.png";
 import dataScreen_icon4 from "@/assets/dataScreen_icon4.png";
 import dataScreen_icon5 from "@/assets/dataScreen_icon5.png";
 import dataScreen_icon6 from "@/assets/dataScreen_icon6.png";
+import { ChartLine } from "@/components/chartLine";
+import { ChartLineAddress } from "@/components/chartLineAddress";
 import pattern from "@/styles/pattern";
 
 interface dataScreensProps {
@@ -304,11 +306,11 @@ export function DataScreens(props: dataScreensProps) {
             </div>
             <div
               className={cn(
-                "折线图 w-full h-[342px] mt-[5px]",
+                "折线图 w-full h-[342px] mt-[5px] px-3 py-3",
                 ` bg-[#061B5A] bg-opacity-30 `
               )}
             >
-              折线图
+              <ChartLine />
             </div>
           </div>
           <div className=" w-full h-[409px]">
@@ -326,13 +328,21 @@ export function DataScreens(props: dataScreensProps) {
                 <img src={dataScreen_icon_dot} alt="" width={4} height={3} />
               </div>
             </div>
-            <div
+            {/* <div
               className={cn(
                 "折线图 w-full h-[342px] mt-[5px]",
                 ` bg-[#061B5A] bg-opacity-30 `
               )}
             >
-              折线图2
+              <ChartLineAddress />
+            </div> */}
+            <div
+              className={cn(
+                "折线图2 w-full h-[342px] mt-[5px] px-3 py-3",
+                ` bg-[#061B5A] bg-opacity-30 `
+              )}
+            >
+              <ChartLineAddress />
             </div>
           </div>
         </div>
