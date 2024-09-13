@@ -6,9 +6,10 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 18:07:35
+ * @LastEditTime: 2024-09-13 11:03:39
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+import { notification } from "antd";
 import cn from "classnames";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -113,6 +114,15 @@ export function TableSlot(props: IProps) {
                             `px-[16px] flex items-center relative group text-[15px] text-[#ffffff] `
                           )}
                           key={colkey}
+                          onClick={() => {
+                            const textArea = document.createElement("textarea");
+                            textArea.value = item[col.dataIndex];
+                            document.body.appendChild(textArea);
+                            textArea.select();
+                            document.execCommand("copy");
+                            document.body.removeChild(textArea);
+                            notification.info({ message: "复制成功!!!" });
+                          }}
                         >
                           <span className="w-full h-full truncate leading-[40px]">
                             {col.dataIndex ? item[col.dataIndex] : index + 1}
@@ -124,6 +134,15 @@ export function TableSlot(props: IProps) {
                             ` px-[16px] flex items-center relative group text-[15px] text-[#ffffff] `
                           )}
                           key={colkey}
+                          onClick={() => {
+                            const textArea = document.createElement("textarea");
+                            textArea.value = item[col.dataIndex];
+                            document.body.appendChild(textArea);
+                            textArea.select();
+                            document.execCommand("copy");
+                            document.body.removeChild(textArea);
+                            notification.info({ message: "复制成功!!!" });
+                          }}
                         >
                           <span className="w-full h-full truncate leading-[40px]">
                             {col.dataIndex ? item[col.dataIndex] : index + 1}

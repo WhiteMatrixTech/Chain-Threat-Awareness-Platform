@@ -8,7 +8,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 10:49:44
+ * @LastEditTime: 2024-09-13 11:01:59
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -61,7 +61,9 @@ export function DataStore() {
     const listData = respose.data.map((item: any) => {
       return {
         ...item,
-        downloadUrl: `https://chain-threat-awareness-platform.whitematrix.io/chainthreat/v1/data-house/data-source/data/${item.tableName}`
+        downloadUrl: item.downloadUrl
+          ? item.downloadUrl
+          : `https://chain-threat-awareness-platform-api.whitematrix.io/chainthreat/v1/data-house/data-source/data/${item.tableName}`
       };
     });
     console.log("listData>>>", listData);
