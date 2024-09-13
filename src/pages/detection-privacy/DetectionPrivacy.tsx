@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 18:00:01
+ * @LastEditTime: 2024-09-13 10:33:27
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -58,9 +58,9 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     }
   ];
   const [selectedType, setSelectedType] = useState<ISelectorItemProps | null>(
-    null
+    typeList[0]
   );
-  const [inputRange, setInputRange] = useState<any>("");
+  const [inputRange, setInputRange] = useState<any>("0-500");
   const [result, setResult] = useState({
     content: '',
     time: ''
@@ -170,6 +170,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
                 </div> */}
               <div className={`w-full h-[36px] flex items-center`}>
                 <InputCommonV2
+                  initVal={inputRange}
                   placeholder="0-500"
                   onInput={(val: any) => {
                     setInputRange(val);

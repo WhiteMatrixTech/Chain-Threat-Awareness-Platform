@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 15:49:32
+ * @LastEditTime: 2024-09-13 10:29:36
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -57,6 +57,7 @@ export function BitcoinmixedcoinDetection() {
       };
     });
     setdetectionSampleList(result);
+    setInputVal(result[0].name);
     console.log("检测数据>>>>", respose);
     console.log("检测数据>>>result>", result);
   };
@@ -85,6 +86,7 @@ export function BitcoinmixedcoinDetection() {
           >
             <div className={cn(` flex flex-col gap-y-6 items-end`)}>
               <InputCommonV2
+                initVal={inputVal}
                 placeholder="输入64位交易ID"
                 onInput={(val: any) => {
                   setInputVal(val);

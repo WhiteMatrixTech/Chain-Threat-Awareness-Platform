@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 16:03:42
+ * @LastEditTime: 2024-09-13 10:36:41
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -78,6 +78,7 @@ export function DetectionFish() {
       };
     });
     setdetectionSampleList(result);
+    setInputVal(result[0].name);
     console.log("检测数据>>>>", respose);
     console.log("检测数据>>>result>", result);
   };
@@ -108,6 +109,7 @@ export function DetectionFish() {
               <div className="w-full h-full  flex flex-col gap-y-[16px]">
                 <div className={`w-full h-[36px] flex items-center`}>
                   <InputCommonV2
+                    initVal={inputVal}
                     placeholder="以太坊外部账号的地址"
                     onInput={(val: any) => {
                       setInputVal(val);

@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 15:40:04
+ * @LastEditTime: 2024-09-13 10:23:23
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -59,6 +59,7 @@ export function MaliciousTransaction() {
       };
     });
     setdetectionSampleList(result);
+    setInputVal(result[0].name);
     console.log("检测数据>>>>", respose);
     console.log("检测数据>>>result>", result);
   };
@@ -89,6 +90,7 @@ export function MaliciousTransaction() {
               )}
             >
               <InputCommonV3
+                initVal={inputVal}
                 placeholder="输入交易信息"
                 onInput={(val: any) => {
                   setInputVal(val);

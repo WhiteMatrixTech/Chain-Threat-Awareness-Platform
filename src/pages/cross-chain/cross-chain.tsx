@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 15:30:21
+ * @LastEditTime: 2024-09-13 10:26:38
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -19,29 +19,16 @@ import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
 import { InputCommonV3 } from "@/components/InputCommonV3";
 import { TableCommonV4 } from "@/components/TableCommonV4";
 import { TagComponent } from "@/components/TagComponent";
-import {
-  detectionSampleCrossChainColumns,
-  modelColumns
-} from "@/services/columns";
+import { detectionSampleCrossChainColumns } from "@/services/columns";
 import {
   detectActionLogRequestType,
   detectActionLogService
 } from "@/services/detection";
-import { modelListCrossChainMock } from "@/services/mockData/commonList";
 import pattern from "@/styles/pattern";
-
-const columns3: any = [
-  {
-    title: "链名",
-    dataIndex: "linName",
-    ellipsis: true
-  }
-];
 
 export function CrossChain() {
   const [inputVal, setInputVal] = useState<any>("");
   const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
-  const [modelList, setModelList] = useState(modelListCrossChainMock);
   const navigate = useNavigate();
 
   const startSearch = () => {
@@ -71,6 +58,7 @@ export function CrossChain() {
       };
     });
     setdetectionSampleList(result);
+    setInputVal(result[0].name);
     console.log("检测数据>>>>", respose);
     console.log("检测数据>>>result>", result);
   };
@@ -101,6 +89,7 @@ export function CrossChain() {
               )}
             >
               <InputCommonV3
+                initVal={inputVal}
                 placeholder="输入交易信息"
                 onInput={(val: any) => {
                   setInputVal(val);
