@@ -30,10 +30,6 @@ const typeList = [
   {
     label: "ETH",
     value: "ETH"
-  },
-  {
-    label: "BTC",
-    value: "BTC"
   }
 ];
 interface IGraphFormData {
