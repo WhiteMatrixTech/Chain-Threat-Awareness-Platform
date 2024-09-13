@@ -48,7 +48,6 @@ export function DialogEdit(props: IProps) {
   }
 
   const downloadTemplate = async () => {
-    console.log('download》〉》',data)
     const params:dataStoreDownloadTemplateRequestType = {tableName: data.tableName}
     
     const response = await dataStoreDownloadTemplateService(params)

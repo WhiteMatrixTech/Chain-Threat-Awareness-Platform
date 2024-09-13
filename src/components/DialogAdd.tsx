@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-09-11 13:49:26
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 10:22:33
+ * @LastEditTime: 2024-09-13 11:11:17
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -55,7 +55,6 @@ export function DialogAdd(props: IProps) {
       <div
         className="absolute right-[16px] top-[16px] cursor-pointer"
         onClick={(e) => {
-          console.log("closed!!!");
           handleEvent({
             type: 'close',
             data: null
