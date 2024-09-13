@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 10:26:38
+ * @LastEditTime: 2024-09-13 13:42:21
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -69,7 +69,11 @@ export function CrossChain() {
   return (
     <div className={cn(" w-full h-full fadeIn flex flex-col ")}>
       <div className={cn(`w-full h-[calc(60%)] ${pattern.flexCenter}`)}>
-        <div className={cn(` w-[662px] h-[322px] relative`)}>
+        <div
+          className={cn(
+            `scale-[70%] 3xl:scale-[100%] w-[662px] h-[322px] relative`
+          )}
+        >
           <div
             className={cn(
               `absolute top-0 left-0 w-full h-[54px] bg-[url('./assets/CrossChainDialogTitle.png')] bg-cover bg-center`
