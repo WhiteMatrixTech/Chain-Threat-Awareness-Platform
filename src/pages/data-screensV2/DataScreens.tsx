@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-09-03 17:58:07
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 16:01:02
+ * @LastEditTime: 2024-09-13 16:19:35
  */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -286,7 +286,56 @@ export function DataScreens(props: dataScreensProps) {
             )}
           </div>
         </div>
-        <div className="w-[404px] h-full ">right</div>
+        <div className="w-[404px] h-full  flex flex-col justify-between scale-75 3xl:scale-100 transform origin-top-right">
+          <div className=" w-full h-[409px]">
+            <div
+              className={cn(
+                "title w-full h-[40px] py-[7.5px] pl-[20px] pr-[18.5px] flex justify-between items-center",
+                ` bg-[#061B5A] bg-opacity-30 `,
+                `border-l-[6px] border-l-solid border-l-[#00FFD1]`
+              )}
+            >
+              <div className="w-[calc(80%)] h-full flex justify-start items-center">
+                <span className="text-[#EFF4FF] text-[20px]">实时交易</span>
+              </div>
+              <div className="w-[calc(20%)] h-full flex justify-end items-center">
+                <img src={dataScreen_icon_dot} alt="" width={4} height={3} />
+              </div>
+            </div>
+            <div
+              className={cn(
+                "折线图 w-full h-[342px] mt-[5px]",
+                ` bg-[#061B5A] bg-opacity-30 `
+              )}
+            >
+              折线图
+            </div>
+          </div>
+          <div className=" w-full h-[409px]">
+            <div
+              className={cn(
+                "title w-full h-[40px]  py-[7.5px] pl-[20px] pr-[18.5px] flex justify-between items-center",
+                ` bg-[#061B5A] bg-opacity-30 `,
+                `border-l-[6px] border-l-solid border-l-[#00FFD1]`
+              )}
+            >
+              <div className="w-[calc(80%)] h-full flex justify-start items-center">
+                <span className="text-[#EFF4FF] text-[20px]">已分析地址数量</span>
+              </div>
+              <div className="w-[calc(20%)] h-full flex justify-end items-center">
+                <img src={dataScreen_icon_dot} alt="" width={4} height={3} />
+              </div>
+            </div>
+            <div
+              className={cn(
+                "折线图 w-full h-[342px] mt-[5px]",
+                ` bg-[#061B5A] bg-opacity-30 `
+              )}
+            >
+              折线图2
+            </div>
+          </div>
+        </div>
       </div>
       {/* <div className="h-[120px]  w-full flex flex-col items-center">
         <div
