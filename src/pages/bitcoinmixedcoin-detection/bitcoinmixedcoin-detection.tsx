@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 10:29:36
+ * @LastEditTime: 2024-09-13 13:40:23
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -71,7 +71,7 @@ export function BitcoinmixedcoinDetection() {
       <div className={cn(`w-full h-[calc(60%)] ${pattern.flexCenter}`)}>
         <div
           className={cn(
-            `w-[662px] h-[258px] bg-[url('./assets/attackBg1.png')] bg-cover bg-center relative`
+            `scale-[70%] 3xl:scale-[100%] w-[662px] h-[258px] bg-[url('./assets/attackBg1.png')] bg-cover bg-center relative`
           )}
         >
           <div
