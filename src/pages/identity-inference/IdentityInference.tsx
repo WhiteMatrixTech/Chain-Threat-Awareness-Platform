@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 16:38:51
+ * @LastEditTime: 2024-09-13 10:06:41
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -15,9 +15,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 
 import { ButtonCommonCyber } from "@/components/ButtonCommonCyber";
-import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
 import { InputCommonV2 } from "@/components/InputCommonV2";
-import { TableCommonV2 } from "@/components/TableCommonV2";
 import { TableCommonV4 } from "@/components/TableCommonV4";
 import { TagComponent } from "@/components/TagComponent";
 import { detectionSampleColumns, modelColumns } from "@/services/columns";
@@ -59,6 +57,7 @@ export function IdentityInference() {
       };
     });
     setdetectionSampleList(result);
+    setInputVal(result[0].name);
     console.log("检测数据>>>>", respose);
     console.log("检测数据>>>result>", result);
   };
@@ -86,6 +85,7 @@ export function IdentityInference() {
           >
             <div className={cn(`flex flex-col gap-y-6 items-end`)}>
               <InputCommonV2
+                initVal={inputVal}
                 placeholder="输入待测地址"
                 onInput={(val: any) => {
                   setInputVal(val);

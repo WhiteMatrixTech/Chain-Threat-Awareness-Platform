@@ -79,6 +79,18 @@ export async function dataStoreModifyService(params: any) {
     params
   );
 }
+export interface dataStoreDownloadTemplateRequestType {
+  tableName: string;
+}
+// 下载模版
+export async function dataStoreDownloadTemplateService(
+  params: dataStoreDownloadTemplateRequestType
+) {
+  return await getData<dataStoreDownloadTemplateRequestType, any>(
+    `/chainthreat/v1/data-house/data-source/template/${params.tableName}`
+  );
+}
+
 // 列表数据
 export async function dataStoreListService() {
   return await getData<null, any>(`/chainthreat/v1/data-house/data-source`);

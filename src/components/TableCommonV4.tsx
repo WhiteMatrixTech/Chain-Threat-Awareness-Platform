@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 14:30:48
+ * @LastEditTime: 2024-09-13 01:06:55
  */
 /* eslint-disable prettier/prettier */
 
@@ -24,15 +24,18 @@ interface IProps {
 
 export function TableCommonV4(props: IProps) {
   const { data, columns, className } = props;
-  const getCurrentColWidth = (col: any) => {
-    const used = columns
-      .filter(item => item.dataIndex !== col.dataIndex)
-      .reduce((total, current) => {
-        return total + current.width;
-      }, 0);
-    // const flexNum = columns.filter(item => item.dataIndex !== col.dataIndex)
-    //   .length;
-    return `calc(100% - ${used}px)`;
+  const getCurrentColWidth = () => {
+    const confirmedWidthItems = columns.filter(item => !!item.width);
+    const flexNum = columns.length - confirmedWidthItems.length;
+    const usedWidth = confirmedWidthItems.reduce((total, current) => {
+      return total + current.width;
+    }, 0);
+    return [usedWidth, flexNum];
+  };
+  const usedWidth = getCurrentColWidth()[0];
+  const flexNum = getCurrentColWidth()[1];
+  const curretnColWidth = {
+    width: `calc((100% - ${usedWidth}px) / ${flexNum})`
   };
   return (
     <div
@@ -54,11 +57,12 @@ export function TableCommonV4(props: IProps) {
               style={
                 col.width
                   ? { width: `${col.width}px` }
-                  : { width: getCurrentColWidth(col) }
+                  : // : { width: getCurrentColWidth(col) }
+                    curretnColWidth
               }
               key={colkey}
             >
-              <span className={cn("text-[15px] text-[#ffffff]")}>
+              <span className={cn("text-[15px] text-[#ffffff] truncate")}>
                 {col.title}
               </span>
             </div>
@@ -82,7 +86,8 @@ export function TableCommonV4(props: IProps) {
                     style={
                       col.width
                         ? { width: `${col.width}px` }
-                        : { width: getCurrentColWidth(col) }
+                        : // : { width: getCurrentColWidth() }
+                          curretnColWidth
                     }
                     className={`flex-shrink-0 px-3 flex items-center justify-start  text-[15px] text-[#ffffff] `}
                     key={index + "_" + colkey}

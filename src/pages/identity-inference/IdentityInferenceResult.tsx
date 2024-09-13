@@ -4,30 +4,23 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 17:06:53
+ * @LastEditTime: 2024-09-13 01:08:50
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
 import { GraphinData } from "@antv/graphin";
-import { notification } from "antd";
 import cn from "classnames";
 import { useEffect, useState } from "react";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useParams } from "react-router-dom";
-import { useAsyncFn } from "react-use";
 
-import IdentityInferenceDialogTitle from "@/assets/IdentityInferenceDialogTitle.png";
-import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
 import {
   AddressTxGraph,
   TGraphinClickTarget
 } from "@/components/GraphV2/AddressTxGraph";
-import { InputCommonV2 } from "@/components/InputCommonV2";
 import { Progress } from "@/components/progres";
 import { ResultComponent } from "@/components/ResultComponent";
-import { SpinCommon } from "@/components/SpinCommon";
 import { TableCommonV4 } from "@/components/TableCommonV4";
-import { columns, columnsIdentity } from "@/services/columns";
+import { columnsIdentity } from "@/services/columns";
 import {
   detectFishRequestType,
   detectFishService,

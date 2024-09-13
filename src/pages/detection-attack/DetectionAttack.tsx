@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 14:07:51
+ * @LastEditTime: 2024-09-13 10:35:16
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -81,6 +81,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
       };
     });
     setdetectionSampleList(result);
+    setInputVal(result[0].name)
     console.log("检测数据>>>>", respose);
     console.log("检测数据>>>result>", result);
   };
@@ -112,7 +113,8 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
           >
             <div className="w-full h-full  flex flex-col gap-y-[16px]">
               <div className={`w-full h-[36px] flex items-center`}>
-                <InputCommonV2
+                  <InputCommonV2
+                    initVal={inputVal}
                   placeholder="以太坊区块的区块号或区块哈希"
                   onInput={(val: any) => {
                     setInputVal(val);

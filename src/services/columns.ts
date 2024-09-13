@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 15:42:01
+ * @LastEditTime: 2024-09-13 01:40:59
  */
 // 模型信息
 export const modelColumns: any = [
@@ -20,8 +20,7 @@ export const modelColumns: any = [
   },
   {
     title: "模型训练生成时间",
-    dataIndex: "time",
-    width: 160
+    dataIndex: "time"
   },
   {
     title: "模型检测综合性能f1",
@@ -54,8 +53,7 @@ export const detectionSamplePrivacyColumns: any = [
 export const detectionSampleFishColumns: any = [
   {
     title: "检测地址",
-    dataIndex: "name",
-    width: 200
+    dataIndex: "name"
   },
   {
     title: "检测时间",
@@ -64,7 +62,8 @@ export const detectionSampleFishColumns: any = [
   },
   {
     title: "检测结果",
-    dataIndex: "result"
+    dataIndex: "result",
+    width: 120
   }
 ];
 // 抢跑攻击检测样例
@@ -92,8 +91,7 @@ export const detectionSampleColumns: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "time",
-    width: 200
+    dataIndex: "time"
   },
   {
     title: "检测时长",
@@ -114,18 +112,17 @@ export const detectionFewSampleColumns: any = [
   },
   {
     title: "检测地址",
-    dataIndex: "name",
-    width: 160
+    dataIndex: "name"
   },
   {
     title: "检测时间",
     dataIndex: "time",
-    width: 160
+    width: 200
   },
   {
     title: "检测结果",
     dataIndex: "result",
-    width: 180
+    width: 200
   }
 ];
 // 恶意交易检测样例
@@ -185,13 +182,12 @@ export const detectionSampleChainCodeColumns: any = [
   // },
   {
     title: "检测时间",
-    dataIndex: "time",
-    width: 200
+    dataIndex: "time"
   },
   {
     title: "检测时长",
     dataIndex: "cost",
-    width: 200
+    width: 180
   },
   {
     title: "检测结果",
@@ -295,8 +291,7 @@ export const columnsIdentity: any = [
   {
     title: "dst",
     ellipsis: true,
-    dataIndex: "dst",
-    width: 300
+    dataIndex: "dst"
   },
   {
     title: "isError",
@@ -308,7 +303,7 @@ export const columnsIdentity: any = [
     title: "gas",
     dataIndex: "gas",
     ellipsis: true,
-    width: 100
+    width: 80
   },
   {
     title: "timeStamp",
@@ -359,20 +354,18 @@ export const columnsCrossChain1: any = [
   {
     title: "来源",
     dataIndex: "From",
-    ellipsis: true,
-    width: 200
+    ellipsis: true
   },
   {
     title: "流向",
     dataIndex: "To",
-    ellipsis: true,
-    width: 200
+    ellipsis: true
   },
   {
     title: "输入金额",
     dataIndex: "Input_coin",
     ellipsis: true,
-    width: 120
+    width: 180
   },
 
   {
@@ -385,13 +378,13 @@ export const columnsCrossChain1: any = [
     title: "输出金额",
     dataIndex: "Output_coin",
     ellipsis: true,
-    width: 120
+    width: 180
   },
   {
     title: "交易时间",
     dataIndex: "Time",
     ellipsis: true,
-    width: 120
+    width: 200
   },
   {
     title: "交易所在链",
@@ -411,14 +404,12 @@ export const columnsCrossChain2: any = [
   {
     title: "下游交易",
     dataIndex: "To",
-    ellipsis: true,
-    width: 400
+    ellipsis: true
   },
   {
     title: "上游交易",
     dataIndex: "From",
-    ellipsis: true,
-    width: 400
+    ellipsis: true
   },
   {
     title: "下游交易所在链",
@@ -462,12 +453,12 @@ export const columnsChainCode: any = [
     title: "漏洞类型",
     dataIndex: "type",
     ellipsis: true,
-    width: 200
+    width: 210
   },
   {
     title: "漏洞产生的原因",
     dataIndex: "reason",
     ellipsis: true,
-    width: 200
+    width: 320
   }
 ];
