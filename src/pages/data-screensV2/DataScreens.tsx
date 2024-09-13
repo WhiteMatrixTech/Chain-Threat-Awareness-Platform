@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-09-03 17:58:07
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 15:45:36
+ * @LastEditTime: 2024-09-13 16:01:02
  */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -121,6 +121,20 @@ export function DataScreens(props: dataScreensProps) {
       color: "#FA7305"
     }
   ]);
+  const [middleBottomList, setmiddleBottomList] = useState([
+    {
+      title: "地址标签",
+      value: "71,612"
+    },
+    {
+      title: "标签类型",
+      value: "350"
+    },
+    {
+      title: "监控地址",
+      value: "98,518"
+    }
+  ]);
   const getDate = () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -149,7 +163,7 @@ export function DataScreens(props: dataScreensProps) {
         </div>
       </div>
       <div className=" w-full h-[calc(100%_-_130px)] flex justify-between items-center">
-        <div className="w-[439px] h-full  flex flex-col justify-between">
+        <div className="w-[439px] h-full  flex flex-col justify-between scale-75 3xl:scale-100 transform origin-top-left">
           <div
             className={cn(
               `w-full h-[250px] px-[16px] py-[16px] flex flex-col justify-between items-center`,
@@ -251,7 +265,27 @@ export function DataScreens(props: dataScreensProps) {
             </div>
           </div>
         </div>
-        <div className="w-[calc(100%_-_903px)] h-full ">middle</div>
+        <div className="w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
+          <div className="earthContainer w-full h-[calc(100%_-_196px)]" />
+          <div className="w-full min-w-[850px] h-[196px] flex justify-between items-center scale-75 3xl:scale-100">
+            {middleBottomList.map((item: any, index: number) =>
+              <div
+                key={index}
+                className={cn(
+                  "w-[270px] h-[177px] flex justify-center items-center relative",
+                  `bg-[url('./assets/dataScreen_num_bg.png')] bg-cover bg-center`
+                )}
+              >
+                <span className="text-[31px] text-[#BFE7F9]">
+                  {item.value}
+                </span>
+                <span className="text-[22px] text-[#00FFE0] absolute bottom-0 left-[91px]">
+                  {item.title}
+                </span>
+              </div>
+            )}
+          </div>
+        </div>
         <div className="w-[404px] h-full ">right</div>
       </div>
       {/* <div className="h-[120px]  w-full flex flex-col items-center">
