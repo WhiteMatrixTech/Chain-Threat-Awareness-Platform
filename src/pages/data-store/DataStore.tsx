@@ -8,7 +8,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-11 18:03:51
+ * @LastEditTime: 2024-09-13 10:49:44
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -64,6 +64,7 @@ export function DataStore() {
         downloadUrl: `https://chain-threat-awareness-platform.whitematrix.io/chainthreat/v1/data-house/data-source/data/${item.tableName}`
       };
     });
+    console.log("listData>>>", listData);
     setData(listData);
     setpageInfo({
       ...pageInfo,
@@ -74,22 +75,18 @@ export function DataStore() {
     const params: dataStoreCreateRequestType = {
       ...info.data
     };
-    console.log("creatData-params>>>", params);
     const params2 = genFormData(params);
 
     const respose = await dataStoreCreateService(params2);
-    console.log("respose>>新增", respose);
     await getData();
     setIsDialogOpen(false);
   };
   const modifyData = async (info: any) => {
-    console.log("编辑》〉》", info);
     const params = {
       ...info.data
     };
     const params2 = genFormData(params);
     const respose = await dataStoreModifyService(params2);
-    console.log("respose>>编辑", respose);
     await getData();
     setIsDialogEditOpen(false);
   };

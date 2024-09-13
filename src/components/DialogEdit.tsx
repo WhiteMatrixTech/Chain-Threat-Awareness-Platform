@@ -1,3 +1,4 @@
+/* eslint-disable node/no-unsupported-features/node-builtins */
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -6,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-09-11 13:49:26
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 10:23:55
+ * @LastEditTime: 2024-09-13 10:55:55
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -15,6 +16,7 @@ import { useState } from "react";
 import btn_confirm from "@/assets/btn_confirm.png";
 import dialog_close from "@/assets/dialog_close.png";
 import xls_logo from '@/assets/xls_logo.png'
+import { dataStoreDownloadTemplateRequestType, dataStoreDownloadTemplateService} from '@/services/detection'
 
 interface IProps {
   open: boolean;
@@ -45,6 +47,26 @@ export function DialogEdit(props: IProps) {
     })
   }
 
+  const downloadTemplate = async () => {
+    console.log('download》〉》',data)
+    const params:dataStoreDownloadTemplateRequestType = {tableName: data.tableName}
+    
+    const response = await dataStoreDownloadTemplateService(params)
+
+    const blob = new Blob([response], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+  
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'templateCSV.csv';
+    document.body.appendChild(a);
+    a.click();
+  
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+    console.log('response>>', response)
+  }
+
   return (
     <div className="z-50 absolute top-[calc(50%_-_220px)] left-[calc(50%_-_265px)] h-[440px] w-[530px] rounded-[10px] bg-[#ffffff] px-[40px] py-[20px]">
       <div
@@ -68,8 +90,9 @@ export function DialogEdit(props: IProps) {
           <div className="w-full h-[23px] flex justify-between items-center">
             <span className="text-[#666666] text-[15px]">选择数据模板：</span>
             <span className="text-[#00A0E9] text-[13px] underline cursor-pointer" onClick={() => {
-              const url = `https://chain-threat-awareness-platform.whitematrix.io/chainthreat/v1/data-house/data-source/data/${data.tableName}`
-              window.open(url)
+              void downloadTemplate()
+              // const url = `https://chain-threat-awareness-platform.whitematrix.io/chainthreat/v1/data-house/data-source/data/${data.tableName}`
+              // window.open(url)
             }}>下载</span>
           </div>
           <div className="w-full h-[23px] flex justify-start items-center">
