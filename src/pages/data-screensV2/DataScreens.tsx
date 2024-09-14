@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-09-03 17:58:07
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-14 10:06:21
+ * @LastEditTime: 2024-09-14 10:17:59
  */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -186,7 +186,7 @@ export function DataScreens(props: dataScreensProps) {
             `bg-[url('./assets/dataScreen_header_bg.png')] bg-cover bg-center relative`
           )}
         >
-          <span className="text-[28px] text-[#ffffff]">
+          <span className={cn(`text-[28px] text-[#97CDFF]`)}>
             {date}
           </span>
         </div>
