@@ -8,7 +8,7 @@
  * @Author: didadida262
  * @Date: 2024-09-13 16:47:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-14 09:20:59
+ * @LastEditTime: 2024-09-14 09:32:53
  */
 
 import { LineChart } from "echarts/charts";
@@ -23,9 +23,6 @@ import * as echarts from "echarts/core";
 import { UniversalTransition } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
 import { useEffect, useState } from "react";
-
-import chart1Data from "@/services/mockData/chart1Data.json";
-import chart_data from "@/services/mockData/chartData.json";
 
 echarts.use([
   DatasetComponent,
@@ -111,7 +108,6 @@ export function ChartLineAddress() {
   };
 
   // 方案3
-  console.log("chart_data>>", chart_data);
 
   const initEcharts = () => {
     // 读取json，执行run

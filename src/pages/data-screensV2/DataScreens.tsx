@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /*
  * @Description: 大屏重构
  * @Author: didadida262
  * @Date: 2024-09-03 17:58:07
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-14 09:18:32
+ * @LastEditTime: 2024-09-14 09:57:00
  */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -34,6 +35,7 @@ interface dataScreensProps {
 
 export function DataScreens(props: dataScreensProps) {
   const [date, setDate] = useState("2024年9月10日");
+  const reg = /(?!^)(?=(\d{3})+$)/g;
   const leftTopList = [
     {
       title: "疑似钓鱼诈骗地址",
@@ -126,15 +128,18 @@ export function DataScreens(props: dataScreensProps) {
   const [middleBottomList, setmiddleBottomList] = useState([
     {
       title: "地址标签",
-      value: "71,612"
+      value: 0,
+      max: 3500
     },
     {
       title: "标签类型",
-      value: "350"
+      value: 0,
+      max: 3500
     },
     {
       title: "监控地址",
-      value: "98,518"
+      value: 0,
+      max: 3500
     }
   ]);
   const getDate = () => {
@@ -148,6 +153,28 @@ export function DataScreens(props: dataScreensProps) {
 
   useEffect(() => {
     getDate();
+    const timer = setInterval(() => {
+      setmiddleBottomList(prevObj => {
+        console.log("prevObj>>", prevObj);
+
+        return prevObj.map((item: any) => {
+          const newVal = Math.ceil(Math.random() * 10);
+          let step = 0;
+          if (newVal + item.value <= item.max) {
+            step = newVal;
+          } else {
+            step = item.value - newVal;
+          }
+          return {
+            ...item,
+            value: item.value + step
+          };
+        });
+      });
+    }, 2000);
+    return () => {
+      clearInterval(timer);
+    };
   }, []);
 
   return (
@@ -267,7 +294,7 @@ export function DataScreens(props: dataScreensProps) {
             </div>
           </div>
         </div>
-        <div className="markBorderR w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
+        <div className=" w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
           <div className="earthContainer w-full h-[calc(100%_-_196px)]" />
           <div className="w-full min-w-[850px] h-[196px] flex justify-between items-center 3xl:scale-100 scale-50 transform origin-bottom">
             {middleBottomList.map((item: any, index: number) =>
@@ -278,8 +305,8 @@ export function DataScreens(props: dataScreensProps) {
                   `bg-[url('./assets/dataScreen_num_bg.png')] bg-cover bg-center`
                 )}
               >
-                <span className="text-[31px] text-[#BFE7F9]">
-                  {item.value}
+                <span className="text-[31px] text-[#BFE7F9]  w-[105px] h-full flex justify-center items-center">
+                  {String(item.value).replace(reg, ",")}
                 </span>
                 <span className="text-[22px] text-[#00FFE0] absolute bottom-0 left-[91px]">
                   {item.title}
