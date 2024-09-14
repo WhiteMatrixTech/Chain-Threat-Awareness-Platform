@@ -1,18 +1,6 @@
-/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-/*
- * @Description: 大屏重构
- * @Author: didadida262
- * @Date: 2024-09-03 17:58:07
- * @LastEditors: didadida262
- * @LastEditTime: 2024-09-14 10:21:43
- */
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
 import { useEffect, useState } from "react";
 
@@ -27,7 +15,8 @@ import dataScreen_icon5 from "@/assets/dataScreen_icon5.png";
 import dataScreen_icon6 from "@/assets/dataScreen_icon6.png";
 import { ChartLine } from "@/components/chartLine";
 import { ChartLineAddress } from "@/components/chartLineAddress";
-import pattern from "@/styles/pattern";
+
+import { Earth } from "./Earth";
 
 interface dataScreensProps {
   className?: string;
@@ -155,8 +144,6 @@ export function DataScreens(props: dataScreensProps) {
     getDate();
     const timer = setInterval(() => {
       setmiddleBottomList(prevObj => {
-        console.log("prevObj>>", prevObj);
-
         return prevObj.map((item: any) => {
           const newVal = Math.ceil(Math.random() * 10);
           let step = 0;
@@ -295,8 +282,8 @@ export function DataScreens(props: dataScreensProps) {
           </div>
         </div>
         <div className=" w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
-          <div className="earthContainer w-full h-[calc(100%_-_196px)]  flex justify-center items-center markBorderR ">
-            asdasdas
+          <div className="earthContainer w-full h-[calc(100%_-_196px)]  flex justify-center items-center  ">
+            <Earth />
           </div>
           <div className="w-full min-w-[850px] h-[196px] flex justify-around items-center 3xl:scale-100 scale-50 transform origin-bottom">
             {middleBottomList.map((item: any, index: number) =>
@@ -371,71 +358,6 @@ export function DataScreens(props: dataScreensProps) {
           </div>
         </div>
       </div>
-      {/* <div className="h-[120px]  w-full flex flex-col items-center">
-        <div
-          className={cn(
-            `w-[668px] h-[66px]`,
-            `bg-[url('./assets/datascreenBg1.png')] bg-cover bg-center`
-          )}
-        />
-        <div
-          className={cn(
-            `w-full h-[155px]`,
-            `bg-[url('./assets/datascreenBg2.png')] bg-cover bg-center`
-          )}
-        />
-      </div>
-      <div className={cn(`flex-1 w-full  flex items-center justify-around`)}>
-        <div
-          className={cn(
-            ` w-[293px] h-full pt-[180px] flex flex-col gap-y-[25px]`
-          )}
-        >
-          <div
-            className={cn(
-              `relative w-full h-[116px]  py-[21px] px-[18px] flex flex-col gap-y-[11.8px]`,
-              `bg-[url('./assets/dataScreenBg3.png')] bg-cover bg-center`
-            )}
-          >
-            <div className={cn(`absolute right-[28.24px] top-[16.2px]`)}>
-              <img className="" src={datascreenlog1} width={87} height={76} />
-            </div>
-
-            <span className="text-[18px] text-[#ffffff]">监测漏洞类型</span>
-            <span className="text-[30px] text-[#ffffff]">10</span>
-          </div>
-          <div
-            className={cn(
-              `relative w-full h-[116px]  py-[21px] px-[18px] flex flex-col gap-y-[11.8px]`,
-              `bg-[url('./assets/dataScreenBg3.png')] bg-cover bg-center`
-            )}
-          >
-            <div className={cn(`absolute right-[28.24px] top-[16.2px]`)}>
-              <img className="" src={datascreenlog2} width={87} height={76} />
-            </div>
-
-            <span className="text-[18px] text-[#ffffff]">接入智能合约</span>
-            <span className="text-[30px] text-[#ffffff]">164065</span>
-          </div>
-          <div
-            className={cn(
-              `relative w-full h-[116px]  py-[21px] px-[18px] flex flex-col gap-y-[11.8px]`,
-              `bg-[url('./assets/dataScreenBg3.png')] bg-cover bg-center`
-            )}
-          >
-            <div className={cn(`absolute right-[28.24px] top-[16.2px]`)}>
-              <img className="" src={datascreenlog3} width={87} height={76} />
-            </div>
-
-            <span className="text-[18px] text-[#ffffff]">区块链项目</span>
-            <span className="text-[30px] text-[#ffffff]">54646</span>
-          </div>
-        </div>
-        <div className={cn(` w-[614px] h-full ${pattern.flexCenter}`)}>
-          <img className="" src={circlePng} width={614} height={600} />
-        </div>
-        <div className={cn(`  w-[293px] h-full`)}>right</div>
-      </div> */}
     </div>
   );
 }
