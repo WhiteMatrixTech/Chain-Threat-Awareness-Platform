@@ -8,7 +8,7 @@
  * @Author: didadida262
  * @Date: 2024-09-13 16:47:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-14 08:38:07
+ * @LastEditTime: 2024-09-14 09:20:59
  */
 
 import { LineChart } from "echarts/charts";
@@ -43,7 +43,7 @@ export function ChartLineAddress() {
 
   const run = () => {
     const option = {
-      animationDuration: 5000,
+      animationDuration: 15000,
       grid: {
         bottom: "0%",
         right: "0%",
@@ -89,7 +89,7 @@ export function ChartLineAddress() {
       },
       series: [
         {
-          data: [1800000, 1900000, 2001000, 2090000, 2100000, 2200000, 2290000],
+          data: [1800000, 1880000, 2001000, 2090000, 2100000, 2200000, 2290000],
           type: "line",
           symbol: "rect",
           symbolSize: 3,

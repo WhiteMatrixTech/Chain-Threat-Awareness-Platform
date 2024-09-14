@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-09-03 17:58:07
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-14 09:15:18
+ * @LastEditTime: 2024-09-14 09:18:32
  */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -267,9 +267,9 @@ export function DataScreens(props: dataScreensProps) {
             </div>
           </div>
         </div>
-        <div className="w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
+        <div className="markBorderR w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
           <div className="earthContainer w-full h-[calc(100%_-_196px)]" />
-          <div className="w-full min-w-[850px] h-[196px] flex justify-between items-center ">
+          <div className="w-full min-w-[850px] h-[196px] flex justify-between items-center 3xl:scale-100 scale-50 transform origin-bottom">
             {middleBottomList.map((item: any, index: number) =>
               <div
                 key={index}
