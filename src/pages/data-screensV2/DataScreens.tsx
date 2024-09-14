@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-09-03 17:58:07
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-14 10:21:43
+ * @LastEditTime: 2024-09-14 10:38:13
  */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -27,6 +27,7 @@ import dataScreen_icon5 from "@/assets/dataScreen_icon5.png";
 import dataScreen_icon6 from "@/assets/dataScreen_icon6.png";
 import { ChartLine } from "@/components/chartLine";
 import { ChartLineAddress } from "@/components/chartLineAddress";
+import { Earth } from "@/components/Earth";
 import pattern from "@/styles/pattern";
 
 interface dataScreensProps {
@@ -153,28 +154,28 @@ export function DataScreens(props: dataScreensProps) {
 
   useEffect(() => {
     getDate();
-    const timer = setInterval(() => {
-      setmiddleBottomList(prevObj => {
-        console.log("prevObj>>", prevObj);
+    // const timer = setInterval(() => {
+    //   setmiddleBottomList(prevObj => {
+    //     console.log("prevObj>>", prevObj);
 
-        return prevObj.map((item: any) => {
-          const newVal = Math.ceil(Math.random() * 10);
-          let step = 0;
-          if (newVal + item.value <= item.max) {
-            step = newVal;
-          } else {
-            step = item.value - newVal;
-          }
-          return {
-            ...item,
-            value: item.value + step
-          };
-        });
-      });
-    }, 2000);
-    return () => {
-      clearInterval(timer);
-    };
+    //     return prevObj.map((item: any) => {
+    //       const newVal = Math.ceil(Math.random() * 10);
+    //       let step = 0;
+    //       if (newVal + item.value <= item.max) {
+    //         step = newVal;
+    //       } else {
+    //         step = item.value - newVal;
+    //       }
+    //       return {
+    //         ...item,
+    //         value: item.value + step
+    //       };
+    //     });
+    //   });
+    // }, 2000);
+    // return () => {
+    //   clearInterval(timer);
+    // };
   }, []);
 
   return (
@@ -295,8 +296,8 @@ export function DataScreens(props: dataScreensProps) {
           </div>
         </div>
         <div className=" w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
-          <div className="earthContainer w-full h-[calc(100%_-_196px)]  flex justify-center items-center markBorderR ">
-            asdasdas
+          <div className="earthContainer w-full h-[calc(100%_-_196px)]  flex justify-center items-center  ">
+            <Earth />
           </div>
           <div className="w-full min-w-[850px] h-[196px] flex justify-around items-center 3xl:scale-100 scale-50 transform origin-bottom">
             {middleBottomList.map((item: any, index: number) =>
