@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /*
  * @Description: 大屏重构
  * @Author: didadida262
  * @Date: 2024-09-03 17:58:07
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 16:19:35
+ * @LastEditTime: 2024-09-14 10:06:21
  */
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
@@ -24,6 +25,8 @@ import dataScreen_icon3 from "@/assets/dataScreen_icon3.png";
 import dataScreen_icon4 from "@/assets/dataScreen_icon4.png";
 import dataScreen_icon5 from "@/assets/dataScreen_icon5.png";
 import dataScreen_icon6 from "@/assets/dataScreen_icon6.png";
+import { ChartLine } from "@/components/chartLine";
+import { ChartLineAddress } from "@/components/chartLineAddress";
 import pattern from "@/styles/pattern";
 
 interface dataScreensProps {
@@ -32,6 +35,7 @@ interface dataScreensProps {
 
 export function DataScreens(props: dataScreensProps) {
   const [date, setDate] = useState("2024年9月10日");
+  const reg = /(?!^)(?=(\d{3})+$)/g;
   const leftTopList = [
     {
       title: "疑似钓鱼诈骗地址",
@@ -124,15 +128,18 @@ export function DataScreens(props: dataScreensProps) {
   const [middleBottomList, setmiddleBottomList] = useState([
     {
       title: "地址标签",
-      value: "71,612"
+      value: 0,
+      max: 3500
     },
     {
       title: "标签类型",
-      value: "350"
+      value: 0,
+      max: 3500
     },
     {
       title: "监控地址",
-      value: "98,518"
+      value: 0,
+      max: 3500
     }
   ]);
   const getDate = () => {
@@ -146,6 +153,28 @@ export function DataScreens(props: dataScreensProps) {
 
   useEffect(() => {
     getDate();
+    const timer = setInterval(() => {
+      setmiddleBottomList(prevObj => {
+        console.log("prevObj>>", prevObj);
+
+        return prevObj.map((item: any) => {
+          const newVal = Math.ceil(Math.random() * 10);
+          let step = 0;
+          if (newVal + item.value <= item.max) {
+            step = newVal;
+          } else {
+            step = item.value - newVal;
+          }
+          return {
+            ...item,
+            value: item.value + step
+          };
+        });
+      });
+    }, 2000);
+    return () => {
+      clearInterval(timer);
+    };
   }, []);
 
   return (
@@ -162,8 +191,8 @@ export function DataScreens(props: dataScreensProps) {
           </span>
         </div>
       </div>
-      <div className=" w-full h-[calc(100%_-_130px)] flex justify-between items-center">
-        <div className="w-[439px] h-full  flex flex-col justify-between scale-75 3xl:scale-100 transform origin-top-left">
+      <div className=" w-full h-[calc(100%_-_125px)] flex justify-between items-center">
+        <div className=" w-[439px] h-full  flex flex-col justify-between">
           <div
             className={cn(
               `w-full h-[250px] px-[16px] py-[16px] flex flex-col justify-between items-center`,
@@ -198,7 +227,7 @@ export function DataScreens(props: dataScreensProps) {
           </div>
           <div
             className={cn(
-              `w-full h-[calc(100%_-_270px)] flex flex-col justify-between`
+              ` w-full h-[calc(100%_-_260px)] 3x:h-[calc(100%_-_270px)] flex flex-col justify-between`
             )}
           >
             <div
@@ -265,9 +294,9 @@ export function DataScreens(props: dataScreensProps) {
             </div>
           </div>
         </div>
-        <div className="w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
-          <div className="earthContainer w-full h-[calc(100%_-_196px)]" />
-          <div className="w-full min-w-[850px] h-[196px] flex justify-between items-center scale-75 3xl:scale-100">
+        <div className=" w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
+          <div className="earthContainer w-full h-[calc(100%_-_196px)]  flex justify-center items-center" />
+          <div className="w-full min-w-[850px] h-[196px] flex justify-between items-center 3xl:scale-100 scale-50 transform origin-bottom">
             {middleBottomList.map((item: any, index: number) =>
               <div
                 key={index}
@@ -276,8 +305,8 @@ export function DataScreens(props: dataScreensProps) {
                   `bg-[url('./assets/dataScreen_num_bg.png')] bg-cover bg-center`
                 )}
               >
-                <span className="text-[31px] text-[#BFE7F9]">
-                  {item.value}
+                <span className="text-[31px] text-[#BFE7F9]  w-[105px] h-full flex justify-center items-center">
+                  {String(item.value).replace(reg, ",")}
                 </span>
                 <span className="text-[22px] text-[#00FFE0] absolute bottom-0 left-[91px]">
                   {item.title}
@@ -286,11 +315,11 @@ export function DataScreens(props: dataScreensProps) {
             )}
           </div>
         </div>
-        <div className="w-[404px] h-full  flex flex-col justify-between scale-75 3xl:scale-100 transform origin-top-right">
-          <div className=" w-full h-[409px]">
+        <div className=" w-[404px] h-full overflow-scroll 3xl:overflow-hidden">
+          <div className="  w-full h-[400px]">
             <div
               className={cn(
-                "title w-full h-[40px] py-[7.5px] pl-[20px] pr-[18.5px] flex justify-between items-center",
+                " title w-full h-[40px] py-[7.5px] pl-[20px] pr-[18.5px] flex justify-between items-center",
                 ` bg-[#061B5A] bg-opacity-30 `,
                 `border-l-[6px] border-l-solid border-l-[#00FFD1]`
               )}
@@ -304,19 +333,20 @@ export function DataScreens(props: dataScreensProps) {
             </div>
             <div
               className={cn(
-                "折线图 w-full h-[342px] mt-[5px]",
+                " 折线图 w-full h-[342px] px-3 py-3 mt-[8px] 3xl:mt-[12px]",
                 ` bg-[#061B5A] bg-opacity-30 `
               )}
             >
-              折线图
+              <ChartLine />
             </div>
           </div>
-          <div className=" w-full h-[409px]">
+          <div className=" w-full h-[400px] ">
             <div
               className={cn(
                 "title w-full h-[40px]  py-[7.5px] pl-[20px] pr-[18.5px] flex justify-between items-center",
                 ` bg-[#061B5A] bg-opacity-30 `,
                 `border-l-[6px] border-l-solid border-l-[#00FFD1]`
+                // `mt-[8px] 3xl:mt-[12px]`
               )}
             >
               <div className="w-[calc(80%)] h-full flex justify-start items-center">
@@ -326,13 +356,15 @@ export function DataScreens(props: dataScreensProps) {
                 <img src={dataScreen_icon_dot} alt="" width={4} height={3} />
               </div>
             </div>
+
             <div
               className={cn(
-                "折线图 w-full h-[342px] mt-[5px]",
-                ` bg-[#061B5A] bg-opacity-30 `
+                "折线图2 w-full h-[342px]  px-3 py-3",
+                ` bg-[#061B5A] bg-opacity-30 `,
+                `mt-[8px] 3xl:mt-[12px]`
               )}
             >
-              折线图2
+              <ChartLineAddress />
             </div>
           </div>
         </div>

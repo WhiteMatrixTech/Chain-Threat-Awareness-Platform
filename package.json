@@ -26,6 +26,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^6.7.1",
     "dayjs": "^1.11.3",
+    "echarts": "^5.5.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "ethereum-block-by-date": "^1.4.5",
     "ethers": "^5.7.0",
