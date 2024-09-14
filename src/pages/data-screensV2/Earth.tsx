@@ -1,9 +1,9 @@
 /*
- * @Description:
+ * @Description: 老版本改造
  * @Author: didadida262
  * @Date: 2024-09-14 10:32:18
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-14 13:50:30
+ * @LastEditTime: 2024-09-14 15:56:37
  */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -22,13 +22,15 @@ export function Earth() {
     const controller = new GIO.Controller(container);
     controller.setTransparentBackground(true);
     controller.configure({
-      // linkPointRadius: 2,
       brightness: {
-        related: 0.1
+        ocean: 1,
+        mentioned: 1,
+        related: 0.5
       },
       color: {
         // background: "none",
-        // surface: 0x1890ff,
+        // 大陆和海洋的颜色
+        surface: "#FFFFFF",
         // 选中的国家
         selected: "#6cebfd",
         // related: "#FF686899",
@@ -36,11 +38,12 @@ export function Earth() {
         halo: "white",
         // 连接线
         in: "#0053b7",
-        out: "#0053b7"
-        // 海洋亮度
+        out: "#6cebfd"
       }
-      // adjustOceanBrightness: 1
     });
+
+    controller.setInitCountry("US");
+    controller.showInOnly(true);
 
     controller.addData(data);
     controller.init();
