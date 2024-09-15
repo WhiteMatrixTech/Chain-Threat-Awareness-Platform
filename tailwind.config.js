@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-30 11:15:06
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-05 23:48:49
+ * @LastEditTime: 2024-09-15 13:27:00
  */
 /* eslint-disable prettier/prettier */
 // eslint-disable-next-line prettier/prettier
@@ -51,7 +51,9 @@ module.exports = {
         "3xl": "1920px",
         // '3xl': '1920x1080'
         // => @media (min-width: 1920px) { ... }
-        "4xl": "3840px"
+        "4xl": "2560px",
+        // => @media (min-width: 2560x1440px) { ... }
+        "5xl": "3840px"
         // => @media (min-width: 3840x2160px) { ... }
       }
     }
