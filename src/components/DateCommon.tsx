@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 18:23:07
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-10 10:37:50
+ * @LastEditTime: 2024-09-16 22:58:49
  */
 /* eslint-disable prettier/prettier */
 
@@ -73,7 +73,6 @@ export function DateCommon(props: IProps) {
           size="middle"
           className={cn("")}
           onChange={(dataInfo:any) => {
-            console.log("data>>", dataInfo);
             setStartTime(dataInfo[0]?.format('YYYY-MM-DD'))
             setEndTime(dataInfo[1]?.format('YYYY-MM-DD'))
             onSelect(dataInfo);
