@@ -3,13 +3,14 @@
  * @Author: didadida262
  * @Date: 2024-09-14 10:32:18
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-16 01:21:02
+ * @LastEditTime: 2024-09-16 07:08:01
  */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable prettier/prettier */
 import Earth from "3d-earth";
 import cn from "classnames";
+import { config } from "process";
 import { useEffect, useState } from "react";
 
 export function EarthCommon() {
@@ -157,8 +158,7 @@ export function EarthCommon() {
         color: `rgba(255, 147, 0, 1)`
       }
     ];
-
-    const e = new Earth("container", cityList, bizLines);
+    const e: any = new Earth("container", cityList, bizLines);
     e.load();
   }, []);
   return (

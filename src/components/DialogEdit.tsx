@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-09-11 13:49:26
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 10:55:55
+ * @LastEditTime: 2024-09-16 22:58:57
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -26,7 +26,6 @@ interface IProps {
 
 export function DialogEdit(props: IProps) {
   const { open, data, handleEvent } = props;
-  console.log('data>>>', data)
 
   if (!open) return <></>;
   const [file, setFile] = useState<File>();
@@ -63,7 +62,6 @@ export function DialogEdit(props: IProps) {
   
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
-    console.log('response>>', response)
   }
 
   return (
