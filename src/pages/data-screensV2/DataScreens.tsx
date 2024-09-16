@@ -16,7 +16,7 @@ import dataScreen_icon6 from "@/assets/dataScreen_icon6.png";
 import { ChartLine } from "@/components/chartLine";
 import { ChartLineAddress } from "@/components/chartLineAddress";
 
-import { Earth } from "./Earth";
+import { EarthCommon } from "./Earth";
 
 interface dataScreensProps {
   className?: string;
@@ -283,9 +283,9 @@ export function DataScreens(props: dataScreensProps) {
         </div>
         <div className=" w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
           <div className="earthContainer w-full h-[calc(100%_-_196px)]  flex justify-center items-center  ">
-            <Earth />
+            <EarthCommon />
           </div>
-          <div className="w-full min-w-[850px] h-[196px] flex justify-around items-center 3xl:scale-100 scale-50 transform origin-bottom">
+          <div className="w-full min-w-[850px] h-[196px] flex justify-around items-center 3xl:scale-100 4xl:scale-110 scale-50 transform origin-bottom">
             {middleBottomList.map((item: any, index: number) =>
               <div
                 key={index}
