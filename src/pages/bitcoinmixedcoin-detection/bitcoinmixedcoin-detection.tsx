@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 13:40:23
+ * @LastEditTime: 2024-09-17 12:58:22
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -58,8 +58,6 @@ export function BitcoinmixedcoinDetection() {
     });
     setdetectionSampleList(result);
     setInputVal(result[0].name);
-    console.log("检测数据>>>>", respose);
-    console.log("检测数据>>>result>", result);
   };
 
   useEffect(() => {

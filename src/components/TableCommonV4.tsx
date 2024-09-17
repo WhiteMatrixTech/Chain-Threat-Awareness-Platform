@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 01:06:55
+ * @LastEditTime: 2024-09-17 12:58:15
  */
 /* eslint-disable prettier/prettier */
 
@@ -92,7 +92,6 @@ export function TableCommonV4(props: IProps) {
                     className={`flex-shrink-0 px-3 flex items-center justify-start  text-[15px] text-[#ffffff] `}
                     key={index + "_" + colkey}
                     onClick={() => {
-                      console.log("点击>>>", item[col.dataIndex]);
                       const textArea = document.createElement("textarea");
                       textArea.value = item[col.dataIndex];
                       document.body.appendChild(textArea);
