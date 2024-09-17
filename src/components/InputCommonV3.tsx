@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 10:25:44
+ * @LastEditTime: 2024-09-17 13:02:42
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -33,7 +33,6 @@ export function InputCommonV3(props: IProps) {
   );
   useEffect(
     () => {
-      console.log("initVal>>>", initVal);
       setValue(initVal || "");
     },
     [initVal]
