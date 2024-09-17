@@ -16,7 +16,7 @@ import dataScreen_icon6 from "@/assets/dataScreen_icon6.png";
 import { ChartLine } from "@/components/chartLine";
 import { ChartLineAddress } from "@/components/chartLineAddress";
 
-import { EarthCommon } from "./Earth";
+import { EarthCommon } from "./EarthCommon";
 
 interface dataScreensProps {
   className?: string;
