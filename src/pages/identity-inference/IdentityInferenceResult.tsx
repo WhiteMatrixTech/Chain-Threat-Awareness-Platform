@@ -30,8 +30,6 @@ import {
   getTransactionsService
 } from "@/services/detection";
 import {
-  generateAddressData,
-  generateEdgeTxData,
   initGraphData,
   initQueryAddress
 } from "@/services/mockData/addressAnalysis";
