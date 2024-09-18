@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-18 10:44:22
+ * @LastEditTime: 2024-09-18 11:06:01
  */
 const path = require("path");
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
@@ -55,9 +55,12 @@ module.exports = {
     ],
     configure: {
       optimization: {
-        usedExports: true,
-        // 启用标准的Tree Shaking，并且确保不移除import时的__importDefault和__importStar
-        concatenateModules: true
+        usedExports: true, // 开启只导出被使用的代码
+        sideEffects: true, // 开启副作用标记，用于更好的 Tree Shaking
+        concatenateModules: true, // 开启模块合并
+        splitChunks: {
+          chunks: "all"
+        }
       }
     }
   },
