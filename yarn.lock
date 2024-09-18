@@ -2,6 +2,14 @@
 # yarn lockfile v1
 
 
+"3d-earth@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.npmmirror.com/3d-earth/-/3d-earth-1.0.8.tgz#968cb47c7eb27fcef0e3572eb287c522dd91e78b"
+  integrity sha512-1A+TTc8a4qkXucZRS5Py4gux2YyDdrMHVCIg/40gVIPVae5EWff5bEaBOARO7Ez13N3DXYLzyIamGP5cHDUpVw==
+  dependencies:
+    "@tweenjs/tween.js" "^18.6.4"
+    three "^0.136.0"
+
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.0.tgz#56c133824780de3174aed5ab6834f3026790154d"
@@ -3239,6 +3247,11 @@
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@tsconfig/node16/-/node16-1.0.2.tgz#423c77877d0569db20e1fc80885ac4118314010e"
   integrity sha512-eZxlbI8GZscaGS7kkc/trHTT5xgrjH3/1n2JDwusC9iahPKWMRvRjJSAN5mCXviuTGQ/lHnhvv8Q1YTpnfz9gA==
+
+"@tweenjs/tween.js@^18.6.4":
+  version "18.6.4"
+  resolved "https://registry.npmmirror.com/@tweenjs/tween.js/-/tween.js-18.6.4.tgz#40a3d0a93647124872dec8e0fd1bd5926695b6ca"
+  integrity sha512-lB9lMjuqjtuJrx7/kOkqQBtllspPIN+96OvTCeJ2j5FEzinoAXTdAMFnDAQT1KVPRlnYfBrqxtqP66vDM40xxQ==
 
 "@types/aria-query@^4.2.0":
   version "4.2.2"
@@ -14475,6 +14488,11 @@ three@^0.102.1:
   version "0.102.1"
   resolved "https://registry.yarnpkg.com/three/-/three-0.102.1.tgz#fc08b6b11860cf59e8cd45b7e90e34d1d1a8cbd6"
   integrity sha512-btHBdww/Es4vdBkB2GjTE9mpj0vy8tgtxkX7ne7uxySXV8zoGxWJv1N88BydxnCqvAfmD4ZUTqPeESO7oDgeOQ==
+
+three@^0.136.0:
+  version "0.136.0"
+  resolved "https://registry.npmmirror.com/three/-/three-0.136.0.tgz#b1504db021b46398ef468aa7849f3dcabb814f50"
+  integrity sha512-+fEMX7nYLz2ZesVP/dyifli5Jf8gR3XPAnFJveQ80aMhibFduzrADnjMbARXh8+W9qLK7rshJCjAIL/6cDxC+A==
 
 three@^0.90.0:
   version "0.90.0"

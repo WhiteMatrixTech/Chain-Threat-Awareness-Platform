@@ -5,7 +5,6 @@ import { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAsyncFn, useWindowSize } from "react-use";
 
-import LoginBg from "@/assets/login_bgNew.png";
 import LogoBlock from "@/assets/logo_block.png";
 import { registerRequestType, registerService } from "@/services/user";
 import pattern from "@/styles/pattern";
@@ -132,7 +131,7 @@ export function Register(props: registerProps) {
       className={cn(
         styles.register,
         className,
-        "fadeIn h-screen w-[100%] bg-[#F5F5F5] overflow-hidden bg-[url('./assets/login_bgNew.png')] bg-cover bg-center"
+        "fadeIn h-screen w-[100%] bg-[#F5F5F5] overflow-hidden bg-[url('./assets/login_bgNew.webp')] bg-cover bg-center"
       )}
     >
       {!isRegisterSuccess &&

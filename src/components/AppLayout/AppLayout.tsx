@@ -4,26 +4,21 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:34:32
  * @LastEditors: didadida262
- * @LastEditTime: 2024-08-28 13:53:02
+ * @LastEditTime: 2024-09-18 12:13:13
  */
 import { Image, Layout } from "antd";
 import cn from "classnames";
 import React, { useState } from "react";
 import { useLocation } from "react-router";
 
-import BgNew from "@/assets/bgNew.png";
-import logo from "@/assets/logo.png";
 import { Header } from "@/components/Header";
 import { UserProvider } from "@/services/context";
 
-import { LeftMenu } from "../LeftMenu";
 import styles from "./AppLayout.module.less";
 
 const { Content, Sider } = Layout;
 
 export function AppLayout({ children }: { children: React.ReactNode }) {
-  const [collapsed, setCollapsed] = useState(false);
-
   const { pathname } = useLocation();
   const withoutLayout = ["/login", "/login/", "/register/", "/register"];
 
@@ -41,7 +36,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <UserProvider>
-      <div className=" h-screen overflow-hidden relative pt-[23px] pb-[30px] bg-[url('./assets/bgNew.png')] bg-cover bg-center">
+      <div className=" h-screen overflow-hidden relative pt-[23px] pb-[30px] bg-[url('./assets/bgNew_webp.webp')] bg-cover bg-center">
         {/* <Sider
           theme="light"
           breakpoint="lg"
