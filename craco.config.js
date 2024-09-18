@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-18 11:06:01
+ * @LastEditTime: 2024-09-18 11:36:02
  */
 const path = require("path");
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
@@ -57,10 +57,20 @@ module.exports = {
       optimization: {
         usedExports: true, // 开启只导出被使用的代码
         sideEffects: true, // 开启副作用标记，用于更好的 Tree Shaking
-        concatenateModules: true, // 开启模块合并
-        splitChunks: {
-          chunks: "all"
-        }
+        concatenateModules: true // 开启模块合并
+        // splitChunks: {
+        //   cacheGroups: {
+        //     default: false,
+        //     vendors: false,
+        //     // 将第三方库单独打包
+        //     vendor: {
+        //       chunks: "all",
+        //       test: /node_modules/,
+        //       name: "vendor",
+        //       enforce: true
+        //     }
+        //   }
+        // }
       }
     }
   },

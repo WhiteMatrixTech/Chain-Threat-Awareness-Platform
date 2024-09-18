@@ -72,7 +72,7 @@ export function Login(props: loginProps) {
     <div
       className={cn(
         className,
-        `h-screen w-full overflow-hidden bg-[url('./assets/login_bgNew.png')] bg-cover bg-center fadeIn`
+        `h-screen w-full overflow-hidden bg-[url('./assets/login_bgNew.webp')] bg-cover bg-center fadeIn`
       )}
     >
       <div className=" rounded-[8px] bg-[#FFFFFF] pt-[30px] p-[60px] w-[541px] h-[416px] absolute right-[calc(10%)] 3xl:right-[calc(20%)] top-[calc(50%_-_208px)] flex flex-col  ">
