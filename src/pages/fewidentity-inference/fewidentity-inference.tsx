@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-18 18:34:23
+ * @LastEditTime: 2024-09-19 10:30:14
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -109,7 +109,7 @@ export function FewidentityInference() {
       <div className={cn(`w-full h-[calc(60%)] ${pattern.flexCenter}`)}>
         <div
           className={cn(
-            `scale-75 3xl:scale-100 w-[1068px] h-[484px] relative `
+            `scale-75 3xl:scale-100 w-[1068px] h-[392px] relative `
           )}
         >
           <div
@@ -119,7 +119,7 @@ export function FewidentityInference() {
           />
           <div
             className={cn(
-              `pt-8 px-14 pb-10 absolute top-[54px] left-0 w-full h-[calc(100%_-_54px)] `,
+              `pt-16 px-14 pb-10 absolute top-[54px] left-0 w-full h-[calc(100%_-_54px)] `,
               "bg-[#003F7A4D]",
               "border-solid border-[1px] border-[#D3EAFF] border-t-0 border-r-0 border-l-0",
               `${pattern.flexbet}`
@@ -128,12 +128,15 @@ export function FewidentityInference() {
             <div
               className={cn(
                 `w-[450px] h-full `,
-                "flex flex-col items-start justify-start"
+                "flex flex-col items-start justify-between"
               )}
             >
-              <span className="text-[#ffffff] text-[18px]">
-                提供5个样本用于推断待测地址是否是该身份
-              </span>
+              <div className="w-full h-[24px] flex items-center justify-start">
+                <span className="text-[#ffffff] text-[18px]">
+                  提供5个样本用于推断待测地址是否是该身份
+                </span>
+              </div>
+
               {/* <InputCommonV2
                 initVal={sampleData.sample1}
                 placeholder="样本地址"
@@ -189,7 +192,7 @@ export function FewidentityInference() {
                 }}
                 className="w-full h-[36px] "
               /> */}
-              <div className="w-full  bg-[#0095FF66] px-3 pt-3 mt-5">
+              <div className="w-full h-[calc(100%_-_34px)] bg-[#0095FF66] px-4 py-4">
                 <div className="text-[#ffffff] text-[16px] h-[30px]">
                   {sampleData.sample1}
                 </div>
