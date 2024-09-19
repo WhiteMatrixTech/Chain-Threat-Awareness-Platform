@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-09-14 10:32:18
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-16 07:08:01
+ * @LastEditTime: 2024-09-19 10:00:04
  */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -12,6 +12,8 @@ import Earth from "3d-earth";
 import cn from "classnames";
 import { config } from "process";
 import { useEffect, useState } from "react";
+
+// import './index.css'
 
 export function EarthCommon() {
   useEffect(() => {
@@ -158,12 +160,28 @@ export function EarthCommon() {
         color: `rgba(255, 147, 0, 1)`
       }
     ];
-    const e: any = new Earth("container", cityList, bizLines);
-    e.load();
+
+    const container = document.getElementById('container')
+    const width = container?.clientWidth
+    const height = container?.clientHeight
+    console.log(width)
+    console.log(height)
+    const config = {
+      earthRadius: 14,
+      autoRotate: true,
+      zoomChina: false,
+      starBackground: false,
+      orbitControlConfig: {
+        enableRotate: true,
+        enableZoom: true
+      }
+    };
+    const earth: any = new Earth("container", cityList, bizLines, config);
+    earth.load();
   }, []);
   return (
     <div className="earth-container h-full w-full">
-      <div id="container" style={{ width: "100%", height: "100%" }} />
+      <div id="container" className="w-full h-full relative" />
     </div>
   );
 }
