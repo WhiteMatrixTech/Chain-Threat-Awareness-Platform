@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-19 16:38:32
+ * @LastEditTime: 2024-09-19 17:44:43
  */
 // 模型信息
 export const modelColumns: any = [
@@ -445,20 +445,17 @@ export const columnsChainCode: any = [
   {
     title: "检测时间",
     dataIndex: "time",
-    ellipsis: true,
-    width: 220
+    ellipsis: true
   },
   {
     title: "漏洞总数",
     dataIndex: "num",
-    ellipsis: true,
-    width: 90
+    ellipsis: true
   },
   {
     title: "漏洞类型",
     dataIndex: "type",
-    ellipsis: true,
-    width: 210
+    ellipsis: true
   },
   {
     title: "漏洞产生的原因",
