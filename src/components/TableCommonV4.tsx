@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-19 15:35:07
+ * @LastEditTime: 2024-09-19 15:44:06
  */
 /* eslint-disable prettier/prettier */
 
@@ -98,7 +98,10 @@ export function TableCommonV4(props: IProps) {
                         : // : { width: getCurrentColWidth() }
                           curretnColWidth
                     }
-                    className={`flex-shrink-0 px-3 flex items-center justify-start  text-[15px] text-[#ffffff] `}
+                    className={cn(
+                      `flex-shrink-0 px-3 flex items-center justify-start  text-[15px] text-[#ffffff]`,
+                      col.copy ? "cursor-pointer" : ""
+                    )}
                     key={index + "_" + colkey}
                     onClick={() => {
                       handleClickCopy(item, col);

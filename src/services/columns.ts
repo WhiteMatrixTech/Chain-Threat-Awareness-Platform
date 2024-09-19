@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-19 15:36:23
+ * @LastEditTime: 2024-09-19 15:40:30
  */
 // 模型信息
 export const modelColumns: any = [
@@ -37,7 +37,8 @@ export const detectionSamplePrivacyColumns: any = [
   {
     title: "检测区块",
     dataIndex: "name",
-    width: 150
+    width: 150,
+    copy: true
   },
   {
     title: "检测时间",
@@ -53,7 +54,8 @@ export const detectionSamplePrivacyColumns: any = [
 export const detectionSampleFishColumns: any = [
   {
     title: "检测地址",
-    dataIndex: "name"
+    dataIndex: "name",
+    copy: true
   },
   {
     title: "检测时间",
@@ -88,7 +90,8 @@ export const detectionSampleAttackColumns: any = [
 export const detectionSampleColumns: any = [
   {
     title: "检测地址",
-    dataIndex: "name"
+    dataIndex: "name",
+    copy: true
   },
   {
     title: "检测时间",
@@ -113,7 +116,8 @@ export const detectionFewSampleColumns: any = [
   },
   {
     title: "检测地址",
-    dataIndex: "name"
+    dataIndex: "name",
+    copy: true
   },
   {
     title: "检测时间",
@@ -130,7 +134,8 @@ export const detectionFewSampleColumns: any = [
 export const detectionMaliciousSampleColumns: any = [
   {
     title: "检测地址",
-    dataIndex: "name"
+    dataIndex: "name",
+    copy: true
   },
   {
     title: "检测时间",
@@ -147,7 +152,8 @@ export const detectionMaliciousSampleColumns: any = [
 export const detectionSampleCrossChainColumns: any = [
   {
     title: "交易hash",
-    dataIndex: "name"
+    dataIndex: "name",
+    copy: true
   },
   {
     title: "交易时间",
@@ -175,6 +181,27 @@ export const detectionSampleCrossChainColumns: any = [
     width: 200
   }
 ];
+// 链码检测样例一级页面
+export const detectionSampleChainCodeColumnsHome: any = [
+  {
+    title: "检测链码",
+    dataIndex: "name",
+    copy: true
+  },
+  {
+    title: "检测时间",
+    dataIndex: "time"
+  },
+  {
+    title: "检测时长",
+    dataIndex: "cost",
+    width: 180
+  },
+  {
+    title: "检测结果",
+    dataIndex: "result"
+  }
+];
 // 链码检测样例二级页面
 export const detectionSampleChainCodeColumns: any = [
   // {
@@ -195,32 +222,13 @@ export const detectionSampleChainCodeColumns: any = [
     dataIndex: "result"
   }
 ];
-// 链码检测样例一级页面
 
-export const detectionSampleChainCodeColumnsHome: any = [
-  {
-    title: "检测链码",
-    dataIndex: "name"
-  },
-  {
-    title: "检测时间",
-    dataIndex: "time"
-  },
-  {
-    title: "检测时长",
-    dataIndex: "cost",
-    width: 180
-  },
-  {
-    title: "检测结果",
-    dataIndex: "result"
-  }
-];
 // 混币检测样例
 export const detectionSampleBitCoinColumns: any = [
   {
     title: "检测地址",
-    dataIndex: "name"
+    dataIndex: "name",
+    copy: true
   },
   {
     title: "检测时间",
