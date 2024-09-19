@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-19 14:19:53
+ * @LastEditTime: 2024-09-19 15:36:23
  */
 // 模型信息
 export const modelColumns: any = [
@@ -71,7 +71,8 @@ export const detectionSampleAttackColumns: any = [
   {
     title: "检测内容",
     dataIndex: "name",
-    width: 150
+    width: 150,
+    copy: true
   },
   {
     title: "检测时间",

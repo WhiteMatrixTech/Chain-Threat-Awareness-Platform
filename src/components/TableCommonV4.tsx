@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-19 15:20:47
+ * @LastEditTime: 2024-09-19 15:35:07
  */
 /* eslint-disable prettier/prettier */
 
@@ -34,6 +34,18 @@ export function TableCommonV4(props: IProps) {
   const flexNum = getCurrentColWidth()[1];
   const curretnColWidth = {
     width: `calc((100% - ${usedWidth}px) / ${flexNum})`
+  };
+  const handleClickCopy = (item: any, col: any) => {
+    console.log("item>>>", item);
+    console.log("col>>>", col);
+    if (!col.copy) return;
+    const textArea = document.createElement("textarea");
+    textArea.value = item[col.dataIndex];
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+    notification.info({ message: "复制成功!!!" });
   };
   return (
     <div
@@ -89,13 +101,7 @@ export function TableCommonV4(props: IProps) {
                     className={`flex-shrink-0 px-3 flex items-center justify-start  text-[15px] text-[#ffffff] `}
                     key={index + "_" + colkey}
                     onClick={() => {
-                      const textArea = document.createElement("textarea");
-                      textArea.value = item[col.dataIndex];
-                      document.body.appendChild(textArea);
-                      textArea.select();
-                      document.execCommand("copy");
-                      document.body.removeChild(textArea);
-                      notification.info({ message: "复制成功!!!" });
+                      handleClickCopy(item, col);
                     }}
                   >
                     <span className="w-full h-full truncate leading-[40px]">
