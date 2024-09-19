@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 10:36:41
+ * @LastEditTime: 2024-09-19 15:27:28
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -150,7 +150,7 @@ export function DetectionFish() {
           </div>
           <div
             className={cn(
-              ` w-[662px]  h-[calc(100%_-_278px)] flex flex-col gap-y-2`
+              ` w-[662px]  h-[calc(100%_-_278px)] flex flex-col justify-between`
             )}
           >
             <div
@@ -164,12 +164,13 @@ export function DetectionFish() {
                 历史检测数据-基于图神经网络的钓鱼攻击检测模型
               </span>
             </div>
-
-            <TableCommonV4
-              className="w-full flex-1"
-              data={detectionSampleList}
-              columns={detectionSampleFishColumns}
-            />
+            <div className="w-full h-[calc(100%_-_48px)]">
+              <TableCommonV4
+                className="w-full h-full"
+                data={detectionSampleList}
+                columns={detectionSampleFishColumns}
+              />
+            </div>
           </div>
         </div>
         <div

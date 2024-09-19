@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-17 12:58:15
+ * @LastEditTime: 2024-09-19 15:20:47
  */
 /* eslint-disable prettier/prettier */
 
@@ -13,8 +13,6 @@
 import { notification } from "antd";
 import cn from "classnames";
 import React, { useEffect, useRef, useState } from "react";
-
-import pattern from "@/styles/pattern";
 
 interface IProps {
   columns: any[];
@@ -42,8 +40,7 @@ export function TableCommonV4(props: IProps) {
       className={cn(
         "px-5 py-5 bg-[#02004D4D] ",
         `border-[2px] border-solid border-[#0D53B7]`,
-        className,
-        `overflow-scroll`
+        className
       )}
     >
       {/* 表头 */}
@@ -70,7 +67,7 @@ export function TableCommonV4(props: IProps) {
       </div>
       {data &&
         data.length !== 0 &&
-        <div className="content w-full h-[calc(100%_-_40px)] ">
+        <div className="content w-full h-[calc(100%_-_40px)]  overflow-scroll ">
           {data &&
             data.map((item: any, index: number) =>
               <div
