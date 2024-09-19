@@ -131,6 +131,7 @@ export function DataScreens(props: dataScreensProps) {
       max: 3500
     }
   ]);
+  const [scale, setScale] = useState("100%");
   const getDate = () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -138,6 +139,24 @@ export function DataScreens(props: dataScreensProps) {
     const day = String(currentDate.getDate()).padStart(2, "0"); // 补零
     const formattedDate = `${year}-${month}-${day}`;
     setDate(formattedDate);
+  };
+  const handleScreenAuto = () => {
+    const designDraftWidth = 1920;
+    const designDraftHeight = 880;
+    const scale =
+      document.documentElement.clientWidth /
+        document.documentElement.clientHeight <
+      designDraftWidth / designDraftHeight
+        ? document.documentElement.clientWidth / designDraftWidth
+        : document.documentElement.clientHeight / designDraftHeight;
+    const dataScreenContainer: any = document.getElementById(
+      "dataScreenContainer"
+    );
+    console.log("scale>>>>", scale);
+    // setScale(scale * 100 + "%");
+    // (document.querySelector(
+    //   "#dataScreenContainer"
+    // ) as any).style.transform = `scale(${scale})`;
   };
 
   useEffect(() => {
@@ -159,13 +178,23 @@ export function DataScreens(props: dataScreensProps) {
         });
       });
     }, 2000);
+    handleScreenAuto();
+    window.onresize = () => handleScreenAuto();
+
     return () => {
+      window.onresize = null;
       clearInterval(timer);
     };
   }, []);
 
   return (
-    <div className={cn(`w-full h-full fadeIn flex flex-col justify-between`)}>
+    <div
+      id="dataScreenContainer"
+      className={cn(
+        `w-full h-full fadeIn flex flex-col justify-between screen`,
+        "scale-[95%] 3xl:scale-100"
+      )}
+    >
       <div className="w-full h-[120px]  flex justify-center items-center">
         <div
           className={cn(
@@ -285,19 +314,23 @@ export function DataScreens(props: dataScreensProps) {
           <div className="earthContainer w-full h-[calc(100%_-_196px)]  flex justify-center items-center  ">
             <EarthCommon />
           </div>
-          <div className="w-full min-w-[850px] h-[196px] flex justify-around items-center 3xl:scale-100 4xl:scale-110 scale-50 transform origin-bottom">
+          <div
+            className={cn(
+              " w-full  h-[196px] flex justify-around items-center"
+            )}
+          >
             {middleBottomList.map((item: any, index: number) =>
               <div
                 key={index}
                 className={cn(
-                  "w-[270px] h-[177px] flex justify-center items-center relative",
+                  " w-[140px] 3xl:w-[270px] h-[137px] 3xl:h-[177px] flex justify-center items-center relative",
                   `bg-[url('./assets/dataScreen_num_bg.png')] bg-cover bg-center`
                 )}
               >
                 <span className="text-[31px] text-[#BFE7F9]  w-[105px] h-full flex justify-center items-center">
                   {String(item.value).replace(reg, ",")}
                 </span>
-                <span className="text-[22px] text-[#00FFE0] absolute bottom-0 left-[91px]">
+                <span className="w-[88px] text-[22px] text-[#00FFE0] absolute bottom-0 left-[calc(50%_-_44px)]">
                   {item.title}
                 </span>
               </div>
