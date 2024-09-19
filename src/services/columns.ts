@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 01:40:59
+ * @LastEditTime: 2024-09-18 18:14:50
  */
 // 模型信息
 export const modelColumns: any = [
@@ -432,11 +432,11 @@ export const columnsCrossChain2: any = [
 ];
 // 链码漏洞页面
 export const columnsChainCode: any = [
-  {
-    title: "检测文件",
-    ellipsis: true,
-    dataIndex: "file"
-  },
+  // {
+  //   title: "检测文件",
+  //   ellipsis: true,
+  //   dataIndex: "file"
+  // },
   {
     title: "检测时间",
     dataIndex: "time",
@@ -458,7 +458,7 @@ export const columnsChainCode: any = [
   {
     title: "漏洞产生的原因",
     dataIndex: "reason",
-    ellipsis: true,
-    width: 320
+    ellipsis: true
+    // width: 320
   }
 ];
