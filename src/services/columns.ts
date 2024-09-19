@@ -4,19 +4,17 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-19 15:40:30
+ * @LastEditTime: 2024-09-19 16:38:32
  */
 // 模型信息
 export const modelColumns: any = [
   {
     title: "模型名称",
-    dataIndex: "name",
-    width: 90
+    dataIndex: "name"
   },
   {
     title: "模型版本",
-    dataIndex: "version",
-    width: 90
+    dataIndex: "version"
   },
   {
     title: "模型训练生成时间",
@@ -42,8 +40,24 @@ export const detectionSamplePrivacyColumns: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "time",
-    width: 200
+    dataIndex: "time"
+  },
+  {
+    title: "检测结果",
+    dataIndex: "result"
+  }
+];
+// 抢跑攻击检测样例
+export const detectionSampleAttackColumns: any = [
+  {
+    title: "检测内容",
+    dataIndex: "name",
+    width: 150,
+    copy: true
+  },
+  {
+    title: "检测时间",
+    dataIndex: "time"
   },
   {
     title: "检测结果",
@@ -64,28 +78,10 @@ export const detectionSampleFishColumns: any = [
   },
   {
     title: "检测结果",
-    dataIndex: "result",
-    width: 120
-  }
-];
-// 抢跑攻击检测样例
-export const detectionSampleAttackColumns: any = [
-  {
-    title: "检测内容",
-    dataIndex: "name",
-    width: 150,
-    copy: true
-  },
-  {
-    title: "检测时间",
-    dataIndex: "time",
-    width: 200
-  },
-  {
-    title: "检测结果",
     dataIndex: "result"
   }
 ];
+
 // 身份推断检测样例
 export const detectionSampleColumns: any = [
   {
@@ -99,8 +95,7 @@ export const detectionSampleColumns: any = [
   },
   {
     title: "检测时长",
-    dataIndex: "cost",
-    width: 90
+    dataIndex: "cost"
   },
   {
     title: "检测结果",
@@ -108,6 +103,57 @@ export const detectionSampleColumns: any = [
     width: 150
   }
 ];
+// 身份推断页、少样本身份推断页表格V2变动
+
+export const columnsIdentity: any = [
+  {
+    title: "src",
+    ellipsis: true,
+    dataIndex: "src"
+  },
+  {
+    title: "dst",
+    ellipsis: true,
+    dataIndex: "dst"
+  },
+  {
+    title: "isError",
+    dataIndex: "isError",
+    ellipsis: true,
+    width: 100
+  },
+  {
+    title: "gas",
+    dataIndex: "gas",
+    ellipsis: true
+  },
+  {
+    title: "timeStamp",
+    dataIndex: "timeStamp",
+    ellipsis: true
+  },
+  {
+    title: "blockNumber",
+    dataIndex: "blockNumber",
+    ellipsis: true
+  },
+  {
+    title: "value",
+    dataIndex: "value",
+    ellipsis: true
+  },
+  {
+    title: "gasUsed",
+    dataIndex: "gasUsed",
+    ellipsis: true
+  },
+  {
+    title: "gasPrice",
+    dataIndex: "gasPrice",
+    ellipsis: true
+  }
+];
+
 // 少样本检测样例
 export const detectionFewSampleColumns: any = [
   {
@@ -121,8 +167,7 @@ export const detectionFewSampleColumns: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "time",
-    width: 200
+    dataIndex: "time"
   },
   {
     title: "检测结果",
@@ -157,13 +202,11 @@ export const detectionSampleCrossChainColumns: any = [
   },
   {
     title: "交易时间",
-    dataIndex: "time",
-    width: 200
+    dataIndex: "time"
   },
   {
     title: "查询时间",
-    dataIndex: "query_time",
-    width: 200
+    dataIndex: "query_time"
   },
   {
     title: "输入金额",
@@ -232,8 +275,7 @@ export const detectionSampleBitCoinColumns: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "time",
-    width: 200
+    dataIndex: "time"
   },
   {
     title: "检测结果",
@@ -251,26 +293,22 @@ export const dataStoreColumns: any = [
   {
     title: "数据集名称",
     dataIndex: "datasetName",
-    ellipsis: true,
-    width: 200
+    ellipsis: true
   },
   {
     title: "区块链",
     dataIndex: "chain",
-    ellipsis: true,
-    width: 150
+    ellipsis: true
   },
   {
     title: "数据来源",
     dataIndex: "source",
-    ellipsis: true,
-    width: 150
+    ellipsis: true
   },
   {
     title: "数量",
     dataIndex: "total",
-    ellipsis: true,
-    width: 100
+    ellipsis: true
   },
   // {
   //   title: "描述",
@@ -282,6 +320,11 @@ export const dataStoreColumns: any = [
     dataIndex: "downloadUrl",
     ellipsis: true
     // width: 150
+  },
+  {
+    title: "",
+    slot: "operation",
+    width: 100
   }
 ];
 
@@ -310,62 +353,6 @@ export const columns: any = [
     ellipsis: true
   }
 ];
-// 身份推断页、少样本身份推断页表格V2变动
-
-export const columnsIdentity: any = [
-  {
-    title: "src",
-    ellipsis: true,
-    dataIndex: "src"
-  },
-  {
-    title: "dst",
-    ellipsis: true,
-    dataIndex: "dst"
-  },
-  {
-    title: "isError",
-    dataIndex: "isError",
-    ellipsis: true,
-    width: 100
-  },
-  {
-    title: "gas",
-    dataIndex: "gas",
-    ellipsis: true,
-    width: 80
-  },
-  {
-    title: "timeStamp",
-    dataIndex: "timeStamp",
-    ellipsis: true,
-    width: 150
-  },
-  {
-    title: "blockNumber",
-    dataIndex: "blockNumber",
-    ellipsis: true,
-    width: 150
-  },
-  {
-    title: "value",
-    dataIndex: "value",
-    ellipsis: true,
-    width: 200
-  },
-  {
-    title: "gasUsed",
-    dataIndex: "gasUsed",
-    ellipsis: true,
-    width: 100
-  },
-  {
-    title: "gasPrice",
-    dataIndex: "gasPrice",
-    ellipsis: true,
-    width: 150
-  }
-];
 
 // 跨链页表格1、2
 export const columnsCrossChain1: any = [
@@ -375,12 +362,6 @@ export const columnsCrossChain1: any = [
     dataIndex: "Tx_id"
   },
 
-  // {
-  //   title: "账户名",
-  //   dataIndex: "Account_number",
-  //   ellipsis: true,
-  //   width: 150
-  // },
   {
     title: "来源",
     dataIndex: "From",
@@ -394,27 +375,23 @@ export const columnsCrossChain1: any = [
   {
     title: "输入金额",
     dataIndex: "Input_coin",
-    ellipsis: true,
-    width: 180
+    ellipsis: true
   },
 
   {
     title: "交易费用",
     dataIndex: "Fee",
-    ellipsis: true,
-    width: 120
+    ellipsis: true
   },
   {
     title: "输出金额",
     dataIndex: "Output_coin",
-    ellipsis: true,
-    width: 180
+    ellipsis: true
   },
   {
     title: "交易时间",
     dataIndex: "Time",
-    ellipsis: true,
-    width: 200
+    ellipsis: true
   },
   {
     title: "交易所在链",
@@ -444,14 +421,12 @@ export const columnsCrossChain2: any = [
   {
     title: "下游交易所在链",
     dataIndex: "To_chain",
-    ellipsis: true,
-    width: 180
+    ellipsis: true
   },
   {
     title: "上游交易所在链",
     dataIndex: "From_chain",
-    ellipsis: true,
-    width: 180
+    ellipsis: true
   }
 
   // {
