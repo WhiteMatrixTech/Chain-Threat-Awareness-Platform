@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-19 13:59:33
+ * @LastEditTime: 2024-09-19 14:19:53
  */
 // 模型信息
 export const modelColumns: any = [
@@ -198,7 +198,7 @@ export const detectionSampleChainCodeColumns: any = [
 
 export const detectionSampleChainCodeColumnsHome: any = [
   {
-    title: "检测地址",
+    title: "检测链码",
     dataIndex: "name"
   },
   {
