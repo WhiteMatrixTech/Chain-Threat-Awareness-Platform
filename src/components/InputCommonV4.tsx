@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-06 01:09:08
+ * @LastEditTime: 2024-09-19 14:14:23
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -30,6 +30,12 @@ export function InputCommonV4(props: IProps) {
     200,
     [value]
   );
+  useEffect(
+    () => {
+      setValue(initVal || "");
+    },
+    [initVal]
+  );
   return (
     <div
       className={cn(
@@ -40,6 +46,7 @@ export function InputCommonV4(props: IProps) {
       )}
     >
       <textarea
+        value={value}
         placeholder={placeholder}
         onChange={e => {
           setValue(e.target.value);

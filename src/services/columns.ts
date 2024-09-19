@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-18 18:14:50
+ * @LastEditTime: 2024-09-19 13:59:33
  */
 // 模型信息
 export const modelColumns: any = [
@@ -174,12 +174,33 @@ export const detectionSampleCrossChainColumns: any = [
     width: 200
   }
 ];
-// 链码检测样例
+// 链码检测样例二级页面
 export const detectionSampleChainCodeColumns: any = [
   // {
   //   title: "检测地址",
   //   dataIndex: "name"
   // },
+  {
+    title: "检测时间",
+    dataIndex: "time"
+  },
+  {
+    title: "检测时长",
+    dataIndex: "cost",
+    width: 180
+  },
+  {
+    title: "检测结果",
+    dataIndex: "result"
+  }
+];
+// 链码检测样例一级页面
+
+export const detectionSampleChainCodeColumnsHome: any = [
+  {
+    title: "检测地址",
+    dataIndex: "name"
+  },
   {
     title: "检测时间",
     dataIndex: "time"
