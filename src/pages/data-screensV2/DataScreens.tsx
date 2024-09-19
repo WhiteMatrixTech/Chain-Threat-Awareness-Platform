@@ -315,15 +315,13 @@ export function DataScreens(props: dataScreensProps) {
             <EarthCommon />
           </div>
           <div
-            className={cn(
-              " w-full  h-[196px] flex justify-around items-center"
-            )}
+            className={cn(" w-full  h-[196px] flex justify-around items-end")}
           >
             {middleBottomList.map((item: any, index: number) =>
               <div
                 key={index}
                 className={cn(
-                  " w-[140px] 3xl:w-[270px] h-[137px] 3xl:h-[177px] flex justify-center items-center relative",
+                  " w-[140px] 3xl:w-[270px] h-[127px] 3xl:h-[177px] flex justify-center items-center relative",
                   `bg-[url('./assets/dataScreen_num_bg.png')] bg-cover bg-center`
                 )}
               >
