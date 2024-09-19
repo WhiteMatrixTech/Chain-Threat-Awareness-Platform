@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 11:11:08
+ * @LastEditTime: 2024-09-19 16:38:13
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import { notification } from "antd";
@@ -27,7 +27,7 @@ interface IProps {
   operationColumn?: React.ReactNode;
   handleEvent: (data: any) => void;
 }
-const maxcharNum = 40;
+
 export function TableSlot(props: IProps) {
   const {
     data,
@@ -39,13 +39,18 @@ export function TableSlot(props: IProps) {
     operationColumn,
     handleEvent
   } = props;
-  const getCurrentColWidth = (col: any) => {
-    const used = columns
-      .filter(item => item.dataIndex !== col.dataIndex)
-      .reduce((total, current) => {
-        return total + current.width;
-      }, 0);
-    return `calc(100% - ${used + 100}px)`;
+  const getCurrentColWidth = () => {
+    const confirmedWidthItems = columns.filter(item => !!item.width);
+    const flexNum = columns.length - confirmedWidthItems.length;
+    const usedWidth = confirmedWidthItems.reduce((total, current) => {
+      return total + current.width;
+    }, 0);
+    return [usedWidth, flexNum];
+  };
+  const usedWidth = getCurrentColWidth()[0];
+  const flexNum = getCurrentColWidth()[1];
+  const curretnColWidth = {
+    width: `calc((100% - ${usedWidth}px) / ${flexNum})`
   };
 
   return (
@@ -59,7 +64,7 @@ export function TableSlot(props: IProps) {
     >
       <div
         className={cn(
-          `header flex bg-[#00D2D51A] h-[40px] items-center w-full `
+          `header flex bg-[#00D2D51A] h-[40px] items-center w-full`
         )}
       >
         {columns &&
@@ -68,8 +73,9 @@ export function TableSlot(props: IProps) {
               className={cn("px-[16px] ")}
               style={
                 col.width
-                  ? { width: col.width }
-                  : { width: getCurrentColWidth(col) }
+                  ? { width: `${col.width}px` }
+                  : // : { width: getCurrentColWidth(col) }
+                    curretnColWidth
               }
               key={colkey}
             >
@@ -78,7 +84,7 @@ export function TableSlot(props: IProps) {
               </span>
             </div>
           )}
-        {operationColumn &&
+        {/* {operationColumn &&
           <div
             className={cn(
               "px-[16px] w-[100px]",
@@ -86,7 +92,7 @@ export function TableSlot(props: IProps) {
             )}
           >
             <span className={cn("text-[15px] text-[#ffffff]")} />
-          </div>}
+          </div>} */}
       </div>
       <div className="content w-full h-[calc(100%_-_40px)] overflow-scroll">
         {data &&
@@ -101,29 +107,54 @@ export function TableSlot(props: IProps) {
               {columns &&
                 columns.map(
                   (col: any, colkey: number) =>
-                    col.width
+                    col.slot
                       ? <div
-                          style={{ width: col.width }}
+                          style={
+                            col.width
+                              ? { width: `${col.width}px` }
+                              : curretnColWidth
+                          }
                           className={cn(
-                            `px-[16px] flex items-center relative group text-[15px] text-[#ffffff] `
+                            ` px-[16px] flex items-center relative group text-[15px] text-[#ffffff] `
                           )}
                           key={colkey}
-                          onClick={() => {
-                            const textArea = document.createElement("textarea");
-                            textArea.value = item[col.dataIndex];
-                            document.body.appendChild(textArea);
-                            textArea.select();
-                            document.execCommand("copy");
-                            document.body.removeChild(textArea);
-                            notification.info({ message: "复制成功!!!" });
-                          }}
                         >
-                          <span className="w-full h-full truncate leading-[40px]">
-                            {col.dataIndex ? item[col.dataIndex] : index + 1}
-                          </span>
+                          <div className={cn("px-[16px] w-full h-full")}>
+                            <div
+                              className={cn(
+                                `w-full h-full`,
+                                ` flex justify-end items-center`
+                              )}
+                            >
+                              <div
+                                className="cursor-pointer group relative"
+                                onClick={() => {
+                                  handleEvent(item);
+                                }}
+                              >
+                                <img
+                                  src={plus_icon}
+                                  alt=""
+                                  width={28}
+                                  height={28}
+                                />
+                                <img
+                                  className="absolute top-0 left-0 hidden group-hover:block"
+                                  src={plus_light_icon}
+                                  alt=""
+                                  width={28}
+                                  height={28}
+                                />
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       : <div
-                          style={{ width: getCurrentColWidth(col) }}
+                          style={
+                            col.width
+                              ? { width: `${col.width}px` }
+                              : curretnColWidth
+                          }
                           className={cn(
                             ` px-[16px] flex items-center relative group text-[15px] text-[#ffffff] `
                           )}
@@ -141,18 +172,9 @@ export function TableSlot(props: IProps) {
                           <span className="w-full h-full truncate leading-[40px]">
                             {col.dataIndex ? item[col.dataIndex] : index + 1}
                           </span>
-                          {/* {item[col.dataIndex] &&
-                            item[col.dataIndex].length > maxcharNum &&
-                            <div className="px-3 py-3 rounded-sm hidden group-hover:block  absolute top-[38px] left-0 w-[500px] bg-[#2A6CB6] z-10">
-                              <span
-                                className={cn("text-[12px] text-[#ffffff]")}
-                              >
-                                {item[col.dataIndex]}
-                              </span>
-                            </div>} */}
                         </div>
                 )}
-              {operationColumn &&
+              {/* {operationColumn &&
                 <div className={cn("px-[16px] w-[100px]")}>
                   <div
                     className={cn(
@@ -176,7 +198,7 @@ export function TableSlot(props: IProps) {
                       />
                     </div>
                   </div>
-                </div>}
+                </div>} */}
             </div>
           )}
         {/* {!data.length &&

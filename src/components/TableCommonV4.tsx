@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-17 12:58:15
+ * @LastEditTime: 2024-09-19 16:19:40
  */
 /* eslint-disable prettier/prettier */
 
@@ -13,8 +13,6 @@
 import { notification } from "antd";
 import cn from "classnames";
 import React, { useEffect, useRef, useState } from "react";
-
-import pattern from "@/styles/pattern";
 
 interface IProps {
   columns: any[];
@@ -37,13 +35,24 @@ export function TableCommonV4(props: IProps) {
   const curretnColWidth = {
     width: `calc((100% - ${usedWidth}px) / ${flexNum})`
   };
+  const handleClickCopy = (item: any, col: any) => {
+    console.log("item>>>", item);
+    console.log("col>>>", col);
+    if (!col.copy) return;
+    const textArea = document.createElement("textarea");
+    textArea.value = item[col.dataIndex];
+    document.body.appendChild(textArea);
+    textArea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textArea);
+    notification.info({ message: "复制成功!!!" });
+  };
   return (
     <div
       className={cn(
         "px-5 py-5 bg-[#02004D4D] ",
         `border-[2px] border-solid border-[#0D53B7]`,
-        className,
-        `overflow-scroll`
+        className
       )}
     >
       {/* 表头 */}
@@ -70,7 +79,7 @@ export function TableCommonV4(props: IProps) {
       </div>
       {data &&
         data.length !== 0 &&
-        <div className="content w-full h-[calc(100%_-_40px)] ">
+        <div className="content w-full h-[calc(100%_-_40px)]  overflow-scroll ">
           {data &&
             data.map((item: any, index: number) =>
               <div
@@ -89,16 +98,13 @@ export function TableCommonV4(props: IProps) {
                         : // : { width: getCurrentColWidth() }
                           curretnColWidth
                     }
-                    className={`flex-shrink-0 px-3 flex items-center justify-start  text-[15px] text-[#ffffff] `}
+                    className={cn(
+                      `flex-shrink-0 px-3 flex items-center justify-start  text-[15px] text-[#ffffff]`,
+                      col.copy ? "cursor-pointer" : ""
+                    )}
                     key={index + "_" + colkey}
                     onClick={() => {
-                      const textArea = document.createElement("textarea");
-                      textArea.value = item[col.dataIndex];
-                      document.body.appendChild(textArea);
-                      textArea.select();
-                      document.execCommand("copy");
-                      document.body.removeChild(textArea);
-                      notification.info({ message: "复制成功!!!" });
+                      handleClickCopy(item, col);
                     }}
                   >
                     <span className="w-full h-full truncate leading-[40px]">

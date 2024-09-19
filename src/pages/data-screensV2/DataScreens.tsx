@@ -131,7 +131,6 @@ export function DataScreens(props: dataScreensProps) {
       max: 3500
     }
   ]);
-  const [scale, setScale] = useState("100%");
   const getDate = () => {
     const currentDate = new Date();
     const year = currentDate.getFullYear();
@@ -139,24 +138,6 @@ export function DataScreens(props: dataScreensProps) {
     const day = String(currentDate.getDate()).padStart(2, "0"); // 补零
     const formattedDate = `${year}-${month}-${day}`;
     setDate(formattedDate);
-  };
-  const handleScreenAuto = () => {
-    const designDraftWidth = 1920;
-    const designDraftHeight = 880;
-    const scale =
-      document.documentElement.clientWidth /
-        document.documentElement.clientHeight <
-      designDraftWidth / designDraftHeight
-        ? document.documentElement.clientWidth / designDraftWidth
-        : document.documentElement.clientHeight / designDraftHeight;
-    const dataScreenContainer: any = document.getElementById(
-      "dataScreenContainer"
-    );
-    console.log("scale>>>>", scale);
-    // setScale(scale * 100 + "%");
-    // (document.querySelector(
-    //   "#dataScreenContainer"
-    // ) as any).style.transform = `scale(${scale})`;
   };
 
   useEffect(() => {
@@ -178,11 +159,8 @@ export function DataScreens(props: dataScreensProps) {
         });
       });
     }, 2000);
-    handleScreenAuto();
-    window.onresize = () => handleScreenAuto();
 
     return () => {
-      window.onresize = null;
       clearInterval(timer);
     };
   }, []);
@@ -326,7 +304,9 @@ export function DataScreens(props: dataScreensProps) {
                 )}
               >
                 <span className="text-[31px] text-[#BFE7F9]  w-[105px] h-full flex justify-center items-center">
-                  {String(item.value).replace(reg, ",")}
+                  {String(item.value).replace(reg, ",").length > 5
+                    ? String(item.value).replace(reg, ",").slice(0, 5) + "..."
+                    : String(item.value).replace(reg, ",")}
                 </span>
                 <span className="w-[88px] text-[22px] text-[#00FFE0] absolute bottom-0 left-[calc(50%_-_44px)]">
                   {item.title}

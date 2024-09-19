@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-18 10:17:21
+ * @LastEditTime: 2024-09-19 15:25:49
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -151,20 +151,22 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
             </div>
           </div>
         </div>
-        <div className={cn(` w-[662px] h-[calc(100%_-_278px)] flex flex-col gap-y-2`)}>
-          <div className={cn(`w-full h-[40px] flex items-center justify-start`,
-            `border-solid border-[#00A0E9] border-l-[6px]`,
-            'bg-[#02004D4D] pl-5'
+        <div className={cn(` w-[662px] h-[calc(100%_-_278px)] flex flex-col justify-between`)}>
+            <div className={cn(`w-full h-[40px] flex items-center justify-start`,
+              `border-solid border-[#00A0E9] border-l-[6px]`,
+              'bg-[#02004D4D] pl-5'
 
-          )}>
-            <span className="text-[20px] text-[#ffffff]">历史检测数据</span>
-          </div>
-          
-          <TableCommonV4
-            className="w-full flex-1"
-            data={detectionSampleList}
-            columns={detectionSampleAttackColumns}
-          />
+            )}>
+              <span className="text-[20px] text-[#ffffff]">历史检测数据</span>
+            </div>
+            <div className="w-full h-[calc(100%_-_48px)]">
+              <TableCommonV4
+                className="w-full h-full"
+                data={detectionSampleList}
+                columns={detectionSampleAttackColumns}
+              />
+            </div>
+
         </div>
       </div>
       <div
