@@ -8,7 +8,7 @@
  * @Author: didadida262
  * @Date: 2024-09-13 16:47:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-14 09:33:03
+ * @LastEditTime: 2024-09-19 10:33:18
  */
 
 import { LineChart } from "echarts/charts";
@@ -40,7 +40,7 @@ export function ChartLine() {
 
   const run = () => {
     const option = {
-      animationDuration: 5000,
+      animationDuration: 15000,
       grid: {
         bottom: "0%",
         right: "0%",
