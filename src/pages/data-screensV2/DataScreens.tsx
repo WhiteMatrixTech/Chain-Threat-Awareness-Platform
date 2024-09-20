@@ -262,7 +262,7 @@ export function DataScreens(props: dataScreensProps) {
             </div>
             <div
               className={cn(
-                "w-full h-[calc(100%_-_44px)] pt-[10px] py-[5px] flex flex-col justify-between items-center",
+                "w-full h-[calc(100%_-_44px)] pt-[10px] py-[5px] 4xl:pt-10 flex flex-col justify-between items-center",
                 ` bg-[#061B5A] bg-opacity-30 `,
                 `overflow-scroll`
               )}
@@ -270,7 +270,7 @@ export function DataScreens(props: dataScreensProps) {
               <div className="graph w-full h-[153px] flex justify-center items-center">
                 <img src={dataScreen_graph} alt="" width={154} height={153} />
               </div>
-              <div className="content w-full h-[calc(100%_-_173px)] px-[20px]">
+              <div className="content w-full h-[calc(100%_-_173px)] px-[20px] 4xl:pt-10">
                 <div className="w-full flex justify-start flex-wrap gap-y-2">
                   {leftBottomList.map((item: any, index: number) =>
                     <div
