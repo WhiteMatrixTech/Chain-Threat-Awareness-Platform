@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-09-14 10:32:18
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-19 10:00:04
+ * @LastEditTime: 2024-09-20 14:38:15
  */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
@@ -62,7 +62,7 @@ export function EarthCommon() {
           "东京",
           "里约热内卢"
         ],
-        color: `rgba(255, 147, 0, 1)`
+        color: `rgba(56, 246, 255, 1)`
       },
       {
         from: "上海",
@@ -86,22 +86,22 @@ export function EarthCommon() {
           "东京",
           "里约热内卢"
         ],
-        color: `rgba(255, 216, 0, 1)`
+        color: `rgba(246, 250, 5, 1)`
       },
       {
         from: "西安",
         to: ["北京", "上海", "成都", "广州", "乌鲁木齐", "海口"],
-        color: `rgba(255, 147, 0, 1)`
+        color: `rgba(56, 246, 255, 1)`
       },
       {
         from: "成都",
         to: ["北京", "上海", "广州", "武汉", "海口", "纽约", "悉尼"],
-        color: `rgba(255, 147, 0, 1)`
+        color: `rgba(56, 246, 255, 1)`
       },
       {
         from: "乌鲁木齐",
         to: ["北京", "上海", "西安"],
-        color: `rgba(255, 147, 0, 1)`
+        color: `rgba(56, 246, 255, 1)`
       },
       {
         from: "广州",
@@ -119,45 +119,45 @@ export function EarthCommon() {
           "东京",
           "里约热内卢"
         ],
-        color: `rgba(255, 147, 0, 1)`
+        color: `rgba(56, 246, 255, 1)`
       },
-      { from: "哈尔滨", to: ["北京", "沈阳"], color: `rgba(255, 147, 0, 1)` },
-      { from: "沈阳", to: ["北京", "哈尔滨"], color: `rgba(255, 147, 0, 1)` },
+      { from: "哈尔滨", to: ["北京", "沈阳"], color: `rgba(56, 246, 255, 1)` },
+      { from: "沈阳", to: ["北京", "哈尔滨"], color: `rgba(56, 246, 255, 1)` },
       {
         from: "海口",
         to: ["北京", "上海", "成都", "广州"],
-        color: `rgba(255, 147, 0, 1)`
+        color: `rgba(56, 246, 255, 1)`
       },
       {
         from: "纽约",
         to: ["北京", "上海", "成都", "广州"],
-        color: `rgba(255, 147, 0, 1)`
+        color: `rgba(56, 246, 255, 1)`
       },
       {
         from: "伦敦",
         to: ["北京", "上海", "广州"],
-        color: `rgba(255, 147, 0, 1)`
+        color: `rgba(56, 246, 255, 1)`
       },
       {
         from: "巴黎",
         to: ["北京", "上海", "广州"],
-        color: `rgba(255, 147, 0, 1)`
+        color: `rgba(56, 246, 255, 1)`
       },
-      { from: "开普敦", to: ["北京", "上海"], color: `rgba(255, 147, 0, 1)` },
+      { from: "开普敦", to: ["北京", "上海"], color: `rgba(56, 246, 255, 1)` },
       {
         from: "悉尼",
         to: ["北京", "上海", "成都", "广州"],
-        color: `rgba(255, 147, 0, 1)`
+        color: `rgba(56, 246, 255, 1)`
       },
       {
         from: "东京",
         to: ["北京", "上海", "广州"],
-        color: `rgba(255, 147, 0, 1)`
+        color: `rgba(56, 246, 255, 1)`
       },
       {
         from: "里约热内卢",
         to: ["北京", "上海", "广州"],
-        color: `rgba(255, 147, 0, 1)`
+        color: `rgba(56, 246, 255, 1)`
       }
     ];
 
