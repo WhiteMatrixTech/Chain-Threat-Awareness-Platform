@@ -206,7 +206,7 @@ export function DataScreens(props: dataScreensProps) {
             </div>
             <div
               className={cn(
-                ` w-full h-[calc(100%_-_50px)] px-[16px] py-[16px] flex flex-col justify-between items-center`,
+                ` w-full h-[calc(100%_-_44px)] px-[16px] py-[16px] flex flex-col justify-between items-center`,
                 ` bg-[#061B5A] bg-opacity-30`
               )}
             >
