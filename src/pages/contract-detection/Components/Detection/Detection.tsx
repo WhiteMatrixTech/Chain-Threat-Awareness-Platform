@@ -11,6 +11,7 @@ import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router';
 
 import { DefaultButton, PrimaryButton } from '@/components/Button';
+import { ButtonCommon } from '@/components/ButtonCommon';
 import {
   arrToTreeData,
   ContractDetectionResults,
@@ -648,6 +649,7 @@ export function Detection() {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [formAfterChain] = Form.useForm();
+  const [loading, setloading] = useState(false);
 
   const {
     contractState: { openFiles, focusFileId, explorerList, chainFlag }
@@ -669,13 +671,20 @@ export function Detection() {
   }, [focusFileId, form, openFiles]);
 
   const { mutate, data, status, reset } = useMutation(async (params: any) => {
-    console.log('params>>>', params);
-    const data = await detectContract(params);
-    console.log('data>>>', data);
-    return {
-      file: 'ETH_default/Storage.sol',
-      result: data
-    };
+    try {
+      console.log('params>>>', params);
+      const data = await detectContract(params);
+      console.log('data>>>', data);
+      setloading(false);
+
+      return {
+        file: 'ETH_default/Storage.sol',
+        result: data
+      };
+    } catch (error) {
+      setloading(false);
+    }
+
     // await waitTime(1000);
     // return {
     //   file: 'ETH_default/Storage.sol',
@@ -687,25 +696,31 @@ export function Detection() {
     void form
       .validateFields()
       .then((data: { fileContent: string; version: string }) => {
+        setloading(true);
         const { fileContent, version } = data;
-        mutate({
-          source_code: fileContent,
-          version: version,
-          model: 'contractFuzzer'
-        });
+        setTimeout(() => {
+          mutate({
+            source_code: fileContent,
+            version: version,
+            model: 'contractFuzzer'
+          });
+        }, 30000);
       });
   };
 
   const handleSubmitChainAffter = () => {
     void formAfterChain.validateFields().then((data: any) => {
-      const params = {
-        ...data,
-        block: Number(data.block)
-      };
-      console.log('params>>>', params);
-      mutate({
-        ...params
-      });
+      setloading(true);
+      setTimeout(() => {
+        const params = {
+          ...data,
+          block: Number(data.block)
+        };
+        console.log('params>>>', params);
+        mutate({
+          ...params
+        });
+      }, 30000);
     });
   };
 
@@ -825,9 +840,17 @@ export function Detection() {
             <Input placeholder="请输入版本号" />
           </Form.Item>
 
-          <PrimaryButton onClick={handleSubmit} loading={status === 'loading'}>
+          {/* <PrimaryButton onClick={handleSubmit} loading={status === 'loading'}>
             开始
-          </PrimaryButton>
+          </PrimaryButton> */}
+          <ButtonCommon
+            disable={loading}
+            loading={loading}
+            className="w-full bg-[#1c6cdc]"
+            onClick={handleSubmit}
+          >
+            <span className="text-[#ffffff]">开始</span>
+          </ButtonCommon>
         </Form>
       )}
       {!data && chainFlag === 'afterChain' && (
@@ -936,12 +959,20 @@ export function Detection() {
               ]}
             ></Select>
           </Form.Item>
-          <PrimaryButton
+          {/* <PrimaryButton
             onClick={handleSubmitChainAffter}
             loading={status === 'loading'}
           >
             开始
-          </PrimaryButton>
+          </PrimaryButton> */}
+          <ButtonCommon
+            disable={loading}
+            loading={loading}
+            className="w-full bg-[#1c6cdc]"
+            onClick={handleSubmitChainAffter}
+          >
+            <span className="text-[#ffffff]">开始</span>
+          </ButtonCommon>
         </Form>
       )}
       {data && (
