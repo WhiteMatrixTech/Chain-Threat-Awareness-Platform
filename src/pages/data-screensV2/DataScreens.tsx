@@ -303,12 +303,12 @@ export function DataScreens(props: dataScreensProps) {
           </div>
         </div>
         <div className=" w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
-          <div className="earthContainer w-full h-[calc(100%_-_196px)]  flex justify-center items-center  ">
+          <div className="earthContainer w-full h-[calc(100%_-_150px)]  flex justify-center items-center  ">
             <EarthCommon />
           </div>
           <div
             className={cn(
-              " w-full h-[136px] 3xl:h-[196px] flex justify-around items-center px-[20px] py-[20px] 3xl:px-[89px] 3xl:py-[44px]",
+              " w-full h-[140px] flex justify-around items-center px-[20px] py-[20px]",
               "bg-[#02004D4D]"
             )}
           >
