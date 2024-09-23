@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-23 14:51:48
+ * @LastEditTime: 2024-09-24 00:20:53
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -90,7 +90,7 @@ export function DetectionFish() {
     void getActionLogList();
   }, []);
   return (
-    <div className={cn(`w-full h-full 3xl:pb-36  flex items-center`)}>
+    <div className={cn(`w-full h-full 3xl:pb-30  flex items-center`)}>
       <div className={cn(`${pattern.flexbet} w-full max-h-[783px] h-full `)}>
         <div
           className={`scale-95 3xl:scale-100 left  w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full flex flex-col items-end justify-between`}

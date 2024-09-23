@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-23 14:49:49
+ * @LastEditTime: 2024-09-24 00:21:01
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -93,7 +93,7 @@ const getActionLogList = async () => {
     void getActionLogList();
   }, []);
   return (
-    <div className={cn(`w-full h-full 3xl:pb-36  flex items-center`)}>
+    <div className={cn(`w-full h-full 3xl:pb-30  flex items-center`)}>
       <div className={cn(`${pattern.flexbet} w-full max-h-[783px] h-full `)}>
 
       <div
