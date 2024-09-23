@@ -1,4 +1,5 @@
-import { getData, postData } from './request';
+/* eslint-disable prettier/prettier */
+import { getData, postData } from "./request";
 
 interface ITransactionType {
   address: string;
@@ -59,7 +60,7 @@ export interface IDetectContractRequest {
 interface IDetectContractResponse {
   description: string;
   line: number;
-  security: 'Medium' | 'Low' | 'High';
+  security: "Medium" | "Low" | "High";
   swcId: number;
 }
 
@@ -68,7 +69,7 @@ export async function getInAddressTransaction(params: ITransactionType) {
     `/chainthreat/v1/address/ethereum/${params.address}/to`,
     { fromBlock: params.fromBlock, toBlock: params.toBlock },
     {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      "Content-Type": "application/x-www-form-urlencoded"
     }
   );
 }
@@ -78,34 +79,32 @@ export async function getOutAddressTransaction(params: ITransactionType) {
     `/chainthreat/v1/address/ethereum/${params.address}/from`,
     { fromBlock: params.fromBlock, toBlock: params.toBlock },
     {
-      'Content-Type': 'application/x-www-form-urlencoded'
+      "Content-Type": "application/x-www-form-urlencoded"
     }
   );
 }
 
 export async function getBaseInfo(address: string) {
-  return getData<null, IBaseInfoResponse>(
-    `/chainthreat/v1/address/ethereum/${address}`,
+  return getData<
     null,
-    {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-  );
+    IBaseInfoResponse
+  >(`/chainthreat/v1/address/ethereum/${address}`, null, {
+    "Content-Type": "application/x-www-form-urlencoded"
+  });
 }
 
 export async function getTransactionBaseInfo(transaction: string) {
-  return getData<null, ITransactionBaseInfoResponse>(
-    `/chainthreat/v1/transaction/ethereum/${transaction}`,
+  return getData<
     null,
-    {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    }
-  );
+    ITransactionBaseInfoResponse
+  >(`/chainthreat/v1/transaction/ethereum/${transaction}`, null, {
+    "Content-Type": "application/x-www-form-urlencoded"
+  });
 }
 
-export async function detectContract(data: IDetectContractRequest) {
-  return postData<IDetectContractRequest, IDetectContractResponse[]>(
-    '/chainthreat/v1/contract/detect',
+export async function detectContract(data: any) {
+  return postData<any, IDetectContractResponse[]>(
+    "/chainthreat/v1/contract/detect",
     data
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 
@@ -5,7 +6,7 @@ import { BellOutlined, FileOutlined } from '@ant-design/icons';
 import { Form, Input, Select, Tooltip } from 'antd';
 import cn from 'classnames';
 import { cloneDeep, sortBy } from 'lodash';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useMutation } from 'react-query';
 import { useNavigate } from 'react-router';
 
@@ -26,49 +27,686 @@ import styles from './Detection.module.less';
 const Option = Select.Option;
 
 export function Detection() {
+  const defaultAbiCode = JSON.stringify([
+    { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'owner',
+          type: 'address'
+        },
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'spender',
+          type: 'address'
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'value',
+          type: 'uint256'
+        }
+      ],
+      name: 'Approval',
+      type: 'event'
+    },
+    {
+      anonymous: false,
+      inputs: [
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'from',
+          type: 'address'
+        },
+        {
+          indexed: true,
+          internalType: 'address',
+          name: 'to',
+          type: 'address'
+        },
+        {
+          indexed: false,
+          internalType: 'uint256',
+          name: 'value',
+          type: 'uint256'
+        }
+      ],
+      name: 'Transfer',
+      type: 'event'
+    },
+    {
+      inputs: [],
+      name: 'Admin',
+      outputs: [{ internalType: 'address', name: '', type: 'address' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      name: 'BurnRecords',
+      outputs: [
+        { internalType: 'address', name: 'account', type: 'address' },
+        { internalType: 'uint256', name: 'amount', type: 'uint256' }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'Community',
+      outputs: [{ internalType: 'address', name: '', type: 'address' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'DAOLab',
+      outputs: [{ internalType: 'address', name: '', type: 'address' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'DEXDisable',
+      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'NODE',
+      outputs: [{ internalType: 'address', name: '', type: 'address' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'address', name: '', type: 'address' }],
+      name: 'NoFee',
+      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'NoWhiteListSell',
+      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'Owner',
+      outputs: [{ internalType: 'address', name: '', type: 'address' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'PerDAYSecond',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'USDT',
+      outputs: [{ internalType: 'address', name: '', type: 'address' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'address[]',
+          name: 'accounts',
+          type: 'address[]'
+        },
+        { internalType: 'uint256[]', name: 'amounts', type: 'uint256[]' }
+      ],
+      name: 'addLockTokens',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        { internalType: 'address', name: 'owner', type: 'address' },
+        { internalType: 'address', name: 'spender', type: 'address' }
+      ],
+      name: 'allowance',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        { internalType: 'address', name: 'spender', type: 'address' },
+        { internalType: 'uint256', name: 'amount', type: 'uint256' }
+      ],
+      name: 'approve',
+      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+      name: 'balanceOf',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'uint256', name: 'amount', type: 'uint256' }],
+      name: 'burn',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        { internalType: 'address', name: 'user', type: 'address' },
+        { internalType: 'uint256', name: 'id', type: 'uint256' }
+      ],
+      name: 'calcCurrectStakeReward',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        { internalType: 'uint256', name: 'amount', type: 'uint256' },
+        { internalType: 'uint256', name: 'day', type: 'uint256' }
+      ],
+      name: 'calcPerDayStakeReward',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'decimals',
+      outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        { internalType: 'address', name: 'spender', type: 'address' },
+        {
+          internalType: 'uint256',
+          name: 'subtractedValue',
+          type: 'uint256'
+        }
+      ],
+      name: 'decreaseAllowance',
+      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'uint256', name: 'timestamp', type: 'uint256' }],
+      name: 'getDay',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'uint256', name: 'timestamp', type: 'uint256' }],
+      name: 'getMonth',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'uint256', name: '_day', type: 'uint256' }],
+      name: 'getRateFromDay',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'address', name: 'user', type: 'address' }],
+      name: 'getUserTokenLock',
+      outputs: [
+        {
+          components: [
+            { internalType: 'address', name: 'account', type: 'address' },
+            {
+              internalType: 'uint256',
+              name: 'totalAmount',
+              type: 'uint256'
+            },
+            {
+              internalType: 'uint256',
+              name: 'paidReward',
+              type: 'uint256'
+            },
+            {
+              internalType: 'uint256',
+              name: 'startTime',
+              type: 'uint256'
+            },
+            {
+              internalType: 'uint256',
+              name: 'perMonthReward',
+              type: 'uint256'
+            }
+          ],
+          internalType: 'struct WTOS.lockData[]',
+          name: '',
+          type: 'tuple[]'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'address', name: 'user', type: 'address' }],
+      name: 'getUserTokenStake',
+      outputs: [
+        {
+          components: [
+            { internalType: 'address', name: 'account', type: 'address' },
+            { internalType: 'uint256', name: 'day', type: 'uint256' },
+            { internalType: 'uint256', name: 'rate', type: 'uint256' },
+            {
+              internalType: 'uint256',
+              name: 'perDayReward',
+              type: 'uint256'
+            },
+            {
+              internalType: 'uint256',
+              name: 'stakeAmount',
+              type: 'uint256'
+            },
+            {
+              internalType: 'uint256',
+              name: 'paidReward',
+              type: 'uint256'
+            },
+            {
+              internalType: 'uint256',
+              name: 'startTime',
+              type: 'uint256'
+            },
+            { internalType: 'bool', name: 'finish', type: 'bool' }
+          ],
+          internalType: 'struct WTOS.stakeData[]',
+          name: '',
+          type: 'tuple[]'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        { internalType: 'address', name: 'spender', type: 'address' },
+        { internalType: 'uint256', name: 'addedValue', type: 'uint256' }
+      ],
+      name: 'increaseAllowance',
+      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'initialSupply',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'uint256', name: '_day', type: 'uint256' }],
+      name: 'isValidDay',
+      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'name',
+      outputs: [{ internalType: 'string', name: '', type: 'string' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'address', name: '_account', type: 'address' }],
+      name: 'newOwner',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'originERC20',
+      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        { internalType: 'address', name: 'to', type: 'address' },
+        { internalType: 'uint256', name: 'amount', type: 'uint256' }
+      ],
+      name: 'ownerSender',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'permission',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'setDex',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
+      name: 'setNoFee',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'setOriginERC20',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256[4]',
+          name: '_stakeDays',
+          type: 'uint256[4]'
+        }
+      ],
+      name: 'setStakeDays',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256',
+          name: '_stakeMinAmount',
+          type: 'uint256'
+        }
+      ],
+      name: 'setStakeDays',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'address', name: '_account', type: 'address' }],
+      name: 'setWhiteList',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'uint256[4]',
+          name: '_stakeRate',
+          type: 'uint256[4]'
+        }
+      ],
+      name: 'setstakeRate',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        { internalType: 'uint256', name: 'amount', type: 'uint256' },
+        { internalType: 'uint256', name: '_day', type: 'uint256' }
+      ],
+      name: 'stake',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      name: 'stakeDays',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'stakeMinAmount',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      name: 'stakeRate',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'symbol',
+      outputs: [{ internalType: 'string', name: '', type: 'string' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        { internalType: 'address', name: '', type: 'address' },
+        { internalType: 'uint256', name: '', type: 'uint256' }
+      ],
+      name: 'tokenLock',
+      outputs: [
+        { internalType: 'address', name: 'account', type: 'address' },
+        { internalType: 'uint256', name: 'totalAmount', type: 'uint256' },
+        { internalType: 'uint256', name: 'paidReward', type: 'uint256' },
+        { internalType: 'uint256', name: 'startTime', type: 'uint256' },
+        {
+          internalType: 'uint256',
+          name: 'perMonthReward',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        { internalType: 'address', name: '', type: 'address' },
+        { internalType: 'uint256', name: '', type: 'uint256' }
+      ],
+      name: 'tokenStake',
+      outputs: [
+        { internalType: 'address', name: 'account', type: 'address' },
+        { internalType: 'uint256', name: 'day', type: 'uint256' },
+        { internalType: 'uint256', name: 'rate', type: 'uint256' },
+        {
+          internalType: 'uint256',
+          name: 'perDayReward',
+          type: 'uint256'
+        },
+        { internalType: 'uint256', name: 'stakeAmount', type: 'uint256' },
+        { internalType: 'uint256', name: 'paidReward', type: 'uint256' },
+        { internalType: 'uint256', name: 'startTime', type: 'uint256' },
+        { internalType: 'bool', name: 'finish', type: 'bool' }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'totalLockAmount',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'totalStakeAmount',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'totalSupply',
+      outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        { internalType: 'address', name: 'to', type: 'address' },
+        { internalType: 'uint256', name: 'amount', type: 'uint256' }
+      ],
+      name: 'transfer',
+      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        { internalType: 'address', name: 'from', type: 'address' },
+        { internalType: 'address', name: 'to', type: 'address' },
+        { internalType: 'uint256', name: 'amount', type: 'uint256' }
+      ],
+      name: 'transferFrom',
+      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'uniswapV2Pair',
+      outputs: [{ internalType: 'address', name: '', type: 'address' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'uniswapV2Router',
+      outputs: [
+        {
+          internalType: 'contract IPancakeSwapV2Router01',
+          name: '',
+          type: 'address'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'uint256', name: 'id', type: 'uint256' }],
+      name: 'unstake',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'address', name: '', type: 'address' }],
+      name: 'whiteList',
+      outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'uint256', name: 'id', type: 'uint256' }],
+      name: 'withdrawStakeReward',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [{ internalType: 'uint256', name: 'id', type: 'uint256' }],
+      name: 'withdrawUnlock',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    }
+  ]);
   const navigate = useNavigate();
   const [form] = Form.useForm();
+  const [formAfterChain] = Form.useForm();
 
   const {
-    contractState: { openFiles, focusFileId, explorerList }
+    contractState: { openFiles, focusFileId, explorerList, chainFlag }
   } = useContractContext();
 
   useEffect(() => {
+    console.log('openFiles>>>>>变化1');
     if (focusFileId) {
-      form.setFieldsValue({
-        file: openFiles.find((file) => file.id === focusFileId)?.id
-      });
+      if (chainFlag === 'beforeChain') {
+        form.setFieldsValue({
+          file: openFiles.find((file) => file.id === focusFileId)?.id
+        });
+      } else {
+        formAfterChain.setFieldsValue({
+          abi_code: openFiles.find((file) => file.id === focusFileId)?.content
+        });
+      }
     }
   }, [focusFileId, form, openFiles]);
 
-  const { mutate, data, status, reset } = useMutation(
-    async (params: IDetectContractRequest) => {
-      const data = await detectContract(params);
-
-      return {
-        file: 'ETH_default/Storage.sol',
-        result: data
-      };
-      // await waitTime(1000);
-      // return {
-      //   file: 'ETH_default/Storage.sol',
-      //   result: ContractDetectionResults
-      // };
-    }
-  );
+  const { mutate, data, status, reset } = useMutation(async (params: any) => {
+    console.log('params>>>', params);
+    const data = await detectContract(params);
+    console.log('data>>>', data);
+    return {
+      file: 'ETH_default/Storage.sol',
+      result: data
+    };
+    // await waitTime(1000);
+    // return {
+    //   file: 'ETH_default/Storage.sol',
+    //   result: ContractDetectionResults
+    // };
+  });
 
   const handleSubmit = () => {
     void form
       .validateFields()
-      .then((data: { fileContent: string; compileVersion: string }) => {
-        const { fileContent, compileVersion } = data;
-
+      .then((data: { fileContent: string; version: string }) => {
+        const { fileContent, version } = data;
         mutate({
           source_code: fileContent,
-          version: compileVersion,
+          version: version,
           model: 'contractFuzzer'
         });
       });
+  };
+
+  const handleSubmitChainAffter = () => {
+    void formAfterChain.validateFields().then((data: any) => {
+      const params = {
+        ...data,
+        block: Number(data.block)
+      };
+      console.log('params>>>', params);
+      mutate({
+        ...params
+      });
+    });
   };
 
   const handleClickView = () => {
@@ -82,7 +720,13 @@ export function Detection() {
   const handleReset = () => {
     reset();
     form.resetFields();
+    formAfterChain.resetFields();
   };
+
+  useEffect(() => {
+    console.log('chainFlag>>>变化啦啦啦啦', chainFlag);
+    handleReset();
+  }, [chainFlag]);
 
   // const contractTreeData = useMemo(() => {
   //   const List = cloneDeep(explorerList);
@@ -93,25 +737,8 @@ export function Detection() {
 
   return (
     <div className={cn(styles.Detection, 'h-full bg-white px-2 py-[18px]')}>
-      {!data && (
+      {!data && chainFlag === 'beforeChain' && (
         <Form form={form} wrapperCol={{ span: 24 }}>
-          {/* <Form.Item
-            name="file"
-            rules={[
-              {
-                required: true,
-                message: '请选择检测合约文件'
-              }
-            ]}
-          >
-            <Select placeholder="请选择检测合约文件">
-              {openFiles.map((file) => (
-                <Option key={file.id} value={file.name}>
-                  {file.name}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item> */}
           <Form.Item
             name="fileContent"
             rules={[
@@ -131,20 +758,18 @@ export function Detection() {
             </Select>
           </Form.Item>
           <Form.Item
-            name="contractName"
-            initialValue="模糊测试"
+            name="model"
+            initialValue={'conFuzzer'}
             rules={[
               {
                 required: true,
-                message: '请选择检测模式'
+                message: '请输入模型名称'
               }
             ]}
           >
-            <Select placeholder="选择检测模式">
-              <Option value="模糊测试">模糊测试</Option>
-            </Select>
+            <Input placeholder="请输入模型名称" />
           </Form.Item>
-          <Form.Item
+          {/* <Form.Item
             name="contract0"
             rules={[
               {
@@ -154,8 +779,26 @@ export function Detection() {
             ]}
           >
             <Input placeholder="请输入主合约部署参数" />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item
+            name="platform"
+            rules={[
+              {
+                required: true,
+                message: '请选择区块链平台'
+              }
+            ]}
+            initialValue={'eth'}
+          >
+            <Select
+              placeholder="请选择区块链平台"
+              options={[
+                { value: 'eth', label: 'ETH' },
+                { value: 'bsc', label: 'BSC' }
+              ]}
+            ></Select>
+          </Form.Item>
+          {/* <Form.Item
             name="compileVersion"
             initialValue="0.4.26"
             rules={[
@@ -166,15 +809,137 @@ export function Detection() {
             ]}
           >
             <Select placeholder="请选择编译版本">
-              {/*  {originSolcVersionList.map((version) => (
-                <Option key={version} value={version}>
-                  {version}
-                </Option>
-              ))} */}
               <Option value="o.4.26">0.4.24</Option>
             </Select>
+          </Form.Item> */}
+          <Form.Item
+            name="version"
+            initialValue={'0.4.26'}
+            rules={[
+              {
+                required: true,
+                message: '请输入版本号'
+              }
+            ]}
+          >
+            <Input placeholder="请输入版本号" />
           </Form.Item>
+
           <PrimaryButton onClick={handleSubmit} loading={status === 'loading'}>
+            开始
+          </PrimaryButton>
+        </Form>
+      )}
+      {!data && chainFlag === 'afterChain' && (
+        <Form form={formAfterChain} wrapperCol={{ span: 24 }}>
+          {/* <Form.Item
+            name="fileContent"
+            rules={[
+              {
+                required: true,
+                message: '请选择检测合约文件'
+              }
+            ]}
+            initialValue={openFiles[0].content}
+          >
+            <Select placeholder="请选择检测合约文件">
+              {openFiles.map((file) => (
+                <Option key={file.id} value={file.content}>
+                  {file.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item> */}
+          <Form.Item
+            name="model"
+            initialValue={'conFuzzer'}
+            rules={[
+              {
+                required: true,
+                message: '请输入模型名称'
+              }
+            ]}
+          >
+            <Input placeholder="请输入模型名称" />
+          </Form.Item>
+          <Form.Item
+            initialValue={defaultAbiCode}
+            name="abi_code"
+            rules={[
+              {
+                required: true,
+                message: '请输入abi_code'
+              }
+            ]}
+          >
+            <Input.TextArea placeholder="请输入abi_code" rows={5} />
+          </Form.Item>
+          <Form.Item
+            initialValue={'0x12f4DF60Ea3bD42b06a10887efDea2eBe532E855'}
+            name="contract_addr"
+            rules={[
+              {
+                required: true,
+                message: '请输入contract_addr'
+              }
+            ]}
+          >
+            <Input placeholder="请输入contract_addr" />
+          </Form.Item>
+          <Form.Item
+            name="platform"
+            rules={[
+              {
+                required: true,
+                message: '请选择区块链平台'
+              }
+            ]}
+            initialValue={'eth'}
+          >
+            <Select
+              placeholder="请选择区块链平台"
+              options={[
+                { value: 'eth', label: 'ETH' },
+                { value: 'bsc', label: 'BSC' }
+              ]}
+            ></Select>
+          </Form.Item>
+          <Form.Item
+            initialValue={'41663939'}
+            name="block"
+            rules={[
+              {
+                required: true,
+                message: '请输入block'
+              }
+            ]}
+          >
+            <Input placeholder="请输入block" />
+          </Form.Item>
+          <Form.Item
+            name="evm"
+            rules={[
+              {
+                required: true,
+                message: '请选择evm'
+              }
+            ]}
+            initialValue={'byzantium'}
+          >
+            <Select
+              placeholder="请选择platform"
+              options={[
+                { value: 'homestead', label: 'homestead' },
+                { value: 'byzantium', label: 'byzantium' },
+                { value: 'petersburg', label: 'petersburg' },
+                { value: 'istanbul', label: 'istanbul' }
+              ]}
+            ></Select>
+          </Form.Item>
+          <PrimaryButton
+            onClick={handleSubmitChainAffter}
+            loading={status === 'loading'}
+          >
             开始
           </PrimaryButton>
         </Form>
