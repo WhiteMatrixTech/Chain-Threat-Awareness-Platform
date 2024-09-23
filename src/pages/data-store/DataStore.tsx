@@ -8,7 +8,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 11:01:59
+ * @LastEditTime: 2024-09-23 14:27:44
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -61,6 +61,7 @@ export function DataStore() {
     const listData = respose.data.map((item: any) => {
       return {
         ...item,
+        total: item.recordCount,
         downloadUrl: item.downloadUrl
           ? item.downloadUrl
           : `https://chain-threat-awareness-platform-api.whitematrix.io/chainthreat/v1/data-house/data-source/data/${item.tableName}`
