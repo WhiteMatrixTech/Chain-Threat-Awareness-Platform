@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-19 15:27:28
+ * @LastEditTime: 2024-09-23 14:51:48
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -46,6 +46,26 @@ export function DetectionFish() {
     const data = await detectPhishingService(params);
     return data;
   });
+  const getActionLogList = async () => {
+    const params: detectActionLogRequestType = {
+      action: "phishing_attack",
+      count: 10
+    };
+    const respose = await detectActionLogService(params);
+    const result: any[] = respose.data.map((item: any) => {
+      return {
+        name: item.input,
+        result: JSON.parse(item.output).is_phishing ? "钓鱼地址" : "非钓鱼地址",
+        time: item.createAt
+      };
+    });
+    setdetectionSampleList(result);
+    if (!inputVal.length) {
+      setInputVal(result[0].name);
+    }
+    console.log("检测数据>>>>", respose);
+    console.log("检测数据>>>result>", result);
+  };
   const start = async () => {
     if (!inputVal) {
       notification.warning({ message: `请输入地址！` });
@@ -62,26 +82,10 @@ export function DetectionFish() {
         content: content,
         time: (respose.cost / 1000).toFixed(1) + "s"
       });
+      void getActionLogList();
     } catch (error) {}
   };
-  const getActionLogList = async () => {
-    const params: detectActionLogRequestType = {
-      action: "phishing_attack",
-      count: 10
-    };
-    const respose = await detectActionLogService(params);
-    const result: any[] = respose.data.map((item: any) => {
-      return {
-        name: item.input,
-        result: JSON.parse(item.output).is_phishing ? "钓鱼地址" : "非钓鱼地址",
-        time: item.createAt
-      };
-    });
-    setdetectionSampleList(result);
-    setInputVal(result[0].name);
-    console.log("检测数据>>>>", respose);
-    console.log("检测数据>>>result>", result);
-  };
+
   useEffect(() => {
     void getActionLogList();
   }, []);

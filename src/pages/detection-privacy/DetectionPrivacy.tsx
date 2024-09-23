@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 10:33:27
+ * @LastEditTime: 2024-09-23 14:47:11
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -75,6 +75,24 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     const data = await detectSelfishminingService(params);
     return data;
   });
+  const getActionLogList = async () => {
+    const params: detectActionLogRequestType = {
+      action: "selfish_mining",
+      count: 10
+    };
+    const respose = await detectActionLogService(params);
+    const result: any[] = respose.data.map((item: any) => {
+      return {
+        name: JSON.parse(item.input).block_range,
+        time: item.createAt,
+        result: JSON.parse(item.output).result,
+      };
+    });
+    setdetectionSampleList(result);
+    console.log("检测数据>>>>", respose);
+    console.log("检测数据>>>result>", result);
+  };
+
   const start =   async () => {
     if (!inputRange) {
       notification.warning({ message: `请输入必要信息!!!` });
@@ -103,23 +121,8 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
       time: (response.cost / 1000).toFixed(1) + "s"
     });
     console.log("params>>>>", params);
-  };
-  const getActionLogList = async () => {
-    const params: detectActionLogRequestType = {
-      action: "selfish_mining",
-      count: 10
-    };
-    const respose = await detectActionLogService(params);
-    const result: any[] = respose.data.map((item: any) => {
-      return {
-        name: JSON.parse(item.input).block_range,
-        time: item.createAt,
-        result: JSON.parse(item.output).result,
-      };
-    });
-    setdetectionSampleList(result);
-    console.log("检测数据>>>>", respose);
-    console.log("检测数据>>>result>", result);
+    void getActionLogList();
+
   };
 
   useEffect(() => {

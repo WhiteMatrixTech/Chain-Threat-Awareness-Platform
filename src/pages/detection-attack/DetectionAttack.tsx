@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-19 15:25:49
+ * @LastEditTime: 2024-09-23 14:49:49
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -42,7 +42,27 @@ export function DetectionAttack() {
   const [loading, setLoading] = useState(false);
 const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
 
-
+const getActionLogList = async () => {
+  const params: detectActionLogRequestType = {
+    action: "front_running",
+    count: 10
+  };
+  const respose = await detectActionLogService(params);
+  const result: any[] = respose.data.map((item: any) => {
+    return {
+      name: item.input,
+      result: item.output,
+      time: item.createAt
+      
+    };
+  });
+  setdetectionSampleList(result);
+  if (!inputVal.length) {
+    setInputVal(result[0].name)
+  }
+  console.log("检测数据>>>>", respose);
+  console.log("检测数据>>>result>", result);
+};
   const start = async () => {
     if (!inputVal) {
       notification.warning({ message: `请输入必要信息!!!` });
@@ -61,30 +81,13 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
         time: (respose.cost / 1000).toFixed(1) + "s",
       });
       setLoading(false);
+      void getActionLogList()
     } catch {
       setLoading(false);
     }
 
   };
-  const getActionLogList = async () => {
-    const params: detectActionLogRequestType = {
-      action: "front_running",
-      count: 10
-    };
-    const respose = await detectActionLogService(params);
-    const result: any[] = respose.data.map((item: any) => {
-      return {
-        name: item.input,
-        result: item.output,
-        time: item.createAt
-        
-      };
-    });
-    setdetectionSampleList(result);
-    setInputVal(result[0].name)
-    console.log("检测数据>>>>", respose);
-    console.log("检测数据>>>result>", result);
-  };
+
 
   useEffect(() => {
     void getActionLogList();
