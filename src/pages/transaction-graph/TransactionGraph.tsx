@@ -170,22 +170,17 @@ export function TransactionGraph() {
             <div className={cn(`h-full flex items-center gap-x-[10px] `)}>
               <div className="text-[#ffffff] text-[16px] font-[500]">交易图谱</div>
               <div className="flex flex-1 gap-x-[10px] 3xl:gap-x-[20px]">
-                <div className="w-[140px] 3xl:w-[164px] h-[36px] flex items-center">
-                  <SelectorCommonV3
-                    placeholder="以太坊区块的区块号或区块哈希"
-                    value={{
-                      label: formData.tokenType,
-                      value: formData.tokenType
-                    }}
-                    options={typeList}
-                    setValue={(item: any) => {
-                      setFormData({
-                        ...formData,
-                        tokenType: item.value
-                      });
-                    }}
-                  />
-                </div>
+                <InputCommonV2
+                  initVal={formData.tokenType}
+                  onInput={(val: any) => {
+                    setFormData({
+                      ...formData,
+                      tokenType: val
+                    });
+                  }}
+                  className="w-[180px] 3xl:w-[408px] h-[36px] "
+                  placeholder={""}
+                />
 
                 <InputCommonV2
                   initVal={formData.transactionHash}
