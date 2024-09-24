@@ -235,7 +235,7 @@ const initialContractState: ContractState = {
     {
       id: initETHAfterChainProjectId,
       parentId: null,
-      name: "BSC_afterchain",
+      name: "ETH_afterchain",
       type: ExplorerItemType.PROJECT,
       projectType: ProjectType.BSC2
     },
@@ -307,7 +307,7 @@ const initialContractState: ContractState = {
       id: uuidv4(),
       parentId: initBSCAfterChainProjectId,
       type: ExplorerItemType.FILE,
-      name: "suicide_multitx_infeasible.sol",
+      name: "BSC_IO.sol",
       content: BSC_IO
     }
   ],
