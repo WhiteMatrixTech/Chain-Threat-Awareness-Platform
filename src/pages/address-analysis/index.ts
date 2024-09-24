@@ -1,1 +1,2 @@
-export * from './AddressAnalysis';
+/* eslint-disable prettier/prettier */
+export * from "./AddressAnalysis";

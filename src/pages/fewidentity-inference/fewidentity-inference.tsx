@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-19 13:49:48
+ * @LastEditTime: 2024-09-24 18:14:03
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -137,7 +137,7 @@ export function FewidentityInference() {
                 </span>
               </div>
 
-              {/* <InputCommonV2
+              <InputCommonV2
                 initVal={sampleData.sample1}
                 placeholder="样本地址"
                 onInput={(val: any) => {
@@ -191,8 +191,8 @@ export function FewidentityInference() {
                   });
                 }}
                 className="w-full h-[36px] "
-              /> */}
-              <div className="w-full h-[calc(100%_-_34px)] bg-[#0095FF66] px-4 py-4">
+              />
+              {/* <div className="w-full h-[calc(100%_-_34px)] bg-[#0095FF66] px-4 py-4">
                 <div className="text-[#ffffff] text-[16px] h-[30px]">
                   {sampleData.sample1}
                 </div>
@@ -208,7 +208,7 @@ export function FewidentityInference() {
                 <div className="w-full text-[#ffffff] text-[16px] h-[30px]">
                   {sampleData.sample5}
                 </div>
-              </div>
+              </div> */}
             </div>
             <div
               className={cn(
