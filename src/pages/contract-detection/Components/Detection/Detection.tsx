@@ -898,7 +898,6 @@ export function Detection() {
             <Input.TextArea placeholder="请输入abi_code" rows={5} />
           </Form.Item>
           <Form.Item
-            initialValue={'0x12f4DF60Ea3bD42b06a10887efDea2eBe532E855'}
             name="contract_addr"
             rules={[
               {
@@ -928,7 +927,6 @@ export function Detection() {
             ></Select>
           </Form.Item>
           <Form.Item
-            initialValue={'41663939'}
             name="block"
             rules={[
               {
