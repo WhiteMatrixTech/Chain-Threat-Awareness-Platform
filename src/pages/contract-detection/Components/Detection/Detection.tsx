@@ -751,7 +751,12 @@ export function Detection() {
   // }, [explorerList]);
 
   return (
-    <div className={cn(styles.Detection, 'h-full bg-white px-2 py-[18px]')}>
+    <div
+      className={cn(
+        styles.Detection,
+        'h-full overflow-scroll bg-white px-2 py-[18px]'
+      )}
+    >
       {!data && chainFlag === 'beforeChain' && (
         <Form form={form} wrapperCol={{ span: 24 }}>
           <Form.Item
@@ -974,7 +979,7 @@ export function Detection() {
         </Form>
       )}
       {data && (
-        <div>
+        <div className="">
           <div className="text-center text-xl font-semibold">检测完毕</div>
           <div className="mt-3 mb-2 flex items-center justify-center">
             <FileOutlined />
@@ -984,7 +989,7 @@ export function Detection() {
               </span>
             </Tooltip>
           </div>
-          <ul className="mb-20 flex flex-col items-start justify-center gap-y-2 overflow-hidden text-ellipsis whitespace-nowrap text-center">
+          <ul className="mb-10 flex flex-col items-start justify-center gap-y-2 overflow-hidden text-ellipsis whitespace-nowrap text-center">
             {sortBy(
               data.result.map((o) => {
                 const indexes: any = { High: 0, Medium: 1, Low: 2 };
