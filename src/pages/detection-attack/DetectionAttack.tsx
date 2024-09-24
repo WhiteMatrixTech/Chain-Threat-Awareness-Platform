@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-24 00:21:01
+ * @LastEditTime: 2024-09-24 11:14:21
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -37,8 +37,31 @@ export function DetectionAttack() {
   const [inputVal, setInputVal] = useState("");
   const [result, setResult] = useState({
     content: '',
+
     time: ''
   });
+  const [detectResult, setdetectResult] = useState([
+    {
+      title: 'attacks_info',
+      key: 'attacks_info',
+      value: ''
+    },
+    {
+      title: 'block_height',
+      key: 'block_height',
+      value: ''
+    },
+    {
+      title: 'number_of_detected_attacks',
+      key: 'number_of_detected_attacks',
+      value: ''
+    },
+    {
+      title: 'total_number_of_transactions',
+      key: 'total_number_of_transactions',
+      value: ''
+    }
+  ]) as any
   const [loading, setLoading] = useState(false);
 const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
 
@@ -76,8 +99,17 @@ const getActionLogList = async () => {
       console.log("params>>>>", params);
       const respose = await detectAttackService(params);
       console.log("respose:", respose);
+      const newVal = detectResult.map((Ditem: any) => {
+        const val = respose[Ditem.key];
+        return {
+          ...Ditem,
+          value: Ditem.key !== 'attacks_info'?String(val):val.length?val[0]:'空'
+        };
+      });
+      setdetectResult(newVal)
       setResult({
-        content: respose.result,
+        // content: respose.attacks_info.length? respose.attacks_info,
+        content: '',
         time: (respose.cost / 1000).toFixed(1) + "s",
       });
       setLoading(false);
@@ -176,10 +208,24 @@ const getActionLogList = async () => {
         className={` right w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full flex justify-start items-center`}
       >
         <div className="pt-[60px] px-[20px] pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px] bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
-          <div className="w-full h-full relative overflow-scroll">
-            <span className="text-[#FFFFFF] text-[16px]">
+            <div className="w-full h-full relative overflow-scroll">
+            {result.time &&
+                detectResult.map((item: any, index: number) =>
+                  <div
+                    key={index}
+                    className="h-[35px] w-full text-[#FFFFFF] text-[16px] flex justify-between items-center"
+                  >
+                    <span className="w-[250px] h-full flex items-center justify-start">
+                      {item.key}
+                    </span>
+                    <span className="w-[calc(100%_-_260px)] h-full flex items-center justify-start">
+                      {item.value}
+                    </span>
+                  </div>
+                )}
+            {/* <span className="text-[#FFFFFF] text-[16px]">
               {result.content}
-            </span>
+            </span> */}
             {loading &&
               <div
                 className={cn(

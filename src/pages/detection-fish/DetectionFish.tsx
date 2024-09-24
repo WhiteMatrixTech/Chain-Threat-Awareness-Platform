@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable dot-notation */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
@@ -7,7 +9,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-24 00:20:53
+ * @LastEditTime: 2024-09-24 10:58:07
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -33,6 +35,73 @@ import pattern from "@/styles/pattern";
 export function DetectionFish() {
   const [inputVal, setInputVal] = useState("");
   const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
+  const [detectResult, setdetectResult] = useState([
+    {
+      title: "Average Clustering Coefficient",
+      key: "ACC",
+      value: ""
+    },
+    {
+      title: "Average Degree",
+      key: "AD",
+      value: ""
+    },
+    {
+      title: "Average Neighbor Degree",
+      key: "AND",
+      value: ""
+    },
+    {
+      title: "Betweenness Centrality",
+      key: "BC",
+      value: ""
+    },
+    {
+      title: "Closeness Centrality",
+      key: "CC",
+      value: ""
+    },
+    {
+      title: "Maximum Eigenvalue of Adjacency Matrix",
+      key: "MEoAM",
+      value: ""
+    },
+    {
+      title: "Network Density",
+      key: "ND",
+      value: ""
+    },
+    {
+      title: "Proportion of Leaf Nodes",
+      key: "PoLN",
+      value: ""
+    },
+    {
+      title: "edges",
+      key: "edges",
+      value: ""
+    },
+    {
+      title: "is_phishing",
+      key: "is_phishing",
+      value: ""
+    },
+    {
+      title: "message",
+      key: "message",
+      value: ""
+    },
+    {
+      title: "nodes",
+      key: "nodes",
+      value: ""
+    },
+    {
+      title: "success",
+      key: "success",
+      value: ""
+    }
+  ]) as any;
 
   const [result, setResult] = useState({
     content: "",
@@ -77,9 +146,17 @@ export function DetectionFish() {
       };
       const respose = await detectFish(params);
       console.log("respose>>>", respose);
-      const content = JSON.stringify(respose);
+      const newVal = detectResult.map((Ditem: any) => {
+        const key = Ditem.key;
+        return {
+          ...Ditem,
+          value: String(respose[key])
+        };
+      });
+      console.log("newVal>>>", newVal);
+      setdetectResult(newVal);
       setResult({
-        content: content,
+        ...result,
         time: (respose.cost / 1000).toFixed(1) + "s"
       });
       void getActionLogList();
@@ -181,10 +258,25 @@ export function DetectionFish() {
           className={` right w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full flex justify-start items-center`}
         >
           <div className="pt-[60px] px-[20px] pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
-            <div className="w-full h-full relative overflow-scroll">
-              <span className="text-[#FFFFFF] text-[16px]">
+            <div className="w-full h-full relative overflow-scroll ">
+              {result.time &&
+                detectResult.map((item: any, index: number) =>
+                  <div
+                    key={index}
+                    className="h-[35px] w-full text-[#FFFFFF] text-[16px] flex justify-between items-center"
+                  >
+                    <span className="w-[200px] h-full flex items-center justify-start">
+                      {item.key}
+                    </span>
+                    <span className="w-[calc(100%_-_210px)] h-full flex items-center justify-start">
+                      {item.value}
+                    </span>
+                  </div>
+                )}
+
+              {/* <span className="text-[#FFFFFF] text-[16px]">
                 {result.content}
-              </span>
+              </span> */}
               {loading &&
                 <div
                   className={cn(
