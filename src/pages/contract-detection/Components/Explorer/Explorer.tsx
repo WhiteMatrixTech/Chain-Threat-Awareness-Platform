@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
   AppstoreAddOutlined,
   CloudUploadOutlined,
@@ -7,11 +8,11 @@ import {
   FolderOutlined,
   ProjectOutlined
 } from '@ant-design/icons';
-import { Dropdown, Menu, message, Tooltip, Tree } from 'antd';
+import { Dropdown, Menu, message, Select, Tooltip, Tree } from 'antd';
 import type { DataNode, EventDataNode } from 'antd/lib/tree';
 import cn from 'classnames';
 import { cloneDeep } from 'lodash';
-import { Key, useMemo, useState } from 'react';
+import { Key, useEffect, useMemo, useState } from 'react';
 
 import { arrToTreeData } from '@/services/mockData/contractDetection';
 
@@ -26,6 +27,8 @@ import { CreateFolder } from './CreateFolder';
 import { CreateProject } from './CreateProject';
 import { DeleteConfirm } from './DeleteConfirm';
 import styles from './Explorer.module.less';
+
+const Option = Select.Option;
 
 type ContractNode = DataNode & { data: IExplorerItem };
 interface ModalShowConfig {
@@ -58,6 +61,17 @@ export function Explorer() {
     const treeData = arrToTreeData(explorerList);
     return getDomTree(treeData);
   }, [contractState.explorerList]);
+
+  const [fileTypes, setfileTypes] = useState([
+    {
+      value: 'beforeChain',
+      label: '上链前'
+    },
+    {
+      value: 'afterChain',
+      label: '上链后'
+    }
+  ]);
 
   const [selectedNode, setSelectedNode] = useState<ContractNode | null>();
   const onSelect = (
@@ -179,6 +193,14 @@ export function Explorer() {
     modalShowConfig.visible,
     selectedNode?.key
   ]);
+  const handleSelectFileTypeChange = (item: any) => {
+    // 打点
+    dispatch({
+      type: ContractAction.CHANGE_CHAIN_TYPE,
+      data: item
+    });
+    console.log('itemm>>>', item);
+  };
 
   return (
     <div className={cn(styles.Explorer, ' h-full bg-white p-3')}>
@@ -206,11 +228,25 @@ export function Explorer() {
         </Tooltip> */}
       </div>
       <div className="my-2">
+        <div className="mb-[10px] w-full">
+          <Select
+            placeholder="请选择文件类型"
+            className=" w-full"
+            defaultValue="上链前"
+            onChange={handleSelectFileTypeChange}
+            options={fileTypes}
+          ></Select>
+        </div>
+
         <Tree
           showIcon={true}
           onSelect={onSelect}
           defaultExpandAll={true}
-          treeData={contractTreeData}
+          treeData={
+            contractState.chainFlag === 'beforeChain'
+              ? contractTreeData.slice(0, 2)
+              : contractTreeData.slice(2)
+          }
           className="w-full overflow-x-hidden"
           selectedKeys={selectedNode?.key ? [selectedNode?.key] : undefined}
           titleRender={(nodeData) => (

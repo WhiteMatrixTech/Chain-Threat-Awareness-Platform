@@ -9,17 +9,28 @@ import {
   BasicContractAssert_minimal,
   BasicContractAssert_multitx_1,
   BasicContractProxy,
+  BSC_AMA,
+  BSC_BD,
+  BSC_IO,
+  BSC_leakingE,
+  BSC_URV,
   BscContract_proxy_fixed,
   BscContract_proxy_pattern_false_positive,
   BscContract_simple_suicide,
   BscContract_suicide_multitx_feasible,
   BscContract_suicide_multitx_infeasible,
+  ETH_AMA,
+  ETH_BD,
+  ETH_IO_AF,
+  ETH_URV,
   removeExplorerItems
 } from "@/services/mockData/contractDetection";
 import { deduplicate } from "@/utils/common";
 
 const initProjectId = uuidv4();
 const initBSCProjectId = uuidv4();
+const initBSCAfterChainProjectId = uuidv4();
+const initETHAfterChainProjectId = uuidv4();
 const initFileId = uuidv4();
 
 export enum ExplorerItemType {
@@ -30,7 +41,9 @@ export enum ExplorerItemType {
 
 export enum ProjectType {
   ETH = "ETH",
-  BSC = "BSC"
+  BSC = "BSC",
+  ETH2 = "ETH2",
+  BSC2 = "BSC2"
 }
 
 export enum ContractAction {
@@ -40,7 +53,8 @@ export enum ContractAction {
   OPEN_FILE = "OPEN_FILE",
   CLOSE_FILE = "CLOSE_FILE",
   SET_FOCUS_FILE = "SET_FOCUS_FILE",
-  SAVE_FILE_CONTENT = "SAVE_FILE_CONTENT"
+  SAVE_FILE_CONTENT = "SAVE_FILE_CONTENT",
+  CHANGE_CHAIN_TYPE = "CHANGE_CHAIN_TYPE"
 }
 
 export interface IExplorerItem extends Record<string, unknown> {
@@ -64,6 +78,7 @@ interface ContractState {
   explorerList: IExplorerItem[];
   openFiles: IFile[];
   focusFileId: string;
+  chainFlag: string;
 }
 
 interface AddItemAction {
@@ -113,6 +128,11 @@ interface SetFocusFileAction {
   };
 }
 
+interface ChangeChainType {
+  type: ContractAction.CHANGE_CHAIN_TYPE;
+  data: string;
+}
+
 type IContractAction =
   | AddItemAction
   | RenameItemAction
@@ -120,7 +140,8 @@ type IContractAction =
   | OpenFileAction
   | CloseFileAction
   | SetFocusFileAction
-  | SaveFileContentAction;
+  | SaveFileContentAction
+  | ChangeChainType;
 
 const initialContractState: ContractState = {
   explorerList: [
@@ -196,8 +217,6 @@ const initialContractState: ContractState = {
       name: "simple_suicide.sol",
       content: BscContract_simple_suicide
     },
-    // BscContract_suicide_multitx_feasible,
-    // BscContract_suicide_multitx_infeasible,
     {
       id: uuidv4(),
       parentId: initBSCProjectId,
@@ -211,6 +230,85 @@ const initialContractState: ContractState = {
       type: ExplorerItemType.FILE,
       name: "suicide_multitx_infeasible.sol",
       content: BscContract_suicide_multitx_infeasible
+    },
+    // eth-afterchain
+    {
+      id: initETHAfterChainProjectId,
+      parentId: null,
+      name: "ETH_afterchain",
+      type: ExplorerItemType.PROJECT,
+      projectType: ProjectType.BSC2
+    },
+    {
+      id: uuidv4(),
+      parentId: initETHAfterChainProjectId,
+      type: ExplorerItemType.FILE,
+      name: "ETH_IO_AF.sol",
+      content: ETH_IO_AF
+    },
+    {
+      id: uuidv4(),
+      parentId: initETHAfterChainProjectId,
+      type: ExplorerItemType.FILE,
+      name: "ETH_URV.sol",
+      content: ETH_URV
+    },
+    {
+      id: uuidv4(),
+      parentId: initETHAfterChainProjectId,
+      type: ExplorerItemType.FILE,
+      name: "ETH_BD.sol",
+      content: ETH_BD
+    },
+    {
+      id: uuidv4(),
+      parentId: initETHAfterChainProjectId,
+      type: ExplorerItemType.FILE,
+      name: "ETH_AMA.sol",
+      content: ETH_AMA
+    },
+    // bsc-afterchain
+    {
+      id: initBSCAfterChainProjectId,
+      parentId: null,
+      name: "BSC_afterchain",
+      type: ExplorerItemType.PROJECT,
+      projectType: ProjectType.BSC2
+    },
+    {
+      id: uuidv4(),
+      parentId: initBSCAfterChainProjectId,
+      type: ExplorerItemType.FILE,
+      name: "BSC_AMA.sol",
+      content: BSC_AMA
+    },
+    {
+      id: uuidv4(),
+      parentId: initBSCAfterChainProjectId,
+      type: ExplorerItemType.FILE,
+      name: "BSC_BD.sol",
+      content: BSC_BD
+    },
+    {
+      id: uuidv4(),
+      parentId: initBSCAfterChainProjectId,
+      type: ExplorerItemType.FILE,
+      name: "BSC_leakingE.sol",
+      content: BSC_leakingE
+    },
+    {
+      id: uuidv4(),
+      parentId: initBSCAfterChainProjectId,
+      type: ExplorerItemType.FILE,
+      name: "BSC_URV.sol",
+      content: BSC_URV
+    },
+    {
+      id: uuidv4(),
+      parentId: initBSCAfterChainProjectId,
+      type: ExplorerItemType.FILE,
+      name: "BSC_IO.sol",
+      content: BSC_IO
     }
   ],
   openFiles: [
@@ -221,7 +319,8 @@ const initialContractState: ContractState = {
       content: BasicContract
     }
   ],
-  focusFileId: initFileId
+  focusFileId: initFileId,
+  chainFlag: "beforeChain"
 };
 
 const reducer = (
@@ -282,6 +381,21 @@ const reducer = (
     }
     case ContractAction.SET_FOCUS_FILE: {
       state.focusFileId = action.data.id;
+      break;
+    }
+    case ContractAction.CHANGE_CHAIN_TYPE: {
+      // state.openFiles =
+      //   action.data === "beforeChain"
+      //     ? initialContractState.openFiles
+      //     : initialContractState.explorerList[12];
+      // state.openFiles = state.openFiles.filter(
+      //   file => file.id !== action.data.id
+      // );
+      // if (state.focusFileId === action.data.id) {
+      //   const len = state.openFiles.length;
+      //   state.focusFileId = len > 0 ? state.openFiles[len - 1].id : "";
+      // }
+      state.chainFlag = action.data;
       break;
     }
     default:
