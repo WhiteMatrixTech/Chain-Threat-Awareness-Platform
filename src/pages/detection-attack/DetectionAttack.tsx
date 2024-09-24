@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-24 11:14:21
+ * @LastEditTime: 2024-09-24 11:22:54
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -103,7 +103,7 @@ const getActionLogList = async () => {
         const val = respose[Ditem.key];
         return {
           ...Ditem,
-          value: Ditem.key !== 'attacks_info'?String(val):val.length?val[0]:'空'
+          value: Ditem.key !== 'attacks_info'?String(val):val.length?val[0].report:'空..'
         };
       });
       setdetectResult(newVal)
@@ -218,7 +218,7 @@ const getActionLogList = async () => {
                     <span className="w-[250px] h-full flex items-center justify-start">
                       {item.key}
                     </span>
-                    <span className="w-[calc(100%_-_260px)] h-full flex items-center justify-start">
+                    <span className="w-[calc(100%_-_260px)] h-full flex items-center justify-start overflow-x-scroll">
                       {item.value}
                     </span>
                   </div>
