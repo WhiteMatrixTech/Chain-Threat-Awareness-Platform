@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 17:10:53
+ * @LastEditTime: 2024-09-24 10:26:22
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -143,7 +143,7 @@ export function FewidentityInferenceResult() {
             className="w-[173px] h-full"
           />
           <ResultComponent
-            title="是否与提供的地址身份相同"
+            title="是或者否"
             content={result.result}
             className="w-[calc(100%_-_190px)] h-full"
           />
