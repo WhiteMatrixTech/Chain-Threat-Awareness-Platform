@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-04 15:20:43
+ * @LastEditTime: 2024-09-24 14:24:03
  */
 import React, { ReactNode, useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -25,22 +25,22 @@ export const UserProvider = (props: { children: ReactNode }) => {
   const [userInfo, setUserInfo] = React.useState<profileResponseType>();
   const location = useLocation();
 
-  // useEffect(
-  //   () => {
-  //     const authInfo = store.get("authInfo");
+  useEffect(
+    () => {
+      const authInfo = store.get("authInfo");
 
-  //     if (!authInfo) return;
+      if (!authInfo) return;
 
-  //     void getProfile()
-  //       .then(data => setUserInfo(data))
-  //       .catch(e => console.log("e", e));
+      void getProfile()
+        .then(data => setUserInfo(data))
+        .catch(e => console.log("e", e));
 
-  //     emitter.on(EmitterEvent.logout, () => {
-  //       setUserInfo(undefined);
-  //     });
-  //   },
-  //   [location.pathname]
-  // );
+      emitter.on(EmitterEvent.logout, () => {
+        setUserInfo(undefined);
+      });
+    },
+    [location.pathname]
+  );
 
   return (
     <UserContext.Provider

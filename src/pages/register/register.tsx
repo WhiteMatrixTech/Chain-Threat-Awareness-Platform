@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAsyncFn, useWindowSize } from "react-use";
 
 import LogoBlock from "@/assets/logo_block.png";
-import { registerRequestType, registerService } from "@/services/user";
+import { registerRequestTypeV2, registerService } from "@/services/user";
 import pattern from "@/styles/pattern";
 
 import styles from "./register.module.less";
@@ -41,10 +41,12 @@ export function Register(props: registerProps) {
   const [
     { loading: registerLoading },
     register
-  ] = useAsyncFn(async (params: registerRequestType) => {
+  ] = useAsyncFn(async (params: registerRequestTypeV2) => {
+    console.log("params>>>", params);
     const data = await registerService(params);
     return data;
   });
+  // 打点
 
   const handleRegister = useCallback(
     () => {
@@ -61,32 +63,34 @@ export function Register(props: registerProps) {
             mobileNumber,
             code
           } = data;
-          if (code) {
-            await register({
-              userId: contactEmail,
-              password,
-              metadata: {
-                institutionName,
-                contactName,
-                contactAddress,
-                userName,
-                mobileNumber
-              },
-              code
-            });
-          } else {
-            await register({
-              userId: contactEmail,
-              password,
-              metadata: {
-                institutionName,
-                contactName,
-                contactAddress,
-                userName,
-                mobileNumber
-              }
-            });
-          }
+
+          // if (code) {
+          //   await register({
+          //     userId: contactEmail,
+          //     password,
+          //     metadata: {
+          //       institutionName,
+          //       contactName,
+          //       contactAddress,
+          //       userName,
+          //       mobileNumber
+          //     },
+          //     code
+          //   });
+          // } else {
+          // 打点
+          await register({
+            // userId: contactEmail,
+            institution: institutionName,
+            username: userName,
+            password,
+            address: contactAddress,
+            mobile: mobileNumber,
+            email: contactEmail,
+            nickname: "",
+            createAt: ""
+          });
+          // }
 
           setIsRegisterSuccess(true);
         })
@@ -289,8 +293,7 @@ export function Register(props: registerProps) {
               loading={registerLoading}
               type="primary"
               className={`!h-[48px] !w-full !rounded-[6px] !bg-[#166CDD] !text-[18px] ${pattern.flexCenter} bg-gradient-to-r from-[#020F1A] via-[#1F54BC] to-[#0A3BA1] bg-clip-text text-transparent !mb-[16px]`}
-              // onClick={handleRegister}
-              onClick={handleRegisterV2}
+              onClick={handleRegister}
             >
               注册
             </Button>
