@@ -70,9 +70,9 @@ export function Header() {
       </div> */}
       <div className=" absolute right-[40px] ">
         <div className="flex items-center">
-          <div className=" mr-[10px] cursor-pointer text-[#30313399] hover:text-[#40a9ff] ">
+          {/* <div className=" mr-[10px] cursor-pointer text-[#30313399] hover:text-[#40a9ff] ">
             <img className="" src={MessagesPng} width={32} height={32} />
-          </div>
+          </div> */}
           <DropDownCommon className="bg-[#02004D4D] border-[0px] h-[32px]" handleEvent={() => {
             handleLogout({key: 'loginOut'})
           }}>
