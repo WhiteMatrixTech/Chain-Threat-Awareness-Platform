@@ -28,12 +28,16 @@ export function Login(props: loginProps) {
     { loading: loginLoading },
     login
   ] = useAsyncFn(async (params: loginRequestType) => {
-    const data = await loginService(params);
-    if (data) {
-      store.set("authInfo", { ...data, signTime: new Date().getTime() });
+    const data: any = await loginService(params);
+    if (data.data) {
+      console.log("data>>>", data);
+      store.set("authInfo", { ...data.data, signTime: new Date().getTime() });
+
       notification.success({ message: "登陆成功！" });
       const redirectUri = getParams("redirectUri") || "/data-store";
       navigate(redirectUri);
+    } else if (data.status === "BAD_REQUEST") {
+      notification.warning({ message: data.message });
     }
 
     return data;
