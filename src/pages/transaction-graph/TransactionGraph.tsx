@@ -171,7 +171,7 @@ export function TransactionGraph() {
               <div className="text-[#ffffff] text-[16px] font-[500]">交易图谱</div>
               <div className="flex flex-1 gap-x-[10px] 3xl:gap-x-[20px]">
                 <InputCommonV2
-                  initVal={formData.tokenType}
+                  initVal="ETH"
                   onInput={(val: any) => {
                     setFormData({
                       ...formData,
