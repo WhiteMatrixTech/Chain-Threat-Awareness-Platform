@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-24 00:19:59
+ * @LastEditTime: 2024-09-25 13:54:51
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -111,7 +111,6 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
       endBlock: inputRange.split('-')[1],
       // startDate: selectedRange[0],
       // endDate: selectedRange[1],
-
     };
     
     const response = await detectPrivacy(params);
