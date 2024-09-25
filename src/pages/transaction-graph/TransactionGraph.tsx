@@ -104,53 +104,6 @@ export function TransactionGraph() {
         "overflow-y-auto  w-full h-full fadeIn"
       )}
     >
-      {/* <div className="flex items-center gap-x-3">
-        <div className="text-2xl font-black">交易图谱</div>
-        <Form
-          form={form}
-          layout="inline"
-          wrapperCol={{ span: 24 }}
-          name="transaction-graph-form"
-          className="flex flex-1 items-center justify-end"
-        >
-          <Form.Item className="max-w-3xl !flex-1">
-            <Input.Group compact={true}>
-              <Form.Item name="tokenType" noStyle={true} initialValue={["ETH"]}>
-                <Select
-                  size="large"
-                  style={{ width: "30%" }}
-                  placeholder="请选择TOKEN类型"
-                >
-                  <Option value="BTC">BTC</Option>
-                  <Option value="ETH">ETH</Option>
-                </Select>
-              </Form.Item>
-              <Form.Item
-                name="transactionHash"
-                noStyle={true}
-                initialValue="0x3c2eacee8cb9ea750ae4cc51f41c40e73b5099b8ed5df0fd2dd9cb72d58dbb62"
-              >
-                <Input
-                  size="large"
-                  allowClear={true}
-                  style={{ width: "70%" }}
-                  className={styles.input}
-                  placeholder="请输入交易hash"
-                />
-              </Form.Item>
-            </Input.Group>
-          </Form.Item>
-          <Form.Item name="date">
-            <RangePicker size="large" className={styles.dataPicker} />
-          </Form.Item>
-          <PrimaryButton
-            onClick={onClickAnalysis}
-            className="ml-16 w-fit !px-10"
-          >
-            开始分析
-          </PrimaryButton>
-        </Form>
-      </div> */}
       <div className="flex gap-x-10 w-full h-full ">
         <div className="w-80 rounded bg-white shadow-card">
           <Spin spinning={qryTxLoading || qryAddressLoading}>
@@ -178,7 +131,7 @@ export function TransactionGraph() {
                       tokenType: val
                     });
                   }}
-                  className="w-[140px] 3xl:w-[408px] h-[36px] "
+                  className="w-[140px] h-[36px] "
                   placeholder={""}
                 />
 
