@@ -96,7 +96,7 @@ export async function getBaseInfo(address: string) {
 export async function getTransactionBaseInfo(transaction: string) {
   return getData<
     null,
-    ITransactionBaseInfoResponse
+    ITransactionBaseInfoResponse | IBaseInfoResponse
   >(`/chainthreat/v1/transaction/ethereum/${transaction}`, null, {
     "Content-Type": "application/x-www-form-urlencoded"
   });
