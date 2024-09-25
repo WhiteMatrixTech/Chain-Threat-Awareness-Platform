@@ -178,7 +178,7 @@ export function TransactionGraph() {
                       tokenType: val
                     });
                   }}
-                  className="w-[180px] 3xl:w-[408px] h-[36px] "
+                  className="w-[140px] 3xl:w-[408px] h-[36px] "
                   placeholder={""}
                 />
 
