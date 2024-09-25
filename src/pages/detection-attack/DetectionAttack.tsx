@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-24 11:22:54
+ * @LastEditTime: 2024-09-25 14:20:56
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -18,7 +18,7 @@ import {ButtonCommonCyber} from  '@/components/ButtonCommonCyber'
 import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
 import { InputCommonV2 } from "@/components/InputCommonV2";
 import { TableCommonV4 } from "@/components/TableCommonV4";
-import { detectionSampleAttackColumns } from "@/services/columns";
+import { detectionAttackResultColumns,detectionSampleAttackColumns } from "@/services/columns";
 import {
   detectActionLogRequestType,
   detectActionLogService,
@@ -42,22 +42,22 @@ export function DetectionAttack() {
   });
   const [detectResult, setdetectResult] = useState([
     {
-      title: 'attacks_info',
+      title: '攻击信息',
       key: 'attacks_info',
       value: ''
     },
     {
-      title: 'block_height',
+      title: '区块高度',
       key: 'block_height',
       value: ''
     },
     {
-      title: 'number_of_detected_attacks',
+      title: '攻击次数',
       key: 'number_of_detected_attacks',
       value: ''
     },
     {
-      title: 'total_number_of_transactions',
+      title: '交易总数',
       key: 'total_number_of_transactions',
       value: ''
     }
@@ -205,11 +205,11 @@ const getActionLogList = async () => {
         </div>
       </div>
       <div
-        className={` right w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full flex justify-start items-center`}
+        className={`right w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full flex justify-start items-center`}
       >
-        <div className="pt-[60px] px-[20px] pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px] bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
-            <div className="w-full h-full relative overflow-scroll">
-            {result.time &&
+        <div className="pt-[55px] 3xl:pt-[70px] px-[20px] pb-[10px] 3xl:pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px] bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
+            <div className="w-full h-full relative overflow-scroll ">
+            {/* {result.time &&
                 detectResult.map((item: any, index: number) =>
                   <div
                     key={index}
@@ -222,10 +222,17 @@ const getActionLogList = async () => {
                       {item.value}
                     </span>
                   </div>
+                )} */}
+              {result.time && (
+                <div className="w-full h-full">
+                  <TableCommonV4
+                    className="w-full h-full"
+                    data={detectResult}
+                    columns={detectionAttackResultColumns}
+                  />
+                </div>
                 )}
-            {/* <span className="text-[#FFFFFF] text-[16px]">
-              {result.content}
-            </span> */}
+                {/* 打点 */}
             {loading &&
               <div
                 className={cn(

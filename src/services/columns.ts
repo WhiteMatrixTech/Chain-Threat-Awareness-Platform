@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-19 17:44:43
+ * @LastEditTime: 2024-09-25 14:06:01
  */
 // 模型信息
 export const modelColumns: any = [
@@ -62,6 +62,34 @@ export const detectionSampleAttackColumns: any = [
   {
     title: "检测结果",
     dataIndex: "result"
+  }
+];
+// 抢跑结果表格列
+export const detectionAttackResultColumns: any = [
+  {
+    title: "名称",
+    dataIndex: "title",
+    width: 200,
+    copy: true
+  },
+  {
+    title: "值",
+    dataIndex: "value",
+    copy: true
+  }
+];
+// 钓鱼结果表格列
+export const detectionFishResultColumns: any = [
+  {
+    title: "名称",
+    dataIndex: "title",
+    width: 250,
+    copy: true
+  },
+  {
+    title: "值",
+    dataIndex: "value",
+    copy: true
   }
 ];
 // fish检测样例

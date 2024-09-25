@@ -9,7 +9,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-24 10:58:07
+ * @LastEditTime: 2024-09-25 14:20:07
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -21,7 +21,10 @@ import { ButtonCommonCyber } from "@/components/ButtonCommonCyber";
 import { ButtonCommonV2 } from "@/components/ButtonCommonV2";
 import { InputCommonV2 } from "@/components/InputCommonV2";
 import { TableCommonV4 } from "@/components/TableCommonV4";
-import { detectionSampleFishColumns } from "@/services/columns";
+import {
+  detectionFishResultColumns,
+  detectionSampleFishColumns
+} from "@/services/columns";
 import {
   detectActionLogRequestType,
   detectActionLogService,
@@ -38,36 +41,43 @@ export function DetectionFish() {
   const [detectResult, setdetectResult] = useState([
     {
       title: "Average Clustering Coefficient",
+      CTitle: "聚类系数",
       key: "ACC",
       value: ""
     },
     {
       title: "Average Degree",
+      CTitle: "节点度平均值",
       key: "AD",
       value: ""
     },
     {
       title: "Average Neighbor Degree",
+      CTitle: "节点的邻居的平均度",
       key: "AND",
       value: ""
     },
     {
       title: "Betweenness Centrality",
+      CTitle: "介数中心性的平均值",
       key: "BC",
       value: ""
     },
     {
       title: "Closeness Centrality",
+      CTitle: "接近中心性的平均值",
       key: "CC",
       value: ""
     },
     {
       title: "Maximum Eigenvalue of Adjacency Matrix",
+      CTitle: "最大特征值的实部",
       key: "MEoAM",
       value: ""
     },
     {
       title: "Network Density",
+      CTitle: "图密度",
       key: "ND",
       value: ""
     },
@@ -257,9 +267,9 @@ export function DetectionFish() {
         <div
           className={` right w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full flex justify-start items-center`}
         >
-          <div className="pt-[60px] px-[20px] pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
+          <div className="pt-[55px] 3xl:pt-[70px] px-[20px] pb-[10px] 3xl:pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
             <div className="w-full h-full relative overflow-scroll ">
-              {result.time &&
+              {/* {result.time &&
                 detectResult.map((item: any, index: number) =>
                   <div
                     key={index}
@@ -272,7 +282,15 @@ export function DetectionFish() {
                       {item.value}
                     </span>
                   </div>
-                )}
+                )} */}
+              {result.time &&
+                <div className="w-full h-full">
+                  <TableCommonV4
+                    className="w-full h-full"
+                    data={detectResult}
+                    columns={detectionFishResultColumns}
+                  />
+                </div>}
 
               {/* <span className="text-[#FFFFFF] text-[16px]">
                 {result.content}
