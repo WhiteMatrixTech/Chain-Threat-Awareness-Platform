@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 18:22:50
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 14:55:53
+ * @LastEditTime: 2024-09-25 10:23:47
  */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
@@ -78,7 +78,7 @@ export function Nav() {
                 >
                   {/* 待ui更新图 */}
                   {item.src && (
-                    <div className={` mr-2 w-[30px] h-[30px] ${pattern.flexCenter}`}>
+                    <div className={` mr-2 w-[30px] h-[30px] ${pattern.flexCenter} select-none`}>
                       <img src={item.src}  alt="" className="" />
                    </div>                
                 )}
@@ -90,11 +90,11 @@ export function Nav() {
                   item.children.length &&
                   <div
                     className={cn(
-                      `arrow ml-[10px] w-[12px] h-[7px] ${pattern.flexCenter} duration-200`,
+                      `arrow ml-[10px] w-[12px] h-[7px] ${pattern.flexCenter} duration-200 `,
                       arrowRotate === item.key ? "rotate-180" : "rotate-0"
                     )}
                   >
-                    <img className="" src={ArrowPng} width={12} height={7} />
+                    <img className="select-none" src={ArrowPng} width={12} height={7} />
                   </div>}
               </div>
                 {item.children && item.children.length && arrowRotate === item.key && (
@@ -117,7 +117,7 @@ export function Nav() {
               key={index}
 
             >
-              <img className="" src={SplitPg} width={1} height={24} />
+              <img className="select-none" src={SplitPg} width={1} height={24} />
             </div>
           )
 
