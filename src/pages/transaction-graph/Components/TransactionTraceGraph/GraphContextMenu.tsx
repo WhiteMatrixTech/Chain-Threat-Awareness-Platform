@@ -147,7 +147,7 @@ const getGraphData = async (data: {
       if (outData.length === 0) {
         notification.info({
           message: `没有数据了！`,
-          description: '没有数据了',
+          // description: '没有数据了',
           placement: 'top'
         });
       }

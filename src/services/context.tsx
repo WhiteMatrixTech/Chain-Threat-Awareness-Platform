@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-24 18:38:05
+ * @LastEditTime: 2024-09-25 16:30:32
  */
 import React, { ReactNode, useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -28,8 +28,6 @@ export const UserProvider = (props: { children: ReactNode }) => {
   useEffect(
     () => {
       const authInfo = store.get("authInfo");
-      console.log("authInfo>>>", authInfo);
-
       if (!authInfo) return;
 
       setUserInfo({

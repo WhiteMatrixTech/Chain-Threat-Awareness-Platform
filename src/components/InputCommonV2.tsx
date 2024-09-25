@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-27 18:34:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 10:18:04
+ * @LastEditTime: 2024-09-25 16:29:34
  */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import cn from "classnames";
@@ -32,7 +32,6 @@ export function InputCommonV2(props: IProps) {
   );
   useEffect(
     () => {
-      console.log("变化>>", initVal);
       setValue(initVal || "");
     },
     [initVal]
