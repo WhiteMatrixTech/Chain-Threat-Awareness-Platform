@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-24 18:14:03
+ * @LastEditTime: 2024-09-25 10:18:46
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -245,7 +245,7 @@ export function FewidentityInference() {
                 }}
                 className="w-[450px] h-[36px] "
               >
-                <span className="text-[#FFFFFF] text-[16px]">查询</span>
+                <span className="text-[#FFFFFF] text-[16px]">检测</span>
               </ButtonCommonCyber>
             </div>
           </div>
