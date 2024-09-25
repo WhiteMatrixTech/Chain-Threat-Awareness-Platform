@@ -36,7 +36,7 @@ export function Login(props: loginProps) {
       notification.success({ message: "登陆成功！" });
       const redirectUri = getParams("redirectUri") || "/data-store";
       navigate(redirectUri);
-    } else if (data.status === "BAD_REQUEST") {
+    } else {
       notification.warning({ message: data.message });
     }
 
