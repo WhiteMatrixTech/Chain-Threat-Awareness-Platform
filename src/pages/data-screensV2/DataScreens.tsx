@@ -6,10 +6,6 @@
 import cn from "classnames";
 import { useEffect, useState } from "react";
 
-import { ChartLine } from "@/components/chartLine";
-import { ChartLineAddress } from "@/components/chartLineAddress";
-import { DataScreenTitle } from "@/components/DataScreenTitle";
-import { dataScreenService } from "@/services/detection";
 import dataScreen_graph from "@/assets/dataScreen_graph.png";
 import dataScreen_icon_data from "@/assets/dataScreen_icon_data.png";
 import dataScreen_icon_dot from "@/assets/dataScreen_icon_dot.png";
@@ -20,6 +16,10 @@ import dataScreen_icon3 from "@/assets/dataScreen_icon3.png";
 import dataScreen_icon4 from "@/assets/dataScreen_icon4.png";
 import dataScreen_icon5 from "@/assets/dataScreen_icon5.png";
 import dataScreen_icon6 from "@/assets/dataScreen_icon6.png";
+import { ChartLine } from "@/components/chartLine";
+import { ChartLineAddress } from "@/components/chartLineAddress";
+import { DataScreenTitle } from "@/components/DataScreenTitle";
+import { dataScreenService } from "@/services/detection";
 
 import { EarthCommon } from "./EarthCommon";
 
