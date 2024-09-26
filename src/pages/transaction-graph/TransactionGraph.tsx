@@ -192,7 +192,6 @@ export function TransactionGraph() {
               tokenUnit={formData.tokenType}
               handleClick={(data: any) => {
                 setloading(true);
-
                 setTimeout(() => {
                   setloading(false);
                   setSelectedHexData(data);
