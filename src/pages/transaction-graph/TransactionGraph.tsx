@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable prettier/prettier */
-import { DatePicker, Form, Input, Select, Spin } from "antd";
+import { DatePicker, Form, Input, notification, Select, Spin } from "antd";
 import cn from "classnames";
 import dayjs from "dayjs";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "react-query";
 
 import { PrimaryButton } from "@/components/Button";
@@ -37,64 +40,67 @@ interface IGraphFormData {
   tokenType: string;
   transactionHash: string;
 }
-
+const initHex =
+  "0x3c2eacee8cb9ea750ae4cc51f41c40e73b5099b8ed5df0fd2dd9cb72d58dbb62";
 export function TransactionGraph() {
+  const [data, setData] = useState(null) as any;
+  const [addressDetailData, setaddressDetailData] = useState(null) as any;
+  const [loading, setloading] = useState(false);
+  const [detailInfo, setDetailInfo] = useState(null) as any;
   const [formData, setFormData] = useState<IGraphFormData>({
     date: undefined,
     tokenType: "ETH",
-    transactionHash:
-      "0x3c2eacee8cb9ea750ae4cc51f41c40e73b5099b8ed5df0fd2dd9cb72d58dbb62"
+    transactionHash: initHex
   });
-  const [selectedHexData, setSelectedHexData] = useState(
-    "0x3c2eacee8cb9ea750ae4cc51f41c40e73b5099b8ed5df0fd2dd9cb72d58dbb62"
-  );
+  const [selectedHexData, setSelectedHexData] = useState("") as any;
   const isTx = useMemo(() => selectedHexData.length > 42, [
     selectedHexData.length
   ]);
-
-  const { data: txDetailData, isLoading: qryTxLoading } = useQuery(
-    ["getTxDetailData", selectedHexData],
-    async () => {
-      if (isTx) {
-        const data = await getTransactionBaseInfo(selectedHexData);
-        data.blockTimestamp = dayjs(Number(data.blockTimestamp) * 1000).format(
-          "YYYY-MM-DD hh:mm:ss"
-        );
-        data.gas = (Number(data.gas) / 1e18).toString();
-        data.value = (Number(data.value) / 1e18).toString();
-        return data;
-
-        // await waitTime(1000);
-        // return randomTxDetailData(selectedHexData);
-      }
+  const getData = async () => {
+    console.log("请求参数>>>", formData);
+    const response = await getTransactionBaseInfo(formData.transactionHash);
+    setData(response);
+    console.log("response>>>>", response);
+    if (!selectedHexData) {
+      setSelectedHexData(formData.transactionHash);
     }
-  );
-
-  const { data: addressDetailData, isLoading: qryAddressLoading } = useQuery(
-    ["getAddressDetailData", selectedHexData],
-    async () => {
-      if (!isTx) {
-        const data = await getBaseInfo(selectedHexData);
-        data.balance = (Number(data.balance) / 1e18).toString();
-        data.transactionInAmountSum = (Number(data.transactionInAmountSum) /
-          1e18).toString();
-        data.transactionOutAmountSum = (Number(data.transactionOutAmountSum) /
-          1e18).toString();
-
-        return data;
-        // await waitTime(1000);
-        // return randomAddressData(selectedHexData);
+  };
+  const getAddressInfo = async (address: string) => {
+    if (!address) return;
+    const response = await getBaseInfo(address);
+    console.log("response>>>>", response);
+    setDetailInfo(response);
+  };
+  useEffect(() => {
+    void getData();
+  }, []);
+  useEffect(
+    () => {
+      if (!selectedHexData) return;
+      const initNodeInfo = {
+        ...data
+      };
+      const allData = [
+        ...data.fromTransactions,
+        ...data.toTransactions,
+        initNodeInfo
+      ];
+      const target = allData.filter(item => item.hash === selectedHexData)[0];
+      if (selectedHexData.length > 42) {
+        setDetailInfo(target);
+      } else {
+        getAddressInfo(selectedHexData);
       }
-    }
+    },
+    [selectedHexData]
   );
 
   const onClickAnalysis = () => {
-    // void form.validateFields().then((allValues: IGraphFormData) => {
-    const allValues = { ...formData };
-    allValues.tokenType = allValues.tokenType[0];
-    setFormData(allValues);
-    setSelectedHexData(allValues.transactionHash);
-    // });
+    if (!formData.date || !formData.tokenType || !formData.transactionHash) {
+      notification.warning({ message: `请输入信息！` });
+      return;
+    }
+    getData();
   };
 
   return (
@@ -106,15 +112,15 @@ export function TransactionGraph() {
     >
       <div className="flex gap-x-10 w-full h-full ">
         <div className="w-80 rounded bg-white shadow-card">
-          <Spin spinning={qryTxLoading || qryAddressLoading}>
+          <Spin spinning={loading}>
             {isTx
               ? <TransactionDetailCard
                   unit={formData.tokenType}
-                  transactionData={txDetailData}
+                  transactionData={detailInfo}
                 />
               : <AddressDetailCard
                   unit={formData.tokenType}
-                  addressData={addressDetailData}
+                  addressData={detailInfo}
                 />}
           </Spin>
         </div>
@@ -172,8 +178,15 @@ export function TransactionGraph() {
           </div>
           <div className="flex-1 overflow-hidden rounded bg-white shadow-card">
             <TransactionTraceGraph
+              transactionData={data}
               tokenUnit={formData.tokenType}
-              handleClick={setSelectedHexData}
+              handleClick={(data: any) => {
+                setloading(true);
+                setTimeout(() => {
+                  setloading(false);
+                  setSelectedHexData(data);
+                }, 1000);
+              }}
               queryHash={formData.transactionHash}
             />
           </div>

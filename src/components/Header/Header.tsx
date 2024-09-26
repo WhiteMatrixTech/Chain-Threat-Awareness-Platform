@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-30 11:15:05
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-24 18:23:48
+ * @LastEditTime: 2024-09-25 16:30:18
  */
 /* eslint-disable prettier/prettier */
 import { BellOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
@@ -38,7 +38,6 @@ const prefix = (
 export function Header() {
   const navigate = useNavigate();
   const { userInfo } = useContext(UserContext);
-  console.log("userInfo>>>", userInfo);
 
   const handleLogout = ({ key }: { key: string }) => {
     if (key === "loginOut") {

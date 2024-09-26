@@ -656,7 +656,6 @@ export function Detection() {
   } = useContractContext();
 
   useEffect(() => {
-    console.log('openFiles>>>>>变化1');
     if (focusFileId) {
       if (chainFlag === 'beforeChain') {
         form.setFieldsValue({
@@ -739,7 +738,6 @@ export function Detection() {
   };
 
   useEffect(() => {
-    console.log('chainFlag>>>变化啦啦啦啦', chainFlag);
     handleReset();
   }, [chainFlag]);
 

@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-25 13:54:51
+ * @LastEditTime: 2024-09-25 16:31:14
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -114,12 +114,10 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     };
     
     const response = await detectPrivacy(params);
-    console.log("response>>>", response);
     setResult({
       content: response.result,
       time: (response.cost / 1000).toFixed(1) + "s"
     });
-    console.log("params>>>>", params);
     void getActionLogList();
 
   };

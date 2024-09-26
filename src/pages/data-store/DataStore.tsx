@@ -8,7 +8,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-23 14:29:49
+ * @LastEditTime: 2024-09-25 16:30:49
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -57,7 +57,6 @@ export function DataStore() {
   }
   const getData = async () => {
     const respose = await dataStoreListService();
-    console.log("response>>>", respose);
     const listData = respose.data.map((item: any) => {
       return {
         ...item,
@@ -67,7 +66,6 @@ export function DataStore() {
           : `https://chain-threat-awareness-platform-api.whitematrix.io/chainthreat/v1/data-house/data-source/data/${item.tableName}`
       };
     });
-    console.log("listData>>>", listData);
     setData(listData);
     setpageInfo({
       ...pageInfo,

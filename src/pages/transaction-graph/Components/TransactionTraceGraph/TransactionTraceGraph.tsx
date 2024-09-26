@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { InfoCircleOutlined } from '@ant-design/icons';
 import { createNodeFromReact } from '@antv/g6-react-node';
 import Graphin, { Behaviors, GraphinContext, GraphinData } from '@antv/graphin';
@@ -31,6 +33,7 @@ const { ZoomCanvas, DragNode, Hoverable, FontPaint } = Behaviors;
 export interface ITransactionTraceGraphProps {
   queryHash: string;
   tokenUnit?: string;
+  // transactionData: any;
   handleClick: (hexString: string) => void;
 }
 
@@ -47,7 +50,8 @@ Graphin.registerNode(
 
 const graphinDefaultConfig = {
   layout: {
-    type: 'dagre',
+    type: 'graphin-force',
+    // type: 'random',
     rankdir: 'LR', // 可选，默认为图的中心,
     controlPoints: true
   },
@@ -55,8 +59,8 @@ const graphinDefaultConfig = {
   fitCenter: true
 };
 
-export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
-  const { queryHash, tokenUnit, handleClick } = props;
+export function TransactionTraceGraph(props: any) {
+  const { queryHash, tokenUnit, handleClick, transactionData } = props;
 
   const graphRef = useRef<Graphin | null>(null);
   const [txGraphData, setTxGraphData] = useState<ITxGraphData>({
@@ -77,67 +81,131 @@ export function TransactionTraceGraph(props: ITransactionTraceGraphProps) {
     []
   );
 
-  useEffect(() => {
-    getTransactionBaseInfo(queryHash)
-      .then((data) => {
-        const initNode = {
-          id: queryHash,
-          type: 'CenterTxNode',
-          isSelected: true,
-          tokenAmount: (Number(data.value) / 1e18).toFixed(4).toString(),
-          tokenUnit
-        };
+  // useEffect(() => {
+  //   getTransactionBaseInfo(queryHash)
+  //     .then((data) => {
+  //       const initNode = {
+  //         id: queryHash,
+  //         type: 'CenterTxNode',
+  //         isSelected: true,
+  //         tokenAmount: (Number(data.value) / 1e18).toFixed(4).toString(),
+  //         tokenUnit
+  //       };
 
-        const inflowNodes: ITxGraphNode = {
-          id: data.from,
-          type: 'AmountFlowAddressNode',
-          tokenAmount: (Math.random() * 1000).toFixed(4),
-          tokenUnit,
-          flowType: 'inflow'
+  //       const inflowNodes: ITxGraphNode = {
+  //         id: data.from,
+  //         type: 'AmountFlowAddressNode',
+  //         tokenAmount: (Math.random() * 1000).toFixed(4),
+  //         tokenUnit,
+  //         flowType: 'inflow'
+  //       };
+  //       const outflowNodes: ITxGraphNode = {
+  //         id: data.to,
+  //         type: 'AmountFlowAddressNode',
+  //         tokenAmount: (Math.random() * 1000).toFixed(4),
+  //         tokenUnit,
+  //         flowType: 'outflow'
+  //       };
+  //       const inflowEdges: ITxGraphEdge = {
+  //         id: `${uuidv4().replaceAll('-', '')}`,
+  //         source: data.from,
+  //         target: queryHash
+  //       };
+  //       const outflowEdges: ITxGraphEdge = {
+  //         id: `${uuidv4().replaceAll('-', '')}`,
+  //         source: queryHash,
+  //         target: data.to
+  //       };
+  //       const randomData = {
+  //         nodes: [initNode, inflowNodes, outflowNodes],
+  //         edges: [inflowEdges, outflowEdges]
+  //       };
+  //       void handleChangeData(randomData, true);
+  //     })
+  //     .catch((e) => console.log('e', e));
+
+  //   // const [inflowNodes, inflowEdges] = generateTxGraphData(
+  //   //   queryHash,
+  //   //   'inflow',
+  //   //   tokenUnit
+  //   // );
+  //   // const [outflowNodes, outflowEdges] = generateTxGraphData(
+  //   //   queryHash,
+  //   //   'outflow',
+  //   //   tokenUnit
+  //   // );
+  //   // const randomData = {
+  //   //   nodes: [initNode, ...inflowNodes, ...outflowNodes],
+  //   //   edges: [...inflowEdges, ...outflowEdges]
+  //   // };
+  //   // // console.log({ randomData });
+
+  //   // void handleChangeData(randomData, true);
+  // }, [handleChangeData, queryHash, tokenUnit]);
+  useEffect(() => {
+    console.log('transactionData>>>变化', transactionData);
+    if (!transactionData) return;
+    const data = { ...transactionData };
+
+    const initNode = {
+      id: queryHash,
+      type: 'CenterTxNode',
+      isSelected: true,
+      tokenAmount: (Number(data.value) / 1e18).toFixed(4).toString(),
+      tokenUnit
+    };
+
+    const inflowNodes: ITxGraphNode = {
+      id: data.from,
+      type: 'AmountFlowAddressNode',
+      tokenAmount: (Math.random() * 1000).toFixed(4),
+      tokenUnit,
+      flowType: 'inflow'
+    };
+    const outflowNodes: ITxGraphNode = {
+      id: data.to,
+      type: 'AmountFlowAddressNode',
+      tokenAmount: (Math.random() * 1000).toFixed(4),
+      tokenUnit,
+      flowType: 'outflow'
+    };
+
+    const inflowEdges: ITxGraphEdge = {
+      id: `${uuidv4().replaceAll('-', '')}`,
+      source: data.from,
+      target: queryHash
+    };
+    const outflowEdges: ITxGraphEdge = {
+      id: `${uuidv4().replaceAll('-', '')}`,
+      source: queryHash,
+      target: data.to
+    };
+
+    const randomData = {
+      nodes: [initNode, inflowNodes, outflowNodes],
+      edges: [inflowEdges, outflowEdges]
+    };
+    if (data.toTransactions.length) {
+      data.toTransactions.forEach((item: any) => {
+        const newNode: ITxGraphNode = {
+          id: item.hash,
+          type: 'CenterTxNode',
+          tokenAmount: (Number(item.value) / 1e18).toFixed(4).toString(),
+          tokenUnit
+          // isSelected: queryHash === item.hash
         };
-        const outflowNodes: ITxGraphNode = {
-          id: data.to,
-          type: 'AmountFlowAddressNode',
-          tokenAmount: (Math.random() * 1000).toFixed(4),
-          tokenUnit,
-          flowType: 'outflow'
-        };
-        const inflowEdges: ITxGraphEdge = {
+        randomData.nodes.push(newNode);
+        const newEdges: ITxGraphEdge = {
           id: `${uuidv4().replaceAll('-', '')}`,
-          source: data.from,
-          target: queryHash
-        };
-        const outflowEdges: ITxGraphEdge = {
-          id: `${uuidv4().replaceAll('-', '')}`,
-          source: queryHash,
+          source: item.hash,
           target: data.to
         };
-        const randomData = {
-          nodes: [initNode, inflowNodes, outflowNodes],
-          edges: [inflowEdges, outflowEdges]
-        };
-        void handleChangeData(randomData, true);
-      })
-      .catch((e) => console.log('e', e));
+        randomData.edges.push(newEdges);
+      });
+    }
 
-    // const [inflowNodes, inflowEdges] = generateTxGraphData(
-    //   queryHash,
-    //   'inflow',
-    //   tokenUnit
-    // );
-    // const [outflowNodes, outflowEdges] = generateTxGraphData(
-    //   queryHash,
-    //   'outflow',
-    //   tokenUnit
-    // );
-    // const randomData = {
-    //   nodes: [initNode, ...inflowNodes, ...outflowNodes],
-    //   edges: [...inflowEdges, ...outflowEdges]
-    // };
-    // // console.log({ randomData });
-
-    // void handleChangeData(randomData, true);
-  }, [handleChangeData, queryHash, tokenUnit]);
+    void handleChangeData(randomData, true);
+  }, [transactionData]);
 
   return (
     <div className="relative h-full w-full">
