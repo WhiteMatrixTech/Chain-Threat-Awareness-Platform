@@ -8,7 +8,7 @@
  * @Author: didadida262
  * @Date: 2024-09-13 16:47:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-26 16:58:15
+ * @LastEditTime: 2024-09-26 17:11:00
  */
 
 import { LineChart } from "echarts/charts";
@@ -43,6 +43,14 @@ export function ChartLineAddress(props: IProps) {
   const [chart, setChart] = useState(null) as any;
 
   const run = () => {
+    const time = [];
+    for (let i = 0; i < 24; i++) {
+      if (i < 10) {
+        time.push(`0${i}:00`);
+      } else {
+        time.push(`${i}:00`);
+      }
+    }
     const option = {
       animationDuration: 5000,
       grid: {
@@ -54,7 +62,8 @@ export function ChartLineAddress(props: IProps) {
       },
       xAxis: {
         type: "category",
-        data: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "23:00"],
+        // data: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "23:00"],
+        data: time,
         axisLine: {
           show: false
         },
