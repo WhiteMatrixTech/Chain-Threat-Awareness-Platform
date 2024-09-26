@@ -33,7 +33,7 @@ export function Login(props: loginProps) {
       console.log("data>>>", data);
       store.set("authInfo", { ...data.data, signTime: new Date().getTime() });
 
-      notification.success({ message: "登陆成功！" });
+      notification.success({ message: "登录成功！" });
       const redirectUri = getParams("redirectUri") || "/data-store";
       navigate(redirectUri);
     } else {
