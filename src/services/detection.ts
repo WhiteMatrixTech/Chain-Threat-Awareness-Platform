@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 10:29:28
+ * @LastEditTime: 2024-09-26 15:39:10
  */
 import { getData, postData } from "./request";
 
@@ -224,4 +224,10 @@ export async function getDataStoreList(params: dataStoreRequestType) {
     `/chainthreat/v1/user/profile`,
     params
   );
+}
+
+// 大屏
+// 检测样例
+export async function dataScreenService() {
+  return await getData<any, any>(`/chainthreat/v1/data-house/mock-data`);
 }

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable prettier/prettier */
@@ -17,6 +19,7 @@ import dataScreen_icon6 from "@/assets/dataScreen_icon6.png";
 import { ChartLine } from "@/components/chartLine";
 import { ChartLineAddress } from "@/components/chartLineAddress";
 import { DataScreenTitle } from "@/components/DataScreenTitle";
+import { dataScreenService } from "@/services/detection";
 
 import { EarthCommon } from "./EarthCommon";
 
@@ -26,40 +29,48 @@ interface dataScreensProps {
 
 export function DataScreens(props: dataScreensProps) {
   const [date, setDate] = useState("2024年9月10日");
+  const [ChartLineData, setChartLineData] = useState([]) as any;
+  const [ChartLineAddressData, setChartLineAddressData] = useState([]) as any;
   const maxNum = 8;
   const reg = /(?!^)(?=(\d{3})+$)/g;
-  const leftTopList = [
+  const [leftTopList, setleftTopList] = useState([
     {
       title: "疑似钓鱼诈骗地址",
+      dataIndex: "fishing_address",
       icon: dataScreen_icon1,
       value: "5918"
     },
     {
       title: "交易所地址",
       icon: dataScreen_icon2,
+      dataIndex: "exchange",
       value: "374"
     },
     {
       title: "区块链项目",
       icon: dataScreen_icon3,
+      dataIndex: "blockchain_projects",
       value: "54,646"
     },
     {
       title: "已存储区块链数据",
+      dataIndex: "blockchain_data",
       icon: dataScreen_icon4,
       value: "100,002,989"
     },
     {
       title: "接入智能合约数量",
+      dataIndex: "contract",
       icon: dataScreen_icon5,
       value: "164,065"
     },
     {
       title: "平台性能开销占区块链全节点开销",
+      dataIndex: "property",
       icon: dataScreen_icon6,
       value: "3%"
     }
-  ];
+  ]) as any;
   const [leftBottomList, setleftBottomList] = useState([
     {
       title: "断言失败漏洞",
@@ -120,16 +131,19 @@ export function DataScreens(props: dataScreensProps) {
   const [middleBottomList, setmiddleBottomList] = useState([
     {
       title: "地址标签",
+      dataIndex: "address_label",
       value: 71612,
       max: 71612
     },
     {
       title: "标签类型",
+      dataIndex: "label_type",
       value: 350,
       max: 350
     },
     {
       title: "监控地址",
+      dataIndex: "monitor_address",
       value: 0,
       max: 3500
     }
@@ -142,29 +156,62 @@ export function DataScreens(props: dataScreensProps) {
     const formattedDate = `${year}年${month}月${day}日`;
     setDate(formattedDate);
   };
+  const writeData = (data: any) => {
+    // 标签等数据
+    const newmiddleBottomList = middleBottomList.map((item: any) => {
+      const targetData = data.filter((i: any) => i.name === item.dataIndex)[0];
+      if (!targetData) {
+        return {
+          ...item
+        };
+      } else {
+        return {
+          ...item,
+          value: targetData.value
+        };
+      }
+    });
+    setmiddleBottomList(newmiddleBottomList);
+
+    // 现有数据部分
+    const newleftTopList = leftTopList.map((item: any) => {
+      const targetData = data.filter((i: any) => i.name === item.dataIndex)[0];
+      if (!targetData) {
+        if (item.dataIndex === "property") {
+          const randomData = ["3%", "4%", "5%", "6%", "7%", "8%"];
+          return {
+            ...item,
+            value: randomData[Math.floor(Math.random() * 7)]
+          };
+        } else {
+          return {
+            ...item
+          };
+        }
+      } else {
+        return {
+          ...item,
+          value: targetData.value
+        };
+      }
+    });
+    setleftTopList(newleftTopList);
+
+    // 右侧
+    const realtime_tx = data.filter((i: any) => i.name === "realtime_tx")[0];
+    setChartLineData(realtime_tx.lineDataList);
+    const detect_address = data.filter(
+      (i: any) => i.name === "detect_address"
+    )[0];
+    setChartLineAddressData(detect_address.lineDataList);
+  };
 
   useEffect(() => {
     getDate();
-    const timer = setInterval(() => {
-      setmiddleBottomList(prevObj => {
-        return prevObj.map((item: any) => {
-          if (item.title !== "监控地址")
-            return {
-              ...item
-            };
-          const newVal = Math.ceil(Math.random() * 10);
-          let step = 0;
-          if (newVal + item.value <= item.max) {
-            step = newVal;
-          } else {
-            step = item.value - newVal;
-          }
-          return {
-            ...item,
-            value: item.value + step
-          };
-        });
-      });
+    const timer = setInterval(async () => {
+      const response = await dataScreenService();
+      console.log("repose>>>", response);
+      writeData(response.data);
     }, 2000);
 
     return () => {
@@ -302,7 +349,7 @@ export function DataScreens(props: dataScreensProps) {
             </div>
           </div>
         </div>
-        <div className=" w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
+        <div className="  w-[calc(100%_-_859px)] 3xl:w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
           <div className="earthContainer w-full h-[calc(100%_-_150px)]  flex justify-center items-center  ">
             <EarthCommon />
           </div>
@@ -378,7 +425,7 @@ export function DataScreens(props: dataScreensProps) {
                 ` bg-[#061B5A] bg-opacity-30 `
               )}
             >
-              <ChartLine />
+              <ChartLine data={ChartLineData} />
             </div>
           </div>
           <div className=" w-full h-[400px] ">
@@ -405,7 +452,7 @@ export function DataScreens(props: dataScreensProps) {
                 `mt-[8px] 3xl:mt-[12px]`
               )}
             >
-              <ChartLineAddress />
+              <ChartLineAddress data={ChartLineAddressData} />
             </div>
           </div>
         </div>
