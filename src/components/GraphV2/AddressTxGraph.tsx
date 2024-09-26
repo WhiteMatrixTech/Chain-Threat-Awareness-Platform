@@ -28,8 +28,8 @@ interface IAddressTxGraphProps {
 
 const layout = {
   type: "concentric",
-  // center: [100, 100], // 可选，
-  rankdir: "LR", // 可选，默认为图的中心,
+  center: [100, 100], // 可选，
+  // rankdir: "LR", // 可选，默认为图的中心,
   linkDistance: 300, // 可选，边长,
   nodeSize: 1500
 };
