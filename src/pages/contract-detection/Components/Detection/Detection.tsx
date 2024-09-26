@@ -659,7 +659,8 @@ export function Detection() {
     if (focusFileId) {
       if (chainFlag === 'beforeChain') {
         form.setFieldsValue({
-          file: openFiles.find((file) => file.id === focusFileId)?.id
+          fileContent: openFiles.find((file) => file.id === focusFileId)
+            ?.content
         });
       } else {
         formAfterChain.setFieldsValue({
@@ -697,13 +698,14 @@ export function Detection() {
       .then((data: { fileContent: string; version: string }) => {
         setloading(true);
         const { fileContent, version } = data;
+        console.log('data>>>>', data);
         setTimeout(() => {
           mutate({
             source_code: fileContent,
             version: version,
             model: 'contractFuzzer'
           });
-        }, 30000);
+        }, 20000);
       });
   };
 
@@ -719,7 +721,7 @@ export function Detection() {
         mutate({
           ...params
         });
-      }, 30000);
+      }, 20000);
     });
   };
 
