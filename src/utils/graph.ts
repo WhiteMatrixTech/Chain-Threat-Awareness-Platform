@@ -150,15 +150,6 @@ const setNode = (address: string) => {
         value: transformAddress(address),
         fill: 'white'
       }
-      // halo: {
-      //   visible: false
-      // },
-
-      // icon: {
-      //   fontFamily: 'graphin',
-      //   type: 'font' as 'font' | 'text' | 'image'
-      //   // value: icons.question as string
-      // }
     }
   };
 };

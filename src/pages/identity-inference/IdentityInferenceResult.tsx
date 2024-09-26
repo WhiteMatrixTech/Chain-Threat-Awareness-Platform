@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-26 10:32:47
+ * @LastEditTime: 2024-09-26 14:37:45
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -131,12 +131,17 @@ export function IdentityInferenceResult() {
           " w-full h-full pt-[0px] fadeIn  flex flex-col relative justify-between"
         )}
       >
-        <div className={cn(`w-full h-[calc(100%_-_400px)]`)}>
+        <div
+          className={cn(
+            `w-full h-[calc(100%_-_300px)] 3xl:h-[calc(100%_-_400px)]`
+          )}
+        >
           <AddressTxGraph
             focusedId={selectedHexData}
             formData={formData}
             handleClick={handleClickGraphin}
             changeData={setGraphData}
+            dataList={result.dataList}
           />
         </div>
         <div className={cn(` w-full h-[50px] ${pattern.flexbet} `)}>
@@ -156,10 +161,16 @@ export function IdentityInferenceResult() {
             className="w-[calc(50%_-_100px)] h-full"
           />
         </div>
-        <div className={cn(`w-full h-[320px] `)}>
+        <div className={cn(`w-full h-[220px] 3xl:h-[320px]`)}>
           <TableCommonV4
             className="w-full h-full"
-            data={result.dataList}
+            data={
+              selectedHexData !== address
+                ? result.dataList.filter(
+                    (item: any) => item.dst === selectedHexData
+                  )
+                : result.dataList
+            }
             columns={columnsIdentity}
           />
         </div>
