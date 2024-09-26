@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-24 10:26:22
+ * @LastEditTime: 2024-09-26 14:46:09
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -48,7 +48,9 @@ export function FewidentityInferenceResult() {
     dataList: []
   });
 
-  const [selectedHexData, setSelectedHexData] = useState(initQueryAddress);
+  const [selectedHexData, setSelectedHexData] = useState(
+    address || initQueryAddress
+  );
   const [graphData, setGraphData] = useState<GraphinData>(initGraphData);
 
   const [formData, setFormData] = useState<IGraphFormData>({
@@ -134,6 +136,7 @@ export function FewidentityInferenceResult() {
             formData={formData}
             handleClick={handleClickGraphin}
             changeData={setGraphData}
+            dataList={result.dataList}
           />
         </div>
         <div className={cn(` w-full h-[50px] ${pattern.flexbet} `)}>
@@ -151,7 +154,13 @@ export function FewidentityInferenceResult() {
         <div className={cn(` w-full h-[calc(30%)] `)}>
           <TableCommonV4
             className="w-full h-full"
-            data={result.dataList}
+            data={
+              selectedHexData !== address
+                ? result.dataList.filter(
+                    (item: any) => item.dst === selectedHexData
+                  )
+                : result.dataList
+            }
             columns={columnsIdentity}
           />
         </div>

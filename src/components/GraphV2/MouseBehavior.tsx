@@ -1,3 +1,10 @@
+/*
+ * @Description:
+ * @Author: didadida262
+ * @Date: 2024-08-30 14:21:04
+ * @LastEditors: didadida262
+ * @LastEditTime: 2024-09-26 11:29:23
+ */
 import { IEdge, INode } from '@antv/g6-core';
 import {
   EdgeConfig,
@@ -23,7 +30,7 @@ export const MouseBehavior = ({
       const model = node.getModel() as NodeConfig;
 
       // 每次点击聚焦到点击节点上
-      apis.focusNodeById(model.id);
+      // apis.focusNodeById(model.id);
       handleClick(model.id, 'node');
     },
     [apis, handleClick]
