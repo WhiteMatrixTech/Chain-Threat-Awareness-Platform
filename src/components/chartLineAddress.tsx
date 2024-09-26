@@ -8,7 +8,7 @@
  * @Author: didadida262
  * @Date: 2024-09-13 16:47:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-14 09:32:53
+ * @LastEditTime: 2024-09-26 16:58:15
  */
 
 import { LineChart } from "echarts/charts";
@@ -34,13 +34,17 @@ echarts.use([
   CanvasRenderer,
   UniversalTransition
 ]);
-
-export function ChartLineAddress() {
+interface IProps {
+  data: any;
+}
+export function ChartLineAddress(props: IProps) {
+  const { data } = props;
   let myChart: any = null;
+  const [chart, setChart] = useState(null) as any;
 
   const run = () => {
     const option = {
-      animationDuration: 15000,
+      animationDuration: 5000,
       grid: {
         bottom: "0%",
         right: "0%",
@@ -86,7 +90,7 @@ export function ChartLineAddress() {
       },
       series: [
         {
-          data: [1800000, 1880000, 2001000, 2090000, 2100000, 2200000, 2290000],
+          data: [],
           type: "line",
           symbol: "rect",
           symbolSize: 3,
@@ -105,6 +109,7 @@ export function ChartLineAddress() {
     };
 
     option && myChart.setOption(option);
+    setChart(myChart);
   };
 
   // 方案3
@@ -125,6 +130,20 @@ export function ChartLineAddress() {
   useEffect(() => {
     void initEcharts();
   }, []);
+  useEffect(
+    () => {
+      // 使用 setOption 重新绘制
+      if (!chart) return;
+      chart.setOption({
+        series: [
+          {
+            data: data.map((item: any) => item.value)
+          }
+        ]
+      });
+    },
+    [data]
+  );
   return (
     <div className="w-full h-full ">
       <div id="main2" className="w-full h-full " />
