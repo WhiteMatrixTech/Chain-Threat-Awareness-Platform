@@ -28,7 +28,8 @@ interface IAddressTxGraphProps {
 
 const layout = {
   type: "concentric",
-  center: [100, 100], // 可选，
+  // center: [100, 100], // 可选，
+  rankdir: "LR", // 可选，默认为图的中心,
   linkDistance: 300, // 可选，边长,
   nodeSize: 1500
 };
@@ -94,14 +95,6 @@ export function AddressTxGraph(props: IAddressTxGraphProps) {
           <ActivateRelations trigger="click" />
           <Hoverable bindType="edge" />
           <MouseBehavior handleClick={handleClick} />
-          {/* <ToolBar handleReset={handleReset} /> */}
-          {/* <GraphDataBar
-            formData={formData}
-            graphData={graphData}
-            focusedId={focusedId}
-            changeData={handleChangeData}
-            changeFocusedId={handleClick}
-          /> */}
         </Graphin>
       </div>
     </div>

@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-02 18:12:26
+ * @LastEditTime: 2024-09-26 09:56:37
  */
 import cn from "classnames";
 
@@ -18,7 +18,12 @@ export function ContractDetection() {
   return (
     <div className={styles.contractDetection}>
       {/* <AppBreadcrumb breadCrumbItems={breadCrumbItems} /> */}
-      <div className={cn(styles.workspace, "flex max-w-full gap-x-2")}>
+      <div
+        className={cn(
+          styles.workspace,
+          "flex justify-between items-center  w-full h-full"
+        )}
+      >
         <ContractProvider>
           <Explorer />
           <WorkBench />

@@ -90,7 +90,7 @@ export function ContractEditor({ contractData }: IContractEditorProps) {
   }, []);
 
   return (
-    <div className="mb-4 h-full overflow-hidden">
+    <div className=" mb-4 h-full overflow-hidden">
       {status === 'loading' && <AnalysisLoading tips="保存中" />}
       <MonacoEditor
         width="100%"

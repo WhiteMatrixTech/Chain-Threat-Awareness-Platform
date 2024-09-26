@@ -89,9 +89,6 @@ export function ButtonCommon(props: IButtonProps) {
         console.warn("定时器启动>>>>");
         timer = setInterval(() => {
           setprogress(prevProgress => {
-            console.warn("total>>>>", total);
-            console.warn("prevProgress>>>>", prevProgress);
-
             if (prevProgress < total) {
               const step = Math.random() * total;
               if (prevProgress + step < total) {
