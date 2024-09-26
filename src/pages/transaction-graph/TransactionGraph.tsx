@@ -65,42 +65,32 @@ export function TransactionGraph() {
       setSelectedHexData(formData.transactionHash);
     }
   };
+  const getAddressInfo = async (address: string) => {
+    if (!address) return;
+    const response = await getBaseInfo(address);
+    console.log("response>>>>", response);
+    setDetailInfo(response);
+  };
   useEffect(() => {
     void getData();
   }, []);
   useEffect(
     () => {
-      console.log("setSelectedHexData>>>>变化", selectedHexData);
       if (!selectedHexData) return;
       const initNodeInfo = {
         ...data
       };
-      // address: string;
-      // balance: string;
-      // firstTransactionTimestamp: string;
-      // inUserCount: string;
-      // outUserCount: string;
-      // transactionCount: string;
-      // transactionInAmountSum: string;
-      // transactionMaxAmount: string;
-      // transactionOutAmountSum: string;
-      const leftAdd = {
-        address: data.from,
-        hash: data.from
-      };
-      const rightAdd = {
-        address: data.to,
-        hash: data.to
-      };
       const allData = [
         ...data.fromTransactions,
         ...data.toTransactions,
-        initNodeInfo,
-        leftAdd,
-        rightAdd
+        initNodeInfo
       ];
       const target = allData.filter(item => item.hash === selectedHexData)[0];
-      setDetailInfo(target);
+      if (selectedHexData.length > 42) {
+        setDetailInfo(target);
+      } else {
+        getAddressInfo(selectedHexData);
+      }
     },
     [selectedHexData]
   );
