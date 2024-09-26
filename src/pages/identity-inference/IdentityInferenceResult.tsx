@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 01:08:50
+ * @LastEditTime: 2024-09-26 09:38:09
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -60,6 +60,7 @@ export function IdentityInferenceResult() {
     hexString: string,
     _type?: TGraphinClickTarget
   ) => {
+    console.log("hexString>>>", hexString);
     if (hexString) {
       setSelectedHexData(hexString);
     }
@@ -71,6 +72,7 @@ export function IdentityInferenceResult() {
         address: address || "",
         chain: "eth"
       };
+      console.log("params>>>", params);
       const respose = await detectIdentityService(params);
       console.log("respose>>>", respose);
 
@@ -78,10 +80,12 @@ export function IdentityInferenceResult() {
         address: address || "",
         limit: 100
       };
+      console.log("paramsTransaction>>>", paramsTransaction);
       const resposeTransaction = await getTransactionsService(
         paramsTransaction
       );
-      console.log("查询交易数据>>>!!!", resposeTransaction);
+
+      console.log("resposeTransaction>>>!!!", resposeTransaction);
 
       const paramsFish: detectFishRequestType = {
         address: address || "",
@@ -124,10 +128,10 @@ export function IdentityInferenceResult() {
       </div>
     : <div
         className={cn(
-          " w-full h-full pt-[0px] fadeIn gap-y-6 flex flex-col  relative"
+          " w-full h-full pt-[0px] fadeIn  flex flex-col relative justify-between"
         )}
       >
-        <div className={cn(`flex-1`)}>
+        <div className={cn(`w-full h-[calc(100%_-_400px)]`)}>
           <AddressTxGraph
             focusedId={selectedHexData}
             formData={formData}
@@ -152,7 +156,7 @@ export function IdentityInferenceResult() {
             className="w-[calc(50%_-_100px)] h-full"
           />
         </div>
-        <div className={cn(` w-full h-[320px]`)}>
+        <div className={cn(`w-full h-[320px] `)}>
           <TableCommonV4
             className="w-full h-full"
             data={result.dataList}
