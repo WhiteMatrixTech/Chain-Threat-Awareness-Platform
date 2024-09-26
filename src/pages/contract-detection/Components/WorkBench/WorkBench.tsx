@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-23 15:25:50
+ * @LastEditTime: 2024-09-26 10:05:50
  */
 import { SaveOutlined } from '@ant-design/icons';
 import { Tabs, Tooltip } from 'antd';
@@ -73,17 +73,22 @@ export function WorkBench() {
   };
 
   return (
-    <div className={cn(styles.WorkBench, 'relative h-full flex-1 bg-white')}>
-      <div
+    <div
+      className={cn(
+        styles.WorkBench,
+        'relative  h-full w-[calc(100%_-_520px)] bg-white'
+      )}
+    >
+      {/* <div
         onClick={onClickSave}
         className="absolute right-6 top-2 z-50 cursor-pointer"
       >
         <Tooltip title="保存当前结果">
           <SaveOutlined className="cursor-pointer text-xl hover:text-[#465ebf]" />
         </Tooltip>
-      </div>
+      </div> */}
       <Tabs
-        className="h-full"
+        className="h-full "
         type="editable-card"
         hideAdd={true}
         onChange={onChange}
@@ -92,7 +97,7 @@ export function WorkBench() {
       >
         {panes.map((pane) => (
           <TabPane
-            className="h-full"
+            className=" h-full"
             tab={pane.title}
             key={pane.key}
             closable={true}
