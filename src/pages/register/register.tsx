@@ -316,7 +316,7 @@ export function Register(props: registerProps) {
           <div className="flex h-[508px] w-[850px] items-center justify-center rounded-[8px] bg-[#ffffff] shadow-[#606F9433]">
             <Result
               status="success"
-              title="您的账户：!"
+              title="您的账户"
               subTitle="注册成功"
               extra={[
                 <Button
