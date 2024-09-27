@@ -50,10 +50,12 @@ Graphin.registerNode(
 
 const graphinDefaultConfig = {
   layout: {
-    type: 'graphin-force',
+    type: 'random',
+    // type: 'graphin-force',
     // type: 'random',
-    rankdir: 'LR', // 可选，默认为图的中心,
-    controlPoints: true
+    // type: 'circular',
+    rankdir: 'LR' // 可选，默认为图的中心,
+    // controlPoints: true,
   },
   theme: { background: '#e5e8ee33' },
   fitCenter: true
@@ -174,6 +176,9 @@ export function TransactionTraceGraph(props: any) {
       id: `${uuidv4().replaceAll('-', '')}`,
       source: data.from,
       target: queryHash
+      // style: {
+      //   length: 100
+      // }
     };
     const outflowEdges: ITxGraphEdge = {
       id: `${uuidv4().replaceAll('-', '')}`,
@@ -186,7 +191,7 @@ export function TransactionTraceGraph(props: any) {
       edges: [inflowEdges, outflowEdges]
     };
     if (data.toTransactions.length) {
-      data.toTransactions.forEach((item: any) => {
+      data.toTransactions.splice(0, 50).forEach((item: any) => {
         const newNode: ITxGraphNode = {
           id: item.hash,
           type: 'CenterTxNode',
