@@ -50,10 +50,10 @@ Graphin.registerNode(
 
 const graphinDefaultConfig = {
   layout: {
-    // type: 'random',
+    type: 'random',
     // type: 'graphin-force',
     // type: 'random',
-    type: 'circular',
+    // type: 'circular',
     rankdir: 'LR' // 可选，默认为图的中心,
     // controlPoints: true,
   },
