@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-09-27 21:16:38
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-28 01:49:58
+ * @LastEditTime: 2024-09-29 14:23:15
  */
 export const leakMap = [
   {
@@ -36,7 +36,7 @@ export const leakMap = [
   },
   {
     key: "Range Query Risk",
-    title: "Range Query Risk",
+    title: "GetQueryResult等范围查询函数可能会导致事务中出现幻读。",
     code: `
       func test_range_query_risks(queryString string) {
          stub := shim.ChaincodeStub{}
@@ -52,7 +52,7 @@ export const leakMap = [
   },
   {
     key: "Read your Write",
-    title: "Read your Write",
+    title: "交易在确认后写入分类账，如果在写入函数之后立即使用读取函数，则可能无法获得预期结果，因为它可能尚未写入账本。",
     code: `
       func test_read_after_write() {
          stub := shim.ChaincodeStub{}
@@ -65,7 +65,7 @@ export const leakMap = [
   },
   {
     key: "Reifified Object Addresses",
-    title: "Reifified Object Addresses",
+    title: "内存地址的环境不同，存储的值也不相同，使用内存地址会导致非确定性行为。",
     code: `
       func test_reified_object_addresses() {
          dataList := [3]int8{1, 2, 3}
