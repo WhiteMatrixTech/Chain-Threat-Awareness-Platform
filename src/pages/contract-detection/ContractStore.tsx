@@ -235,7 +235,7 @@ const initialContractState: ContractState = {
     {
       id: initETHAfterChainProjectId,
       parentId: null,
-      name: "ETH_afterchain",
+      name: "ETH_onchain",
       type: ExplorerItemType.PROJECT,
       projectType: ProjectType.BSC2
     },
@@ -243,35 +243,35 @@ const initialContractState: ContractState = {
       id: uuidv4(),
       parentId: initETHAfterChainProjectId,
       type: ExplorerItemType.FILE,
-      name: "ETH_IO_AF.sol",
+      name: "ETH_IO_AF.abi",
       content: ETH_IO_AF
     },
     {
       id: uuidv4(),
       parentId: initETHAfterChainProjectId,
       type: ExplorerItemType.FILE,
-      name: "ETH_URV.sol",
+      name: "ETH_URV.abi",
       content: ETH_URV
     },
     {
       id: uuidv4(),
       parentId: initETHAfterChainProjectId,
       type: ExplorerItemType.FILE,
-      name: "ETH_BD.sol",
+      name: "ETH_BD.abi",
       content: ETH_BD
     },
     {
       id: uuidv4(),
       parentId: initETHAfterChainProjectId,
       type: ExplorerItemType.FILE,
-      name: "ETH_AMA.sol",
+      name: "ETH_AMA.abi",
       content: ETH_AMA
     },
     // bsc-afterchain
     {
       id: initBSCAfterChainProjectId,
       parentId: null,
-      name: "BSC_afterchain",
+      name: "BSC_onchain",
       type: ExplorerItemType.PROJECT,
       projectType: ProjectType.BSC2
     },
@@ -279,35 +279,35 @@ const initialContractState: ContractState = {
       id: uuidv4(),
       parentId: initBSCAfterChainProjectId,
       type: ExplorerItemType.FILE,
-      name: "BSC_AMA.sol",
+      name: "BSC_AMA.abi",
       content: BSC_AMA
     },
     {
       id: uuidv4(),
       parentId: initBSCAfterChainProjectId,
       type: ExplorerItemType.FILE,
-      name: "BSC_BD.sol",
+      name: "BSC_BD.abi",
       content: BSC_BD
     },
     {
       id: uuidv4(),
       parentId: initBSCAfterChainProjectId,
       type: ExplorerItemType.FILE,
-      name: "BSC_leakingE.sol",
+      name: "BSC_leakingE.abi",
       content: BSC_leakingE
     },
     {
       id: uuidv4(),
       parentId: initBSCAfterChainProjectId,
       type: ExplorerItemType.FILE,
-      name: "BSC_URV.sol",
+      name: "BSC_URV.abi",
       content: BSC_URV
     },
     {
       id: uuidv4(),
       parentId: initBSCAfterChainProjectId,
       type: ExplorerItemType.FILE,
-      name: "BSC_IO.sol",
+      name: "BSC_IO.abi",
       content: BSC_IO
     }
   ],
@@ -315,7 +315,7 @@ const initialContractState: ContractState = {
     {
       id: initFileId,
       type: ExplorerItemType.FILE,
-      name: "Storage.sol",
+      name: "Storage.abi",
       content: BasicContract
     }
   ],

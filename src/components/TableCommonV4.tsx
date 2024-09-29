@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-19 16:19:40
+ * @LastEditTime: 2024-09-29 17:21:19
  */
 /* eslint-disable prettier/prettier */
 
@@ -99,7 +99,7 @@ export function TableCommonV4(props: IProps) {
                           curretnColWidth
                     }
                     className={cn(
-                      `flex-shrink-0 px-3 flex items-center justify-start  text-[15px] text-[#ffffff]`,
+                      `flex-shrink-0 px-3 flex items-center justify-start  text-[15px] text-[#ffffff] group relative`,
                       col.copy ? "cursor-pointer" : ""
                     )}
                     key={index + "_" + colkey}
@@ -107,9 +107,12 @@ export function TableCommonV4(props: IProps) {
                       handleClickCopy(item, col);
                     }}
                   >
-                    <span className="w-full h-full truncate leading-[40px]">
+                    <span className="w-full h-full truncate leading-[40px] ">
                       {col.dataIndex ? item[col.dataIndex] : index + 1}
                     </span>
+                    <div className="rounded-[5px] z-[10] hidden group-hover:block text-[#ffffff] w-full max-h-[254px] bg-[#0D2963] absolute top-[35px] left-0 px-[10px] py-[5px] overflow-scroll">
+                      {col.dataIndex ? item[col.dataIndex] : index + 1}
+                    </div>
                   </div>
                 )}
               </div>
