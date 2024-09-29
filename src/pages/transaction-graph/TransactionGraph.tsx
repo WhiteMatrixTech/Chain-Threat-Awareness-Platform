@@ -89,8 +89,8 @@ export function TransactionGraph() {
       if (selectedHexData.length > 42) {
         setDetailInfo({
           ...target,
-          from: target.fromAddress,
-          to: target.toAddress
+          from: target.fromAddress || target.from,
+          to: target.toAddress || target.to
         });
       } else {
         getAddressInfo(selectedHexData);
