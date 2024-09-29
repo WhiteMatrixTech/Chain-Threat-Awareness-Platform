@@ -179,9 +179,11 @@ export function DataScreens(props: dataScreensProps) {
       if (!targetData) {
         if (item.dataIndex === "property") {
           const randomData = ["3%", "4%", "5%", "6%", "7%", "8%"];
+          const index = Math.floor(Math.random() * 6);
+          console.log("index>>>", index);
           return {
             ...item,
-            value: randomData[Math.floor(Math.random() * 7)]
+            value: randomData[index]
           };
         } else {
           return {
@@ -351,7 +353,7 @@ export function DataScreens(props: dataScreensProps) {
         </div>
         <div className="  w-[calc(100%_-_859px)] 3xl:w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
           <div className="earthContainer w-full h-[calc(100%_-_150px)]  flex justify-center items-center  ">
-            <EarthCommon />
+            {/* <EarthCommon /> */}
           </div>
           <div
             className={cn(
