@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-type-alias */
@@ -8,7 +9,7 @@
  * @Author: didadida262
  * @Date: 2024-09-13 16:47:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-26 17:11:24
+ * @LastEditTime: 2024-09-29 11:23:45
  */
 
 import { LineChart } from "echarts/charts";
@@ -63,7 +64,7 @@ export function ChartLine(props: IProps) {
       },
       xAxis: {
         type: "category",
-        data: time,
+        data: [],
         axisLine: {
           show: false
         },
@@ -132,6 +133,16 @@ export function ChartLine(props: IProps) {
     );
     run();
   };
+  const getTime = (timestamp: number) => {
+    const date = new Date(timestamp * 1000); // 将时间戳转换为毫秒
+
+    const hours = date.getHours().toString().padStart(2, "0"); // 获取小时，并补零
+    const minutes = date.getMinutes().toString().padStart(2, "0"); // 获取分钟，并补零
+    const seconds = date.getSeconds().toString().padStart(2, "0"); // 获取秒，并补零
+
+    const formattedTime = `${hours}:${minutes}:${seconds}`;
+    return formattedTime;
+  };
 
   useEffect(() => {
     void initEcharts();
@@ -140,13 +151,18 @@ export function ChartLine(props: IProps) {
     () => {
       // 使用 setOption 重新绘制
       if (!chart) return;
-      console.log("data>>>", data.map((item: any) => item.value));
+      const newXData = data
+        .map((item: any) => getTime(item.timestamp))
+        .reverse();
       chart.setOption({
         series: [
           {
-            data: data.map((item: any) => item.value)
+            data: data.map((item: any) => item.value).reverse()
           }
-        ]
+        ],
+        xAxis: {
+          data: newXData
+        }
       });
     },
     [data]
