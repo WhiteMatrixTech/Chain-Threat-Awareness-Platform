@@ -405,7 +405,7 @@ export function DataScreens(props: dataScreensProps) {
             </div>
           </div>
         </div>
-        <div className=" w-[404px] h-full overflow-scroll 3xl:overflow-hidden">
+        <div className=" w-[404px] h-full overflow-scroll">
           <div className="  w-full h-[400px]">
             <div
               className={cn(
