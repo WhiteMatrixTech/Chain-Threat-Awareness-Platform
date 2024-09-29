@@ -659,8 +659,7 @@ export function Detection() {
     if (focusFileId) {
       if (chainFlag === 'beforeChain') {
         form.setFieldsValue({
-          fileContent: openFiles.find((file) => file.id === focusFileId)
-            ?.content
+          fileId: openFiles.find((file) => file.id === focusFileId)?.id
         });
       } else {
         formAfterChain.setFieldsValue({
@@ -676,9 +675,17 @@ export function Detection() {
       const data = await detectContract(params);
       console.log('data>>>', data);
       setloading(false);
+      const currentfocusFileIdInfo = explorerList.filter(
+        (item: any) => item.id === focusFileId
+      )[0];
+      if (!currentfocusFileIdInfo) return;
+      const parentInfo = explorerList.filter(
+        (item: any) => item.id === currentfocusFileIdInfo.parentId
+      )[0];
+      if (!parentInfo) return;
 
       return {
-        file: 'ETH_default/Storage.sol',
+        file: parentInfo.name + '/' + currentfocusFileIdInfo.name,
         result: data
       };
     } catch (error) {
@@ -695,13 +702,16 @@ export function Detection() {
   const handleSubmit = () => {
     void form
       .validateFields()
-      .then((data: { fileContent: string; version: string }) => {
+      .then((data: { fileId: string; version: string }) => {
         setloading(true);
-        const { fileContent, version } = data;
-        console.log('data>>>>', data);
+        const { fileId, version } = data;
+        const realContent = explorerList.filter(
+          (item: any) => item.id === fileId
+        )[0];
+        // 打点
         setTimeout(() => {
           mutate({
-            source_code: fileContent,
+            source_code: realContent.content,
             version: version,
             model: 'contractFuzzer'
           });
@@ -760,18 +770,18 @@ export function Detection() {
       {!data && chainFlag === 'beforeChain' && (
         <Form form={form} wrapperCol={{ span: 24 }}>
           <Form.Item
-            name="fileContent"
+            name="fileId"
             rules={[
               {
                 required: true,
                 message: '请选择检测合约文件'
               }
             ]}
-            initialValue={openFiles[0].content}
+            initialValue={openFiles[0].id}
           >
             <Select placeholder="请选择检测合约文件">
               {openFiles.map((file) => (
-                <Option key={file.id} value={file.content}>
+                <Option key={file.id} value={file.id}>
                   {file.name}
                 </Option>
               ))}
@@ -981,10 +991,10 @@ export function Detection() {
       {data && (
         <div className="">
           <div className="text-center text-xl font-semibold">检测完毕</div>
-          <div className="mt-3 mb-2 flex items-center justify-center">
-            <FileOutlined />
+          <div className="mt-3 mb-2 flex items-center justify-start">
+            <FileOutlined className="h-[16px] w-[16px]" />
             <Tooltip title={`File:${data.file}`}>
-              <span className="max-w-full overflow-hidden text-ellipsis pl-1 text-base">
+              <span className="max-w-full overflow-hidden text-ellipsis text-base">
                 File:{data.file}
               </span>
             </Tooltip>
