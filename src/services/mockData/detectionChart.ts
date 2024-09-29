@@ -5,18 +5,13 @@ const SafetyInspectionItems = [
   'SWC-104未处理的异常',
   'SWC-105以太泄漏',
   'SWC-106无保护自毁',
-
   'SWC-107重入漏洞',
-
   'SWC-110触发assert断言',
-
   'SWC-112不安全委托调用',
-
   'SWC-114交易顺序依赖',
-
   'SWC-120区块依赖',
-
-  'SWC-132以太锁定'
+  'SWC-132以太锁定',
+  'SWC-124 任意存储位置存取（arbitrary_memory_access）'
 ];
 
 interface IDetectionDetail {
