@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-type-alias */
@@ -63,7 +64,7 @@ export function ChartLineAddress(props: IProps) {
       xAxis: {
         type: "category",
         // data: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "23:00"],
-        data: time,
+        data: [],
         axisLine: {
           show: false
         },
@@ -135,7 +136,16 @@ export function ChartLineAddress(props: IProps) {
     );
     run();
   };
+  const getTime = (timestamp: number) => {
+    const date = new Date(timestamp * 1000); // 将时间戳转换为毫秒
 
+    const hours = date.getHours().toString().padStart(2, "0"); // 获取小时，并补零
+    const minutes = date.getMinutes().toString().padStart(2, "0"); // 获取分钟，并补零
+    const seconds = date.getSeconds().toString().padStart(2, "0"); // 获取秒，并补零
+
+    const formattedTime = `${hours}:${minutes}:${seconds}`;
+    return formattedTime;
+  };
   useEffect(() => {
     void initEcharts();
   }, []);
@@ -143,12 +153,18 @@ export function ChartLineAddress(props: IProps) {
     () => {
       // 使用 setOption 重新绘制
       if (!chart) return;
+      const newXData = data
+        .map((item: any) => getTime(item.timestamp))
+        .reverse();
       chart.setOption({
         series: [
           {
-            data: data.map((item: any) => item.value)
+            data: data.map((item: any) => item.value).reverse()
           }
-        ]
+        ],
+        xAxis: {
+          data: newXData
+        }
       });
     },
     [data]

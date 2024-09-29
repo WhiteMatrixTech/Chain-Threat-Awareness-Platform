@@ -353,7 +353,7 @@ export function DataScreens(props: dataScreensProps) {
         </div>
         <div className="  w-[calc(100%_-_859px)] 3xl:w-[calc(100%_-_903px)] h-full flex justify-between flex-col items-center">
           <div className="earthContainer w-full h-[calc(100%_-_150px)]  flex justify-center items-center  ">
-            {/* <EarthCommon /> */}
+            <EarthCommon />
           </div>
           <div
             className={cn(
