@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:34:32
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-29 23:17:41
+ * @LastEditTime: 2024-09-29 23:19:23
  */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { BellOutlined } from '@ant-design/icons';
@@ -97,7 +97,6 @@ export function DetectionDetail() {
 }
 
 function DetectionDetailItem(data: any) {
-  console.log('data>>>1', data);
   return (
     <div className="text-base">
       <div className="item-center mb-3 flex">
