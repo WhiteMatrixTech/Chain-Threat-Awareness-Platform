@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-29 16:18:59
+ * @LastEditTime: 2024-09-29 16:54:49
  */
 /* eslint-disable prettier/prettier */
 
@@ -110,7 +110,7 @@ export function TableCommonV4(props: IProps) {
                     <span className="w-full h-full truncate leading-[40px] ">
                       {col.dataIndex ? item[col.dataIndex] : index + 1}
                     </span>
-                    <div className="rounded-[5px] z-[10] hidden group-hover:block text-[#ffffff] w-full max-h-[100px] bg-[#1c2024] absolute top-[35px] left-0 px-[10px] py-[5px] overflow-scroll">
+                    <div className="rounded-[5px] z-[10] hidden group-hover:block text-[#ffffff] w-full max-h-[254px] bg-[#D9D9D9] absolute top-[35px] left-0 px-[10px] py-[5px] overflow-scroll">
                       {col.dataIndex ? item[col.dataIndex] : index + 1}
                     </div>
                   </div>
