@@ -109,7 +109,7 @@ const DemoColumn = () => {
       top: true,
       position: "bottom",
       title: {
-        text: "项目编号"
+        text: "漏洞类型编号"
       },
       label: {
         autoHide: false,
