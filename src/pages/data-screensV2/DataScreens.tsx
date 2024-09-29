@@ -179,9 +179,11 @@ export function DataScreens(props: dataScreensProps) {
       if (!targetData) {
         if (item.dataIndex === "property") {
           const randomData = ["3%", "4%", "5%", "6%", "7%", "8%"];
+          const index = Math.floor(Math.random() * 6);
+          console.log("index>>>", index);
           return {
             ...item,
-            value: randomData[Math.floor(Math.random() * 7)]
+            value: randomData[index]
           };
         } else {
           return {
