@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-26 15:39:10
+ * @LastEditTime: 2024-09-29 15:51:56
  */
 import { getData, postData } from "./request";
 
@@ -53,7 +53,7 @@ export interface detectFewSamplesRequestType {
 }
 export interface detectActionLogRequestType {
   action: string;
-  count: number;
+  count?: number;
 }
 export interface dataStoreCreateRequestType {
   chain: string;
