@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-09-11 13:49:26
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 11:11:17
+ * @LastEditTime: 2024-09-29 10:18:44
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -125,7 +125,7 @@ export function DialogAdd(props: IProps) {
 
           <div className="w-full h-[180px] flex flex-col justify-between">
             <div className="w-full h-[23px] flex justify-start items-center">
-              <span className="text-[#666666] text-[15px]">上传数据（请根据模板填写数据）</span>
+              <span className="text-[#666666] text-[15px]">上传数据</span>
             </div>
             <div className={cn(`w-full h-[148px]`,
             `bg-[url('./assets/dialog_upload_bg.png')] bg-cover bg-center relative`,

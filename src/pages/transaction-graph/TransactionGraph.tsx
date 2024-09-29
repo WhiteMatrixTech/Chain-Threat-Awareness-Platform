@@ -87,7 +87,11 @@ export function TransactionGraph() {
       ];
       const target = allData.filter(item => item.hash === selectedHexData)[0];
       if (selectedHexData.length > 42) {
-        setDetailInfo(target);
+        setDetailInfo({
+          ...target,
+          from: target.fromAddress,
+          to: target.toAddress
+        });
       } else {
         getAddressInfo(selectedHexData);
       }
