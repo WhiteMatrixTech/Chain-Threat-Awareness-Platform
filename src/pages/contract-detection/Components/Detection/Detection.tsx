@@ -736,11 +736,19 @@ export function Detection() {
   };
 
   const handleClickView = () => {
-    navigate(
-      `/threat-detection/detection-chart?result=${window.btoa(
-        JSON.stringify(data?.result || '')
-      )}`
-    );
+    if (chainFlag !== 'beforeChain') {
+      navigate(
+        `/threat-detection/detection-chart-afterchain?result=${window.btoa(
+          JSON.stringify(data?.result || '')
+        )}`
+      );
+    } else {
+      navigate(
+        `/threat-detection/detection-chart?result=${window.btoa(
+          JSON.stringify(data?.result || '')
+        )}`
+      );
+    }
   };
 
   const handleReset = () => {

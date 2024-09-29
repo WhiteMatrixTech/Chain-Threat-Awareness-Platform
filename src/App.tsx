@@ -1,3 +1,10 @@
+/*
+ * @Description:
+ * @Author: didadida262
+ * @Date: 2024-09-24 17:31:53
+ * @LastEditors: didadida262
+ * @LastEditTime: 2024-09-29 22:47:04
+ */
 /* eslint-disable prettier/prettier */
 /*
  * @Description:
@@ -31,6 +38,7 @@ import { DataScreens } from "./pages/data-screensV2";
 import { DataStore } from "./pages/data-store";
 import { DetectionAttack } from "./pages/detection-attack";
 import { DetectionChart } from "./pages/detection-chart";
+import { DetectionChartAfterChain } from "./pages/detection-chart-afterChain";
 import { DetectionFish } from "./pages/detection-fish";
 import { DetectionPrivacy } from "./pages/detection-privacy";
 import { Login } from "./pages/login";
@@ -54,6 +62,10 @@ function App() {
         <Route
           path="/threat-detection/detection-chart"
           element={<DetectionChart />}
+        />
+        <Route
+          path="/threat-detection/detection-chart-afterchain"
+          element={<DetectionChartAfterChain />}
         />
         <Route
           path="/threat-detection/detection-privacy"

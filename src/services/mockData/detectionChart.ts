@@ -11,7 +11,8 @@ const SafetyInspectionItems = [
   'SWC-114交易顺序依赖',
   'SWC-120区块依赖',
   'SWC-132以太锁定',
-  'SWC-124 任意存储位置存取（arbitrary_memory_access）'
+  'SWC-124 任意存储位置存取'
+  // 'SWC-124 任意存储位置存取(arbitrary_memory_access)'
 ];
 
 interface IDetectionDetail {
