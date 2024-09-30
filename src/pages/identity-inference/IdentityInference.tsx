@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-24 10:23:36
+ * @LastEditTime: 2024-09-30 16:29:38
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -52,7 +52,7 @@ export function IdentityInference() {
         name: item.input,
         time: item.createAt,
         cost: item.cost || "-",
-        result: JSON.parse(item.output).identity,
+        result: item.output ? JSON.parse(item.output).identity : "",
         tag: "-"
       };
     });

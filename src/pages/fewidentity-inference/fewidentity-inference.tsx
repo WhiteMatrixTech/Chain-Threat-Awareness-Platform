@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-25 10:18:46
+ * @LastEditTime: 2024-09-30 16:29:17
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -61,12 +61,10 @@ export function FewidentityInference() {
       return {
         name: input[input.length - 1],
         time: item.createAt,
-        result: JSON.parse(item.output).identity,
+        result: item.output ? JSON.parse(item.output).identity : "",
         sample: input.slice(0, 5).join(",")
       };
     });
-    console.log("历史数据>>>result", result);
-    console.log("result[0].name", result[0].name);
     const initSampleList = result[0].sample.split(",");
     setAddress(result[0].name);
     setSampleData({

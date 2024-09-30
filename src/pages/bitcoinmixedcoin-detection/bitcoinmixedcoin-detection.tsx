@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-17 12:58:22
+ * @LastEditTime: 2024-09-30 16:19:29
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -53,7 +53,7 @@ export function BitcoinmixedcoinDetection() {
       return {
         name: item.input,
         time: item.createAt,
-        result: JSON.parse(item.output).result
+        result: item.output ? JSON.parse(item.output).result : ""
       };
     });
     setdetectionSampleList(result);

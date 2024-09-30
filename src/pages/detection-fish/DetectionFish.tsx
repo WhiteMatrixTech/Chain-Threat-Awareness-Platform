@@ -9,7 +9,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-25 14:20:07
+ * @LastEditTime: 2024-09-30 16:27:46
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -134,7 +134,10 @@ export function DetectionFish() {
     const result: any[] = respose.data.map((item: any) => {
       return {
         name: item.input,
-        result: JSON.parse(item.output).is_phishing ? "钓鱼地址" : "非钓鱼地址",
+        // result: JSON.parse(item.output).is_phishing ? "钓鱼地址" : "非钓鱼地址",
+        result: item.output
+          ? JSON.parse(item.output).is_phishing ? "钓鱼地址" : "非钓鱼地址"
+          : "",
         time: item.createAt
       };
     });

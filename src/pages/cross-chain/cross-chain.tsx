@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-13 13:42:21
+ * @LastEditTime: 2024-09-30 16:25:25
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -46,7 +46,9 @@ export function CrossChain() {
     };
     const respose = await detectActionLogService(params);
     const result: any[] = respose.data.map((item: any) => {
-      const tx_query_result = JSON.parse(item.output).tx_query_result;
+      const tx_query_result = item.output
+        ? JSON.parse(item.output).tx_query_result
+        : [];
       return {
         name: item.input,
         time: item.createAt,

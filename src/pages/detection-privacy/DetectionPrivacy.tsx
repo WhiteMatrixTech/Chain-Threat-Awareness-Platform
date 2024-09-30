@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-25 16:31:14
+ * @LastEditTime: 2024-09-30 16:28:30
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -83,9 +83,9 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     const respose = await detectActionLogService(params);
     const result: any[] = respose.data.map((item: any) => {
       return {
-        name: JSON.parse(item.input).block_range,
+        name: item.input?JSON.parse(item.input).block_range: '',
         time: item.createAt,
-        result: JSON.parse(item.output).result,
+        result: item.output?JSON.parse(item.output).result:'',
       };
     });
     setdetectionSampleList(result);
