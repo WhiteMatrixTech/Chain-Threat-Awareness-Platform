@@ -215,11 +215,11 @@ export function TransactionTraceGraph(props: any) {
   return (
     <div className="relative h-full w-full">
       {loading && <AnalysisLoading />}
-      <div className="absolute top-4 left-5 z-50 text-lg">
+      {/* <div className="absolute top-4 left-5 z-50 text-lg">
         <Tooltip title="右键点击节点进行展开">
           <InfoCircleOutlined />
         </Tooltip>
-      </div>
+      </div> */}
       <div
         id="TxTraceGraphContainer"
         className={cn(styles.canvasBg, 'absolute inset-0')}

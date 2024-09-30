@@ -100,7 +100,7 @@ export function TransactionGraph() {
   );
 
   const onClickAnalysis = () => {
-    if (!formData.date || !formData.tokenType || !formData.transactionHash) {
+    if (!formData.tokenType || !formData.transactionHash) {
       notification.warning({ message: `请输入信息！` });
       return;
     }
@@ -156,7 +156,7 @@ export function TransactionGraph() {
                   }}
                   className="w-[180px] 3xl:w-[408px] h-[36px] "
                 />
-                <div
+                {/* <div
                   className={cn(`w-[450px] h-[36px]  ${pattern.flexCenter}`)}
                 >
                   <DateCommon
@@ -168,7 +168,7 @@ export function TransactionGraph() {
                       });
                     }}
                   />
-                </div>
+                </div> */}
               </div>
             </div>
 
