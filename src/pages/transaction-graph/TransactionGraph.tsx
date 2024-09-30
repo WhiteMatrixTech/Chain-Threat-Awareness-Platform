@@ -154,7 +154,7 @@ export function TransactionGraph() {
                       transactionHash: val
                     });
                   }}
-                  className="w-[180px] 3xl:w-[408px] h-[36px] "
+                  className="w-[480px] 3xl:w-[688px] h-[36px] "
                 />
                 {/* <div
                   className={cn(`w-[450px] h-[36px]  ${pattern.flexCenter}`)}
