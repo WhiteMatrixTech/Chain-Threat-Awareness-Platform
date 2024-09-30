@@ -1,8 +1,9 @@
+/* eslint-disable simple-import-sort/imports */
 /* eslint-disable prettier/prettier */
-import { Column, ColumnConfig } from "@ant-design/plots";
 import cn from "classnames";
 import { useSearchParams } from "react-router-dom";
 
+import { Column, ColumnConfig } from "@ant-design/plots";
 import { SafetyInspectionItems } from "@/services/mockData/detectionChart";
 
 import styles from "./DetectionChart.module.less";
@@ -109,7 +110,7 @@ const DemoColumn = () => {
       top: true,
       position: "bottom",
       title: {
-        text: "项目编号"
+        text: "漏洞类型编号"
       },
       label: {
         autoHide: false,
