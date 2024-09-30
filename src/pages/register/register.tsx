@@ -1,12 +1,13 @@
+/* eslint-disable simple-import-sort/imports */
 /* eslint-disable prettier/prettier */
-import { Button, Form, Input, Result } from "antd";
+import { Button, Form, Input, Result, notification } from "antd";
 import cn from "classnames";
 import { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAsyncFn, useWindowSize } from "react-use";
 
-import LogoBlock from "@/assets/logo_block.png";
 import { registerRequestTypeV2, registerService } from "@/services/user";
+import LogoBlock from "@/assets/logo_block.png";
 import pattern from "@/styles/pattern";
 
 import styles from "./register.module.less";
@@ -60,27 +61,10 @@ export function Register(props: registerProps) {
             contactEmail,
             contactName,
             institutionName,
-            mobileNumber,
-            code
+            mobileNumber
           } = data;
 
-          // if (code) {
-          //   await register({
-          //     userId: contactEmail,
-          //     password,
-          //     metadata: {
-          //       institutionName,
-          //       contactName,
-          //       contactAddress,
-          //       userName,
-          //       mobileNumber
-          //     },
-          //     code
-          //   });
-          // } else {
-          // 打点
-          await register({
-            // userId: contactEmail,
+          const res: any = await register({
             institution: institutionName,
             username: userName,
             password,
@@ -90,9 +74,12 @@ export function Register(props: registerProps) {
             nickname: "",
             createAt: ""
           });
-          // }
-
-          setIsRegisterSuccess(true);
+          console.log("res>>", res);
+          if (res.data) {
+            setIsRegisterSuccess(true);
+          } else {
+            notification.warning({ message: res.message });
+          }
         })
         .catch(error => console.log("error", error));
     },
@@ -278,7 +265,7 @@ export function Register(props: registerProps) {
                 />
               </Form.Item>
 
-              <Form.Item name="code" className="!mb-[16px]">
+              {/* <Form.Item name="code" className="!mb-[16px]">
                 <Input
                   placeholder="邀请码"
                   suffix={<div className="text-[#30313380]">*非必填</div>}
@@ -286,7 +273,7 @@ export function Register(props: registerProps) {
                   className="!border-t-0 !border-r-0 !border-l-0 !bg-[#ffffff] !h-[39px] !rounded-[0px] !border-[#00000080]"
                   style={{ boxShadow: "0 0 0" }}
                 />
-              </Form.Item>
+              </Form.Item> */}
             </Form>
 
             <Button
