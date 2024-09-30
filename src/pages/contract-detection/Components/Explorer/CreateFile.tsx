@@ -1,5 +1,5 @@
 import { Button, Form, Input, message, Modal, notification } from 'antd';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useMutation } from 'react-query';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -14,7 +14,6 @@ import {
 import { formItemLayout } from './CreateProject';
 
 const { Item } = Form;
-const FileSuffix = '.sol';
 
 interface ICreateFileProps {
   visible: boolean;
@@ -29,8 +28,12 @@ interface ICreateFileData {
 
 export function CreateFile(props: ICreateFileProps) {
   const { visible, selectedId, modalData, onCancel } = props;
+
   const [form] = Form.useForm();
   const { contractState, dispatch } = useContractContext();
+  const [FileSuffix, setFileSuffix] = useState(
+    contractState.chainFlag !== 'beforeChain' ? '.abi' : '.sol'
+  );
 
   const handleClose = () => {
     onCancel(ExplorerItemType.FILE);
@@ -89,7 +92,11 @@ export function CreateFile(props: ICreateFileProps) {
     visible: visible,
     closable: true,
     destroyOnClose: true,
-    title: modalData ? '重命名' : '新增合约文件',
+    title: modalData
+      ? '重命名'
+      : contractState.chainFlag !== 'beforeChain'
+      ? '新增文件'
+      : '新增合约文件',
     onCancel: handleClose,
     footer: [
       <Button
@@ -110,7 +117,11 @@ export function CreateFile(props: ICreateFileProps) {
     <Modal {...modalProps}>
       <Form {...formItemLayout} form={form}>
         <Item
-          label="合约文件名称"
+          label={
+            contractState.chainFlag !== 'beforeChain'
+              ? '文件名称'
+              : '合约文件名称'
+          }
           name="fileName"
           initialValue={modalData?.name.replace('.sol', '')}
           rules={[

@@ -1,8 +1,9 @@
+/* eslint-disable prettier/prettier */
 import { notification } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import MonacoEditor from 'react-monaco-editor';
 import { useMutation } from 'react-query';
-import { useMount } from 'react-use';
+import { useDebounce, useMount } from 'react-use';
 
 import { AnalysisLoading } from '@/components/AnalysisLoading';
 import { emitter, InternalEventType } from '@/services/event';
@@ -39,17 +40,28 @@ interface IContractEditorProps {
 }
 
 export function ContractEditor({ contractData }: IContractEditorProps) {
-  const { dispatch } = useContractContext();
+  const {
+    contractState: { openFiles, focusFileId, explorerList, chainFlag }
+, dispatch
+} = useContractContext();
   const editorContainer = useRef<MonacoEditor | null>(null);
   const [editorValue, setEditorValue] = useState(contractData.content);
 
   const onChange = (newValue: string) => {
     setEditorValue(newValue);
   };
+  useDebounce(
+    () => {
+      emitter.emit(InternalEventType.SAVE_CONTRACT);
+    },
+    1000,
+    [editorValue]
+  );
 
   const { mutate, status } = useMutation(async () => {
     await waitTime(1000);
 
+    if (focusFileId !== contractData.key) return
     dispatch({
       type: ContractAction.SAVE_FILE_CONTENT,
       data: {
@@ -58,11 +70,11 @@ export function ContractEditor({ contractData }: IContractEditorProps) {
       }
     });
 
-    notification.success({
-      message: '保存成功',
-      top: 64,
-      duration: 2
-    });
+    // notification.success({
+    //   message: '保存成功',
+    //   top: 64,
+    //   duration: 2
+    // });
 
     return true;
   });
@@ -70,6 +82,7 @@ export function ContractEditor({ contractData }: IContractEditorProps) {
   useMount(() => {
     emitter.on(InternalEventType.SAVE_CONTRACT, () => {
       if (editorContainer.current) {
+
         mutate();
       }
     });
@@ -91,7 +104,7 @@ export function ContractEditor({ contractData }: IContractEditorProps) {
 
   return (
     <div className=" mb-4 h-full overflow-hidden">
-      {status === 'loading' && <AnalysisLoading tips="保存中" />}
+      {/* {status === 'loading' && <AnalysisLoading tips="保存中" />} */}
       <MonacoEditor
         width="100%"
         height="100%"

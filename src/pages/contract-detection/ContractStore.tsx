@@ -315,7 +315,7 @@ const initialContractState: ContractState = {
     {
       id: initFileId,
       type: ExplorerItemType.FILE,
-      name: "Storage.abi",
+      name: "Storage.sol",
       content: BasicContract
     }
   ],
@@ -354,6 +354,12 @@ const reducer = (
     }
     case ContractAction.SAVE_FILE_CONTENT: {
       state.explorerList = state.explorerList.map(item => {
+        if (item.id === action.data.id) {
+          item.content = action.data.content;
+        }
+        return item;
+      });
+      state.openFiles = state.openFiles.map(item => {
         if (item.id === action.data.id) {
           item.content = action.data.content;
         }
