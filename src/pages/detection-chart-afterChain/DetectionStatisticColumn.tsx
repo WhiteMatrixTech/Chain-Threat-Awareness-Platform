@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 
 import { SafetyInspectionItems } from "@/services/mockData/detectionChart";
 
-import styles from "./DetectionChart.module.less";
+// import styles from "./DetectionChart.module.less";
 
 const data = [
   {
@@ -141,8 +141,13 @@ const DemoColumn = () => {
 
 export function DetectionStatisticColumn() {
   return (
-    <div className={cn(styles.detectResultCard, "bg-[#fcfbff]")}>
-      <div className={cn(styles.column, "py-[18px] px-6")}>
+    // <div className={cn(styles.detectResultCard, "bg-[#fcfbff]")}>
+    <div
+      className={cn("flex bg-[#fcfbff] rounded-[4px]")}
+      style={{ boxShadow: "0px 4px 12px rgba(163, 174, 191, 0.2)" }}
+    >
+      {/* <div className={cn(styles.column, "py-[18px] px-6")}> */}
+      <div className={cn("py-[18px] px-6 flex-1 min-w-[calc(100%_-_220px)]")}>
         <div>
           <span className="text-xl font-medium">检测结果统计</span>
           <span className="pl-1 text-xl font-normal opacity-70" />
