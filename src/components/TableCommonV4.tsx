@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 13:47:01
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-29 17:21:19
+ * @LastEditTime: 2024-09-30 11:07:30
  */
 /* eslint-disable prettier/prettier */
 
@@ -110,8 +110,22 @@ export function TableCommonV4(props: IProps) {
                     <span className="w-full h-full truncate leading-[40px] ">
                       {col.dataIndex ? item[col.dataIndex] : index + 1}
                     </span>
-                    <div className="rounded-[5px] z-[10] hidden group-hover:block text-[#ffffff] w-full max-h-[254px] bg-[#0D2963] absolute top-[35px] left-0 px-[10px] py-[5px] overflow-scroll">
-                      {col.dataIndex ? item[col.dataIndex] : index + 1}
+                    <div className=" z-[10] hidden group-hover:block text-[#ffffff] w-full max-h-[100px]  absolute top-[35px] left-0 pt-[10px]">
+                      <div
+                        className={cn(
+                          "w-0 h-0",
+                          // "w-[20px] h-[20px] markBorderG",
+                          // "absolute top-[-10px] left-[2px]",
+                          "border-r-[5px] border-r-solid border-r-transparent",
+                          "border-t-[5px] border-r-solid border-t-transparent",
+                          "border-l-[5px] border-r-solid border-l-transparent",
+                          "border-b-[5px] border-r-solid border-b-[#0D2963]",
+                          "absolute top-0 left-2"
+                        )}
+                      />
+                      <div className="z-[11] rounded-[5px] w-full max-h-[100px] bg-[#0D2963]  px-[10px] py-[5px] overflow-scroll">
+                        {col.dataIndex ? item[col.dataIndex] : index + 1}
+                      </div>
                     </div>
                   </div>
                 )}
