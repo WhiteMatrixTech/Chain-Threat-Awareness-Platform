@@ -9,7 +9,7 @@
  * @Author: didadida262
  * @Date: 2024-09-13 16:47:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-29 14:10:35
+ * @LastEditTime: 2024-10-08 15:17:40
  */
 
 import { LineChart } from "echarts/charts";
@@ -84,7 +84,6 @@ export function ChartLineAddress(props: IProps) {
       yAxis: {
         type: "value",
         min: 2000000,
-        max: 2005000,
         axisLabel: {
           color: "white"
         },

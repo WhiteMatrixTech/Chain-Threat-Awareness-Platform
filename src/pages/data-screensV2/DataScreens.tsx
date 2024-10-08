@@ -415,7 +415,7 @@ export function DataScreens(props: dataScreensProps) {
               )}
             >
               <div className="w-[calc(80%)] h-full flex justify-start items-center">
-                <span className="text-[#EFF4FF] text-[20px]">实时交易</span>
+                <span className="text-[#EFF4FF] text-[20px]">近24小时实时交易</span>
               </div>
               <div className="w-[calc(20%)] h-full flex justify-end items-center">
                 <img src={dataScreen_icon_dot} alt="" width={4} height={3} />
