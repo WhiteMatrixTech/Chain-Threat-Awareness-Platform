@@ -76,7 +76,9 @@ export function TransactionGraph() {
   }, []);
   useEffect(
     () => {
-      if (!selectedHexData) return;
+      if (!selectedHexData || !data.fromTransactions || !data.toTransactions)
+        return;
+
       const initNodeInfo = {
         ...data
       };
