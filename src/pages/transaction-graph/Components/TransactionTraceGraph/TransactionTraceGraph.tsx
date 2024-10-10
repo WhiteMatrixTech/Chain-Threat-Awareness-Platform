@@ -190,7 +190,7 @@ export function TransactionTraceGraph(props: any) {
       nodes: [initNode, inflowNodes, outflowNodes],
       edges: [inflowEdges, outflowEdges]
     };
-    if (data.toTransactions.length) {
+    if (data.toTransactions && data.toTransactions.length) {
       data.toTransactions.slice(0, 50).forEach((item: any) => {
         const newNode: ITxGraphNode = {
           id: item.hash,
