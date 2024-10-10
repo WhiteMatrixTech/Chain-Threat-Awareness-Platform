@@ -175,15 +175,24 @@ export function TransactionTraceGraph(props: any) {
     const inflowEdges: ITxGraphEdge = {
       id: `${uuidv4().replaceAll('-', '')}`,
       source: data.from,
-      target: queryHash
-      // style: {
-      //   length: 100
-      // }
+      target: queryHash,
+      style: {
+        keyshape: {
+          stroke: '#333333',
+          lineWidth: 1.5
+        }
+      }
     };
     const outflowEdges: ITxGraphEdge = {
       id: `${uuidv4().replaceAll('-', '')}`,
       source: queryHash,
-      target: data.to
+      target: data.to,
+      style: {
+        keyshape: {
+          stroke: '#333333',
+          lineWidth: 1.5
+        }
+      }
     };
 
     const randomData = {
@@ -203,7 +212,13 @@ export function TransactionTraceGraph(props: any) {
         const newEdges: ITxGraphEdge = {
           id: `${uuidv4().replaceAll('-', '')}`,
           source: item.hash,
-          target: data.to
+          target: data.to,
+          style: {
+            keyshape: {
+              stroke: '#333333',
+              lineWidth: 1.5
+            }
+          }
         };
         randomData.edges.push(newEdges);
       });
