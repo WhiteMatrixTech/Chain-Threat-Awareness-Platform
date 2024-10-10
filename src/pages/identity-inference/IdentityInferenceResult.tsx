@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-26 14:37:45
+ * @LastEditTime: 2024-10-10 15:37:16
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -68,13 +68,22 @@ export function IdentityInferenceResult() {
   const start = async () => {
     setloading(true);
     try {
-      const params: detectIdentityRequestType = {
+      const paramsFish: detectFishRequestType = {
         address: address || "",
         chain: "eth"
       };
-      console.log("params>>>", params);
-      const respose = await detectIdentityService(params);
-      console.log("respose>>>", respose);
+      const resposeFish = await detectFishService(paramsFish);
+      console.log("钓鱼判断数据>>>!!!", resposeFish);
+      let respose = null;
+      if (resposeFish.status === "非钓鱼诈骗地址") {
+        const params: detectIdentityRequestType = {
+          address: address || "",
+          chain: "eth"
+        };
+        console.log("params>>>", params);
+        respose = await detectIdentityService(params);
+        console.log("respose>>>", respose);
+      }
 
       const paramsTransaction: getTransactionsRequestType = {
         address: address || "",
@@ -87,17 +96,10 @@ export function IdentityInferenceResult() {
 
       console.log("resposeTransaction>>>!!!", resposeTransaction);
 
-      const paramsFish: detectFishRequestType = {
-        address: address || "",
-        chain: "eth"
-      };
-      const resposeFish = await detectFishService(paramsFish);
-      console.log("钓鱼判断数据>>>!!!", resposeFish);
-
       setResult({
         ...result,
-        identity: respose.identity,
-        time: (respose.cost / 1000).toFixed(1) + "s",
+        identity: respose ? respose.identity : resposeFish.status,
+        time: (resposeFish.cost / 1000).toFixed(1) + "s",
         detectionResult: resposeFish.status || "无",
         dataList: resposeTransaction.data
       });
