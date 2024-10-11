@@ -8,7 +8,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-25 16:30:49
+ * @LastEditTime: 2024-10-11 16:32:26
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -36,7 +36,7 @@ import {
 } from "@/services/detection";
 import { dataStoreList } from "@/services/mockData/dataStore";
 import pattern from "@/styles/pattern";
-import { waitTime } from "@/utils/common";
+import { NumberDeal } from "@/utils/common";
 
 export function DataStore() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -57,10 +57,11 @@ export function DataStore() {
   }
   const getData = async () => {
     const respose = await dataStoreListService();
+
     const listData = respose.data.map((item: any) => {
       return {
         ...item,
-        total: item.recordCount,
+        total: NumberDeal(item.recordCount),
         downloadUrl: item.downloadUrl
           ? item.downloadUrl
           : `https://chain-threat-awareness-platform-api.whitematrix.io/chainthreat/v1/data-house/data-source/data/${item.tableName}`
