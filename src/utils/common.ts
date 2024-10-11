@@ -1,4 +1,10 @@
 /* eslint-disable no-case-declarations */
+
+export const NumberDeal = (num: number) => {
+  const reg = /(?!^)(?=(\d{3})+$)/g;
+  return String(num).replace(reg, ',');
+};
+
 export function waitTime(timeMs: number) {
   return new Promise((resolve) => {
     setTimeout(() => {

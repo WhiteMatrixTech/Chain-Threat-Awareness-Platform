@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-25 14:20:56
+ * @LastEditTime: 2024-10-11 16:34:11
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -192,7 +192,7 @@ const getActionLogList = async () => {
               'bg-[#02004D4D] pl-5'
 
             )}>
-              <span className="text-[20px] text-[#ffffff]">历史检测数据</span>
+              <span className="text-[20px] text-[#ffffff]">历史检测数据-基于启发式算法的抢跑攻击检测模型</span>
             </div>
             <div className="w-full h-[calc(100%_-_48px)]">
               <TableCommonV4

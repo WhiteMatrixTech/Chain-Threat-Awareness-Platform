@@ -9,7 +9,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-30 16:27:46
+ * @LastEditTime: 2024-10-11 16:40:19
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -158,12 +158,15 @@ export function DetectionFish() {
         address: inputVal
       };
       const respose = await detectFish(params);
-      console.log("respose>>>", respose);
       const newVal = detectResult.map((Ditem: any) => {
         const key = Ditem.key;
         return {
           ...Ditem,
-          value: String(respose[key])
+          value: String(
+            typeof respose[key] === "boolean"
+              ? respose[key] ? "是" : "否"
+              : respose[key]
+          )
         };
       });
       console.log("newVal>>>", newVal);
