@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 18:22:50
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-25 10:23:47
+ * @LastEditTime: 2024-10-14 10:37:03
  */
 /* eslint-disable prettier/prettier */
 import cn from "classnames";
@@ -98,9 +98,14 @@ export function Nav() {
                   </div>}
               </div>
                 {item.children && item.children.length && arrowRotate === item.key && (
-                  <ul className="py-[8px] w-[289px] absolute top-[68px] left-[0px] bg-[#07266A] z-[100] duration-300">
+                  // box-shadow: 0px 1px 10px 0px #0000001A;
+
+                <ul
+                  className={cn("px-[10px] py-[10px] absolute top-[68px] left-[0px] bg-[#212D4B] z-[100] duration-300 rounded-[10px]", item.label === '威胁感知' ? ' w-[179px] ' : 'w-[289px] ')}
+                  style={{boxShadow: '0px 1px 10px 0px #0000001A'}}
+                >
                     {item.children.map((liItem: any, liIndex: number) => (
-                      <li key={liIndex} className={`px-[16px] flex justify-start items-center select-none w-full h-[34px] hover:cursor-pointer hover:bg-[#0083CF]`}
+                      <li key={liIndex} className={`px-[6px] flex justify-start items-center select-none w-full h-[34px] hover:cursor-pointer hover:bg-[#007AEB] rounded-[4px]`}
                         onClick={() => {
                           setArrowRotate("");
                           navigate(liItem.key)

@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-30 16:28:30
+ * @LastEditTime: 2024-10-14 11:15:10
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -60,7 +60,8 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
   const [selectedType, setSelectedType] = useState<ISelectorItemProps | null>(
     typeList[0]
   );
-  const [inputRange, setInputRange] = useState<any>("0-500");
+  const [inputRangeOne, setInputRangeOne] = useState<any>("");
+  const [inputRangeTwo, setInputRangeTwo] = useState<any>("");
   const [result, setResult] = useState({
     content: '',
     time: ''
@@ -93,13 +94,13 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     console.log("检测数据>>>result>", result);
   };
 
-  const start =   async () => {
-    if (!inputRange) {
-      notification.warning({ message: `请输入必要信息!!!` });
+  const start = async () => {
+    if (!inputRangeOne || !inputRangeTwo || Number(inputRangeTwo) < Number(inputRangeOne)) {
+      notification.warning({ message: `请正确输入必要信息!!!` });
       return;
     }
-    const startBlock = Number(inputRange.split('-')[0])
-    const endBlock = Number(inputRange.split('-')[1])
+    const startBlock = Number(inputRangeOne)
+    const endBlock = Number(inputRangeTwo)
     
     if (endBlock - startBlock > 500) {
       notification.warning({ message: `范围不能超过 500 个区块!!!` });
@@ -107,8 +108,8 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     }
     const params = {
       chain: selectedType?.value,
-      startBlock: inputRange.split('-')[0],
-      endBlock: inputRange.split('-')[1],
+      startBlock: inputRangeOne,
+      endBlock: inputRangeTwo,
       // startDate: selectedRange[0],
       // endDate: selectedRange[1],
     };
@@ -146,8 +147,8 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
               `absolute top-[54px] left-0 w-full h-[calc(100%_-_54px)]  pt-[66px] px-[106px] pb-[40px]`
             )}
           >
-            <div className="w-full h-full  flex flex-col gap-y-[16px]">
-              <div className={`w-full h-[36px] flex items-center`}>
+            <div className="w-full h-full  flex flex-col gap-y-[16px] ">
+              <div className={`w-full h-[36px] flex items-center `}>
                 <SelectorCommonV2
                   placeholder="币种"
                   value={selectedType}
@@ -155,7 +156,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
                   setValue={(item: ISelectorItemProps) => {
                     setSelectedType(item);
                   }}
-                    className="w-[450px] h-full"
+                    className="w-[450px] h-[36px]"
                 />
               </div>
               {/* <div
@@ -168,15 +169,27 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
                     }}
                   />
                 </div> */}
-              <div className={`w-full h-[36px] flex items-center`}>
+              <div className={`w-full h-[36px] flex items-center justify-between`}>
+                <span className="text-[16px] text-[#ffffff] w-[80px]">开始区块号</span>
                 <InputCommonV2
-                  initVal={inputRange}
-                  placeholder="0-500"
+                  initVal={inputRangeOne}
+                  placeholder="请输入"
                   onInput={(val: any) => {
-                    setInputRange(val);
+                    setInputRangeOne(val);
                   }}
-                  className="w-[450px] h-[36px] "
+                  className="w-[calc(100%_-_100px)] h-[36px] "
                 />
+              </div>
+              <div className={`w-full h-[36px] flex items-center justify-between`}>
+              <span className="text-[16px] text-[#ffffff] w-[80px]">结束区块号</span>
+              <InputCommonV2
+                initVal={inputRangeTwo}
+                placeholder="请输入,与开始区块差值≤500"
+                onInput={(val: any) => {
+                  setInputRangeTwo(val);
+                }}
+                className="w-[calc(100%_-_100px)] h-[36px] "
+              />
               </div>
               <div
                 className={`w-full h-[36px] flex items-center justify-end select-none`}
@@ -190,13 +203,13 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
                 >
                   <span className="text-[#FFFFFF] text-[16px]">开始检测</span>
                 </ButtonCommonCyber>
-                </div>
-                {result.time.length !== 0 &&
-                  <div className="w-full h-[22px] flex justify-center items-center">
-                    <span className="text-[#ffffff] text-[13px]">
-                      检索时间：{result.time}
-                    </span>
-                  </div>}
+              </div>
+              {result.time.length !== 0 &&
+                <div className="w-full h-[22px] flex justify-center items-center">
+                  <span className="text-[#ffffff] text-[13px]">
+                    检索时间：{result.time}
+                  </span>
+                </div>}
             </div>
           </div>
         </div>
