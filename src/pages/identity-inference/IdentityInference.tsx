@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-30 16:29:38
+ * @LastEditTime: 2024-10-14 16:31:15
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -25,6 +25,7 @@ import {
 } from "@/services/detection";
 import { modelListIdentityMock } from "@/services/mockData/commonList";
 import pattern from "@/styles/pattern";
+import { isValidAddress } from "@/utils/common";
 
 export function IdentityInference() {
   const navigate = useNavigate();
@@ -37,6 +38,10 @@ export function IdentityInference() {
     // 开始查询
     if (!inputVal) {
       notification.warning({ message: `请输入地址！` });
+      return;
+    }
+    if (!isValidAddress(inputVal)) {
+      notification.warning({ message: `请输入合法地址！` });
       return;
     }
     navigate(`/threat-evidence/identity-inference/result/${inputVal}`);

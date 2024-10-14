@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-30 16:29:54
+ * @LastEditTime: 2024-10-14 16:37:54
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -30,6 +30,7 @@ import {
 } from "@/services/detection";
 import { modelListMaliciousMock } from "@/services/mockData/commonList";
 import pattern from "@/styles/pattern";
+import { isValidAddressV2 } from "@/utils/common";
 
 export function MaliciousTransaction() {
   const navigate = useNavigate();
@@ -40,6 +41,10 @@ export function MaliciousTransaction() {
   const startSearch = () => {
     if (!inputVal) {
       notification.warning({ message: `请输入信息！` });
+      return;
+    }
+    if (!isValidAddressV2(inputVal)) {
+      notification.warning({ message: `请输入合法信息！` });
       return;
     }
     // 开始查询

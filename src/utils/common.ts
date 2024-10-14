@@ -1,5 +1,15 @@
 /* eslint-disable no-case-declarations */
 
+// 校验地址
+export const isValidAddress = (str: string) => {
+  return str.length >= 42 && str.includes('0x');
+};
+
+// 校验比特币地址
+export const isValidAddressV2 = (str: string) => {
+  return str.length >= 64;
+};
+
 export const NumberDeal = (num: number) => {
   const reg = /(?!^)(?=(\d{3})+$)/g;
   return String(num).replace(reg, ',');

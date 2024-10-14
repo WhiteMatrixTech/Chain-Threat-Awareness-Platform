@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-30 16:29:17
+ * @LastEditTime: 2024-10-14 16:32:35
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -29,6 +29,7 @@ import { TableCommonV4 } from "@/components/TableCommonV4";
 import { TagComponent } from "@/components/TagComponent";
 import { detectionFewSampleColumns, modelColumns } from "@/services/columns";
 import { modelListFewIdentityMock } from "@/services/mockData/commonList";
+import { isValidAddress } from "@/utils/common";
 import pattern from "@/styles/pattern";
 
 export function FewidentityInference() {
@@ -87,10 +88,12 @@ export function FewidentityInference() {
       notification.warning({ message: `请输入信息！！！` });
       return;
     }
+    if (!isValidAddress(address)) {
+      notification.warning({ message: `请输入合法地址！` });
+      return;
+    }
     const samArr = Object.values(sampleData);
     const t = samArr.filter((item: any) => item.length === 0);
-    console.log("addre>>", address);
-    console.log("t>>", t);
     if (t.length) {
       notification.warning({ message: `请输入信息！！！` });
     } else {
