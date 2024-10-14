@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:34:32
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-14 16:08:56
+ * @LastEditTime: 2024-10-14 16:15:34
  */
 import { Image, Layout } from "antd";
 import cn from "classnames";
@@ -49,17 +49,19 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         const targetNav = MenuList.filter(
           (item: any) => item.key === "/threat-detection"
         )[0];
-        end = targetNav.children.filter((item: any) =>
+        const targetNavItem = targetNav.children.filter((item: any) =>
           pathname.includes(item.key)
-        )[0].label;
+        )[0];
+        end = targetNavItem ? targetNavItem.label : "";
       } else if (pathname.includes("/threat-evidence")) {
         start = "威胁取证";
         const targetNav = MenuList.filter(
           (item: any) => item.key === "/threat-evidence"
         )[0];
-        end = targetNav.children.filter((item: any) =>
+        const targetNavItem = targetNav.children.filter((item: any) =>
           pathname.includes(item.key)
-        )[0].label;
+        )[0];
+        end = targetNavItem ? targetNavItem.label : "";
       }
       setnavInfo({
         start: start,
@@ -75,7 +77,7 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
         <Header />
 
         <div className="pt-[36px] overflow-y-auto overflow-x-hidden px-[40px] h-[calc(100%_-_64px)] relative">
-          {navInfo.start.length !== 0 &&
+          {navInfo.end.length !== 0 &&
             <div className="absolute top-0 left-0 text-[#EFF4FF] text-[20px] px-[31px]">
               {navInfo.start + "-" + navInfo.end}
             </div>}
