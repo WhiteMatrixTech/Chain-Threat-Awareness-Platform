@@ -9,7 +9,7 @@
  * @Author: didadida262
  * @Date: 2024-09-13 16:47:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-08 15:17:40
+ * @LastEditTime: 2024-10-14 16:21:15
  */
 
 import { LineChart } from "echarts/charts";
@@ -53,7 +53,7 @@ export function ChartLineAddress(props: IProps) {
       }
     }
     const option = {
-      animationDuration: 5000,
+      // animationDuration: 5000,
       grid: {
         bottom: "0%",
         right: "0%",

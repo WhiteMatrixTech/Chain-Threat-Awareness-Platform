@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-14 11:15:10
+ * @LastEditTime: 2024-10-14 15:33:19
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -127,7 +127,8 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     void getActionLogList();
   }, []);
   return (
-    <div className={cn(`w-full h-full 3xl:pb-30  flex items-center`)}>
+    <div className={cn(`w-full h-full 3xl:pb-30  flex items-center `)}>
+
       <div className={cn(`${pattern.flexbet} w-full max-h-[783px] h-full `)}>
       <div
         className={`scale-95 3xl:scale-100 left  w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full  flex flex-col items-end justify-between gap-y-7`}

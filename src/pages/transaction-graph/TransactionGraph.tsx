@@ -18,7 +18,7 @@ import {
 } from "@/services/mockData/transactionGraph";
 import { getBaseInfo, getTransactionBaseInfo } from "@/services/transaction";
 import pattern from "@/styles/pattern";
-import { randomNum, waitTime } from "@/utils/common";
+import { isValidAddress, randomNum, waitTime } from "@/utils/common";
 
 import {
   AddressDetailCard,
@@ -104,6 +104,10 @@ export function TransactionGraph() {
   const onClickAnalysis = () => {
     if (!formData.tokenType || !formData.transactionHash) {
       notification.warning({ message: `请输入信息！` });
+      return;
+    }
+    if (!isValidAddress(formData.transactionHash)) {
+      notification.warning({ message: `请输入合法信息！` });
       return;
     }
     getData();
