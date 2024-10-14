@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-25 14:06:01
+ * @LastEditTime: 2024-10-14 10:05:52
  */
 // 模型信息
 export const modelColumns: any = [
@@ -135,49 +135,50 @@ export const detectionSampleColumns: any = [
 
 export const columnsIdentity: any = [
   {
-    title: "src",
+    title: "起始地址",
     ellipsis: true,
     dataIndex: "src"
   },
   {
-    title: "dst",
+    title: "目标地址",
     ellipsis: true,
     dataIndex: "dst"
   },
   {
-    title: "isError",
+    title: "是否失败",
     dataIndex: "isError",
     ellipsis: true,
     width: 100
   },
+
   {
-    title: "gas",
-    dataIndex: "gas",
-    ellipsis: true
-  },
-  {
-    title: "timeStamp",
+    title: "时间戳",
     dataIndex: "timeStamp",
     ellipsis: true
   },
   {
-    title: "blockNumber",
+    title: "区块高度",
     dataIndex: "blockNumber",
     ellipsis: true
   },
   {
-    title: "value",
+    title: "金额/wei",
     dataIndex: "value",
     ellipsis: true
   },
   {
-    title: "gasUsed",
+    title: "气体单价(gasPrice)/wei",
+    dataIndex: "gasPrice",
+    ellipsis: true
+  },
+  {
+    title: "使用气体(gasUsed)/Gwei",
     dataIndex: "gasUsed",
     ellipsis: true
   },
   {
-    title: "gasPrice",
-    dataIndex: "gasPrice",
+    title: "气体限制(gasLimit)/Gwei",
+    dataIndex: "gas",
     ellipsis: true
   }
 ];
