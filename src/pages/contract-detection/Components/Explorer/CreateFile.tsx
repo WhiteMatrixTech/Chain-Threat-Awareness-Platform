@@ -32,7 +32,7 @@ export function CreateFile(props: ICreateFileProps) {
   const [form] = Form.useForm();
   const { contractState, dispatch } = useContractContext();
   const [FileSuffix, setFileSuffix] = useState(
-    contractState.chainFlag !== 'beforeChain' ? '.abi' : '.sol'
+    contractState.chainFlag !== 'offchain' ? '.abi' : '.sol'
   );
 
   const handleClose = () => {
@@ -94,7 +94,7 @@ export function CreateFile(props: ICreateFileProps) {
     destroyOnClose: true,
     title: modalData
       ? '重命名'
-      : contractState.chainFlag !== 'beforeChain'
+      : contractState.chainFlag !== 'offchain'
       ? '新增文件'
       : '新增合约文件',
     onCancel: handleClose,
@@ -118,9 +118,7 @@ export function CreateFile(props: ICreateFileProps) {
       <Form {...formItemLayout} form={form}>
         <Item
           label={
-            contractState.chainFlag !== 'beforeChain'
-              ? '文件名称'
-              : '合约文件名称'
+            contractState.chainFlag !== 'offchain' ? '文件名称' : '合约文件名称'
           }
           name="fileName"
           initialValue={modalData?.name.replace('.sol', '')}
