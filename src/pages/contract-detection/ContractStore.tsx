@@ -320,7 +320,7 @@ const initialContractState: ContractState = {
     }
   ],
   focusFileId: initFileId,
-  chainFlag: "beforeChain"
+  chainFlag: "offchain"
 };
 
 const reducer = (

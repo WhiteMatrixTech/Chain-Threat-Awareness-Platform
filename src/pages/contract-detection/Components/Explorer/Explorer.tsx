@@ -64,11 +64,11 @@ export function Explorer() {
 
   const [fileTypes, setfileTypes] = useState([
     {
-      value: 'beforeChain',
+      value: 'offchain',
       label: '上链前'
     },
     {
-      value: 'afterChain',
+      value: 'onchain',
       label: '上链后'
     }
   ]);
@@ -243,7 +243,7 @@ export function Explorer() {
           onSelect={onSelect}
           defaultExpandAll={true}
           treeData={
-            contractState.chainFlag === 'beforeChain'
+            contractState.chainFlag === 'offchain'
               ? contractTreeData.slice(0, 2)
               : contractTreeData.slice(2)
           }

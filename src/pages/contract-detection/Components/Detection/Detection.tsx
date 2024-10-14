@@ -657,7 +657,7 @@ export function Detection() {
 
   useEffect(() => {
     if (focusFileId) {
-      if (chainFlag === 'beforeChain') {
+      if (chainFlag === 'offchain') {
         form.setFieldsValue({
           fileId: openFiles.find((file) => file.id === focusFileId)?.id
         });
@@ -736,7 +736,7 @@ export function Detection() {
   };
 
   const handleClickView = () => {
-    if (chainFlag !== 'beforeChain') {
+    if (chainFlag !== 'offchain') {
       navigate(
         `/threat-detection/detection-chart-afterchain?result=${window.btoa(
           JSON.stringify(data?.result || '')
@@ -775,7 +775,7 @@ export function Detection() {
         'h-full overflow-scroll bg-white px-2 py-[18px]'
       )}
     >
-      {!data && chainFlag === 'beforeChain' && (
+      {!data && chainFlag === 'offchain' && (
         <Form form={form} wrapperCol={{ span: 24 }}>
           <Form.Item
             name="fileId"
@@ -876,7 +876,7 @@ export function Detection() {
           </ButtonCommon>
         </Form>
       )}
-      {!data && chainFlag === 'afterChain' && (
+      {!data && chainFlag === 'onchain' && (
         <Form form={formAfterChain} wrapperCol={{ span: 24 }}>
           {/* <Form.Item
             name="fileContent"
