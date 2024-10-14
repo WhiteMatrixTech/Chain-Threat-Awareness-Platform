@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-09-24 17:31:53
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-29 22:47:04
+ * @LastEditTime: 2024-10-14 18:02:57
  */
 /* eslint-disable prettier/prettier */
 /*
@@ -33,7 +33,7 @@ import { MaliciousTransaction } from "@/pages/malicious-transaction";
 import { MaliciousTransactionResult } from "@/pages/malicious-transaction/malicious-transactionResult";
 
 import { AddressAnalysis } from "./pages/address-analysis";
-import { ContractDetection } from "./pages/contract-detection";
+import { ContractDetection } from "./pages/contract-detectionV2";
 import { DataScreens } from "./pages/data-screensV2";
 import { DataStore } from "./pages/data-store";
 import { DetectionAttack } from "./pages/detection-attack";

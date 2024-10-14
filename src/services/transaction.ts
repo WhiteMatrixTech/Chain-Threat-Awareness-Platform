@@ -114,7 +114,7 @@ export interface folderListRequestType {
   folder: string;
 }
 // 获取文件列表
-export async function getFolderList(params: folderListRequestType) {
+export async function getFolderListService(params: folderListRequestType) {
   return await getData<folderListRequestType, any>(
     `/chainthreat/v1/contract-file/list`,
     params

@@ -1,7 +1,10 @@
 /* eslint-disable prettier/prettier */
 import { cloneDeep } from "lodash";
 
-import { IExplorerItem, IFile } from "@/pages/contract-detection/ContractStore";
+import {
+  IExplorerItem,
+  IFile
+} from "@/pages/contract-detectionV2/ContractStore";
 
 // eth5个示例
 const BasicContract = `pragma solidity ^0.4.26;
