@@ -151,15 +151,8 @@ type IContractAction =
 
 const initialContractState: ContractState = {
   explorerList: [],
-  openFiles: [
-    {
-      id: initFileId,
-      type: ExplorerItemType.FILE,
-      name: "Storage.sol",
-      content: BasicContract
-    }
-  ],
-  focusFileId: initFileId,
+  openFiles: [],
+  focusFileId: "",
   chainFlag: "offchain"
 };
 
@@ -198,6 +191,9 @@ const reducer = (
       break;
     }
     case ContractAction.SAVE_FILE_CONTENT: {
+      console.log("SAVE_FILE_CONTENT>>>");
+      console.log("action.data.content>>>", action.data.content);
+
       state.explorerList = state.explorerList.map(item => {
         if (item.id === action.data.id) {
           item.content = action.data.content;
@@ -210,7 +206,8 @@ const reducer = (
         }
         return item;
       });
-
+      console.log("state.explorerList>>>", state.explorerList);
+      console.log("state.openFiles>>>", state.openFiles);
       break;
     }
     case ContractAction.OPEN_FILE: {

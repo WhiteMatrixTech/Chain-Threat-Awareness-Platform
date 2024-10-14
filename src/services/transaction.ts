@@ -120,6 +120,13 @@ export async function getFolderListService(params: folderListRequestType) {
     params
   );
 }
+// 获取文件内容
+export async function getFileContentService(filePath: string) {
+  return await getData<any, any>(
+    `/chainthreat/v1/contract-file/view/?filePath=${filePath}`
+  );
+}
+
 export interface createFolderRequestType {
   folderName: string;
 }

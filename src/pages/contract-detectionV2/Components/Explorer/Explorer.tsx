@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 import {
@@ -23,7 +24,10 @@ import {
   useContractContext
 } from '@/pages/contract-detectionV2/ContractStore';
 import { arrToTreeData } from '@/services/mockData/contractDetection';
-import { getFolderListService } from '@/services/transaction';
+import {
+  getFileContentService,
+  getFolderListService
+} from '@/services/transaction';
 
 import { CreateFile } from './CreateFile';
 import { CreateFolder } from './CreateFolder';
@@ -84,7 +88,6 @@ export function Explorer() {
     }
   ) => {
     setSelectedNode(info.node);
-
     if (info.node.data.type === ExplorerItemType.FILE) {
       dispatch({
         type: ContractAction.OPEN_FILE,

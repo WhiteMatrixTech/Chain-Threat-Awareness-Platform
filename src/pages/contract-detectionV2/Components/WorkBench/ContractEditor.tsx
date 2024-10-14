@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable prettier/prettier */
 import { notification } from 'antd';
 import { useEffect, useRef, useState } from 'react';
@@ -7,6 +8,10 @@ import { useDebounce, useMount } from 'react-use';
 
 import { AnalysisLoading } from '@/components/AnalysisLoading';
 import { emitter, InternalEventType } from '@/services/event';
+import {
+  getFileContentService,
+  getFolderListService
+} from '@/services/transaction';
 import { waitTime } from '@/utils/common';
 
 import { ContractAction, useContractContext } from '../../ContractStore';
@@ -59,8 +64,9 @@ export function ContractEditor({ contractData }: IContractEditorProps) {
   );
 
   const { mutate, status } = useMutation(async () => {
+    console.warn('mute>>>')
+    console.warn('editorValue>>>', editorValue)
     await waitTime(1000);
-
     if (focusFileId !== contractData.key) return
     dispatch({
       type: ContractAction.SAVE_FILE_CONTENT,
@@ -69,7 +75,6 @@ export function ContractEditor({ contractData }: IContractEditorProps) {
         content: editorValue
       }
     });
-
     // notification.success({
     //   message: '保存成功',
     //   top: 64,
@@ -82,13 +87,20 @@ export function ContractEditor({ contractData }: IContractEditorProps) {
   useMount(() => {
     emitter.on(InternalEventType.SAVE_CONTRACT, () => {
       if (editorContainer.current) {
-
         mutate();
       }
     });
   });
+  const handleInitialContent = async () => {
+    if (editorValue) return
+    const initialContent = await getFileContentService(contractData.title);
+    console.log('initialContent>>>', initialContent.data)
+    setEditorValue(initialContent.data)
+    
+  }
 
   useEffect(() => {
+    void handleInitialContent()
     window.addEventListener('resize', () => {
       if (editorContainer.current?.editor) {
         editorContainer.current.editor.layout();
@@ -101,6 +113,7 @@ export function ContractEditor({ contractData }: IContractEditorProps) {
       });
     };
   }, []);
+
 
   return (
     <div className=" mb-4 h-full overflow-hidden">
