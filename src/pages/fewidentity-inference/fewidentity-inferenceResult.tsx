@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-30 16:30:18
+ * @LastEditTime: 2024-10-14 09:59:25
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -86,17 +86,17 @@ export function FewidentityInferenceResult() {
       );
       console.log("查询交易数据>>>!!!", resposeTransaction);
 
-      const paramsFish: detectFishRequestType = {
-        address: address || "",
-        chain: "eth"
-      };
-      const resposeFish = await detectFishService(paramsFish);
-      console.log("钓鱼判断数据>>>!!!", resposeFish);
+      // const paramsFish: detectFishRequestType = {
+      //   address: address || "",
+      //   chain: "eth"
+      // };
+      // const resposeFish = await detectFishService(paramsFish);
+      // console.log("钓鱼判断数据>>>!!!", resposeFish);
 
       setResult({
         ...result,
         time: (respose.cost / 1000).toFixed(1) + "s",
-        result: resposeFish.status || "无",
+        result: respose.identity || "无",
         dataList: resposeTransaction.data
       });
       setloading(false);
