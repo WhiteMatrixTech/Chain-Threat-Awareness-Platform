@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { getData, postData } from "./request";
+import { deleteData, getData, postData, putData } from "./request";
 
 interface ITransactionType {
   address: string;
@@ -102,9 +102,45 @@ export async function getTransactionBaseInfo(transaction: string) {
   });
 }
 
+// 智能合约检测
 export async function detectContract(data: any) {
   return postData<any, IDetectContractResponse[]>(
     "/chainthreat/v1/contract/detect",
     data
   );
+}
+
+export interface folderListRequestType {
+  folder: string;
+}
+// 获取文件列表
+export async function getFolderList(params: folderListRequestType) {
+  return await getData<folderListRequestType, any>(
+    `/chainthreat/v1/contract-file/list`,
+    params
+  );
+}
+export interface createFolderRequestType {
+  folderName: string;
+}
+// 创建文件夹
+export async function createFolder(data: any) {
+  return postData<any, createFolderRequestType[]>(
+    "/chainthreat/v1/contract-file/folder",
+    data
+  );
+}
+
+// 删除文件或文件夹
+export async function delFolderOrFile(path: string) {
+  return deleteData<any, any>(`/chainthreat/v1/contract-file`, path);
+}
+
+// 重命名
+export interface reNameFolderOrFileType {
+  newName: string;
+  oldName: string;
+}
+export async function reNameFolderOrFile(params: reNameFolderOrFileType) {
+  return putData<any, any>(`/chainthreat/v1/contract-file/rename`, params);
 }

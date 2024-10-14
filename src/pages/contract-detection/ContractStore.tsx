@@ -390,17 +390,6 @@ const reducer = (
       break;
     }
     case ContractAction.CHANGE_CHAIN_TYPE: {
-      // state.openFiles =
-      //   action.data === "beforeChain"
-      //     ? initialContractState.openFiles
-      //     : initialContractState.explorerList[12];
-      // state.openFiles = state.openFiles.filter(
-      //   file => file.id !== action.data.id
-      // );
-      // if (state.focusFileId === action.data.id) {
-      //   const len = state.openFiles.length;
-      //   state.focusFileId = len > 0 ? state.openFiles[len - 1].id : "";
-      // }
       state.chainFlag = action.data;
       break;
     }
