@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-14 15:33:19
+ * @LastEditTime: 2024-10-15 15:47:27
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -23,7 +23,7 @@ import {
   SelectorCommonV2
 } from "@/components/SelectorCommonV2";
 import { TableCommonV4 } from "@/components/TableCommonV4";
-import { detectionSamplePrivacyColumns } from "@/services/columns";
+import { detectionSamplePrivacyColumns,privacyResultCols } from "@/services/columns";
 import {
   detectActionLogRequestType,
   detectActionLogService,
@@ -63,6 +63,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
   const [inputRangeOne, setInputRangeOne] = useState<any>("");
   const [inputRangeTwo, setInputRangeTwo] = useState<any>("");
   const [result, setResult] = useState({
+    dataList: [],
     content: '',
     time: ''
   });
@@ -73,6 +74,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     { loading },
     detectPrivacy
   ] = useAsyncFn(async (params: detectSelfishminingRequestType) => {
+    console.log('params>>>', params)
     const data = await detectSelfishminingService(params);
     return data;
   });
@@ -94,7 +96,16 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     console.log("检测数据>>>result>", result);
   };
 
+  const clearResult = () => {
+    setResult({
+      dataList: [],
+      content: '',
+      time: ''
+    })
+  }
+
   const start = async () => {
+    clearResult()
     if (!inputRangeOne || !inputRangeTwo || Number(inputRangeTwo) < Number(inputRangeOne)) {
       notification.warning({ message: `请正确输入必要信息!!!` });
       return;
@@ -110,17 +121,15 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
       chain: selectedType?.value,
       startBlock: inputRangeOne,
       endBlock: inputRangeTwo,
-      // startDate: selectedRange[0],
-      // endDate: selectedRange[1],
     };
     
     const response = await detectPrivacy(params);
     setResult({
-      content: response.result,
+      dataList: response.miners_info,
+      content: response.result || '无..',
       time: (response.cost / 1000).toFixed(1) + "s"
     });
     void getActionLogList();
-
   };
 
   useEffect(() => {
@@ -237,10 +246,25 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
         className={` right w-[calc(50%_-_10px)] 3xl:w-[calc(50%_-_55px)] h-full flex justify-start items-center `}
       >
         <div className=" pt-[60px] px-[20px] pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center  overflow-scroll">
-          <div className="w-full h-full relative">
-            <span className="text-[#FFFFFF] text-[16px]">
-              {result.content}
-            </span>
+            <div className="w-full h-full relative  flex flex-col justify-around">
+              <div className="table_container w-full h-[calc(100%_-_60px)] ">
+                {result.content && (
+                  <TableCommonV4
+                  className="w-full h-full"
+                  data={result.dataList}
+                  columns={privacyResultCols}
+                />  
+                )}
+ 
+              </div>
+              <div className=" w-full h-[50px] overflow-scroll">
+                {result.content && (
+                  <span className="text-[#FFFFFF] text-[16px] ">
+                    检测结果：{result.content}
+                  </span>
+                )}
+
+              </div>
             {loading &&
               <div
                 className={cn(

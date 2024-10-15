@@ -4,8 +4,9 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-14 10:05:52
+ * @LastEditTime: 2024-10-15 15:44:03
  */
+
 // 模型信息
 export const modelColumns: any = [
   {
@@ -491,5 +492,24 @@ export const columnsChainCode: any = [
     dataIndex: "reason",
     ellipsis: true
     // width: 320
+  }
+];
+
+// 自私挖矿结果表格
+export const privacyResultCols: any = [
+  {
+    title: "连续区块对",
+    dataIndex: "consecutive_blocks",
+    ellipsis: true
+  },
+  {
+    title: "哈希算力",
+    dataIndex: "hashing_power",
+    ellipsis: true
+  },
+  {
+    title: "矿工",
+    dataIndex: "miner",
+    ellipsis: true
   }
 ];
