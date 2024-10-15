@@ -207,7 +207,7 @@ export function Explorer() {
     });
     console.log('itemm>>>', item);
   };
-  const unifiyData = (data: any) => {
+  const generateData = (data: any) => {
     console.log('data>>', data);
     const newExplorerList = [];
     const projects = data.filter((item: any) => item.dir === true);
@@ -220,9 +220,8 @@ export function Explorer() {
         type: ExplorerItemType.PROJECT,
         projectType: ProjectType.ETH
       };
-      const targetItems = data.filter(
-        (item: any) =>
-          item.name.includes(project.name) && item.name !== project.name
+      const targetItems = files.filter((item: any) =>
+        item.name.includes(project.name)
       );
       const children = targetItems.map((item: any) => {
         return {
@@ -241,7 +240,7 @@ export function Explorer() {
     const response = await getFolderListService({
       folder: contractState.chainFlag
     });
-    const data = unifiyData(response.data.slice(1));
+    const data = generateData(response.data.slice(1));
     console.log('预处理数据>>>', data);
     dispatch({
       type: ContractAction.SET_EXPLORE_LIST,

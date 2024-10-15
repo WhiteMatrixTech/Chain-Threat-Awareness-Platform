@@ -96,7 +96,6 @@ export function ContractEditor({ contractData }: IContractEditorProps) {
     const initialContent = await getFileContentService(contractData.title);
     console.log('initialContent>>>', initialContent.data)
     setEditorValue(initialContent.data)
-    
   }
 
   useEffect(() => {

@@ -127,6 +127,15 @@ export async function getFileContentService(filePath: string) {
   );
 }
 
+export interface uploadFileRequestType {
+  folder: string;
+  file: File;
+}
+// 新增文件
+export async function uploadFile(params: FormData) {
+  return postData<FormData, any>("/chainthreat/v1/contract-file/", params);
+}
+
 export interface createFolderRequestType {
   folderName: string;
 }

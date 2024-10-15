@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-29 15:51:56
+ * @LastEditTime: 2024-10-15 10:03:03
  */
 import { getData, postData } from "./request";
 
@@ -64,6 +64,7 @@ export interface dataStoreCreateRequestType {
 }
 // 数据仓库接口
 // 创建
+// 打点
 export async function dataStoreCreateService(params: FormData) {
   console.log("接口拿到的数据>>>", params);
   return await postData<FormData, any>(
