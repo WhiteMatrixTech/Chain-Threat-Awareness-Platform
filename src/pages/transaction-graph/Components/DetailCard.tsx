@@ -95,7 +95,8 @@ export function AddressDetailCard({
   unit: string;
 }) {
   if (!addressData) {
-    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+    // return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+    return <></>;
   }
 
   return (
