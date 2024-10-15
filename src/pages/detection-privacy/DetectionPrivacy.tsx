@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-15 14:55:14
+ * @LastEditTime: 2024-10-15 15:47:27
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -126,7 +126,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     const response = await detectPrivacy(params);
     setResult({
       dataList: response.miners_info,
-      content: response.result,
+      content: response.result || '无..',
       time: (response.cost / 1000).toFixed(1) + "s"
     });
     void getActionLogList();
@@ -248,7 +248,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
         <div className=" pt-[60px] px-[20px] pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center  overflow-scroll">
             <div className="w-full h-full relative  flex flex-col justify-around">
               <div className="table_container w-full h-[calc(100%_-_60px)] ">
-                {result.dataList.length !== 0 && (
+                {result.content && (
                   <TableCommonV4
                   className="w-full h-full"
                   data={result.dataList}
@@ -257,10 +257,10 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
                 )}
  
               </div>
-              <div className=" w-full h-[50px] ">
+              <div className=" w-full h-[50px] overflow-scroll">
                 {result.content && (
-                  <span className="text-[#FFFFFF] text-[16px]">
-                    {result.content}
+                  <span className="text-[#FFFFFF] text-[16px] ">
+                    检测结果：{result.content}
                   </span>
                 )}
 
