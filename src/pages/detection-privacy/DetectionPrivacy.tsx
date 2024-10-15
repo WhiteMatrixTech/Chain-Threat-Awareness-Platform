@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-15 15:47:27
+ * @LastEditTime: 2024-10-15 16:19:26
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -38,26 +38,36 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
   const typeList = [
     {
       label: "比特币（BTC）",
-      value: 1
+      value: 1,
+      bg: `bg-[url('./assets/privacyBg1Title1.png')]`
+      
     },
     {
       label: "比特币现金（BCH）",
-      value: 2
+      value: 2,
+      bg: `bg-[url('./assets/privacyBg1Title2.png')]`
+
     },
     {
       label: "以太坊（ETH）",
-      value: 3
+      value: 3,
+      bg: `bg-[url('./assets/privacyBg1Title3.png')]`
+
     },
     {
       label: "莱特币（LTC）",
-      value: 4
+      value: 4,
+      bg: `bg-[url('./assets/privacyBg1Title4.png')]`
+
     },
     {
       label: "币安智能链（BSC）",
-      value: 5
+      value: 5,
+      bg: `bg-[url('./assets/privacyBg1Title5.png')]`
+
     }
   ];
-  const [selectedType, setSelectedType] = useState<ISelectorItemProps | null>(
+  const [selectedType, setSelectedType] = useState<ISelectorItemProps>(
     typeList[0]
   );
   const [inputRangeOne, setInputRangeOne] = useState<any>("");
@@ -148,8 +158,11 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
           )}
         >
           <div
-            className={cn(
-              `absolute top-0 left-0 w-full h-[54px] bg-[url('./assets/privacyBg1Title.png')] bg-cover bg-center`
+              className={cn(
+                `absolute top-0 left-0 w-full h-[54px]  bg-cover bg-center`,
+                // selectedType.bg
+                // `bg-[url('./assets/privacyBg1Title1.png')]`
+                selectedType.value === 1? `bg-[url('./assets/privacyBg1Title1.png')]`: selectedType.value === 2? `bg-[url('./assets/privacyBg1Title2.png')]`:selectedType.value === 3? `bg-[url('./assets/privacyBg1Title3.png')]`:selectedType.value === 4? `bg-[url('./assets/privacyBg1Title4.png')]`:selectedType.value === 5? `bg-[url('./assets/privacyBg1Title5.png')]`:''
             )}
           />
           <div
