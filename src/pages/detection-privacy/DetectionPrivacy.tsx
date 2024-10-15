@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-15 16:19:26
+ * @LastEditTime: 2024-10-15 16:30:55
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -260,6 +260,11 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
       >
         <div className=" pt-[60px] px-[20px] pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center  overflow-scroll">
             <div className="w-full h-full relative  flex flex-col justify-around">
+              {!result.content && !loading && (
+                <div className="w-full h-[100px] absolute top-0 left-0">
+                  <span className="text-[16px] text-[#FFFFFF99]">请输入检测内容并点击开始检测以查看结果</span>
+                </div>
+              )}
               <div className="table_container w-full h-[calc(100%_-_60px)] ">
                 {result.content && (
                   <TableCommonV4

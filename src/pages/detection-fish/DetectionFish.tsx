@@ -9,7 +9,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-11 16:40:19
+ * @LastEditTime: 2024-10-15 16:33:31
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -275,20 +275,13 @@ export function DetectionFish() {
         >
           <div className="pt-[55px] 3xl:pt-[70px] px-[20px] pb-[10px] 3xl:pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px]  bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
             <div className="w-full h-full relative overflow-scroll ">
-              {/* {result.time &&
-                detectResult.map((item: any, index: number) =>
-                  <div
-                    key={index}
-                    className="h-[35px] w-full text-[#FFFFFF] text-[16px] flex justify-between items-center"
-                  >
-                    <span className="w-[200px] h-full flex items-center justify-start">
-                      {item.key}
-                    </span>
-                    <span className="w-[calc(100%_-_210px)] h-full flex items-center justify-start">
-                      {item.value}
-                    </span>
-                  </div>
-                )} */}
+              {!result.time &&
+                !loading &&
+                <div className="w-full h-[100px] absolute top-0 left-0">
+                  <span className="text-[16px] text-[#FFFFFF99]">
+                    请输入检测内容并点击开始检测以查看结果
+                  </span>
+                </div>}
               {result.time &&
                 <div className="w-full h-full">
                   <TableCommonV4
@@ -298,9 +291,6 @@ export function DetectionFish() {
                   />
                 </div>}
 
-              {/* <span className="text-[#FFFFFF] text-[16px]">
-                {result.content}
-              </span> */}
               {loading &&
                 <div
                   className={cn(
