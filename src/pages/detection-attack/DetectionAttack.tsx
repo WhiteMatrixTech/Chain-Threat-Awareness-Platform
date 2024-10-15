@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-11 16:34:11
+ * @LastEditTime: 2024-10-15 14:47:41
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -108,7 +108,6 @@ const getActionLogList = async () => {
       });
       setdetectResult(newVal)
       setResult({
-        // content: respose.attacks_info.length? respose.attacks_info,
         content: '',
         time: (respose.cost / 1000).toFixed(1) + "s",
       });
