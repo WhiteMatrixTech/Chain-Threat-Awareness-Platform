@@ -63,7 +63,7 @@ export function DropDownCommon(props: IDropProps) {
       </div>
       {show &&
         <ul
-          className={`${pattern.flexCenter} w-full h-[34px] bg-[#2A6CB6] absolute top-[38px] left-0 `}
+          className={`${pattern.flexCenter} w-full h-[34px] bg-[#2A6CB6] absolute top-[38px] left-0 cursor-pointer z-[100]`}
           onClick={() => {
             handleEvent();
           }}
