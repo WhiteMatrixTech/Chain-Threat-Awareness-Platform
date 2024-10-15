@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-15 14:47:41
+ * @LastEditTime: 2024-10-15 15:17:24
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -17,6 +17,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import {ButtonCommonCyber} from  '@/components/ButtonCommonCyber'
 import { ButtonCommonV2, EButtonType } from "@/components/ButtonCommonV2";
 import { InputCommonV2 } from "@/components/InputCommonV2";
+import { TableCommonAttack} from "@/components/TableCommonAttack"
 import { TableCommonV4 } from "@/components/TableCommonV4";
 import { detectionAttackResultColumns,detectionSampleAttackColumns } from "@/services/columns";
 import {
@@ -36,8 +37,6 @@ export function DetectionAttack() {
   ];
   const [inputVal, setInputVal] = useState("");
   const [result, setResult] = useState({
-    content: '',
-
     time: ''
   });
   const [detectResult, setdetectResult] = useState([
@@ -87,6 +86,9 @@ const getActionLogList = async () => {
   console.log("检测数据>>>result>", result);
 };
   const start = async () => {
+    setResult({
+      time: ''
+    })
     if (!inputVal) {
       notification.warning({ message: `请输入必要信息!!!` });
       return;
@@ -103,12 +105,11 @@ const getActionLogList = async () => {
         const val = respose[Ditem.key];
         return {
           ...Ditem,
-          value: Ditem.key !== 'attacks_info'?String(val):val.length?val[0].report:'空..'
+          value: Ditem.key !== 'attacks_info'?String(val):val.length?val[0].report:'无...'
         };
       });
       setdetectResult(newVal)
       setResult({
-        content: '',
         time: (respose.cost / 1000).toFixed(1) + "s",
       });
       setLoading(false);
@@ -224,14 +225,13 @@ const getActionLogList = async () => {
                 )} */}
               {result.time && (
                 <div className="w-full h-full">
-                  <TableCommonV4
+                  <TableCommonAttack
                     className="w-full h-full"
                     data={detectResult}
                     columns={detectionAttackResultColumns}
                   />
                 </div>
                 )}
-                {/* 打点 */}
             {loading &&
               <div
                 className={cn(
