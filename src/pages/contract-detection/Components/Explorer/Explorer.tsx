@@ -202,6 +202,13 @@ export function Explorer() {
     console.log('itemm>>>', item);
   };
 
+  useEffect(() => {
+    return () => {
+      const contractStatestorage = JSON.stringify(contractState);
+      localStorage.setItem('initialContractState', contractStatestorage);
+    };
+  }, [contractState]);
+
   return (
     <div className={cn(styles.Explorer, ' h-full bg-white p-3')}>
       <div className="flex items-center justify-between border-b-[0.75px] border-solid border-[#EBF0F5] px-1 pt-1 pb-4">

@@ -1,6 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { cloneDeep } from "lodash";
-import { createContext, Dispatch, useContext, useReducer } from "react";
+import {
+  createContext,
+  Dispatch,
+  useContext,
+  useEffect,
+  useReducer
+} from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import {
@@ -329,6 +335,11 @@ const reducer = (
 ): ContractState => {
   switch (action.type) {
     case ContractAction.ADD_ITEM: {
+      if (
+        state.explorerList.filter((item: any) => item.id === action.data.id)
+          .length
+      )
+        break;
       state.explorerList = [...state.explorerList, action.data];
       break;
     }
@@ -422,7 +433,14 @@ export const ContractProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [contractState, dispatch] = useReducer(reducer, initialContractState);
+  const contractStateStorage = localStorage.getItem("initialContractState");
+  const target: ContractState = contractStateStorage
+    ? JSON.parse(contractStateStorage)
+    : "";
+  const [contractState, dispatch] = useReducer(
+    reducer,
+    target || initialContractState
+  );
 
   return (
     <ContractContext.Provider value={{ contractState, dispatch }}>
