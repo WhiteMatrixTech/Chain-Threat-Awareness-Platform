@@ -101,6 +101,10 @@ const DemoColumn = () => {
       {
         projectNumber: "10",
         amount: DetectionResults.filter(o => o.swcId === 132).length
+      },
+      {
+        projectNumber: "11",
+        amount: DetectionResults.filter(o => o.swcId === 124).length
       }
     ],
     height: 200,
