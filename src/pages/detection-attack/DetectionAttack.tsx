@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-15 15:17:24
+ * @LastEditTime: 2024-10-15 16:31:37
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -209,6 +209,11 @@ const getActionLogList = async () => {
       >
         <div className="pt-[55px] 3xl:pt-[70px] px-[20px] pb-[10px] 3xl:pb-[20px] w-[614px] h-[600px] 3xl:w-[778px] 3xl:h-[760px] bg-[url('./assets/privacyBg2.png')] bg-cover bg-center ">
             <div className="w-full h-full relative overflow-scroll ">
+            {!result.time && !loading && (
+                <div className="w-full h-[100px] absolute top-0 left-0">
+                  <span className="text-[16px] text-[#FFFFFF99]">请输入检测内容并点击开始检测以查看结果</span>
+                </div>
+              )}
             {/* {result.time &&
                 detectResult.map((item: any, index: number) =>
                   <div
