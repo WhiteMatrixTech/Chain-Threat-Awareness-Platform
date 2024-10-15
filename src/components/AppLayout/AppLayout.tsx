@@ -26,19 +26,6 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation();
   const [navInfo, setnavInfo] = useState({ start: "", end: "" });
   const withoutLayout = ["/login", "/login/", "/register/", "/register"];
-
-  if (withoutLayout.includes(pathname)) {
-    return (
-      <UserProvider>
-        <Layout className={styles["auth-layout"]}>
-          <Content>
-            {children}
-          </Content>
-        </Layout>
-      </UserProvider>
-    );
-  }
-
   useEffect(
     () => {
       console.log("pathname>>", pathname);
@@ -70,6 +57,18 @@ export function AppLayout({ children }: { children: React.ReactNode }) {
     },
     [pathname]
   );
+
+  if (withoutLayout.includes(pathname)) {
+    return (
+      <UserProvider>
+        <Layout className={styles["auth-layout"]}>
+          <Content>
+            {children}
+          </Content>
+        </Layout>
+      </UserProvider>
+    );
+  }
 
   return (
     <UserProvider>
