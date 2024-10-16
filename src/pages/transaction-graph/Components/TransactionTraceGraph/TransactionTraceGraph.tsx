@@ -21,7 +21,6 @@ import {
   ITxGraphEdge,
   ITxGraphNode
 } from '@/services/mockData/transactionGraph';
-import { getTransactionBaseInfo } from '@/services/transaction';
 import { waitTime } from '@/utils/common';
 
 import styles from '../../TransactionGraph.module.less';
@@ -62,7 +61,8 @@ const graphinDefaultConfig = {
 };
 
 export function TransactionTraceGraph(props: any) {
-  const { queryHash, tokenUnit, handleClick, transactionData } = props;
+  const { queryHash, tokenUnit, handleClick, transactionData, loadingPage } =
+    props;
 
   const graphRef = useRef<Graphin | null>(null);
   const [txGraphData, setTxGraphData] = useState<ITxGraphData>({
@@ -77,73 +77,14 @@ export function TransactionTraceGraph(props: any) {
       }
       setTxGraphData(data);
       graphRef.current?.graph.render();
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       return data;
     },
     []
   );
 
-  // useEffect(() => {
-  //   getTransactionBaseInfo(queryHash)
-  //     .then((data) => {
-  //       const initNode = {
-  //         id: queryHash,
-  //         type: 'CenterTxNode',
-  //         isSelected: true,
-  //         tokenAmount: (Number(data.value) / 1e18).toFixed(4).toString(),
-  //         tokenUnit
-  //       };
-
-  //       const inflowNodes: ITxGraphNode = {
-  //         id: data.from,
-  //         type: 'AmountFlowAddressNode',
-  //         tokenAmount: (Math.random() * 1000).toFixed(4),
-  //         tokenUnit,
-  //         flowType: 'inflow'
-  //       };
-  //       const outflowNodes: ITxGraphNode = {
-  //         id: data.to,
-  //         type: 'AmountFlowAddressNode',
-  //         tokenAmount: (Math.random() * 1000).toFixed(4),
-  //         tokenUnit,
-  //         flowType: 'outflow'
-  //       };
-  //       const inflowEdges: ITxGraphEdge = {
-  //         id: `${uuidv4().replaceAll('-', '')}`,
-  //         source: data.from,
-  //         target: queryHash
-  //       };
-  //       const outflowEdges: ITxGraphEdge = {
-  //         id: `${uuidv4().replaceAll('-', '')}`,
-  //         source: queryHash,
-  //         target: data.to
-  //       };
-  //       const randomData = {
-  //         nodes: [initNode, inflowNodes, outflowNodes],
-  //         edges: [inflowEdges, outflowEdges]
-  //       };
-  //       void handleChangeData(randomData, true);
-  //     })
-  //     .catch((e) => console.log('e', e));
-
-  //   // const [inflowNodes, inflowEdges] = generateTxGraphData(
-  //   //   queryHash,
-  //   //   'inflow',
-  //   //   tokenUnit
-  //   // );
-  //   // const [outflowNodes, outflowEdges] = generateTxGraphData(
-  //   //   queryHash,
-  //   //   'outflow',
-  //   //   tokenUnit
-  //   // );
-  //   // const randomData = {
-  //   //   nodes: [initNode, ...inflowNodes, ...outflowNodes],
-  //   //   edges: [...inflowEdges, ...outflowEdges]
-  //   // };
-  //   // // console.log({ randomData });
-
-  //   // void handleChangeData(randomData, true);
-  // }, [handleChangeData, queryHash, tokenUnit]);
+  useEffect(() => {
+    console.log('loading>>>', loading);
+  }, [loading]);
   useEffect(() => {
     console.log('transactionData>>>变化', transactionData);
     if (!transactionData) return;
@@ -229,7 +170,7 @@ export function TransactionTraceGraph(props: any) {
 
   return (
     <div className="relative h-full w-full">
-      {loading && <AnalysisLoading />}
+      {(loading || loadingPage) && <AnalysisLoading />}
       {/* <div className="absolute top-4 left-5 z-50 text-lg">
         <Tooltip title="右键点击节点进行展开">
           <InfoCircleOutlined />
