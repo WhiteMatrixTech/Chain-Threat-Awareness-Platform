@@ -9,7 +9,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-15 16:33:31
+ * @LastEditTime: 2024-10-16 18:27:44
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -149,6 +149,10 @@ export function DetectionFish() {
     console.log("检测数据>>>result>", result);
   };
   const start = async () => {
+    setResult({
+      time: "",
+      content: ""
+    });
     if (!inputVal) {
       notification.warning({ message: `请输入地址！` });
       return;
