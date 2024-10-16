@@ -46,6 +46,7 @@ export function TransactionGraph() {
   const [data, setData] = useState(null) as any;
   const [addressDetailData, setaddressDetailData] = useState(null) as any;
   const [loading, setloading] = useState(false);
+  const [loadingPage, setloadingPage] = useState(false);
   const [detailInfo, setDetailInfo] = useState(null) as any;
   const [formData, setFormData] = useState<IGraphFormData>({
     date: undefined,
@@ -56,9 +57,12 @@ export function TransactionGraph() {
   const isTx = useMemo(() => selectedHexData.length > 42, [
     selectedHexData.length
   ]);
+
   const getData = async () => {
+    setloadingPage(true);
     console.log("请求参数>>>", formData);
     const response = await getTransactionBaseInfo(formData.transactionHash);
+    setloadingPage(false);
     setData(response);
     console.log("response>>>>", response);
     if (!selectedHexData) {
@@ -188,6 +192,7 @@ export function TransactionGraph() {
           </div>
           <div className="flex-1 overflow-hidden rounded bg-white shadow-card">
             <TransactionTraceGraph
+              loadingPage={loadingPage}
               transactionData={data}
               tokenUnit={formData.tokenType}
               handleClick={(data: any) => {
