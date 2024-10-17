@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-15 15:44:03
+ * @LastEditTime: 2024-10-17 11:30:09
  */
 
 // 模型信息
@@ -83,7 +83,7 @@ export const detectionAttackResultColumns: any = [
 export const detectionFishResultColumns: any = [
   {
     title: "名称",
-    dataIndex: "title",
+    dataIndex: "CTitle",
     width: 250,
     copy: true
   },

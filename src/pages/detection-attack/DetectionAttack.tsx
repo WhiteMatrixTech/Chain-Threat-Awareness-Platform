@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-15 16:31:37
+ * @LastEditTime: 2024-10-17 11:22:49
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -105,7 +105,7 @@ const getActionLogList = async () => {
         const val = respose[Ditem.key];
         return {
           ...Ditem,
-          value: Ditem.key !== 'attacks_info'?String(val):val.length?val[0].report:'无...'
+          value: Ditem.key !== 'attacks_info'?String(val):val.length?val[0].report:'无攻击'
         };
       });
       setdetectResult(newVal)
