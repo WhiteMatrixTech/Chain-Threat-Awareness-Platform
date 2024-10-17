@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-17 16:34:44
+ * @LastEditTime: 2024-10-17 16:52:53
  */
 
 // 模型信息
@@ -396,44 +396,53 @@ export const columnsCrossChain1: any = [
   {
     title: "交易hash",
     ellipsis: true,
-    dataIndex: "Tx_id"
+    dataIndex: "Tx_id",
+    copy: true
   },
 
   {
     title: "来源",
     dataIndex: "From",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "流向",
     dataIndex: "To",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "输入金额",
     dataIndex: "Input_coin",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
 
   {
     title: "交易费用",
     dataIndex: "Fee",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "输出金额",
     dataIndex: "Output_coin",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "交易时间",
     dataIndex: "Time",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "交易所在链",
     dataIndex: "Chain",
     ellipsis: true,
+    copy: true,
+
     width: 120
   }
 ];
@@ -443,27 +452,32 @@ export const columnsCrossChain2: any = [
     title: "依赖项",
     ellipsis: true,
     dataIndex: "Rcro_id",
-    width: 100
+    width: 100,
+    copy: true
   },
   {
     title: "下游交易",
     dataIndex: "To",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "上游交易",
     dataIndex: "From",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "下游交易所在链",
     dataIndex: "To_chain",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "上游交易所在链",
     dataIndex: "From_chain",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   }
 
   // {
