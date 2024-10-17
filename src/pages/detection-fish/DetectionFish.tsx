@@ -9,7 +9,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-16 18:27:44
+ * @LastEditTime: 2024-10-17 11:33:28
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -83,31 +83,38 @@ export function DetectionFish() {
     },
     {
       title: "Proportion of Leaf Nodes",
+      CTitle: "叶子节点比",
       key: "PoLN",
       value: ""
     },
     {
       title: "edges",
+      CTitle: "边数",
       key: "edges",
       value: ""
     },
     {
-      title: "is_phishing",
+      title: "预测结果",
+      CTitle: "图密度",
       key: "is_phishing",
       value: ""
     },
     {
       title: "message",
+      CTitle: "消息",
       key: "message",
       value: ""
     },
     {
       title: "nodes",
+      CTitle: "节点数量",
+
       key: "nodes",
       value: ""
     },
     {
       title: "success",
+      CTitle: "请求是否成功",
       key: "success",
       value: ""
     }
