@@ -121,6 +121,7 @@ const DemoColumn = () => {
       }
     },
     yAxis: {
+      tickInterval: 1,
       top: true,
       position: "left",
       title: {
