@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-09-12 16:29:20
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 18:19:30
+ * @LastEditTime: 2024-10-17 15:42:23
  */
 import cn from "classnames";
 import { useEffect, useState } from "react";
@@ -41,7 +41,7 @@ export function Progress() {
           return total;
         }
       });
-    }, 1000);
+    }, 2000);
     return () => {
       clearInterval(timer);
       clearInterval(suffixTimer);
