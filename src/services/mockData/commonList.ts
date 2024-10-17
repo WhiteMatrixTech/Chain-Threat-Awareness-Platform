@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-09-06 00:03:37
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-09 13:47:16
+ * @LastEditTime: 2024-10-17 17:31:00
  */
 // 身份
 export const modelListIdentityMock = [
@@ -41,7 +41,8 @@ export const modelListChainCodeMock = [
     version: "v1.0",
     time: "2024-07-26 10:28",
     x1: "93.52%",
-    x2: "常见的五种链码漏洞检测"
+    x2:
+      "CCPre 可检测5种常见的链码漏洞，工作流程由两个阶段组成：（1）图形生成阶段，从源代码转换的抽象语法树中提取数据流图；（2）漏洞检测阶段，基于预先训练的模型执行链码漏洞检测。"
   }
 ];
 // 混检

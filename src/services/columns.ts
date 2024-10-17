@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-17 11:30:09
+ * @LastEditTime: 2024-10-17 16:52:53
  */
 
 // 模型信息
@@ -36,7 +36,7 @@ export const detectionSamplePrivacyColumns: any = [
   {
     title: "检测区块",
     dataIndex: "name",
-    width: 150,
+    width: 180,
     copy: true
   },
   {
@@ -102,12 +102,12 @@ export const detectionSampleFishColumns: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "time",
-    width: 200
+    dataIndex: "time"
   },
   {
     title: "检测结果",
-    dataIndex: "result"
+    dataIndex: "result",
+    width: 140
   }
 ];
 
@@ -124,7 +124,8 @@ export const detectionSampleColumns: any = [
   },
   {
     title: "检测时长",
-    dataIndex: "cost"
+    dataIndex: "cost",
+    width: 150
   },
   {
     title: "检测结果",
@@ -155,17 +156,20 @@ export const columnsIdentity: any = [
   {
     title: "时间戳",
     dataIndex: "timeStamp",
-    ellipsis: true
+    ellipsis: true,
+    width: 150
   },
   {
     title: "区块高度",
     dataIndex: "blockNumber",
-    ellipsis: true
+    ellipsis: true,
+    width: 150
   },
   {
     title: "金额/wei",
     dataIndex: "value",
-    ellipsis: true
+    ellipsis: true,
+    width: 180
   },
   {
     title: "气体单价(gasPrice)/wei",
@@ -197,7 +201,8 @@ export const detectionFewSampleColumns: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "time"
+    dataIndex: "time",
+    width: 180
   },
   {
     title: "检测结果",
@@ -263,7 +268,8 @@ export const detectionSampleChainCodeColumnsHome: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "time"
+    dataIndex: "time",
+    width: 180
   },
   {
     title: "检测时长",
@@ -305,12 +311,13 @@ export const detectionSampleBitCoinColumns: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "time"
+    dataIndex: "time",
+    width: 200
   },
   {
     title: "检测结果",
     dataIndex: "result",
-    width: 150
+    width: 200
   }
 ];
 // 数据仓库列表
@@ -389,44 +396,53 @@ export const columnsCrossChain1: any = [
   {
     title: "交易hash",
     ellipsis: true,
-    dataIndex: "Tx_id"
+    dataIndex: "Tx_id",
+    copy: true
   },
 
   {
     title: "来源",
     dataIndex: "From",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "流向",
     dataIndex: "To",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "输入金额",
     dataIndex: "Input_coin",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
 
   {
     title: "交易费用",
     dataIndex: "Fee",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "输出金额",
     dataIndex: "Output_coin",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "交易时间",
     dataIndex: "Time",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "交易所在链",
     dataIndex: "Chain",
     ellipsis: true,
+    copy: true,
+
     width: 120
   }
 ];
@@ -436,27 +452,32 @@ export const columnsCrossChain2: any = [
     title: "依赖项",
     ellipsis: true,
     dataIndex: "Rcro_id",
-    width: 100
+    width: 100,
+    copy: true
   },
   {
     title: "下游交易",
     dataIndex: "To",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "上游交易",
     dataIndex: "From",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "下游交易所在链",
     dataIndex: "To_chain",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   },
   {
     title: "上游交易所在链",
     dataIndex: "From_chain",
-    ellipsis: true
+    ellipsis: true,
+    copy: true
   }
 
   // {

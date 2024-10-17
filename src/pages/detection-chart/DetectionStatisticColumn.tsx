@@ -60,7 +60,21 @@ const DemoColumn = () => {
     );
   } catch (e) {}
   console.log(DetectionResults);
-  const config = {
+  const config = ({
+    // color: [
+    //   // 这里指定每个类型的颜色，A至K分别对应不同的颜色
+    //   "#5b8ff9",
+    //   "#000000",
+    //   "#5b8ff9",
+    //   "#5b8ff9",
+    //   "#5b8ff9",
+    //   "#5b8ff9",
+    //   "#5b8ff9",
+    //   "#5b8ff9",
+    //   "#5b8ff9",
+    //   "#5b8ff9",
+    //   "#5b8ff9"
+    // ],
     data: [
       {
         projectNumber: "1",
@@ -110,6 +124,7 @@ const DemoColumn = () => {
     height: 200,
     xField: "projectNumber",
     yField: "amount",
+
     xAxis: {
       top: true,
       position: "bottom",
@@ -122,6 +137,7 @@ const DemoColumn = () => {
       }
     },
     yAxis: {
+      tickInterval: 1,
       top: true,
       position: "left",
       title: {
@@ -140,7 +156,7 @@ const DemoColumn = () => {
         alias: "问题数量"
       }
     }
-  } as ColumnConfig;
+  } as unknown) as ColumnConfig;
   return <Column {...config} />;
 };
 

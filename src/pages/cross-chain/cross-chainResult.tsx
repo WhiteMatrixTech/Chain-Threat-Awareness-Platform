@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-12 17:14:00
+ * @LastEditTime: 2024-10-17 16:53:02
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -88,45 +88,40 @@ export function CrossChainResult() {
         <Progress />
       </div>
     : <div className={cn(" w-full h-full fadeIn", `${pattern.flexbet}`)}>
-        <div className={cn(`w-full h-full flex flex-col `)}>
-          <ResultComponent
-            title="检测时间"
-            content={result.time}
-            className="w-full h-[50px]"
-          />
-          <div className="w-[120px] h-[36px] mt-4">
-            <TagComponent title="跨链交易输出" className="w-[120px] h-[36px]" />
-          </div>
-
-          <div className={cn(` w-full h-[272px] mt-4`)}>
-            <TableCommonV4
+        <div className={cn(`w-full h-full flex flex-col  justify-between`)}>
+          <div className="top w-full h-[50px]">
+            <ResultComponent
+              title="检测时间"
+              content={result.time}
               className="w-full h-full"
-              data={result.tx_query_result}
-              columns={columnsCrossChain1}
             />
           </div>
-          <div className="w-[120px] h-[36px] mt-4">
-            <TagComponent title="跨链依赖信息" className="w-[120px] h-[36px]" />
+          <div className="content w-full h-[calc(100%_-_66px)] flex flex-col justify-between ">
+            <div className="content_one w-full h-[calc(50%_-_8px)]  flex flex-col justify-between">
+              <div className="w-[120px] h-[36px]">
+                <TagComponent title="跨链交易输出" className="w-[120px] h-[36px]" />
+              </div>
+              <div className={cn(` w-full h-[calc(100%_-_50px)]`)}>
+                <TableCommonV4
+                  className="w-full h-full"
+                  data={result.tx_query_result}
+                  columns={columnsCrossChain1}
+                />
+              </div>
+            </div>
+            <div className="content_one w-full h-[calc(50%_-_8px)]  flex flex-col justify-between">
+              <div className="w-[120px] h-[36px] ">
+                <TagComponent title="跨链依赖信息" className="w-[120px] h-[36px]" />
+              </div>
+              <div className={cn(` w-full h-[calc(100%_-_50px)]`)}>
+                <TableCommonV4
+                  className="w-full h-full"
+                  data={result.cross_chain_dependency}
+                  columns={columnsCrossChain2}
+                />
+              </div>
+            </div>
           </div>
-
-          <div className={cn(` w-full h-[272px] mt-4`)}>
-            <TableCommonV4
-              className="w-full h-full"
-              data={result.cross_chain_dependency}
-              columns={columnsCrossChain2}
-            />
-          </div>
-          {/* <div className="w-[120px] h-[36px] mt-4">
-            <TagComponent title="交易分布信息" className="w-[120px] h-[36px]" />
-          </div>
-
-          <div className={cn(` w-full h-[176px] mt-4`)}>
-            <TableCommonV3
-              className=""
-              data={["chain1"]}
-              columns={columns3}
-            />
-          </div> */}
         </div>
       </div>;
 }

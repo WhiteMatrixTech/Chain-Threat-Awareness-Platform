@@ -715,7 +715,7 @@ export function Detection() {
             version: version,
             model: 'contractFuzzer'
           });
-        }, 20000);
+        }, 10000);
       });
   };
 
