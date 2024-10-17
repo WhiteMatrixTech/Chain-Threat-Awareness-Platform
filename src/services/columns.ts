@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-17 11:30:09
+ * @LastEditTime: 2024-10-17 16:34:44
  */
 
 // 模型信息
@@ -36,7 +36,7 @@ export const detectionSamplePrivacyColumns: any = [
   {
     title: "检测区块",
     dataIndex: "name",
-    width: 150,
+    width: 180,
     copy: true
   },
   {
@@ -102,12 +102,12 @@ export const detectionSampleFishColumns: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "time",
-    width: 200
+    dataIndex: "time"
   },
   {
     title: "检测结果",
-    dataIndex: "result"
+    dataIndex: "result",
+    width: 140
   }
 ];
 
@@ -124,7 +124,8 @@ export const detectionSampleColumns: any = [
   },
   {
     title: "检测时长",
-    dataIndex: "cost"
+    dataIndex: "cost",
+    width: 150
   },
   {
     title: "检测结果",
@@ -155,17 +156,20 @@ export const columnsIdentity: any = [
   {
     title: "时间戳",
     dataIndex: "timeStamp",
-    ellipsis: true
+    ellipsis: true,
+    width: 150
   },
   {
     title: "区块高度",
     dataIndex: "blockNumber",
-    ellipsis: true
+    ellipsis: true,
+    width: 150
   },
   {
     title: "金额/wei",
     dataIndex: "value",
-    ellipsis: true
+    ellipsis: true,
+    width: 180
   },
   {
     title: "气体单价(gasPrice)/wei",
@@ -197,7 +201,8 @@ export const detectionFewSampleColumns: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "time"
+    dataIndex: "time",
+    width: 180
   },
   {
     title: "检测结果",
@@ -263,7 +268,8 @@ export const detectionSampleChainCodeColumnsHome: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "time"
+    dataIndex: "time",
+    width: 180
   },
   {
     title: "检测时长",
@@ -305,12 +311,13 @@ export const detectionSampleBitCoinColumns: any = [
   },
   {
     title: "检测时间",
-    dataIndex: "time"
+    dataIndex: "time",
+    width: 200
   },
   {
     title: "检测结果",
     dataIndex: "result",
-    width: 150
+    width: 200
   }
 ];
 // 数据仓库列表
