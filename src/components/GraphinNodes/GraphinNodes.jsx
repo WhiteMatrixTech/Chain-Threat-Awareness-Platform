@@ -1,9 +1,12 @@
-import { Group, Image, Rect, Text } from '@antv/g6-react-node';
-import React from 'react';
-import insertCss from 'insert-css';
-import { transformAddress } from '@/utils/common';
+import insertCss from "insert-css";
+import React from "react";
 
-import styles from './GraphinNodes.module.less';
+import { Group, Image, Rect, Text } from "@antv/g6-react-node";
+import { transformAddress } from "@/utils/common";
+import { DragNode } from "@antv/graphin-components";
+import unknowPng from "@/assets/unknown.png";
+
+import styles from "./GraphinNodes.module.less";
 
 export function registerGraphContentMenu() {
   // define the CSS with the id of your menu
@@ -48,13 +51,13 @@ export function CenterTxNode({ cfg = {} }) {
     <Group>
       <Rect
         style={{
-          width: 'auto',
-          height: 'auto',
-          fill: '#edf1f9',
-          stroke: isSelected ? '#166CDD' : '#edf1f9',
+          width: "auto",
+          height: "auto",
+          fill: "#edf1f9",
+          stroke: isSelected ? "#166CDD" : "#edf1f9",
           radius: [4],
-          cursor: 'pointer',
-          justifyContent: 'center',
+          cursor: "pointer",
+          justifyContent: "center",
           padding: [10, 20]
         }}
         draggable
@@ -63,8 +66,8 @@ export function CenterTxNode({ cfg = {} }) {
           style={{
             fontSize: 16,
             fontWeight: 800,
-            fill: '#166CDD',
-            cursor: 'pointer'
+            fill: "#166CDD",
+            cursor: "pointer"
           }}
         >
           {transformAddress(id, 4)}
@@ -81,13 +84,13 @@ export function DefaultTxNode({ cfg = {} }) {
     <Group>
       <Rect
         style={{
-          width: 'auto',
-          height: 'auto',
-          fill: '#edf1f9',
-          stroke: isSelected ? '#166CDD' : '#edf1f9',
+          width: "auto",
+          height: "auto",
+          fill: "#edf1f9",
+          stroke: isSelected ? "#166CDD" : "#edf1f9",
           radius: [4],
-          cursor: 'pointer',
-          justifyContent: 'center',
+          cursor: "pointer",
+          justifyContent: "center",
           padding: [8, 16]
         }}
         draggable
@@ -95,8 +98,8 @@ export function DefaultTxNode({ cfg = {} }) {
         <Text
           style={{
             fontSize: 16,
-            fill: isSelected || isHovered ? '#166CDD' : '#303133',
-            cursor: 'pointer'
+            fill: isSelected || isHovered ? "#166CDD" : "#303133",
+            cursor: "pointer"
           }}
         >
           {transformAddress(id, 4)}
@@ -109,52 +112,53 @@ export function DefaultTxNode({ cfg = {} }) {
 export function AmountFlowAddressNode({ cfg = {} }) {
   const {
     id,
-    tokenUnit = 'BTC',
+    tokenUnit = "BTC",
     tokenAmount = 0,
     isHovered = false,
     isSelected = false,
-    flowType = 'inflow'
+    flowType = "inflow"
   } = cfg;
 
-  const tokenColor = flowType === 'inflow' ? '#389e0d' : '#cf1322';
+  const tokenColor = flowType === "inflow" ? "#389e0d" : "#cf1322";
 
   return (
-    <Group>
+    <Group zIndex={100}>
       <Rect
         style={{
-          width: 'auto',
-          height: 'auto',
-          fill: '#fff',
-          stroke: isSelected ? '#166CDD' : '#ddd',
+          width: "auto",
+          height: "auto",
+          fill: "#fff",
+          stroke: isSelected ? "#166CDD" : "#ddd",
           radius: [4],
-          cursor: 'pointer',
-          justifyContent: 'center',
+          cursor: "pointer",
+          justifyContent: "center",
           padding: [4, 32, 4, 4]
         }}
       >
         <Rect
           style={{
-            width: 'auto',
-            cursor: 'pointer',
-            flexDirection: 'row',
+            width: "auto",
+            cursor: "pointer",
+            flexDirection: "row",
             margin: [4, 0]
           }}
         >
           <Image
             style={{
-              img: 'https://static.oklink.com/cdn/explorer/icon/exchange/unknown.png',
+              img:
+                "https://static.oklink.com/cdn/explorer/icon/exchange/unknown.png",
               width: 16,
               height: 16,
               margin: [0, 2],
-              cursor: 'pointer'
+              cursor: "pointer"
             }}
           />
           <Text
             style={{
-              fill: isSelected || isHovered ? '#166CDD' : '#303133',
+              fill: isSelected || isHovered ? "#166CDD" : "#303133",
               fontSize: 16,
               margin: [0, 2],
-              cursor: 'pointer'
+              cursor: "pointer"
             }}
           >
             {transformAddress(id, 4)}
@@ -162,21 +166,22 @@ export function AmountFlowAddressNode({ cfg = {} }) {
         </Rect>
         <Rect
           style={{
-            width: 'auto',
-            cursor: 'pointer',
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'start',
+            width: "auto",
+            cursor: "pointer",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "start",
             margin: [4, 0]
           }}
         >
           <Image
             style={{
-              img: 'https://static.oklink.com/cdn/explorer/icon/exchange/unknown.png',
+              img:
+                "https://static.oklink.com/cdn/explorer/icon/exchange/unknown.png",
               width: 16,
               height: 16,
               margin: [0, 2],
-              cursor: 'pointer'
+              cursor: "pointer"
             }}
           />
           <Text
@@ -184,7 +189,7 @@ export function AmountFlowAddressNode({ cfg = {} }) {
               fill: tokenColor,
               fontSize: 16,
               margin: [0, 2],
-              cursor: 'pointer'
+              cursor: "pointer"
             }}
           >
             {tokenAmount}
@@ -194,7 +199,107 @@ export function AmountFlowAddressNode({ cfg = {} }) {
               fill: tokenColor,
               fontSize: 16,
               margin: [0, 2],
-              cursor: 'pointer'
+              cursor: "pointer"
+            }}
+          >
+            {tokenUnit}
+          </Text>
+        </Rect>
+      </Rect>
+    </Group>
+  );
+}
+
+// 设置交易图谱的第三层节点
+export function DiyNode({ cfg = {} }) {
+  const {
+    id,
+    tokenUnit = "BTC",
+    tokenAmount = 0,
+    isHovered = false,
+    isSelected = false,
+    flowType = "inflow"
+  } = cfg;
+
+  const tokenColor = flowType === "inflow" ? "#389e0d" : "#cf1322";
+
+  return (
+    <Group>
+      <Rect
+        style={{
+          width: "auto",
+          height: "auto",
+          fill: "#fff",
+          stroke: isSelected ? "#166CDD" : "#ddd",
+          radius: [4],
+          cursor: "pointer",
+          justifyContent: "center",
+          padding: [4, 10, 4, 4]
+        }}
+      >
+        <Rect
+          style={{
+            width: "auto",
+            cursor: "pointer",
+            flexDirection: "row",
+            margin: [4, 0]
+          }}
+        >
+          {/* <Image
+            style={{
+              img: unknowPng,
+              width: 16,
+              height: 16,
+              margin: [0, 2],
+              cursor: "pointer"
+            }}
+          /> */}
+          <Text
+            style={{
+              fill: isSelected || isHovered ? "#166CDD" : "#303133",
+              fontSize: 16,
+              margin: [0, 2],
+              cursor: "pointer"
+            }}
+          >
+            {transformAddress(id, 4)}
+          </Text>
+        </Rect>
+        <Rect
+          style={{
+            width: "auto",
+            cursor: "pointer",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "start",
+            margin: [4, 0]
+          }}
+        >
+          {/* <Image
+            style={{
+              img: unknowPng,
+              width: 16,
+              height: 16,
+              margin: [0, 2],
+              cursor: "pointer"
+            }}
+          /> */}
+          <Text
+            style={{
+              fill: tokenColor,
+              fontSize: 16,
+              margin: [0, 2],
+              cursor: "pointer"
+            }}
+          >
+            {tokenAmount}
+          </Text>
+          <Text
+            style={{
+              fill: tokenColor,
+              fontSize: 16,
+              margin: [0, 2],
+              cursor: "pointer"
             }}
           >
             {tokenUnit}
