@@ -252,9 +252,9 @@ export function TransactionGraphTree(props: ITransactionGraphTreeProps) {
             <use xlinkHref="#icon-filter-center-focus"></use>
           </svg>
         </Tooltip>
-        <Tooltip title="全屏(功能开发中)">
+        {/* <Tooltip title="全屏(功能开发中)">
           <FullscreenOutlined className="cursor-not-allowed text-lg" />
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip title="下载">
           <DownloadOutlined
             onClick={handleExport}

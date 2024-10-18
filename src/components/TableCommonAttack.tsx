@@ -81,7 +81,7 @@ export function TableCommonAttack(props: IProps) {
                   `w-full flex px-4 `,
                   "hover:bg-[#00D2D51A]",
                   ` border-solid border-[0px] border-b-[1px] border-[#0095FF66]`,
-                  index === 0 ? "h-[200px]" : "h-[40px] "
+                  index === 0 ? "h-[calc(100%_-_160px)]" : "h-[40px] "
                 )}
                 key={index}
               >

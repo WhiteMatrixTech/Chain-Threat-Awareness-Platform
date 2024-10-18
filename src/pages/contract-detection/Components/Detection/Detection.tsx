@@ -781,7 +781,7 @@ export function Detection() {
                 message: '请选择检测合约文件'
               }
             ]}
-            initialValue={openFiles[0].id}
+            initialValue={openFiles[0] ? openFiles[0].id : ''}
           >
             <Select placeholder="请选择检测合约文件">
               {openFiles.map((file) => (
