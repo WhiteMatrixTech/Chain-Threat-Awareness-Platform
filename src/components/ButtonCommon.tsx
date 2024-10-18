@@ -86,7 +86,6 @@ export function ButtonCommon(props: IButtonProps) {
   useEffect(
     () => {
       if (loading) {
-        console.warn("定时器启动>>>>");
         timer = setInterval(() => {
           setprogress(prevProgress => {
             if (prevProgress < total) {

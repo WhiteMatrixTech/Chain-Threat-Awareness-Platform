@@ -3,7 +3,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-26 10:05:50
+ * @LastEditTime: 2024-10-17 18:00:02
  */
 import { SaveOutlined } from '@ant-design/icons';
 import { Tabs, Tooltip } from 'antd';
@@ -76,7 +76,7 @@ export function WorkBench() {
     <div
       className={cn(
         styles.WorkBench,
-        'relative  h-full w-[calc(100%_-_520px)] bg-white'
+        'relative  h-full w-[calc(100%_-_570px)] bg-white'
       )}
     >
       {/* <div

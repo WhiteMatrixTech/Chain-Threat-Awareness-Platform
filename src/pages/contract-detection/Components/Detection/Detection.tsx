@@ -702,18 +702,20 @@ export function Detection() {
   const handleSubmit = () => {
     void form
       .validateFields()
-      .then((data: { fileId: string; version: string }) => {
+      .then((data: { fileId: string; version: string; evm: any }) => {
         setloading(true);
-        const { fileId, version } = data;
+        const { fileId, version, evm } = data;
         const realContent = explorerList.filter(
           (item: any) => item.id === fileId
         )[0];
-        // 打点
+        //
         setTimeout(() => {
           mutate({
             source_code: realContent.content,
             version: version,
-            model: 'contractFuzzer'
+            model: 'contractFuzzer',
+            evm: evm
+            // 打点
           });
         }, 10000);
       });
@@ -731,7 +733,7 @@ export function Detection() {
         mutate({
           ...params
         });
-      }, 20000);
+      }, 10000);
     });
   };
 
@@ -761,13 +763,6 @@ export function Detection() {
     handleReset();
   }, [chainFlag]);
 
-  // const contractTreeData = useMemo(() => {
-  //   const List = cloneDeep(explorerList);
-  //   const treeData = arrToTreeData(List);
-
-  //   return treeData;
-  // }, [explorerList]);
-
   return (
     <div
       className={cn(
@@ -778,6 +773,7 @@ export function Detection() {
       {!data && chainFlag === 'offchain' && (
         <Form form={form} wrapperCol={{ span: 24 }}>
           <Form.Item
+            label="文件"
             name="fileId"
             rules={[
               {
@@ -796,6 +792,7 @@ export function Detection() {
             </Select>
           </Form.Item>
           <Form.Item
+            label="模型"
             name="model"
             initialValue={'conFuzzer'}
             rules={[
@@ -807,18 +804,9 @@ export function Detection() {
           >
             <Input placeholder="请输入模型名称" />
           </Form.Item>
-          {/* <Form.Item
-            name="contract0"
-            rules={[
-              {
-                required: false,
-                message: '请输入主合约部署参数'
-              }
-            ]}
-          >
-            <Input placeholder="请输入主合约部署参数" />
-          </Form.Item> */}
+
           <Form.Item
+            label="平台"
             name="platform"
             rules={[
               {
@@ -836,21 +824,9 @@ export function Detection() {
               ]}
             ></Select>
           </Form.Item>
-          {/* <Form.Item
-            name="compileVersion"
-            initialValue="0.4.26"
-            rules={[
-              {
-                required: true,
-                message: '请选择编译版本'
-              }
-            ]}
-          >
-            <Select placeholder="请选择编译版本">
-              <Option value="o.4.26">0.4.24</Option>
-            </Select>
-          </Form.Item> */}
+
           <Form.Item
+            label="版本"
             name="version"
             initialValue={'0.4.26'}
             rules={[
@@ -863,9 +839,27 @@ export function Detection() {
             <Input placeholder="请输入版本号" />
           </Form.Item>
 
-          {/* <PrimaryButton onClick={handleSubmit} loading={status === 'loading'}>
-            开始
-          </PrimaryButton> */}
+          <Form.Item
+            label="EVM"
+            name="evm"
+            rules={[
+              {
+                required: true,
+                message: '请选择evm'
+              }
+            ]}
+            initialValue={'byzantium'}
+          >
+            <Select
+              placeholder="请选择platform"
+              options={[
+                { value: 'homestead', label: 'homestead' },
+                { value: 'byzantium', label: 'byzantium' },
+                { value: 'petersburg', label: 'petersburg' },
+                { value: 'istanbul', label: 'istanbul' }
+              ]}
+            ></Select>
+          </Form.Item>
           <ButtonCommon
             disable={loading}
             loading={loading}
@@ -897,6 +891,7 @@ export function Detection() {
             </Select>
           </Form.Item> */}
           <Form.Item
+            label="模型"
             name="model"
             initialValue={'conFuzzer'}
             rules={[
@@ -909,6 +904,7 @@ export function Detection() {
             <Input placeholder="请输入模型名称" />
           </Form.Item>
           <Form.Item
+            label="ABI"
             initialValue={defaultAbiCode}
             name="abi_code"
             rules={[
@@ -921,6 +917,7 @@ export function Detection() {
             <Input.TextArea placeholder="请输入abi_code" rows={5} />
           </Form.Item>
           <Form.Item
+            label="地址"
             name="contract_addr"
             rules={[
               {
@@ -932,6 +929,7 @@ export function Detection() {
             <Input placeholder="请输入contract_addr" />
           </Form.Item>
           <Form.Item
+            label="平台"
             name="platform"
             rules={[
               {
@@ -950,6 +948,7 @@ export function Detection() {
             ></Select>
           </Form.Item>
           <Form.Item
+            label="Block值"
             name="block"
             rules={[
               {
@@ -961,6 +960,7 @@ export function Detection() {
             <Input placeholder="请输入block" />
           </Form.Item>
           <Form.Item
+            label="EVM版本"
             name="evm"
             rules={[
               {
@@ -980,12 +980,6 @@ export function Detection() {
               ]}
             ></Select>
           </Form.Item>
-          {/* <PrimaryButton
-            onClick={handleSubmitChainAffter}
-            loading={status === 'loading'}
-          >
-            开始
-          </PrimaryButton> */}
           <ButtonCommon
             disable={loading}
             loading={loading}
