@@ -166,19 +166,6 @@ export function TransactionGraph() {
                   }}
                   className="w-[480px] 3xl:w-[688px] h-[36px] "
                 />
-                {/* <div
-                  className={cn(`w-[450px] h-[36px]  ${pattern.flexCenter}`)}
-                >
-                  <DateCommon
-                    className="w-[450px] h-full"
-                    onSelect={(date: any) => {
-                      setFormData({
-                        ...formData,
-                        date: date
-                      });
-                    }}
-                  />
-                </div> */}
               </div>
             </div>
 
@@ -200,7 +187,7 @@ export function TransactionGraph() {
                 setTimeout(() => {
                   setloading(false);
                   setSelectedHexData(data);
-                }, 1000);
+                }, 3000);
               }}
               queryHash={formData.transactionHash}
             />

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { InfoCircleOutlined } from '@ant-design/icons';
@@ -13,7 +14,8 @@ import { AnalysisLoading } from '@/components/AnalysisLoading';
 import {
   AmountFlowAddressNode,
   CenterTxNode,
-  DefaultTxNode
+  DefaultTxNode,
+  DiyNode
 } from '@/components/GraphinNodes';
 import {
   generateTxGraphData,
@@ -46,18 +48,25 @@ Graphin.registerNode(
   'AmountFlowAddressNode',
   createNodeFromReact(DefaultTxNode)
 );
+Graphin.registerNode('DiyNode', createNodeFromReact(DiyNode));
 
 const graphinDefaultConfig = {
   layout: {
-    type: 'random',
-    // type: 'graphin-force',
+    // type: 'forceLayout',
+    // linkDistance: 100, // 设置节点间的距离
+    // type: 'random',
+    // preventOverlap: true // 防止节点重叠
+    // nodeSize: 200 // 节点的尺寸
+    // size: [300, 300], // 布局区域大小
+    // minDistance: 100
+    type: 'graphin-force'
     // type: 'random',
     // type: 'circular',
-    rankdir: 'LR' // 可选，默认为图的中心,
+    // rankdir: 'LR' // 可选，默认为图的中心,
     // controlPoints: true,
   },
-  theme: { background: '#e5e8ee33' },
-  fitCenter: true
+  theme: { background: '#e5e8ee33' }
+  // fitCenter: true
 };
 
 export function TransactionTraceGraph(props: any) {
@@ -95,7 +104,10 @@ export function TransactionTraceGraph(props: any) {
       type: 'CenterTxNode',
       isSelected: true,
       tokenAmount: (Number(data.value) / 1e18).toFixed(4).toString(),
-      tokenUnit
+      tokenUnit,
+      style: {
+        zIndex: 100
+      }
     };
 
     const inflowNodes: ITxGraphNode = {
@@ -144,7 +156,7 @@ export function TransactionTraceGraph(props: any) {
       data.toTransactions.slice(0, 50).forEach((item: any) => {
         const newNode: ITxGraphNode = {
           id: item.hash,
-          type: 'CenterTxNode',
+          type: 'DiyNode',
           tokenAmount: (Number(item.value) / 1e18).toFixed(4).toString(),
           tokenUnit
           // isSelected: queryHash === item.hash
@@ -171,11 +183,6 @@ export function TransactionTraceGraph(props: any) {
   return (
     <div className="relative h-full w-full">
       {(loading || loadingPage) && <AnalysisLoading />}
-      {/* <div className="absolute top-4 left-5 z-50 text-lg">
-        <Tooltip title="右键点击节点进行展开">
-          <InfoCircleOutlined />
-        </Tooltip>
-      </div> */}
       <div
         id="TxTraceGraphContainer"
         className={cn(styles.canvasBg, 'absolute inset-0')}
@@ -185,8 +192,6 @@ export function TransactionTraceGraph(props: any) {
           ref={graphRef}
           {...graphinDefaultConfig}
         >
-          {/* <ZoomCanvas />
-          <FontPaint /> */}
           <DragNode />
           <Hoverable bindType="node" />
           <GraphContextMenu
