@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-17 16:52:53
+ * @LastEditTime: 2024-10-18 15:44:33
  */
 
 // 模型信息
@@ -436,15 +436,14 @@ export const columnsCrossChain1: any = [
     dataIndex: "Time",
     ellipsis: true,
     copy: true
-  },
-  {
-    title: "交易所在链",
-    dataIndex: "Chain",
-    ellipsis: true,
-    copy: true,
-
-    width: 120
   }
+  // {
+  //   title: "交易所在链",
+  //   dataIndex: "Chain",
+  //   ellipsis: true,
+  //   copy: true,
+  //   width: 120
+  // }
 ];
 
 export const columnsCrossChain2: any = [
