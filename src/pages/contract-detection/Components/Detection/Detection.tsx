@@ -702,18 +702,20 @@ export function Detection() {
   const handleSubmit = () => {
     void form
       .validateFields()
-      .then((data: { fileId: string; version: string }) => {
+      .then((data: { fileId: string; version: string; evm: any }) => {
         setloading(true);
-        const { fileId, version } = data;
+        const { fileId, version, evm } = data;
         const realContent = explorerList.filter(
           (item: any) => item.id === fileId
         )[0];
-        // 打点
+        //
         setTimeout(() => {
           mutate({
             source_code: realContent.content,
             version: version,
-            model: 'contractFuzzer'
+            model: 'contractFuzzer',
+            evm: evm
+            // 打点
           });
         }, 10000);
       });
@@ -731,7 +733,7 @@ export function Detection() {
         mutate({
           ...params
         });
-      }, 20000);
+      }, 10000);
     });
   };
 
@@ -837,9 +839,27 @@ export function Detection() {
             <Input placeholder="请输入版本号" />
           </Form.Item>
 
-          {/* <PrimaryButton onClick={handleSubmit} loading={status === 'loading'}>
-            开始
-          </PrimaryButton> */}
+          <Form.Item
+            label="EVM"
+            name="evm"
+            rules={[
+              {
+                required: true,
+                message: '请选择evm'
+              }
+            ]}
+            initialValue={'byzantium'}
+          >
+            <Select
+              placeholder="请选择platform"
+              options={[
+                { value: 'homestead', label: 'homestead' },
+                { value: 'byzantium', label: 'byzantium' },
+                { value: 'petersburg', label: 'petersburg' },
+                { value: 'istanbul', label: 'istanbul' }
+              ]}
+            ></Select>
+          </Form.Item>
           <ButtonCommon
             disable={loading}
             loading={loading}
@@ -960,12 +980,6 @@ export function Detection() {
               ]}
             ></Select>
           </Form.Item>
-          {/* <PrimaryButton
-            onClick={handleSubmitChainAffter}
-            loading={status === 'loading'}
-          >
-            开始
-          </PrimaryButton> */}
           <ButtonCommon
             disable={loading}
             loading={loading}
