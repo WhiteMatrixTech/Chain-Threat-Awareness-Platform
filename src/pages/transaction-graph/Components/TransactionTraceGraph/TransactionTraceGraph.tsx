@@ -54,15 +54,14 @@ const graphinDefaultConfig = {
   layout: {
     // type: 'forceLayout',
     // linkDistance: 100, // 设置节点间的距离
-    // type: 'random',
+    type: 'random',
     // preventOverlap: true // 防止节点重叠
     // nodeSize: 200 // 节点的尺寸
     // size: [300, 300], // 布局区域大小
-    // minDistance: 100
-    type: 'graphin-force'
+    // type: 'graphin-force'
     // type: 'random',
     // type: 'circular',
-    // rankdir: 'LR' // 可选，默认为图的中心,
+    rankdir: 'LR' // 可选，默认为图的中心,
     // controlPoints: true,
   },
   theme: { background: '#e5e8ee33' }
@@ -149,8 +148,8 @@ export function TransactionTraceGraph(props: any) {
     };
 
     const randomData = {
-      nodes: [initNode, inflowNodes, outflowNodes],
-      edges: [inflowEdges, outflowEdges]
+      nodes: [] as any,
+      edges: [] as any
     };
     if (data.toTransactions && data.toTransactions.length) {
       data.toTransactions.slice(0, 50).forEach((item: any) => {
@@ -176,6 +175,11 @@ export function TransactionTraceGraph(props: any) {
         randomData.edges.push(newEdges);
       });
     }
+    randomData.nodes.push(initNode);
+    randomData.nodes.push(inflowNodes);
+    randomData.nodes.push(outflowNodes);
+    randomData.edges.push(inflowEdges);
+    randomData.edges.push(outflowEdges);
 
     void handleChangeData(randomData, true);
   }, [transactionData]);

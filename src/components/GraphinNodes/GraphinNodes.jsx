@@ -122,7 +122,7 @@ export function AmountFlowAddressNode({ cfg = {} }) {
   const tokenColor = flowType === "inflow" ? "#389e0d" : "#cf1322";
 
   return (
-    <Group>
+    <Group zIndex={100}>
       <Rect
         style={{
           width: "auto",
