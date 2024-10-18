@@ -9,7 +9,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-18 22:07:45
+ * @LastEditTime: 2024-10-18 22:14:10
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -176,7 +176,7 @@ export function DetectionFish() {
           value: String(
             typeof respose[key] === "boolean"
               ? respose[key] ? "是" : "否"
-              : respose[key] ? respose[key] : "无"
+              : typeof respose[key] !== "undefined" ? respose[key] : "无"
           )
         };
       });
