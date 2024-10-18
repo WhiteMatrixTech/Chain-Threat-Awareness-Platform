@@ -110,7 +110,9 @@ export function TableCommonAttack(props: IProps) {
                           : "leading-[40px]"
                       )}
                     >
-                      {col.dataIndex ? item[col.dataIndex] : index + 1}
+                      <pre>
+                        {col.dataIndex ? item[col.dataIndex] : index + 1}
+                      </pre>
                     </span>
                     {/* <div className=" z-[10] hidden group-hover:block text-[#ffffff] w-full max-h-[100px]  absolute top-[35px] left-0 pt-[10px]">
                       <div
