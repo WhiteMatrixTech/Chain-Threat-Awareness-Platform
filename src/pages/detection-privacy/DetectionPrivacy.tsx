@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-15 16:30:55
+ * @LastEditTime: 2024-10-18 16:30:55
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -27,9 +27,9 @@ import { detectionSamplePrivacyColumns,privacyResultCols } from "@/services/colu
 import {
   detectActionLogRequestType,
   detectActionLogService,
+  detectPrivacyBlockRangeService,
   detectSelfishminingRequestType,
-  detectSelfishminingService
-} from "@/services/detection";
+  detectSelfishminingService} from "@/services/detection";
 import pattern from "@/styles/pattern";
 
 export function DetectionPrivacy() {
@@ -77,6 +77,13 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     content: '',
     time: ''
   });
+  const [rangeMap, setRangMap] = useState({
+    1:[1, 1000],
+    2:[1, 1000],
+    3:[1, 1000],
+    4:[1, 1000],
+    5:[1, 1000],
+  }) as any
   
 
 
@@ -88,6 +95,18 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     const data = await detectSelfishminingService(params);
     return data;
   });
+
+
+  const getArrange = async (chain:any) => {
+    const params = {chain: chain}
+    const response = await detectPrivacyBlockRangeService(params)
+    const max = response.data
+    const min = response.data - 500
+    setRangMap({
+      ...rangeMap,
+      chain: [min, max],
+    })
+  }
   const getActionLogList = async () => {
     const params: detectActionLogRequestType = {
       action: "selfish_mining",
@@ -102,8 +121,6 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
       };
     });
     setdetectionSampleList(result);
-    console.log("检测数据>>>>", respose);
-    console.log("检测数据>>>result>", result);
   };
 
   const clearResult = () => {
@@ -127,6 +144,16 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
       notification.warning({ message: `范围不能超过 500 个区块!!!` });
       return;
     }
+// 校验范围
+    const currentRange = rangeMap[selectedType.value]
+    if (startBlock < currentRange[0] || endBlock > currentRange[1]) {
+      // notification.warning({ message: `当前合法区块范围:[${currentRange[0]},${currentRange[1]}]` });
+      notification.warning({ message: `输入区块不存在` });
+      return;
+    }
+
+
+    
     const params = {
       chain: selectedType?.value,
       startBlock: inputRangeOne,
@@ -142,9 +169,15 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     void getActionLogList();
   };
 
+
   useEffect(() => {
+    void getArrange(1)
     void getActionLogList();
   }, []);
+  useEffect(() => {
+    const chain = selectedType.value
+    void getArrange(Number(chain))
+  }, [selectedType])
   return (
     <div className={cn(`w-full h-full 3xl:pb-30  flex items-center `)}>
 

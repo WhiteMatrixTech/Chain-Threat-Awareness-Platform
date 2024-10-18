@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-09-29 15:51:56
+ * @LastEditTime: 2024-10-18 16:31:56
  */
 import { getData, postData } from "./request";
 
@@ -132,6 +132,13 @@ export async function detectSelfishminingService(
   return await getData<detectSelfishminingRequestType, any>(
     `/chainthreat/v1/evidence/selfish-mining`,
     params
+  );
+}
+
+// 获取自私挖矿区块有效范围
+export async function detectPrivacyBlockRangeService(params: any) {
+  return await getData<any, any>(
+    `/chainthreat/v1/data-house/block-height/${params.chain}`
   );
 }
 
