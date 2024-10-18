@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-18 16:30:55
+ * @LastEditTime: 2024-10-18 16:43:48
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -102,9 +102,12 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     const response = await detectPrivacyBlockRangeService(params)
     const max = response.data
     const min = response.data - 500
+    const newMap = {
+      ...rangeMap
+    }
+    newMap[chain] = [min, max]
     setRangMap({
-      ...rangeMap,
-      chain: [min, max],
+      ...newMap,
     })
   }
   const getActionLogList = async () => {
@@ -133,6 +136,7 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
 
   const start = async () => {
     clearResult()
+    console.log('rangeMap>>>',rangeMap)
     if (!inputRangeOne || !inputRangeTwo || Number(inputRangeTwo) < Number(inputRangeOne)) {
       notification.warning({ message: `请正确输入必要信息!!!` });
       return;
