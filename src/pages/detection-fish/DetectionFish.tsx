@@ -9,7 +9,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-18 22:14:10
+ * @LastEditTime: 2024-10-21 19:58:18
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -95,7 +95,7 @@ export function DetectionFish() {
     },
     {
       title: "预测结果",
-      CTitle: "图密度",
+      CTitle: "预测结果",
       key: "is_phishing",
       value: ""
     },
