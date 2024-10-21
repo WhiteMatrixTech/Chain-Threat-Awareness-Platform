@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 13:35:25
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-17 11:22:49
+ * @LastEditTime: 2024-10-21 10:52:10
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -85,6 +85,10 @@ const getActionLogList = async () => {
   console.log("检测数据>>>>", respose);
   console.log("检测数据>>>result>", result);
 };
+  const gennerateAttackInfo = (data: any) => {
+    // val[0].report
+    return data.map((item:any) => item.report).join(('\n'))
+  }
   const start = async () => {
     setResult({
       time: ''
@@ -105,7 +109,7 @@ const getActionLogList = async () => {
         const val = respose[Ditem.key];
         return {
           ...Ditem,
-          value: Ditem.key !== 'attacks_info'?String(val):val.length?val[0].report:'无攻击'
+          value: Ditem.key !== 'attacks_info'?String(val):val.length?gennerateAttackInfo(val):'无攻击'
         };
       });
       setdetectResult(newVal)
