@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable prettier/prettier */
 import { cloneDeep } from "lodash";
 import {
@@ -9,29 +11,34 @@ import {
 } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import {
-  BasicContract,
-  BasicContractAssert_constructor,
-  BasicContractAssert_minimal,
-  BasicContractAssert_multitx_1,
-  BasicContractProxy,
-  BSC_AMA,
-  BSC_BD,
-  BSC_IO,
-  BSC_leakingE,
-  BSC_URV,
-  BscContract_proxy_fixed,
-  BscContract_proxy_pattern_false_positive,
-  BscContract_simple_suicide,
-  BscContract_suicide_multitx_feasible,
-  BscContract_suicide_multitx_infeasible,
-  ETH_AMA,
-  ETH_BD,
-  ETH_IO_AF,
-  ETH_URV,
-  removeExplorerItems
-} from "@/services/mockData/contractDetection";
+import { removeExplorerItems } from "@/services/mockData/contractDetection";
 import { deduplicate } from "@/utils/common";
+
+import {
+  BSC_assertion_failure,
+  BSC_block_dependency_onChain,
+  BSC_integer_overflow,
+  BSC_integer_overflow_onChain,
+  BSC_leaking_ether_onChain,
+  BSC_locking_ether,
+  BSC_locking_ether_onChain,
+  BSC_transaction_order_dependency,
+  BSC_transaction_order_dependency_onChain,
+  BSC_unchecked_return_value,
+  BSC_unchecked_return_value_onChain,
+  ETH_arbitrary_memory_access,
+  ETH_arbitrary_memory_access_onChain,
+  ETH_assertion_failure_onChain,
+  ETH_block_dependency,
+  ETH_leaking_ether,
+  ETH_reentrancy,
+  ETH_reentrancy_onChain,
+  ETH_unprotected_selfdestruct,
+  ETH_unprotected_selfdestruct_onChain,
+  ETH_unsafe_delegatecall
+} from "./files/files";
+
+// import * as integer_overflow from "./files/integer_overflow.ts"; // 导入.sol文件
 
 const initProjectId = uuidv4();
 const initBSCProjectId = uuidv4();
@@ -46,10 +53,10 @@ export enum ExplorerItemType {
 }
 
 export enum ProjectType {
-  ETH = "ETH",
-  BSC = "BSC",
-  ETH2 = "ETH2",
-  BSC2 = "BSC2"
+  ETH_default = "ETH_default",
+  BSC_default = "BSC_default",
+  ETH_onChain = "ETH_onChain",
+  BSC_onChain = "BSC_onChain"
 }
 
 export enum ContractAction {
@@ -149,183 +156,141 @@ type IContractAction =
   | SaveFileContentAction
   | ChangeChainType;
 
-const initialContractState: ContractState = {
-  explorerList: [
-    {
-      id: initProjectId,
+const generateFile = () => {
+  const res = [] as any;
+  const fileMap: any = {
+    ETH_default: [
+      {
+        name: "arbitrary_memory_access.sol",
+        content: ETH_arbitrary_memory_access
+      },
+      {
+        name: "block_dependency.sol",
+        content: ETH_block_dependency
+      },
+      {
+        name: "leaking_ether.sol",
+        content: ETH_leaking_ether
+      },
+      {
+        name: "unprotected_selfdestruct.sol",
+        content: ETH_unprotected_selfdestruct
+      },
+      {
+        name: "unsafe_delegatecall.sol",
+        content: ETH_unsafe_delegatecall
+      },
+      {
+        name: "reentrancy.sol",
+        content: ETH_reentrancy
+      }
+    ],
+    BSC_default: [
+      {
+        name: "integer_overflow.sol",
+        content: BSC_integer_overflow
+      },
+      {
+        name: "locking_ether.sol",
+        content: BSC_locking_ether
+      },
+      {
+        name: "transaction_order_dependency.sol",
+        content: BSC_transaction_order_dependency
+      },
+      {
+        name: "unchecked_return_value.sol",
+        content: BSC_unchecked_return_value
+      },
+      {
+        name: "assertion_failure.sol",
+        content: BSC_assertion_failure
+      }
+    ],
+    ETH_onChain: [
+      {
+        name: "arbitrary_memory_access_onChain.abi",
+        content: ETH_arbitrary_memory_access_onChain
+      },
+      {
+        name: "reentrancy_onChain.abi",
+        content: ETH_reentrancy_onChain
+      },
+      {
+        name: "assertion_failure_onChain.abi",
+        content: ETH_assertion_failure_onChain
+      },
+      {
+        name: "unprotected_selfdestruct_onChain.abi",
+        content: ETH_unprotected_selfdestruct_onChain
+      }
+    ],
+    BSC_onChain: [
+      {
+        name: "block_dependency_onChain",
+        content: BSC_block_dependency_onChain
+      },
+      {
+        name: "integer_overflow_onChain",
+        content: BSC_integer_overflow_onChain
+      },
+      {
+        name: "leaking_ether_onChain",
+        content: BSC_leaking_ether_onChain
+      },
+      {
+        name: "locking_ether_onChain",
+        content: BSC_locking_ether_onChain
+      },
+      {
+        name: "transaction_order_dependency_onChain",
+        content: BSC_transaction_order_dependency_onChain
+      },
+      {
+        name: "unchecked_return_value_onChain",
+        content: BSC_unchecked_return_value_onChain
+      }
+    ]
+  };
+  const keys = Object.keys(fileMap);
+  for (const item of keys) {
+    const projectId = uuidv4();
+    const files = fileMap[item];
+    const parentItem = {
+      id: projectId,
       parentId: null,
-      name: "ETH_default",
+      name: item,
       type: ExplorerItemType.PROJECT,
-      projectType: ProjectType.ETH
-    },
-    {
-      id: initFileId,
-      parentId: initProjectId,
-      type: ExplorerItemType.FILE,
-      name: "Storage.sol",
-      content: BasicContract
-    },
-    {
-      id: uuidv4(),
-      parentId: initProjectId,
-      type: ExplorerItemType.FILE,
-      name: "assert_constructor.sol",
-      content: BasicContractAssert_constructor
-    },
-    {
-      id: uuidv4(),
-      parentId: initProjectId,
-      type: ExplorerItemType.FILE,
-      name: "proxy.sol",
-      content: BasicContractProxy
-    },
-    {
-      id: uuidv4(),
-      parentId: initProjectId,
-      type: ExplorerItemType.FILE,
-      name: "assert_minimal.sol",
-      content: BasicContractAssert_minimal
-    },
-    {
-      id: uuidv4(),
-      parentId: initProjectId,
-      type: ExplorerItemType.FILE,
-      name: "assert_multitx_1.sol",
-      content: BasicContractAssert_multitx_1
-    },
-    // bsc
-    {
-      id: initBSCProjectId,
-      parentId: null,
-      name: "BSC_default",
-      type: ExplorerItemType.PROJECT,
-      projectType: ProjectType.BSC
-    },
+      projectType: item
+    };
+    res.push(parentItem);
 
-    {
-      id: uuidv4(),
-      parentId: initBSCProjectId,
-      type: ExplorerItemType.FILE,
-      name: "proxy_fixed.sol",
-      content: BscContract_proxy_fixed
-    },
-    {
-      id: uuidv4(),
-      parentId: initBSCProjectId,
-      type: ExplorerItemType.FILE,
-      name: "proxy_pattern_false_positive.sol",
-      content: BscContract_proxy_pattern_false_positive
-    },
-    {
-      id: uuidv4(),
-      parentId: initBSCProjectId,
-      type: ExplorerItemType.FILE,
-      name: "simple_suicide.sol",
-      content: BscContract_simple_suicide
-    },
-    {
-      id: uuidv4(),
-      parentId: initBSCProjectId,
-      type: ExplorerItemType.FILE,
-      name: "suicide_multitx_feasible.sol",
-      content: BscContract_suicide_multitx_feasible
-    },
-    {
-      id: uuidv4(),
-      parentId: initBSCProjectId,
-      type: ExplorerItemType.FILE,
-      name: "suicide_multitx_infeasible.sol",
-      content: BscContract_suicide_multitx_infeasible
-    },
-    // eth-afterchain
-    {
-      id: initETHAfterChainProjectId,
-      parentId: null,
-      name: "ETH_onchain",
-      type: ExplorerItemType.PROJECT,
-      projectType: ProjectType.BSC2
-    },
-    {
-      id: uuidv4(),
-      parentId: initETHAfterChainProjectId,
-      type: ExplorerItemType.FILE,
-      name: "ETH_IO_AF.abi",
-      content: ETH_IO_AF
-    },
-    {
-      id: uuidv4(),
-      parentId: initETHAfterChainProjectId,
-      type: ExplorerItemType.FILE,
-      name: "ETH_URV.abi",
-      content: ETH_URV
-    },
-    {
-      id: uuidv4(),
-      parentId: initETHAfterChainProjectId,
-      type: ExplorerItemType.FILE,
-      name: "ETH_BD.abi",
-      content: ETH_BD
-    },
-    {
-      id: uuidv4(),
-      parentId: initETHAfterChainProjectId,
-      type: ExplorerItemType.FILE,
-      name: "ETH_AMA.abi",
-      content: ETH_AMA
-    },
-    // bsc-afterchain
-    {
-      id: initBSCAfterChainProjectId,
-      parentId: null,
-      name: "BSC_onchain",
-      type: ExplorerItemType.PROJECT,
-      projectType: ProjectType.BSC2
-    },
-    {
-      id: uuidv4(),
-      parentId: initBSCAfterChainProjectId,
-      type: ExplorerItemType.FILE,
-      name: "BSC_AMA.abi",
-      content: BSC_AMA
-    },
-    {
-      id: uuidv4(),
-      parentId: initBSCAfterChainProjectId,
-      type: ExplorerItemType.FILE,
-      name: "BSC_BD.abi",
-      content: BSC_BD
-    },
-    {
-      id: uuidv4(),
-      parentId: initBSCAfterChainProjectId,
-      type: ExplorerItemType.FILE,
-      name: "BSC_leakingE.abi",
-      content: BSC_leakingE
-    },
-    {
-      id: uuidv4(),
-      parentId: initBSCAfterChainProjectId,
-      type: ExplorerItemType.FILE,
-      name: "BSC_URV.abi",
-      content: BSC_URV
-    },
-    {
-      id: uuidv4(),
-      parentId: initBSCAfterChainProjectId,
-      type: ExplorerItemType.FILE,
-      name: "BSC_IO.abi",
-      content: BSC_IO
-    }
-  ],
+    files.forEach((file: any) => {
+      const fileItem = {
+        id: uuidv4(),
+        parentId: projectId,
+        type: ExplorerItemType.FILE,
+        name: file.name,
+        content: file.content
+      };
+      res.push(fileItem);
+    });
+  }
+
+  return res;
+};
+const initialExplorerList = generateFile();
+const initialContractState: ContractState = {
+  explorerList: [...initialExplorerList],
   openFiles: [
     {
-      id: initFileId,
+      id: initialExplorerList[1].id,
       type: ExplorerItemType.FILE,
-      name: "Storage.sol",
-      content: BasicContract
+      name: "arbitrary_memory_access.sol",
+      content: initialExplorerList[1].content
     }
   ],
-  focusFileId: initFileId,
+  focusFileId: initialExplorerList[1].id,
   chainFlag: "offchain"
 };
 

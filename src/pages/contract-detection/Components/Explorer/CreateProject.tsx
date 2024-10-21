@@ -71,7 +71,7 @@ export function CreateProject(props: ICreateProjectProps) {
           parentId: null,
           name: data.projectName,
           type: ExplorerItemType.PROJECT,
-          projectType: ProjectType.ETH
+          projectType: ProjectType.ETH_default
         }
       });
     }

@@ -702,23 +702,31 @@ export function Detection() {
   const handleSubmit = () => {
     void form
       .validateFields()
-      .then((data: { fileId: string; version: string; evm: any }) => {
-        setloading(true);
-        const { fileId, version, evm } = data;
-        const realContent = explorerList.filter(
-          (item: any) => item.id === fileId
-        )[0];
-        //
-        setTimeout(() => {
-          mutate({
-            source_code: realContent.content,
-            version: version,
-            model: 'contractFuzzer',
-            evm: evm
-            // 打点
-          });
-        }, 10000);
-      });
+      .then(
+        (data: {
+          fileId: string;
+          version: string;
+          evm: any;
+          platform: any;
+        }) => {
+          setloading(true);
+          const { fileId, version, evm, platform } = data;
+          const realContent = explorerList.filter(
+            (item: any) => item.id === fileId
+          )[0];
+          //
+          setTimeout(() => {
+            mutate({
+              source_code: realContent.content,
+              version: version,
+              model: 'contractFuzzer',
+              evm: evm,
+              platform: platform
+              // 打点
+            });
+          }, 10000);
+        }
+      );
   };
 
   const handleSubmitChainAffter = () => {
