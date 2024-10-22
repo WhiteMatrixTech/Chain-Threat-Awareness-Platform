@@ -154,7 +154,7 @@ const getActionLogList = async () => {
               <div className={`w-full h-[36px] flex items-center`}>
                   <InputCommonV2
                     initVal={inputVal}
-                  placeholder="以太坊区块的区块号或区块哈希"
+                  placeholder="以太坊区块的区块号"
                   onInput={(val: any) => {
                     setInputVal(val);
                   }}
