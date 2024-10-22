@@ -714,7 +714,6 @@ export function Detection() {
           const realContent = explorerList.filter(
             (item: any) => item.id === fileId
           )[0];
-          //
           setTimeout(() => {
             mutate({
               source_code: realContent.content,
@@ -722,9 +721,8 @@ export function Detection() {
               model: 'contractFuzzer',
               evm: evm,
               platform: platform
-              // 打点
             });
-          }, 10000);
+          }, 15000);
         }
       );
   };
@@ -741,7 +739,7 @@ export function Detection() {
         mutate({
           ...params
         });
-      }, 10000);
+      }, 15000);
     });
   };
 
@@ -822,7 +820,6 @@ export function Detection() {
                 message: '请选择区块链平台'
               }
             ]}
-            initialValue={'eth'}
           >
             <Select
               placeholder="请选择区块链平台"
@@ -944,7 +941,6 @@ export function Detection() {
                 message: '请选择区块链平台'
               }
             ]}
-            initialValue={'eth'}
           >
             <Select
               placeholder="请选择区块链平台"
