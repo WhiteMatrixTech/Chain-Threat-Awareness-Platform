@@ -9,7 +9,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-21 19:58:18
+ * @LastEditTime: 2024-10-22 10:10:29
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -34,6 +34,7 @@ import {
   detectPhishingService
 } from "@/services/detection";
 import pattern from "@/styles/pattern";
+import { isValidAddress } from "@/utils/common";
 
 export function DetectionFish() {
   const [inputVal, setInputVal] = useState("");
@@ -161,7 +162,11 @@ export function DetectionFish() {
       content: ""
     });
     if (!inputVal) {
-      notification.warning({ message: `请输入地址！` });
+      notification.warning({ message: `请输入正确的待检测内容` });
+      return;
+    }
+    if (!isValidAddress(inputVal)) {
+      notification.warning({ message: `请输入正确的待检测内容` });
       return;
     }
     try {

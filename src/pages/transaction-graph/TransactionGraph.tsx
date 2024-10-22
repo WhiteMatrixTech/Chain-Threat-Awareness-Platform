@@ -107,11 +107,11 @@ export function TransactionGraph() {
 
   const onClickAnalysis = () => {
     if (!formData.tokenType || !formData.transactionHash) {
-      notification.warning({ message: `请输入信息！` });
+      notification.warning({ message: `请输入正确的待检测内容` });
       return;
     }
     if (!isValidAddress(formData.transactionHash)) {
-      notification.warning({ message: `请输入合法信息！` });
+      notification.warning({ message: `请输入正确的待检测内容` });
       return;
     }
     getData();

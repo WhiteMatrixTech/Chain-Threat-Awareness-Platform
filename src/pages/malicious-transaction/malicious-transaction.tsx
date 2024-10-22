@@ -5,7 +5,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 10:18:39
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-14 16:37:54
+ * @LastEditTime: 2024-10-22 10:07:53
  */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 /* eslint-disable prettier/prettier */
@@ -40,11 +40,11 @@ export function MaliciousTransaction() {
 
   const startSearch = () => {
     if (!inputVal) {
-      notification.warning({ message: `请输入信息！` });
+      notification.warning({ message: `请输入正确的待检测内容` });
       return;
     }
     if (!isValidAddressV2(inputVal)) {
-      notification.warning({ message: `请输入合法信息！` });
+      notification.warning({ message: `请输入正确的待检测内容` });
       return;
     }
     // 开始查询

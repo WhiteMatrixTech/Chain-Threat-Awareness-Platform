@@ -8,7 +8,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-11 16:32:26
+ * @LastEditTime: 2024-10-22 09:47:24
  */
 import { SyncOutlined } from "@ant-design/icons";
 import Table, { ColumnsType } from "antd/lib/table";
@@ -89,6 +89,7 @@ export function DataStore() {
     };
     const params2 = genFormData(params);
     const respose = await dataStoreModifyService(params2);
+    console.log("respose>>>>", respose);
     await getData();
     setIsDialogEditOpen(false);
   };
