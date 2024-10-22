@@ -789,7 +789,8 @@ export function Detection() {
             ]}
             initialValue={openFiles[0] ? openFiles[0].id : ''}
           >
-            <Select placeholder="请选择检测合约文件">
+            {/* 打点 */}
+            <Select placeholder="请选择检测合约文件" disabled={true}>
               {openFiles.map((file) => (
                 <Option key={file.id} value={file.id}>
                   {file.name}
