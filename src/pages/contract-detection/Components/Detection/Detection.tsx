@@ -822,7 +822,6 @@ export function Detection() {
                 message: '请选择区块链平台'
               }
             ]}
-            initialValue={'eth'}
           >
             <Select
               placeholder="请选择区块链平台"
@@ -944,7 +943,6 @@ export function Detection() {
                 message: '请选择区块链平台'
               }
             ]}
-            initialValue={'eth'}
           >
             <Select
               placeholder="请选择区块链平台"
