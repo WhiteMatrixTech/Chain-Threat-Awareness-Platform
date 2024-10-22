@@ -7,7 +7,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-22 10:13:04
+ * @LastEditTime: 2024-10-22 16:44:32
  */
 import { notification } from "antd";
 import cn from "classnames";
@@ -150,9 +150,9 @@ const [detectionSampleList, setdetectionSampleList] = useState([]) as any;
     }
 // 校验范围
     const currentRange = rangeMap[selectedType.value]
-    if (startBlock < currentRange[0] || endBlock > currentRange[1]) {
+    if (endBlock > currentRange[1]) {
       // notification.warning({ message: `当前合法区块范围:[${currentRange[0]},${currentRange[1]}]` });
-      notification.warning({ message: `输入区块不存在,合法区块范围[${currentRange[0]}, ${currentRange[1]}]` });
+      notification.warning({ message: `输入区块不存在` });
       return;
     }
 
