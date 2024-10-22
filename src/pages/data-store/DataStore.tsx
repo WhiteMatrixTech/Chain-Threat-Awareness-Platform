@@ -8,7 +8,7 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-22 10:25:58
+ * @LastEditTime: 2024-10-22 10:28:30
  */
 import { SyncOutlined } from "@ant-design/icons";
 import { notification } from "antd";
@@ -94,9 +94,11 @@ export function DataStore() {
     const respose = await dataStoreModifyService(params2);
     // console.log("respose>>>>modifyData", respose);
     if (respose.status === "BAD_REQUEST") {
-      notification.warning({ message: `${respose.message}` });
+      notification.warning({ message: `上传的文件不符合数据格式要求` });
       return;
     }
+    notification.success({ message: `文件上传成功` });
+
     await getData();
     setIsDialogEditOpen(false);
   };
