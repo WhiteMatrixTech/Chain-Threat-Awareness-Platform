@@ -836,7 +836,6 @@ export function Detection() {
           <Form.Item
             label="版本"
             name="version"
-            initialValue={'0.4.26'}
             rules={[
               {
                 required: true,
