@@ -8,9 +8,10 @@
  * @Author: didadida262
  * @Date: 2024-08-26 10:16:45
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-22 09:47:24
+ * @LastEditTime: 2024-10-22 10:28:30
  */
 import { SyncOutlined } from "@ant-design/icons";
+import { notification } from "antd";
 import Table, { ColumnsType } from "antd/lib/table";
 import cn from "classnames";
 import dayjs from "dayjs";
@@ -80,6 +81,8 @@ export function DataStore() {
     const params2 = genFormData(params);
 
     const respose = await dataStoreCreateService(params2);
+    // console.log("respose>>>>creatData", respose);
+
     await getData();
     setIsDialogOpen(false);
   };
@@ -89,7 +92,13 @@ export function DataStore() {
     };
     const params2 = genFormData(params);
     const respose = await dataStoreModifyService(params2);
-    console.log("respose>>>>", respose);
+    // console.log("respose>>>>modifyData", respose);
+    if (respose.status === "BAD_REQUEST") {
+      notification.warning({ message: `上传的文件不符合数据格式要求` });
+      return;
+    }
+    notification.success({ message: `文件上传成功` });
+
     await getData();
     setIsDialogEditOpen(false);
   };

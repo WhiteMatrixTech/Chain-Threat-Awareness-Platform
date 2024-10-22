@@ -6,7 +6,7 @@
  * @Author: didadida262
  * @Date: 2024-08-28 14:03:48
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-18 16:31:56
+ * @LastEditTime: 2024-10-22 10:26:13
  */
 import { getData, postData } from "./request";
 
@@ -65,7 +65,6 @@ export interface dataStoreCreateRequestType {
 // 数据仓库接口
 // 创建
 export async function dataStoreCreateService(params: FormData) {
-  console.log("接口拿到的数据>>>", params);
   return await postData<FormData, any>(
     `/chainthreat/v1/data-house/data-source`,
     params
@@ -73,7 +72,6 @@ export async function dataStoreCreateService(params: FormData) {
 }
 // 编辑
 export async function dataStoreModifyService(params: any) {
-  console.log("接口拿到的数据>>>", params);
   return await postData<any, any>(
     `/chainthreat/v1/data-house/data/${params.getAll("tableName")}`,
     params
