@@ -4,7 +4,7 @@
  * @Author: didadida262
  * @Date: 2024-08-29 18:12:27
  * @LastEditors: didadida262
- * @LastEditTime: 2024-10-18 15:44:33
+ * @LastEditTime: 2024-10-22 10:01:10
  */
 
 // 模型信息
@@ -237,12 +237,13 @@ export const detectionSampleCrossChainColumns: any = [
   },
   {
     title: "交易时间",
-    dataIndex: "time"
+    dataIndex: "query_time"
   },
   {
     title: "查询时间",
-    dataIndex: "query_time"
+    dataIndex: "time"
   },
+
   {
     title: "输入金额",
     dataIndex: "inputMoney",
