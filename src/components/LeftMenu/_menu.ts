@@ -75,7 +75,7 @@ export const MenuList: any[] = [
         key: '/threat-evidence/transaction-graph'
       },
       {
-        label: '网络取证-交易网络身份推断',
+        label: '匿名环境下的精准身份溯源',
         key: '/threat-evidence/identity-inference'
       },
       {
