@@ -97,6 +97,14 @@ export const MenuList: any[] = [
       {
         label: '重现取证-比特币混币交易检测',
         key: '/threat-evidence/bitcoinmixedcoin-detection'
+      },
+      {
+        label: '复杂环境下的高效资产追踪',
+        key: '/threat-evidence/malicious-transaction-copied'
+      },
+      {
+        label: '区块链攻击溯源模型',
+        key: '/threat-evidence/bitcoinmixedcoin-detection-copied'
       }
     ]
   },

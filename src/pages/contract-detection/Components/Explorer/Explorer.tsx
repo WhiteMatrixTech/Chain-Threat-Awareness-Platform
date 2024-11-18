@@ -12,7 +12,15 @@ import { Dropdown, Menu, message, Select, Tooltip, Tree } from 'antd';
 import type { DataNode, EventDataNode } from 'antd/lib/tree';
 import cn from 'classnames';
 import { cloneDeep } from 'lodash';
-import { Key, useEffect, useMemo, useState } from 'react';
+import {
+  DragEvent,
+  Key,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState
+} from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import { arrToTreeData } from '@/services/mockData/contractDetection';
 
@@ -27,8 +35,6 @@ import { CreateFolder } from './CreateFolder';
 import { CreateProject } from './CreateProject';
 import { DeleteConfirm } from './DeleteConfirm';
 import styles from './Explorer.module.less';
-
-const Option = Select.Option;
 
 type ContractNode = DataNode & { data: IExplorerItem };
 interface ModalShowConfig {
@@ -62,6 +68,8 @@ export function Explorer() {
     return getDomTree(treeData);
   }, [contractState.explorerList]);
 
+  const [isDragOver, setIsDragOver] = useState(false);
+  const [files, setFiles] = useState<File[]>([]);
   const [fileTypes, setfileTypes] = useState([
     {
       value: 'offchain',
@@ -147,6 +155,84 @@ export function Explorer() {
     });
   };
 
+  const handleDrag = useCallback((e: DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  }, []);
+
+  const handleDragOver = useCallback(
+    (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!isDragOver) {
+        setIsDragOver(true);
+      }
+    },
+    [isDragOver]
+  );
+
+  const handleDragEnter = useCallback((e: DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(true);
+  }, []);
+
+  const handleDragLeave = useCallback((e: DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(false);
+  }, []);
+
+  const handleDrop = useCallback((e: DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDragOver(false);
+
+    if (e.dataTransfer) {
+      const droppedFiles = Array.from(e.dataTransfer.files);
+      setFiles((prevFiles) => [...prevFiles, ...droppedFiles]);
+
+      // 这里可以添加文件上传逻辑
+      console.log('Dropped files:', droppedFiles);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!selectedNode?.key) {
+      return;
+    }
+    const file = files[0];
+    if (!file) {
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const content = e.target?.result as string;
+      const newFile: IExplorerItem = {
+        id: uuidv4(),
+        parentId: selectedNode.key as string,
+        name: file.name,
+        type: ExplorerItemType.FILE,
+        content: content
+      };
+      dispatch({
+        type: ContractAction.ADD_ITEM,
+        data: newFile
+      });
+      dispatch({
+        type: ContractAction.OPEN_FILE,
+        data: {
+          id: newFile.id,
+          name: newFile.name,
+          type: ExplorerItemType.FILE,
+          content: newFile.content ?? ''
+        }
+      });
+      setFiles([]);
+    };
+    reader.readAsText(file);
+  }, [dispatch, files, selectedNode]);
+
   const modal = useMemo(() => {
     if (modalShowConfig.visible) {
       switch (modalShowConfig.type) {
@@ -211,60 +297,91 @@ export function Explorer() {
 
   return (
     <div className={cn(styles.Explorer, ' h-full bg-white p-3')}>
-      <div className="flex items-center justify-between border-b-[0.75px] border-solid border-[#EBF0F5] px-1 pt-1 pb-4">
-        <Tooltip title="新增项目">
-          <AppstoreAddOutlined
-            onClick={openCreateProject}
-            className="cursor-pointer text-base hover:text-[#40a9ff]"
-          />
-        </Tooltip>
-        <Tooltip title="新增合约文件夹">
-          <FolderAddOutlined
-            onClick={openCreateFolder}
-            className="cursor-not-allowed text-base hover:text-[#40a9ff]"
-          />
-        </Tooltip>
-        <Tooltip title="新增合约文件">
-          <FileAddOutlined
-            onClick={openCreateFile}
-            className="cursor-pointer text-base hover:text-[#40a9ff]"
-          />
-        </Tooltip>
-        {/* <Tooltip title="上传（功能开发中）">
+      <div className="mx-auto w-full max-w-2xl">
+        <div
+          className={`relative transition-all duration-200 
+          ${
+            isDragOver
+              ? 'border-blue-500 bg-blue-50'
+              : 'border-gray-300 hover:border-gray-400'
+          }`}
+          onDrag={handleDrag}
+          onDragStart={handleDrag}
+          onDragEnd={handleDrag}
+          onDragOver={handleDragOver}
+          onDragEnter={handleDragEnter}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
+          {!isDragOver && (
+            <>
+              <div className="flex items-center justify-between border-b-[0.75px] border-solid border-[#EBF0F5] px-1 pt-1 pb-4">
+                <Tooltip title="新增项目">
+                  <AppstoreAddOutlined
+                    onClick={openCreateProject}
+                    className="cursor-pointer text-base hover:text-[#40a9ff]"
+                  />
+                </Tooltip>
+                <Tooltip title="新增合约文件夹">
+                  <FolderAddOutlined
+                    onClick={openCreateFolder}
+                    className="cursor-not-allowed text-base hover:text-[#40a9ff]"
+                  />
+                </Tooltip>
+                <Tooltip title="新增合约文件">
+                  <FileAddOutlined
+                    onClick={openCreateFile}
+                    className="cursor-pointer text-base hover:text-[#40a9ff]"
+                  />
+                </Tooltip>
+                {/* <Tooltip title="上传（功能开发中）">
           <CloudUploadOutlined className="cursor-not-allowed text-base hover:text-[#40a9ff]" />
         </Tooltip> */}
-      </div>
-      <div className="my-2">
-        <div className="mb-[10px] w-full">
-          <Select
-            placeholder="请选择文件类型"
-            className=" w-full"
-            defaultValue="上链前"
-            onChange={handleSelectFileTypeChange}
-            options={fileTypes}
-          ></Select>
-        </div>
+              </div>
+              <div className="my-2">
+                <div className="mb-[10px] w-full">
+                  <Select
+                    placeholder="请选择文件类型"
+                    className=" w-full"
+                    defaultValue="上链前"
+                    onChange={handleSelectFileTypeChange}
+                    options={fileTypes}
+                  ></Select>
+                </div>
 
-        <Tree
-          showIcon={true}
-          onSelect={onSelect}
-          defaultExpandAll={true}
-          treeData={
-            contractState.chainFlag === 'offchain'
-              ? contractTreeData.slice(0, 2)
-              : contractTreeData.slice(2)
-          }
-          className="w-full overflow-x-hidden"
-          selectedKeys={selectedNode?.key ? [selectedNode?.key] : undefined}
-          titleRender={(nodeData) => (
-            <TreeNode
-              nodeData={nodeData}
-              setData={setModalData}
-              openModal={setModalShowConfig}
-            />
+                <Tree
+                  showIcon={true}
+                  onSelect={onSelect}
+                  defaultExpandAll={true}
+                  treeData={
+                    contractState.chainFlag === 'offchain'
+                      ? contractTreeData.slice(0, 2)
+                      : contractTreeData.slice(2)
+                  }
+                  className="w-full overflow-x-hidden"
+                  selectedKeys={
+                    selectedNode?.key ? [selectedNode?.key] : undefined
+                  }
+                  titleRender={(nodeData) => (
+                    <TreeNode
+                      nodeData={nodeData}
+                      setData={setModalData}
+                      openModal={setModalShowConfig}
+                    />
+                  )}
+                />
+              </div>
+            </>
           )}
-        />
+          {isDragOver && (
+            <div className="flex h-40 items-center justify-center">
+              <CloudUploadOutlined className="text-blue-500 text-4xl" />
+              <div className="text-blue-500 ml-2 text-lg">释放文件上传</div>
+            </div>
+          )}
+        </div>
       </div>
+
       {modal}
     </div>
   );
