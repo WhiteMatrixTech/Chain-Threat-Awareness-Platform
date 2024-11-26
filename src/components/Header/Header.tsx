@@ -6,31 +6,31 @@
  * @LastEditTime: 2024-09-25 16:30:18
  */
 /* eslint-disable prettier/prettier */
-import { BellOutlined, SearchOutlined, UserOutlined } from "@ant-design/icons";
-import { Dropdown, Input, Layout, Menu } from "antd";
-import cn from "classnames";
-import React, { useContext } from "react";
-import { useNavigate } from "react-router";
-import store from "store2";
+import { BellOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons';
+import { Dropdown, Input, Layout, Menu } from 'antd';
+import cn from 'classnames';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router';
+import store from 'store2';
 
-import ArrowPng from "@/assets/arrow.png";
-import LogoBlock from "@/assets/logo_block.png";
-import MessagesPng from "@/assets/messages.png";
-import UserPng from "@/assets/userPng.png";
-import { DropDownCommon } from "@/components/DropDownCommon";
-import { UserContext } from "@/services/context";
-import { emitter, EmitterEvent } from "@/services/event";
-import pattern from "@/styles/pattern";
-import { ellipsisAddress } from "@/utils/common";
+import ArrowPng from '@/assets/arrow.png';
+import LogoBlock from '@/assets/logo_block.png';
+import MessagesPng from '@/assets/messages.png';
+import UserPng from '@/assets/userPng.png';
+import { DropDownCommon } from '@/components/DropDownCommon';
+import { UserContext } from '@/services/context';
+import { emitter, EmitterEvent } from '@/services/event';
+import pattern from '@/styles/pattern';
+import { ellipsisAddress } from '@/utils/common';
 
-import styles from "./Header.module.less";
-import { Nav } from "./Nav";
+import styles from './Header.module.less';
+import { Nav } from './Nav';
 
 const prefix = (
   <SearchOutlined
     style={{
       fontSize: 16,
-      color: "rgba(48, 49, 51, 0.4)"
+      color: 'rgba(48, 49, 51, 0.4)'
     }}
   />
 );
@@ -40,11 +40,11 @@ export function Header() {
   const { userInfo } = useContext(UserContext);
 
   const handleLogout = ({ key }: { key: string }) => {
-    if (key === "loginOut") {
+    if (key === 'loginOut') {
       emitter.emit(EmitterEvent.logout);
 
       store.clearAll();
-      navigate("/login");
+      navigate('/login');
     }
   };
 
@@ -60,7 +60,7 @@ export function Header() {
         </div>
 
         <span className="text-[27px] font-[500] text-[#00A0E9]">
-          区块链安全威胁感知平台
+          多链通用威胁感知与取证示范平台
         </span>
       </div>
       <Nav />
@@ -72,16 +72,21 @@ export function Header() {
           {/* <div className=" mr-[10px] cursor-pointer text-[#30313399] hover:text-[#40a9ff] ">
             <img className="" src={MessagesPng} width={32} height={32} />
           </div> */}
-          <DropDownCommon className="bg-[#02004D4D] border-[0px] h-[32px]" handleEvent={() => {
-            handleLogout({key: 'loginOut'})
-          }}>
+          <DropDownCommon
+            className="h-[32px] border-[0px] bg-[#02004D4D]"
+            handleEvent={() => {
+              handleLogout({ key: 'loginOut' });
+            }}
+          >
             <div
               className="flex items-center gap-x-[8px]"
-              onClick={e => e.preventDefault()}
+              onClick={(e) => e.preventDefault()}
             >
               <img className="" src={UserPng} width={17} height={17} />
-              <span className="text-[#FFFFFF] text-[13px]">
-                {ellipsisAddress(userInfo?.userId || '')?ellipsisAddress(userInfo?.userId || ''): 'user001'}
+              <span className="text-[13px] text-[#FFFFFF]">
+                {ellipsisAddress(userInfo?.userId || '')
+                  ? ellipsisAddress(userInfo?.userId || '')
+                  : 'user001'}
               </span>
             </div>
           </DropDownCommon>

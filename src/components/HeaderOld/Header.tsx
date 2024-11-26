@@ -38,7 +38,7 @@ export function Header() {
     <AntdHeader className={styles.Header}>
       <div className="flex flex-1 items-center">
         <div className="text-3xl font-black text-common">
-          区块链安全威胁感知平台
+          多链通用威胁感知与取证示范平台
         </div>
         <Input placeholder="Search" prefix={prefix} className={styles.search} />
       </div>

@@ -79,6 +79,14 @@ export const MenuList: any[] = [
         key: '/threat-evidence/identity-inference'
       },
       {
+        label: '复杂环境下的高效资产追踪',
+        key: '/threat-evidence/malicious-transaction-copied'
+      },
+      {
+        label: '区块链攻击溯源模型',
+        key: '/threat-evidence/bitcoinmixedcoin-detection-copied'
+      },
+      {
         label: '网络取证-交易网络少样本身份推断',
         key: '/threat-evidence/fewidentity-inference'
       },
@@ -97,14 +105,6 @@ export const MenuList: any[] = [
       {
         label: '重现取证-比特币混币交易检测',
         key: '/threat-evidence/bitcoinmixedcoin-detection'
-      },
-      {
-        label: '复杂环境下的高效资产追踪',
-        key: '/threat-evidence/malicious-transaction-copied'
-      },
-      {
-        label: '区块链攻击溯源模型',
-        key: '/threat-evidence/bitcoinmixedcoin-detection-copied'
       }
     ]
   },
