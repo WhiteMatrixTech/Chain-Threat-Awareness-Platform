@@ -60,7 +60,7 @@ export function Header() {
         </div>
 
         <span className="text-[27px] font-[500] text-[#00A0E9]">
-          多链通用威胁感知与取证示范平台
+          多链通用威胁感知与取证示范平台 V1.0
         </span>
       </div>
       <Nav />
