@@ -46,7 +46,9 @@ export function BitcoinmixedcoinDetectionCopied() {
       notification.warning({ message: `请输入正确的待检测内容` });
       return;
     }
-    navigate(`/threat-evidence/bitcoinmixedcoin-detection/result/${inputVal}`);
+    navigate(
+      `/threat-evidence/bitcoinmixedcoin-detection-copied/result/${inputVal}`
+    );
   };
   const getActionLogList = async () => {
     const params: detectActionLogRequestType = {

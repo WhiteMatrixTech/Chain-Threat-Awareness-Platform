@@ -48,7 +48,9 @@ export function MaliciousTransactionCopied() {
       return;
     }
     // 开始查询
-    navigate(`/threat-evidence/malicious-transaction/result/${inputVal}`);
+    navigate(
+      `/threat-evidence/malicious-transaction-copied/result/${inputVal}`
+    );
   };
   const getActionLogList = async () => {
     const params: detectActionLogRequestType = {
