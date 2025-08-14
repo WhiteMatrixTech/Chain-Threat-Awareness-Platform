@@ -45,11 +45,11 @@ export const MenuList: any[] = [
       {
         label: '抢跑攻击检测',
         key: '/threat-detection/detection-attack'
-      },
-      {
-        label: '钓鱼地址检测',
-        key: '/threat-detection/detection-fish'
       }
+      // {
+      //   label: '钓鱼地址检测',
+      //   key: '/threat-detection/detection-fish'
+      // }
       // {
       //   label: '查看报表',
       //   key: '/threat-detection/detection-chart'
